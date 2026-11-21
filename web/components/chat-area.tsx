@@ -18,7 +18,6 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowDown, Send, Settings2, StopCircle, Wand2 } from "lucide-react";
 import { toast } from "sonner";
@@ -52,7 +51,6 @@ import { globalEventBus } from "@/lib/event-bus";
 import { useRouter } from "@/i18n/navigation";
 import { queryKeys } from "@/lib/query-keys";
 import { reportClientError } from "@/lib/client-logging";
-import { MIMIRQ_MARK_PATH } from "@/lib/brand";
 import { useDocumentView } from "@/store/document-view";
 
 const DEFAULT_VISIBLE_MESSAGES = 80;
@@ -858,7 +856,7 @@ export function ChatArea({
                 size="sm"
                 variant="outline"
                 onClick={jumpToBottom}
-                className="pointer-events-auto bg-card"
+                className="pointer-events-auto bg-surface"
                 aria-label={t("jumpToLatestMessage")}
                 title={t("jumpToLatestMessage")}
               >
@@ -870,7 +868,7 @@ export function ChatArea({
 
           <div className="shrink-0 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-2">
             <div className="mx-auto w-full max-w-[720px]">
-              <div className="rounded-[2px] border border-border bg-card focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/20">
+              <div className="rounded-[4px] border border-border bg-surface focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/20">
                 <Label htmlFor="chat-composer" className="sr-only">
                   {t("messageInput")}
                 </Label>
@@ -975,7 +973,7 @@ export function ChatArea({
             aria-label={t("retrievalSettings")}
             className="hidden w-[200px] shrink-0 overflow-y-auto py-6 outline-none lg:block"
           >
-            <div className="rounded-[2px] border border-border p-3">
+            <div className="rounded-[6px] border border-border p-3">
               <RetrievalSettingsPanel
                 idPrefix="chat-retrieval-panel"
                 {...panelProps}
@@ -1039,20 +1037,78 @@ export function ChatArea({
 function WelcomeScreen() {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
-      <Image
-        src={MIMIRQ_MARK_PATH}
-        alt="MimirQ"
-        width={80}
-        height={80}
-        priority
-        unoptimized
-        className="size-16 select-none object-contain sm:size-20"
-      />
+      <svg
+        viewBox="0 0 88 88"
+        role="img"
+        aria-label="MimirQ"
+        className="size-16 select-none text-foreground sm:size-20"
+      >
+        <rect
+          x="0.75"
+          y="0.75"
+          width="86.5"
+          height="86.5"
+          rx="6"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.18"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M20 32 36 19h18"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M20 32v24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M68 56 52 69H34"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M68 56V32"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M37 36h12l4 4v14H37z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M41 44h8M41 48h8M41 52h5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeOpacity="0.6"
+        />
+      </svg>
       <h1 className="mt-4 text-display font-semibold text-foreground">
         MimirQ
       </h1>
       <p className="mt-2 text-body text-muted-foreground">
         可检查、可替换、可回归的企业 RAG 基础设施
+      </p>
+      <div className="mt-8 h-px w-24 bg-border" aria-hidden="true" />
+      <p className="mt-4 max-w-md text-caption leading-5 text-subtle-foreground">
+        在下方确认检索范围，输入问题开始；回答中的引用可以展开核对原文。
       </p>
     </div>
   );

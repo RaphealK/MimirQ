@@ -315,19 +315,19 @@ export function KnowledgeWebCrawlDialog({
 
         <div className="space-y-5">
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">Start URLs (one per line, max 5)</div>
+            <div className="text-compact font-medium text-foreground">Start URLs (one per line, max 5)</div>
             <Textarea
               value={startUrls}
               onChange={(e) => setStartUrls(e.target.value)}
               placeholder={'https://example.com\nhttps://docs.example.com'}
               className="font-mono min-h-[110px]"
             />
-            <div className="text-xs text-muted-foreground">Parsed: {parsedStartUrls.length} urls</div>
+            <div className="text-caption text-muted-foreground">Parsed: {parsedStartUrls.length} urls</div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Max pages</div>
+              <div className="text-compact font-medium text-foreground">Max pages</div>
               <Input
                 type="number"
                 value={maxPages}
@@ -337,7 +337,7 @@ export function KnowledgeWebCrawlDialog({
               />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Max depth</div>
+              <div className="text-compact font-medium text-foreground">Max depth</div>
               <Input
                 type="number"
                 value={maxDepth}
@@ -347,13 +347,13 @@ export function KnowledgeWebCrawlDialog({
               />
             </div>
             <div className="space-y-2">
-	              <div className="text-sm font-medium text-foreground/80">Constraints</div>
-	              <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+	              <div className="text-compact font-medium text-foreground">Constraints</div>
+	              <label className="flex items-center gap-2 text-compact text-muted-foreground cursor-pointer select-none">
 	                <input
 	                  type="checkbox"
 	                  checked={sameHostOnly}
 	                  onChange={(e) => setSameHostOnly(e.target.checked)}
-	                  className="accent-primary h-4 w-4"
+	                  className="accent-[hsl(var(--foreground))] h-4 w-4"
 	                /><span>Same host only</span>
 	              </label>
 	            </div>
@@ -361,63 +361,63 @@ export function KnowledgeWebCrawlDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Include patterns (optional)</div>
+              <div className="text-compact font-medium text-foreground">Include patterns (optional)</div>
               <Textarea
                 value={includePatterns}
                 onChange={(e) => setIncludePatterns(e.target.value)}
                 placeholder={'^/docs/.*\n^/help/.*'}
                 className="font-mono min-h-[90px]"
               />
-              <div className="text-xs text-muted-foreground">One per line, max 30.</div>
+              <div className="text-caption text-muted-foreground">One per line, max 30.</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Exclude patterns (optional)</div>
+              <div className="text-compact font-medium text-foreground">Exclude patterns (optional)</div>
               <Textarea
                 value={excludePatterns}
                 onChange={(e) => setExcludePatterns(e.target.value)}
                 placeholder={'^/blog/.*\n.*\\.(png|jpg|svg)$'}
                 className="font-mono min-h-[90px]"
               />
-              <div className="text-xs text-muted-foreground">One per line, max 60.</div>
+              <div className="text-caption text-muted-foreground">One per line, max 60.</div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Discovery options</div>
+              <div className="text-compact font-medium text-foreground">Discovery options</div>
 	              <div className="space-y-2">
-	                <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+	                <label className="flex items-center gap-2 text-compact text-muted-foreground cursor-pointer select-none">
 	                  <input
 	                    type="checkbox"
 	                    checked={useSitemaps}
 	                    onChange={(e) => setUseSitemaps(e.target.checked)}
-	                    className="accent-primary h-4 w-4"
+	                    className="accent-[hsl(var(--foreground))] h-4 w-4"
 	                  /><span>Use sitemap.xml / robots Sitemap hints (faster)</span>
 	                </label>
-	                <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+	                <label className="flex items-center gap-2 text-compact text-muted-foreground cursor-pointer select-none">
 	                  <input
 	                    type="checkbox"
 	                    checked={respectRobots}
 	                    onChange={(e) => setRespectRobots(e.target.checked)}
-	                    className="accent-primary h-4 w-4"
+	                    className="accent-[hsl(var(--foreground))] h-4 w-4"
 	                  /><span>Respect robots.txt (best-effort)</span>
 	                </label>
-	                <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer select-none">
+	                <label className="flex items-center gap-2 text-compact text-muted-foreground cursor-pointer select-none">
 	                  <input
 	                    type="checkbox"
 	                    checked={dedupCanonical}
 	                    onChange={(e) => setDedupCanonical(e.target.checked)}
-	                    className="accent-primary h-4 w-4"
+	                    className="accent-[hsl(var(--foreground))] h-4 w-4"
 	                  /><span>Dedup by canonical link (best-effort)</span>
 	                </label>
 	              </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-caption text-muted-foreground">
                 Tip: sitemap mode avoids fetching every page just to discover links; the connector still ingests each URL.
               </div>
             </div>
 
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Sitemap URLs (optional, max 10)</div>
+              <div className="text-compact font-medium text-foreground">Sitemap URLs (optional, max 10)</div>
               <Textarea
                 value={sitemapUrls}
                 onChange={(e) => setSitemapUrls(e.target.value)}
@@ -425,7 +425,7 @@ export function KnowledgeWebCrawlDialog({
                 className="font-mono min-h-[110px]"
                 disabled={!useSitemaps}
               />
-              <div className="text-xs text-muted-foreground">
+              <div className="text-caption text-muted-foreground">
                 {useSitemaps
                   ? `Parsed: ${parsedSitemapUrls.length} urls`
                   : 'Enable “Use sitemap” to edit; otherwise the crawler will just follow links from seeds.'}
@@ -435,16 +435,16 @@ export function KnowledgeWebCrawlDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">User-Agent (optional)</div>
+              <div className="text-compact font-medium text-foreground">User-Agent (optional)</div>
               <Input value={userAgent} onChange={(e) => setUserAgent(e.target.value)} placeholder="MimirQ/1.0 (+web-crawl)" />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Auth</div>
+              <div className="text-compact font-medium text-foreground">Auth</div>
               <Select
                 value={authType}
                 onValueChange={(value) => setAuthType(coerceOneOf(WEB_CRAWL_AUTH_TYPES, value, 'none'))}
               >
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="Select auth" />
                 </SelectTrigger>
                 <SelectContent>
@@ -459,7 +459,7 @@ export function KnowledgeWebCrawlDialog({
 
           {authType === 'cookie' ? (
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Cookie header value</div>
+              <div className="text-compact font-medium text-foreground">Cookie header value</div>
               <Textarea
                 value={authCookie}
                 onChange={(e) => setAuthCookie(e.target.value)}
@@ -470,7 +470,7 @@ export function KnowledgeWebCrawlDialog({
           ) : null}
           {authType === 'bearer' ? (
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Bearer token</div>
+              <div className="text-compact font-medium text-foreground">Bearer token</div>
               <Textarea
                 value={authToken}
                 onChange={(e) => setAuthToken(e.target.value)}
@@ -482,11 +482,11 @@ export function KnowledgeWebCrawlDialog({
           {authType === 'basic' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">Username</div>
+                <div className="text-compact font-medium text-foreground">Username</div>
                 <Input value={authUsername} onChange={(e) => setAuthUsername(e.target.value)} />
               </div>
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">Password</div>
+                <div className="text-compact font-medium text-foreground">Password</div>
                 <Input type="password" value={authPassword} onChange={(e) => setAuthPassword(e.target.value)} />
               </div>
             </div>
@@ -494,13 +494,13 @@ export function KnowledgeWebCrawlDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Filename override (optional)</div>
+              <div className="text-compact font-medium text-foreground">Filename override (optional)</div>
               <Input value={filename} onChange={(e) => setFilename(e.target.value)} placeholder="e.g. website.html" />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Target dataset</div>
+              <div className="text-compact font-medium text-foreground">Target dataset</div>
               <Select value={datasetId} onValueChange={setDatasetId}>
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="Select dataset" />
                 </SelectTrigger>
                 <SelectContent>
@@ -512,17 +512,17 @@ export function KnowledgeWebCrawlDialog({
                   ))}
                 </SelectContent>
               </Select>
-              {datasetsLoading ? <div className="text-xs text-muted-foreground">Loading datasets...</div> : null}
+              {datasetsLoading ? <div className="text-caption text-muted-foreground">Loading datasets...</div> : null}
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">Document access (optional)</div>
+            <div className="text-compact font-medium text-foreground">Document access (optional)</div>
             <Select
               value={accessMode}
               onValueChange={(value) => setAccessMode(coerceOneOf(DOCUMENT_ACCESS_MODE_VALUES, value, 'inherit'))}
             >
-              <SelectTrigger className="h-10 bg-background">
+              <SelectTrigger className="h-8 bg-surface">
                 <SelectValue placeholder="Select access mode" />
               </SelectTrigger>
               <SelectContent>
@@ -535,7 +535,7 @@ export function KnowledgeWebCrawlDialog({
             {accessMode === 'partial_members' ? (
               <div className="space-y-4 pt-2">
                 <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground/80">Allowed groups (optional)</div>
+                  <div className="text-compact font-medium text-foreground">Allowed groups (optional)</div>
                   <GroupChipsInput
                     value={accessGroupIds}
                     onChange={setAccessGroupIds}
@@ -544,7 +544,7 @@ export function KnowledgeWebCrawlDialog({
                 </div>
 
                 <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground/80">Allowed members (one user_id per line)</div>
+                  <div className="text-compact font-medium text-foreground">Allowed members (one user_id per line)</div>
                   <Textarea
                     value={accessMembers}
                     onChange={(e) => setAccessMembers(e.target.value)}
@@ -558,11 +558,11 @@ export function KnowledgeWebCrawlDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Parser</div>
+              <div className="text-compact font-medium text-foreground">Parser</div>
               <ParserDropdown value={parserBackend} onChange={setParserBackend} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Chunk strategy</div>
+              <div className="text-compact font-medium text-foreground">Chunk strategy</div>
               <ChunkStrategyDropdown value={chunkStrategy} onChange={setChunkStrategy} />
             </div>
           </div>

@@ -591,10 +591,16 @@ export function KnowledgeDocumentsPanel({
           }
         }}
         className={cn(
-          "group flex h-full min-h-28 flex-col border-r border-b border-border bg-background p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
-          selectedSet.has(doc.id) ? "bg-selected" : "hover:bg-muted/50",
+          "group relative flex h-full min-h-28 flex-col border-r border-b border-border bg-background p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
+          selectedSet.has(doc.id) ? "bg-raised" : "hover:bg-muted/50",
         )}
       >
+        {selectedSet.has(doc.id) ? (
+          <span
+            aria-hidden="true"
+            className="absolute inset-y-0 left-0 w-0.5 bg-foreground"
+          />
+        ) : null}
         <div className="flex items-start justify-between gap-2">
           <span className="flex min-w-0 items-center gap-2">
             <span
@@ -626,7 +632,7 @@ export function KnowledgeDocumentsPanel({
                 aria-label={t("table.selectDocument", {
                   filename: doc.filename,
                 })}
-                className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
+                className="size-4 cursor-pointer accent-[hsl(var(--foreground))]"
               />
             </label>
             {renderRowMenu(doc)}
@@ -898,7 +904,7 @@ export function KnowledgeDocumentsPanel({
       </AlertDialog>
 
       {selectedDocIds.length > 0 ? (
-        <div className="fixed bottom-4 left-1/2 z-40 flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-2 overflow-x-auto border border-border bg-background px-3 py-2 shadow-none">
+        <div className="fixed bottom-4 left-1/2 z-40 flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-2 overflow-x-auto border border-border bg-surface px-3 py-2 shadow-none">
           <span className="whitespace-nowrap text-caption text-muted-foreground">
             {t("selection.selectedCount", { count: selectedDocIds.length })}
           </span>
@@ -1041,7 +1047,7 @@ export function KnowledgeDocumentsPanel({
       <Sheet open={opsOpen} onOpenChange={setOpsOpen}>
         <SheetContent
           side="right"
-          className="flex w-[min(640px,calc(100vw-16px))] flex-col gap-0 overflow-hidden border-l border-border bg-background p-0 shadow-none sm:max-w-[640px]"
+          className="flex w-[min(640px,calc(100vw-16px))] flex-col gap-0 overflow-hidden border-l border-border bg-surface p-0 shadow-none sm:max-w-[640px]"
           overlayClassName="bg-transparent"
         >
           <SheetHeader className="shrink-0 border-b border-border px-4 py-3 text-left">
@@ -1131,16 +1137,16 @@ export function KnowledgeDocumentsPanel({
           </>
         ) : (
           <>
-            <DataTable className="min-w-[880px] table-fixed">
+            <DataTable className="asset-register table-fixed md:min-w-[880px]">
               <colgroup>
-                <col className="w-10" />
+                <col className="w-11" />
                 <col />
-                {showDatasetColumn ? <col className="w-40" /> : null}
-                <col className="w-[6.5rem]" />
-                <col className="w-[4.5rem]" />
-                <col className="w-[5.5rem]" />
-                <col className="w-[7rem]" />
-                <col className="w-12" />
+                {showDatasetColumn ? <col className="hidden md:table-column md:w-40" /> : null}
+                <col className="w-[4.5rem] md:w-[6.5rem]" />
+                <col className="hidden md:table-column md:w-[4.5rem]" />
+                <col className="hidden md:table-column md:w-[5.5rem]" />
+                <col className="hidden md:table-column md:w-[7rem]" />
+                <col className="w-11 md:w-12" />
               </colgroup>
               <thead>
                 <tr>
@@ -1148,7 +1154,7 @@ export function KnowledgeDocumentsPanel({
                     <label className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11">
                       <input
                         type="checkbox"
-                        className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
+                        className="size-4 cursor-pointer accent-[hsl(var(--foreground))]"
                         checked={allVisibleSelected}
                         onChange={toggleSelectAllVisible}
                         aria-label={t("table.selectAllVisible")}
@@ -1159,7 +1165,7 @@ export function KnowledgeDocumentsPanel({
                     {t("table.columns.name")}
                   </DataTableHeadCell>
                   {showDatasetColumn ? (
-                    <DataTableHeadCell className="sticky top-0 z-10 bg-background">
+                    <DataTableHeadCell className="hidden md:table-cell sticky top-0 z-10 bg-background">
                       {t("table.columns.dataset")}
                     </DataTableHeadCell>
                   ) : null}
@@ -1168,17 +1174,17 @@ export function KnowledgeDocumentsPanel({
                   </DataTableHeadCell>
                   <DataTableHeadCell
                     numeric
-                    className="sticky top-0 z-10 bg-background"
+                    className="hidden md:table-cell sticky top-0 z-10 bg-background"
                   >
                     {t("table.columns.chunks")}
                   </DataTableHeadCell>
                   <DataTableHeadCell
                     numeric
-                    className="sticky top-0 z-10 bg-background"
+                    className="hidden md:table-cell sticky top-0 z-10 bg-background"
                   >
                     {t("table.columns.size")}
                   </DataTableHeadCell>
-                  <DataTableHeadCell className="sticky top-0 z-10 bg-background">
+                  <DataTableHeadCell className="hidden md:table-cell sticky top-0 z-10 bg-background">
                     {t("table.columns.uploadedAt")}
                   </DataTableHeadCell>
                   <DataTableHeadCell className="sticky top-0 z-10 bg-background">
@@ -1230,7 +1236,7 @@ export function KnowledgeDocumentsPanel({
                         >
                           <input
                             type="checkbox"
-                            className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
+                            className="size-4 cursor-pointer accent-[hsl(var(--foreground))]"
                             checked={selectedSet.has(doc.id)}
                             onChange={() => toggleDocSelection(doc.id)}
                             aria-label={t("table.selectDocument", {
@@ -1257,7 +1263,7 @@ export function KnowledgeDocumentsPanel({
                         </span>
                       </DataTableCell>
                       {showDatasetColumn ? (
-                        <DataTableCell>
+                        <DataTableCell className="hidden md:table-cell">
                           <span className="block truncate" title={datasetLabel}>
                             {datasetLabel}
                           </span>
@@ -1270,13 +1276,13 @@ export function KnowledgeDocumentsPanel({
                           dense
                         />
                       </DataTableCell>
-                      <DataTableCell numeric>
+                      <DataTableCell numeric className="hidden md:table-cell">
                         {formatChunkCount(doc)}
                       </DataTableCell>
-                      <DataTableCell numeric>
+                      <DataTableCell numeric className="hidden md:table-cell">
                         {formatDocumentSize(doc)}
                       </DataTableCell>
-                      <DataTableCell>
+                      <DataTableCell className="hidden md:table-cell">
                         <span className="font-mono tabular-nums">
                           {safeFormatDate(doc.created_at)}
                         </span>

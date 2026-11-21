@@ -877,6 +877,18 @@
     box-shadow: 0 0 0 3px hsl(var(--foreground) / 0.14);
   }
 
+  .step-flow__label, .step-flow__state { display: block; }
+
+  @media (max-width: 767px) {
+    .step-flow__track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+    .step-flow__track .step-flow__line { display: none; }
+    .step-flow__step { flex-direction: column; align-items: center; justify-content: flex-start; gap: 6px; text-align: center; }
+    .step-flow__step .step-flow__label, .step-flow__step .step-flow__state { white-space: nowrap; }
+    .asset-register td, .asset-register th { padding-inline: 4px; }
+    .asset-register tbody td:first-child, .asset-register thead th:first-child,
+    .asset-register .data-table__actions { padding-inline: 0; }
+  }
+
   .step-flow__label {
     font-size: 0.75rem;
     line-height: 1.125rem;

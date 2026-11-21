@@ -65,7 +65,7 @@ export function SlashMenu({ open, onOpenChange, onSelect, position }: Readonly<S
         />
       </PopoverTrigger>
       <PopoverContent
-        className="w-80 overflow-hidden border border-border/70 bg-popover/95 p-0 shadow-strong backdrop-blur"
+        className="w-80 overflow-hidden rounded-[6px] border border-border bg-popover p-0"
         align="start"
         side="top"
       >
@@ -80,14 +80,14 @@ export function SlashMenu({ open, onOpenChange, onSelect, position }: Readonly<S
                   value={`${cmd.id} ${cmd.label} ${cmd.description} ${cmd.keywords.join(' ')}`}
                   keywords={[...cmd.keywords]}
                   onSelect={() => onSelect(cmd.id)}
-                  className="items-start gap-3 rounded-xl px-3 py-3"
+                  className="items-start gap-3 rounded-[4px] px-3 py-3"
                 >
-                  <div className="mt-0.5 flex size-8 items-center justify-center rounded-xl border border-primary/15 bg-primary/10 text-primary">
+                  <div className="mt-0.5 flex size-8 items-center justify-center rounded-[4px] border border-border bg-muted text-foreground">
                     <cmd.icon className="size-4" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="text-sm font-medium text-foreground">{cmd.label}</div>
-                    <div className="mt-1 text-xs leading-5 text-muted-foreground">{cmd.description}</div>
+                    <div className="text-compact font-medium text-foreground">{cmd.label}</div>
+                    <div className="mt-1 text-caption leading-5 text-muted-foreground">{cmd.description}</div>
                   </div>
                   <CommandShortcut>↵</CommandShortcut>
                 </CommandItem>

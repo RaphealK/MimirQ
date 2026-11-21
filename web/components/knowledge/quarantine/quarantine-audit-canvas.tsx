@@ -133,22 +133,22 @@ export function QuarantineAuditCanvas({
     <div
       aria-label="审计主画布"
       className={cn(
-        'flex min-h-0 flex-col overflow-hidden rounded-[1.2rem] border border-border/60 bg-background/94 shadow-[0_20px_48px_-40px_rgba(15,23,42,0.18)] backdrop-blur-sm',
+        'flex min-h-0 flex-col overflow-hidden rounded-[6px] border border-border bg-surface ',
         className
       )}
     >
-      <div className="border-b border-border/60 px-4.5 py-3.5">
+      <div className="border-b border-border px-4.5 py-3.5">
         <div className="flex flex-col gap-2.5 xl:flex-row xl:items-start xl:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-3">
-              <div className="text-[0.98rem] font-semibold text-foreground">
+              <div className="text-body font-semibold text-foreground">
                 异常隔离审查表
               </div>
-              <span className="rounded-full border border-border/60 bg-muted/35 px-2 py-0.5 text-[10px] font-medium text-muted-foreground tabular-nums">
+              <span className="rounded-[4px] border border-border bg-muted/35 px-2 py-0.5 text-micro font-medium text-muted-foreground tabular-nums">
                 {listSummary || '当前空队列'}
               </span>
             </div>
-            <p className="mt-0.5 text-[11px] leading-5 text-muted-foreground">
+            <p className="mt-0.5 text-micro leading-5 text-muted-foreground">
               治理规则命中统计与待裁决样本分布，支持按条件筛选后快速复核。
             </p>
 
@@ -157,7 +157,7 @@ export function QuarantineAuditCanvas({
                 {reviewState === 'all' ? null : (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     {reviewState === 'pending' ? '仅待审核' : '仅已处理'}
                   </Badge>
@@ -165,7 +165,7 @@ export function QuarantineAuditCanvas({
                 {selectedReason === 'all' ? null : (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     原因: {reasonLabel(selectedReason)}
                   </Badge>
@@ -173,7 +173,7 @@ export function QuarantineAuditCanvas({
                 {selectedDataset === 'all' ? null : (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     数据集: {datasetLabelById[selectedDataset] || selectedDataset}
                   </Badge>
@@ -181,7 +181,7 @@ export function QuarantineAuditCanvas({
                 {selectedSource === 'all' ? null : (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     来源: {selectedSource}
                   </Badge>
@@ -189,7 +189,7 @@ export function QuarantineAuditCanvas({
                 {selectedSeverity === 'all' ? null : (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     疑似度: {selectedSeverity}
                   </Badge>
@@ -197,7 +197,7 @@ export function QuarantineAuditCanvas({
                 {search.trim() ? (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     搜索: {search.trim()}
                   </Badge>
@@ -205,7 +205,7 @@ export function QuarantineAuditCanvas({
                 {dateFrom ? (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     开始: {dateFrom}
                   </Badge>
@@ -213,7 +213,7 @@ export function QuarantineAuditCanvas({
                 {dateTo ? (
                   <Badge
                     variant="secondary"
-                    className="rounded-full px-2.5 py-1 text-[11px] font-medium"
+                    className="rounded-[4px] px-2.5 py-1 text-micro font-medium"
                   >
                     结束: {dateTo}
                   </Badge>
@@ -228,13 +228,13 @@ export function QuarantineAuditCanvas({
               onValueChange={onSearchChange}
               placeholder="搜索文件名 / ID / 规则 / 原因"
               containerClassName="w-full"
-              inputClassName="h-9 rounded-xl border-border/60 bg-background text-[11px] shadow-none"
+              inputClassName="h-8 rounded-[6px] border-border bg-surface text-micro "
             />
           </div>
         </div>
       </div>
 
-      <div className="border-b border-border/60 px-4.5 py-2">
+      <div className="border-b border-border px-4.5 py-2">
         <div className="flex flex-col gap-2.5 xl:flex-row xl:items-center xl:justify-between">
           <div className="grid gap-2 md:grid-cols-3 xl:min-w-0 xl:flex-1 xl:grid-cols-7">
             <div className="min-w-0">
@@ -244,7 +244,7 @@ export function QuarantineAuditCanvas({
                   onReviewStateChange(value as ReviewState)
                 }
               >
-                <SelectTrigger className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none">
+                <SelectTrigger className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal ">
                   <SelectValue placeholder="处理状态" />
                 </SelectTrigger>
                 <SelectContent>
@@ -257,7 +257,7 @@ export function QuarantineAuditCanvas({
 
             <div className="min-w-0">
               <Select value={selectedReason} onValueChange={onReasonChange}>
-                <SelectTrigger className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none">
+                <SelectTrigger className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal ">
                   <SelectValue placeholder="隔离原因" />
                 </SelectTrigger>
                 <SelectContent>
@@ -273,7 +273,7 @@ export function QuarantineAuditCanvas({
 
             <div className="min-w-0">
               <Select value={selectedSource} onValueChange={onSourceChange}>
-                <SelectTrigger className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none">
+                <SelectTrigger className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal ">
                   <SelectValue placeholder="来源" />
                 </SelectTrigger>
                 <SelectContent>
@@ -289,7 +289,7 @@ export function QuarantineAuditCanvas({
 
             <div className="min-w-0">
               <Select value={selectedSeverity} onValueChange={onSeverityChange}>
-                <SelectTrigger className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none">
+                <SelectTrigger className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal ">
                   <SelectValue placeholder="疑似度" />
                 </SelectTrigger>
                 <SelectContent>
@@ -303,7 +303,7 @@ export function QuarantineAuditCanvas({
 
             <div className="min-w-0">
               <Select value={selectedDataset} onValueChange={onDatasetChange}>
-                <SelectTrigger className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none">
+                <SelectTrigger className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal ">
                   <SelectValue placeholder="数据集" />
                 </SelectTrigger>
                 <SelectContent>
@@ -334,7 +334,7 @@ export function QuarantineAuditCanvas({
                 aria-label="起始日期，格式 YYYY-MM-DD"
                 value={dateFrom}
                 onChange={(event) => onDateFromChange(event.target.value)}
-                className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none placeholder:text-muted-foreground"
+                className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal  placeholder:text-muted-foreground"
               />
             </div>
 
@@ -346,7 +346,7 @@ export function QuarantineAuditCanvas({
                 aria-label="结束日期，格式 YYYY-MM-DD"
                 value={dateTo}
                 onChange={(event) => onDateToChange(event.target.value)}
-                className="h-9 rounded-xl border-border/60 bg-background px-3 text-[11px] font-normal shadow-none placeholder:text-muted-foreground"
+                className="h-8 rounded-[6px] border-border bg-surface px-3 text-micro font-normal  placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -356,7 +356,7 @@ export function QuarantineAuditCanvas({
               type="button"
               variant="outline"
               size="sm"
-              className="h-9 rounded-xl border-border/60 bg-background px-3.5 text-[11px] font-medium"
+              className="h-8 rounded-[6px] border-border bg-surface px-3.5 text-micro font-medium"
               onClick={onResetFilters}
             >
               <RotateCcw className="size-3.5" />
@@ -366,7 +366,7 @@ export function QuarantineAuditCanvas({
               type="button"
               variant="outline"
               size="sm"
-              className="h-9 rounded-xl border-info/25 bg-info/[0.06] px-3.5 text-[11px] font-medium text-info shadow-[0_12px_24px_-22px_hsl(var(--info)/0.5)] hover:border-info/40 hover:bg-info/[0.12] hover:text-info"
+              className="h-8 rounded-[6px] border-foreground/40 bg-muted px-3.5 text-micro font-medium text-foreground  hover:border-foreground hover:bg-muted/60 hover:text-foreground"
               onClick={() => triggerRefresh(onRefresh)}
             >
               <RefreshCw
@@ -394,12 +394,12 @@ export function QuarantineAuditCanvas({
             <col className="w-[12%]" />
             <col className="w-[8%]" />
           </colgroup>
-          <thead className="border-b border-border/60 bg-muted/40 text-[11px] font-medium text-muted-foreground">
+          <thead className="border-b border-border bg-muted/40 text-micro font-medium text-muted-foreground">
             <tr>
               <th className="w-10 px-5 py-2.5">
                 <input
                   type="checkbox"
-                  className="h-3.5 w-3.5 rounded border-border/60"
+                  className="h-3.5 w-3.5 rounded border-border"
                   aria-label="全选隔离记录"
                 />
               </th>
@@ -435,13 +435,13 @@ export function QuarantineAuditCanvas({
                     key={doc.id}
                     className={cn(
                       'group transition-colors hover:bg-muted/30',
-                      selectedId === doc.id && 'bg-primary/5 hover:bg-primary/5'
+                      selectedId === doc.id && 'bg-raised hover:bg-raised'
                     )}
                   >
                     <td className="px-5 py-2.5">
                       <input
                         type="checkbox"
-                        className="h-3.5 w-3.5 rounded border-border/60"
+                        className="h-3.5 w-3.5 rounded border-border"
                         aria-label={`选择 ${doc.filename}`}
                       />
                     </td>
@@ -451,17 +451,17 @@ export function QuarantineAuditCanvas({
                         className="flex items-center gap-3 text-left"
                         onClick={() => onOpenReview(doc.id)}
                       >
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.85rem] border border-primary/10 bg-primary/8 text-primary">
+                        <div className="flex h-8 w-9 shrink-0 items-center justify-center rounded-[4px] border border-border bg-muted text-foreground">
                           <FileKindGlyph
                             kind={getDocumentKind(doc.filename)}
                             className="h-4 w-4"
                           />
                         </div>
                         <div className="min-w-0">
-                          <span className="block truncate text-[12px] font-medium text-foreground transition-colors group-hover:text-primary">
+                          <span className="block truncate text-caption font-medium text-foreground transition-colors group-hover:text-foreground">
                             {doc.filename}
                           </span>
-                          <span className="mt-0.5 block font-mono text-[9px] text-muted-foreground/70">
+                          <span className="mt-0.5 block font-mono text-micro text-muted-foreground/70">
                             {doc.id.slice(0, 8)}
                           </span>
                         </div>
@@ -472,13 +472,13 @@ export function QuarantineAuditCanvas({
                         {reasons.map((reason) => (
                           <span
                             key={reason}
-                            className="rounded-full border border-warning/15 bg-warning/10 px-2 py-0.5 text-[10px] font-medium text-warning"
+                            className="rounded-[4px] border border-warning/15 bg-warning/10 px-2 py-0.5 text-micro font-medium text-warning"
                           >
                             {reasonLabel(reason)}
                           </span>
                         ))}
                         {reasons.length === 0 ? (
-                          <span className="text-xs text-muted-foreground/50">
+                          <span className="text-caption text-subtle-foreground">
                             人工触发
                           </span>
                         ) : null}
@@ -489,14 +489,14 @@ export function QuarantineAuditCanvas({
                         status={isReviewed(doc) ? 'completed' : 'quarantined'}
                       />
                     </td>
-                    <td className="px-4 py-2.5 text-[11px] font-medium text-muted-foreground">
+                    <td className="px-4 py-2.5 text-micro font-medium text-muted-foreground">
                       {getQuarantineSource(doc)}
                     </td>
                     <td className="px-4 py-2.5">
                       <div className="flex items-center gap-2">
                         <span
                           className={cn(
-                            'min-w-[1rem] text-[11px] font-medium',
+                            'min-w-[1rem] text-micro font-medium',
                             getSeverityClassName(severity)
                           )}
                         >
@@ -515,10 +515,10 @@ export function QuarantineAuditCanvas({
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-2.5 text-right font-mono text-[10px] tabular-nums text-muted-foreground/85">
+                    <td className="px-4 py-2.5 text-right font-mono text-micro tabular-nums text-muted-foreground/85">
                       {formatFileSize(doc.file_size)}
                     </td>
-                    <td className="px-4 py-2.5 text-right font-mono text-[9px] text-muted-foreground/70">
+                    <td className="px-4 py-2.5 text-right font-mono text-micro text-muted-foreground/70">
                       {formatDate(doc.updated_at)}
                     </td>
                     <td className="px-4 py-2.5">
@@ -528,7 +528,7 @@ export function QuarantineAuditCanvas({
                           variant="ghost"
                           aria-label="查看隔离详情"
                           title="查看隔离详情"
-                          className="h-7 w-7 rounded-lg text-muted-foreground hover:bg-muted"
+                          className="h-7 w-7 rounded-[4px] text-muted-foreground hover:bg-muted"
                           onClick={() => onOpenReview(doc.id)}
                         >
                           <Eye className="h-4 w-4" />
@@ -538,7 +538,7 @@ export function QuarantineAuditCanvas({
                           variant="ghost"
                           aria-label="打开原文"
                           title="打开原文"
-                          className="h-7 w-7 rounded-lg text-muted-foreground hover:bg-muted"
+                          className="h-7 w-7 rounded-[4px] text-muted-foreground hover:bg-muted"
                           onClick={() => onOpenDocument(doc.id)}
                         >
                           <Download className="h-4 w-4" />
@@ -553,7 +553,7 @@ export function QuarantineAuditCanvas({
         </table>
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-border/60 px-5 py-2.5 text-[11px] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-2 border-t border-border px-5 py-2.5 text-micro text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <div>共 {filtered.length} 条记录</div>
         <div className="flex flex-wrap items-center gap-3">
           <div>{footerMessage}</div>
@@ -561,7 +561,7 @@ export function QuarantineAuditCanvas({
             <div className="flex items-center gap-1">
               <button
                 type="button"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-background text-foreground disabled:opacity-40"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-[4px] border border-border bg-surface text-foreground disabled:opacity-40"
                 disabled={safePage <= 1}
                 onClick={() => onPageChange(Math.max(1, safePage - 1))}
               >
@@ -575,9 +575,9 @@ export function QuarantineAuditCanvas({
                     type="button"
                     onClick={() => onPageChange(pageNumber)}
                     className={cn(
-                      'inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-[12px] font-medium tabular-nums',
+                      'inline-flex h-8 min-w-8 items-center justify-center rounded-[4px] px-2 text-caption font-medium tabular-nums',
                       safePage === pageNumber
-                        ? 'bg-primary text-primary-foreground'
+                        ? 'bg-foreground text-background'
                         : 'text-muted-foreground hover:text-foreground'
                     )}
                   >
@@ -586,16 +586,16 @@ export function QuarantineAuditCanvas({
                 )
               })}
               {totalPages > 5 ? (
-                <span className="px-1 text-[11px]">…</span>
+                <span className="px-1 text-micro">…</span>
               ) : null}
               {totalPages > 5 ? (
                 <button
                   type="button"
                   onClick={() => onPageChange(totalPages)}
                   className={cn(
-                    'inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-[12px] font-medium tabular-nums',
+                    'inline-flex h-8 min-w-8 items-center justify-center rounded-[4px] px-2 text-caption font-medium tabular-nums',
                     safePage === totalPages
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-foreground text-background'
                       : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
@@ -604,13 +604,13 @@ export function QuarantineAuditCanvas({
               ) : null}
               <button
                 type="button"
-                className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-background text-foreground disabled:opacity-40"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-[4px] border border-border bg-surface text-foreground disabled:opacity-40"
                 disabled={safePage >= totalPages}
                 onClick={() => onPageChange(Math.min(totalPages, safePage + 1))}
               >
                 <ChevronRight className="h-3.5 w-3.5" />
               </button>
-              <span className="ml-2 rounded-full border border-border/60 px-2.5 py-1 text-[12px]">
+              <span className="ml-2 rounded-[4px] border border-border px-2.5 py-1 text-caption">
                 {QUARANTINE_PAGE_SIZE} 条/页
               </span>
             </div>

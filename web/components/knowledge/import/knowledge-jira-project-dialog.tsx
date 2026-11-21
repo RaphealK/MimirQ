@@ -234,34 +234,34 @@ export function KnowledgeJiraProjectDialog({
         <div className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Jira Base URL</div>
+              <div className="text-compact font-medium text-foreground">Jira Base URL</div>
               <Input value={baseUrl} onChange={(e) => setBaseUrl(e.target.value)} placeholder="https://example.atlassian.net" />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Project Key</div>
+              <div className="text-compact font-medium text-foreground">Project Key</div>
               <Input value={projectKey} onChange={(e) => setProjectKey(e.target.value.toUpperCase())} placeholder="PLAT" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">JQL Filter（可选）</div>
+            <div className="text-compact font-medium text-foreground">JQL Filter（可选）</div>
             <Textarea
               value={jql}
               onChange={(e) => setJql(e.target.value)}
               placeholder={'statusCategory != Done\nassignee = currentUser()'}
               className="font-mono min-h-[90px]"
             />
-            <div className="text-xs text-muted-foreground">会自动附加到 `project = &lt;KEY&gt;` 后面，用于进一步收窄同步范围。</div>
+            <div className="text-caption text-muted-foreground">会自动附加到 `project = &lt;KEY&gt;` 后面，用于进一步收窄同步范围。</div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Sync mode</div>
+              <div className="text-compact font-medium text-foreground">Sync mode</div>
               <Select
                 value={syncMode}
                 onValueChange={(value) => setSyncMode(coerceOneOf(JIRA_SYNC_MODE_VALUES, value, 'auto'))}
               >
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="选择同步模式" />
                 </SelectTrigger>
                 <SelectContent>
@@ -272,15 +272,15 @@ export function KnowledgeJiraProjectDialog({
               </Select>
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Max issues</div>
+              <div className="text-compact font-medium text-foreground">Max issues</div>
               <Input type="number" value={maxIssues} onChange={(e) => setMaxIssues(Number(e.target.value))} min={1} max={500} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Page size</div>
+              <div className="text-compact font-medium text-foreground">Page size</div>
               <Input type="number" value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))} min={1} max={100} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Comments per issue</div>
+              <div className="text-compact font-medium text-foreground">Comments per issue</div>
               <Input
                 type="number"
                 value={maxCommentsPerIssue}
@@ -292,35 +292,35 @@ export function KnowledgeJiraProjectDialog({
             </div>
           </div>
 
-          <div className="rounded-lg border border-border/60 bg-muted/10 px-4 py-3 text-xs text-muted-foreground">
-            <div className="font-medium text-foreground/80">同步模式说明</div>
+          <div className="rounded-[4px] border border-border bg-muted/10 px-4 py-3 text-caption text-muted-foreground">
+            <div className="font-medium text-foreground">同步模式说明</div>
             <div className="mt-1">Auto 会在首次运行做全量同步，之后复用 `last_modified` 游标做增量。</div>
             <div className="mt-1">Full 会重新枚举项目 issue，并尽力对账已删除或已不可见的 Jira issue。</div>
             <div className="mt-1">Incremental 更快，但不会回收本次列表中未出现的旧 issue 文档。</div>
           </div>
 
-          <div className="rounded-lg border border-border/60 bg-muted/20 px-4 py-3">
+          <div className="rounded-[4px] border border-border bg-muted/20 px-4 py-3">
             <div className="flex items-center gap-3">
               <Checkbox checked={includeComments} onCheckedChange={(v) => setIncludeComments(v === true)} />
               <div>
-                <div className="text-sm font-medium text-foreground/90">Include comments</div>
-                <div className="text-xs text-muted-foreground">将 issue comment 一并渲染进 Jira ticket 文档，便于问答和审计追踪。</div>
+                <div className="text-compact font-medium text-foreground">Include comments</div>
+                <div className="text-caption text-muted-foreground">将 issue comment 一并渲染进 Jira ticket 文档，便于问答和审计追踪。</div>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">User-Agent（可选）</div>
+              <div className="text-compact font-medium text-foreground">User-Agent（可选）</div>
               <Input value={userAgent} onChange={(e) => setUserAgent(e.target.value)} placeholder="MimirQ/1.0 (+jira_project)" />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Auth</div>
+              <div className="text-compact font-medium text-foreground">Auth</div>
               <Select
                 value={authType}
                 onValueChange={(value) => setAuthType(coerceOneOf(JIRA_AUTH_TYPE_VALUES, value, 'none'))}
               >
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="选择鉴权方式" />
                 </SelectTrigger>
                 <SelectContent>
@@ -333,21 +333,21 @@ export function KnowledgeJiraProjectDialog({
             </div>
           </div>
 
-          <div className="rounded-xl border border-border/60 bg-muted/20 px-4 py-4 space-y-4">
+          <div className="rounded-[6px] border border-border bg-muted/20 px-4 py-4 space-y-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/90">Source ACL（高级）</div>
-	              <div className="text-xs text-muted-foreground">
+              <div className="text-compact font-medium text-foreground">Source ACL（高级）</div>
+	              <div className="text-caption text-muted-foreground">
 	                启用后，Jira connector 会尝试继承 issue 的安全级别、角色和 comment 可见性，并按{' '}
 	                <code>tenant_groups.external_id</code> 进行组匹配，例如{' '}
 	                <code>jira:policy:security-level/10001</code>、<code>jira:role:developers</code> 或{' '}
 	                <code>jira:group:jira-software-users</code>。
 	              </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-caption text-muted-foreground">
                 为避免误开放访问，当前 UI 只暴露可解释的继承模式和回退策略；更危险的手工映射规则仍保持隐藏。
               </div>
             </div>
 
-            <div className="rounded-lg border border-border/60 bg-background/70 px-4 py-3">
+            <div className="rounded-[4px] border border-border bg-surface px-4 py-3">
               <div className="flex items-start gap-3">
                 <Checkbox
                   checked={sourceAclEnabled}
@@ -355,12 +355,12 @@ export function KnowledgeJiraProjectDialog({
                   disabled={hasManualAccessOverride}
                 />
                 <div className="space-y-1">
-                  <div className="text-sm font-medium text-foreground/90">继承 Jira 可见性</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-compact font-medium text-foreground">继承 Jira 可见性</div>
+                  <div className="text-caption text-muted-foreground">
                     仅在“文档访问控制”保持“继承数据集”时生效；这样不会和手工访问控制发生冲突。
                   </div>
                   {hasManualAccessOverride ? (
-                    <div className="text-xs text-warning">
+                    <div className="text-caption text-warning">
                       当前选择了手工文档访问控制，运行时会忽略 Source ACL。
                     </div>
                   ) : null}
@@ -370,13 +370,13 @@ export function KnowledgeJiraProjectDialog({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">未映射 Jira ACL 时</div>
+                <div className="text-compact font-medium text-foreground">未映射 Jira ACL 时</div>
                 <Select
                   value={sourceAclFallbackMode}
                   onValueChange={(value) => setSourceAclFallbackMode(coerceOneOf(SOURCE_ACL_FALLBACK_MODE_VALUES, value, 'partial_members'))}
                   disabled={!sourceAclEnabled || hasManualAccessOverride}
                 >
-                  <SelectTrigger className="h-10 bg-background">
+                  <SelectTrigger className="h-8 bg-surface">
                     <SelectValue placeholder="选择回退策略" />
                   </SelectTrigger>
                   <SelectContent>
@@ -384,7 +384,7 @@ export function KnowledgeJiraProjectDialog({
                     <SelectItem value="only_me">仅同步执行者可见</SelectItem>
                   </SelectContent>
                 </Select>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-caption text-muted-foreground">
                   推荐保持“失败关闭”。如果 Jira ACL 无法映射到租户组，文档不会自动向更大范围开放。
                 </div>
               </div>
@@ -393,7 +393,7 @@ export function KnowledgeJiraProjectDialog({
 
           {authType === 'cookie' ? (
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Cookie header value</div>
+              <div className="text-compact font-medium text-foreground">Cookie header value</div>
               <Textarea
                 value={authCookie}
                 onChange={(e) => setAuthCookie(e.target.value)}
@@ -404,7 +404,7 @@ export function KnowledgeJiraProjectDialog({
           ) : null}
           {authType === 'bearer' ? (
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Bearer token</div>
+              <div className="text-compact font-medium text-foreground">Bearer token</div>
               <Textarea
                 value={authToken}
                 onChange={(e) => setAuthToken(e.target.value)}
@@ -416,11 +416,11 @@ export function KnowledgeJiraProjectDialog({
           {authType === 'basic' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">Username / Email</div>
+                <div className="text-compact font-medium text-foreground">Username / Email</div>
                 <Input value={authUsername} onChange={(e) => setAuthUsername(e.target.value)} placeholder="bot@example.com" />
               </div>
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">Password / API Token</div>
+                <div className="text-compact font-medium text-foreground">Password / API Token</div>
                 <Input type="password" value={authPassword} onChange={(e) => setAuthPassword(e.target.value)} />
               </div>
             </div>
@@ -428,9 +428,9 @@ export function KnowledgeJiraProjectDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">目标数据集</div>
+              <div className="text-compact font-medium text-foreground">目标数据集</div>
               <Select value={datasetId} onValueChange={setDatasetId}>
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="选择数据集" />
                 </SelectTrigger>
                 <SelectContent>
@@ -442,15 +442,15 @@ export function KnowledgeJiraProjectDialog({
                   ))}
                 </SelectContent>
               </Select>
-              {datasetsLoading ? <div className="text-xs text-muted-foreground">正在加载数据集...</div> : null}
+              {datasetsLoading ? <div className="text-caption text-muted-foreground">正在加载数据集...</div> : null}
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">文档访问控制（可选）</div>
+              <div className="text-compact font-medium text-foreground">文档访问控制（可选）</div>
               <Select
                 value={accessMode}
                 onValueChange={(value) => setAccessMode(coerceOneOf(DOCUMENT_ACCESS_MODE_VALUES, value, 'inherit'))}
               >
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="选择访问模式" />
                 </SelectTrigger>
                 <SelectContent>
@@ -466,7 +466,7 @@ export function KnowledgeJiraProjectDialog({
           {accessMode === 'partial_members' ? (
             <div className="space-y-4">
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">允许组（可选）</div>
+                <div className="text-compact font-medium text-foreground">允许组（可选）</div>
                 <GroupChipsInput
                   value={accessGroupIds}
                   onChange={setAccessGroupIds}
@@ -475,7 +475,7 @@ export function KnowledgeJiraProjectDialog({
               </div>
 
               <div className="space-y-2">
-                <div className="text-sm font-medium text-foreground/80">允许成员（每行一个 user_id）</div>
+                <div className="text-compact font-medium text-foreground">允许成员（每行一个 user_id）</div>
                 <Textarea
                   value={accessMembers}
                   onChange={(e) => setAccessMembers(e.target.value)}
@@ -488,11 +488,11 @@ export function KnowledgeJiraProjectDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Parser</div>
+              <div className="text-compact font-medium text-foreground">Parser</div>
               <ParserDropdown value={parserBackend} onChange={setParserBackend} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Chunk strategy</div>
+              <div className="text-compact font-medium text-foreground">Chunk strategy</div>
               <ChunkStrategyDropdown value={effectiveChunkStrategy} onChange={setChunkStrategy} />
             </div>
           </div>

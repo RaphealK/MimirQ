@@ -183,26 +183,26 @@ export function KnowledgeUrlBatchDialog({
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">URLs（每行一个，最多 50）</div>
+            <div className="text-compact font-medium text-foreground">URLs（每行一个，最多 50）</div>
             <Textarea
               value={urls}
               onChange={(e) => setUrls(e.target.value)}
               placeholder={'https://example.com/doc1.pdf\nhttps://example.com/doc2.html'}
               className="font-mono min-h-[140px]"
             />
-            <div className="text-xs text-muted-foreground">已识别 {parsedUrls.length} 个 URL（仅统计 http/https）。</div>
+            <div className="text-caption text-muted-foreground">已识别 {parsedUrls.length} 个 URL（仅统计 http/https）。</div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">文件名（可选）</div>
+              <div className="text-compact font-medium text-foreground">文件名（可选）</div>
               <Input value={filename} onChange={(e) => setFilename(e.target.value)} placeholder="例如：产品手册.pdf" />
-              <div className="text-xs text-muted-foreground">用于显示名/扩展名推断（对所有 URL 生效）。</div>
+              <div className="text-caption text-muted-foreground">用于显示名/扩展名推断（对所有 URL 生效）。</div>
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">目标数据集</div>
+              <div className="text-compact font-medium text-foreground">目标数据集</div>
               <Select value={datasetId} onValueChange={setDatasetId}>
-                <SelectTrigger className="h-10 bg-background">
+                <SelectTrigger className="h-8 bg-surface">
                   <SelectValue placeholder="选择数据集" />
                 </SelectTrigger>
                 <SelectContent>
@@ -214,14 +214,14 @@ export function KnowledgeUrlBatchDialog({
                   ))}
                 </SelectContent>
               </Select>
-              {datasetsLoading ? <div className="text-xs text-muted-foreground">正在加载数据集...</div> : null}
+              {datasetsLoading ? <div className="text-caption text-muted-foreground">正在加载数据集...</div> : null}
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">文档访问控制（可选）</div>
+            <div className="text-compact font-medium text-foreground">文档访问控制（可选）</div>
             <Select value={accessMode} onValueChange={(v) => setAccessMode(v as DocumentAccessMode)}>
-              <SelectTrigger className="h-10 bg-background">
+              <SelectTrigger className="h-8 bg-surface">
                 <SelectValue placeholder="选择访问模式" />
               </SelectTrigger>
               <SelectContent>
@@ -234,24 +234,24 @@ export function KnowledgeUrlBatchDialog({
             {accessMode === 'partial_members' ? (
               <div className="space-y-4 pt-2">
                 <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground/80">允许组（可选）</div>
+                  <div className="text-compact font-medium text-foreground">允许组（可选）</div>
                   <GroupChipsInput
                     value={accessGroupIds}
                     onChange={setAccessGroupIds}
                     placeholder="选择组（组内成员将自动获得访问权限）"
                   />
-                  <div className="text-xs text-muted-foreground">最多 200 个；仅支持当前租户已存在的组。</div>
+                  <div className="text-caption text-muted-foreground">最多 200 个；仅支持当前租户已存在的组。</div>
                 </div>
 
                 <div className="space-y-2">
-                  <div className="text-sm font-medium text-foreground/80">允许成员（每行一个 user_id）</div>
+                  <div className="text-compact font-medium text-foreground">允许成员（每行一个 user_id）</div>
                   <Textarea
                     value={accessMembers}
                     onChange={(e) => setAccessMembers(e.target.value)}
                     placeholder={'alice\nbob\ncharlie'}
                     className="font-mono min-h-[110px]"
                   />
-                  <div className="text-xs text-muted-foreground">最多 200 个；仅支持当前租户已存在的成员。</div>
+                  <div className="text-caption text-muted-foreground">最多 200 个；仅支持当前租户已存在的成员。</div>
                 </div>
               </div>
             ) : null}
@@ -259,11 +259,11 @@ export function KnowledgeUrlBatchDialog({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">解析方式</div>
+              <div className="text-compact font-medium text-foreground">解析方式</div>
               <ParserDropdown value={parserBackend} onChange={setParserBackend} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">切块策略</div>
+              <div className="text-compact font-medium text-foreground">切块策略</div>
               <ChunkStrategyDropdown value={chunkStrategy} onChange={setChunkStrategy} />
             </div>
           </div>

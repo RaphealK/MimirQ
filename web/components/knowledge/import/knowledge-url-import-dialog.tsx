@@ -108,7 +108,7 @@ export function KnowledgeUrlImportDialog({
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">URL</div>
+              <div className="text-compact font-medium text-foreground">URL</div>
               <Input
                 value={url}
                 onChange={(e) => {
@@ -121,21 +121,21 @@ export function KnowledgeUrlImportDialog({
                 aria-describedby={urlError ? 'knowledge-url-import-url-error' : undefined}
               />
               {urlError ? (
-                <div id="knowledge-url-import-url-error" className="text-xs text-destructive text-pretty">
+                <div id="knowledge-url-import-url-error" className="text-caption text-destructive text-pretty">
                   {urlError}
                 </div>
               ) : null}
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">文件名（可选）</div>
+              <div className="text-compact font-medium text-foreground">文件名（可选）</div>
               <Input value={filename} onChange={(e) => setFilename(e.target.value)} placeholder="例如：产品手册.pdf" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">目标数据集</div>
+            <div className="text-compact font-medium text-foreground">目标数据集</div>
             <Select value={datasetId} onValueChange={setDatasetId}>
-              <SelectTrigger className="h-10 bg-background">
+              <SelectTrigger className="h-8 bg-surface">
                 <SelectValue placeholder="选择数据集" />
               </SelectTrigger>
               <SelectContent>
@@ -147,16 +147,16 @@ export function KnowledgeUrlImportDialog({
                 ))}
               </SelectContent>
             </Select>
-            {datasetsLoading ? <div className="text-xs text-muted-foreground">正在加载数据集...</div> : null}
+            {datasetsLoading ? <div className="text-caption text-muted-foreground">正在加载数据集...</div> : null}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">解析方式</div>
+              <div className="text-compact font-medium text-foreground">解析方式</div>
               <ParserDropdown value={parserBackend} onChange={setParserBackend} />
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">切块策略</div>
+              <div className="text-compact font-medium text-foreground">切块策略</div>
               <ChunkStrategyDropdown value={chunkStrategy} onChange={setChunkStrategy} />
             </div>
           </div>

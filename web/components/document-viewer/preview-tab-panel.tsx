@@ -70,25 +70,25 @@ export function PreviewTabPanel({
               aria-label="展开引用定位"
               aria-expanded="false"
               onClick={() => setAnchorActionsCollapsed(false)}
-              className="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full border border-border/70 bg-background/95 text-xs font-semibold text-foreground shadow-lg backdrop-blur transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+              className="absolute right-4 top-4 z-10 flex size-10 items-center justify-center rounded-full border border-border bg-surface text-caption font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               title="展开引用定位"
             >
               引
             </button>
           ) : (
             <div className="absolute inset-x-4 top-4 z-10 flex justify-end">
-              <div className="max-w-md rounded-xl border border-border/70 bg-background/95 p-3 shadow-lg backdrop-blur">
+              <div className="max-w-md rounded-[6px] border border-border bg-surface p-3">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <div className="text-xs font-semibold text-foreground">{title}</div>
-                    <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{description}</p>
+                    <div className="text-caption font-semibold text-foreground">{title}</div>
+                    <p className="mt-1 text-micro leading-relaxed text-muted-foreground">{description}</p>
                   </div>
                   <button
                     type="button"
                     aria-label="收起引用定位"
                     aria-expanded="true"
                     onClick={() => setAnchorActionsCollapsed(true)}
-                    className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border/70 bg-background/80 text-sm leading-none text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                    className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-compact leading-none text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     title="收起引用定位"
                   >
                     -
@@ -138,14 +138,14 @@ export function PreviewTabPanel({
 
   return (
     <div className="flex h-full items-center justify-center p-6">
-      <div className="w-full max-w-md rounded-xl border border-border bg-background p-6 shadow-sm">
+      <div className="w-full max-w-md rounded-[6px] border border-border bg-surface p-6">
         <div className="flex items-start gap-3">
-          <div className="rounded-lg bg-primary/10 p-2">
-            <FileText className="size-5 text-primary" />
+          <div className="rounded-[4px] bg-muted p-2">
+            <FileText className="size-5 text-foreground" />
           </div>
           <div className="flex-1">
-            <h4 className="text-sm font-semibold">暂不支持内嵌预览</h4>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <h4 className="text-compact font-semibold">暂不支持内嵌预览</h4>
+            <p className="mt-1 text-caption text-muted-foreground">
               当前文件类型为 <span className="font-mono">{doc?.file_type || "-"}</span>。你可以下载原文件，或切换到「智能切片」查看内容。
             </p>
             <div className="mt-4 flex items-center gap-2">

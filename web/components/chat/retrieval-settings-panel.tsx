@@ -189,7 +189,7 @@ export function RetrievalSettingsPanel({
       </div>
 
       {datasetsError || settingsError ? (
-        <div className="rounded-[2px] border border-warning/40 bg-warning/10 p-2 text-micro text-warning">
+        <div className="rounded-[4px] border border-warning/30 bg-warning/10 p-2 text-micro text-warning">
           <div className="flex items-start gap-1.5">
             <AlertTriangle
               className="mt-0.5 size-3.5 shrink-0"
@@ -218,7 +218,7 @@ export function RetrievalSettingsPanel({
       <div className="space-y-1">
         <p className="text-micro text-muted-foreground">{t("selectDataset")}</p>
         {documentScopeActive ? (
-          <div className="flex min-h-11 items-center rounded-[2px] border border-border bg-muted/40 px-2.5 text-caption text-foreground sm:min-h-8">
+          <div className="flex min-h-11 items-center rounded-[4px] border border-border bg-muted/40 px-2.5 text-caption text-foreground sm:min-h-8">
             {t("currentDocumentScope")}
           </div>
         ) : (
@@ -522,7 +522,7 @@ export function RetrievalSettingsPanel({
                       {metadataFilterError}
                     </p>
                   ) : null}
-                  <details className="rounded-[2px] border border-border bg-muted/30 px-2 py-1.5">
+                  <details className="rounded-[4px] border border-border bg-muted/30 px-2 py-1.5">
                     <summary className="cursor-pointer list-none text-micro text-muted-foreground [&::-webkit-details-marker]:hidden">
                       {t("supportedOperatorsExamples")}
                     </summary>

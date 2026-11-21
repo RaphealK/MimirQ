@@ -64,13 +64,13 @@ export function QuarantineTuneDialog({
         </DialogHeader>
 
         <div className="space-y-5">
-          <div className="rounded-xl border border-border bg-muted/40 p-4">
+          <div className="rounded-[6px] border border-border bg-muted/40 p-4">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-sm font-medium text-foreground">
+                <div className="text-compact font-medium text-foreground">
                   推荐预设
                 </div>
-                <div className="mt-1 text-xs text-muted-foreground">
+                <div className="mt-1 text-caption text-muted-foreground">
                   关闭对应质量过滤器，让更多内容进入切块（仍建议人工抽检）。
                 </div>
               </div>
@@ -79,7 +79,7 @@ export function QuarantineTuneDialog({
                   type="button"
                   size="sm"
                   variant="outline"
-                  className="rounded-xl"
+                  className="rounded-[6px]"
                   onClick={onApplyDisableQualityFilters}
                 >
                   关闭质量过滤
@@ -88,7 +88,7 @@ export function QuarantineTuneDialog({
                   type="button"
                   size="sm"
                   variant="outline"
-                  className="rounded-xl"
+                  className="rounded-[6px]"
                   onClick={onResetRecommended}
                   disabled={!target}
                 >
@@ -99,11 +99,11 @@ export function QuarantineTuneDialog({
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="space-y-3 rounded-xl border border-border bg-card/60 p-4">
+            <div className="space-y-3 rounded-[6px] border border-border bg-surface p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-medium">大纲过滤</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-compact font-medium">大纲过滤</div>
+                  <div className="text-caption text-muted-foreground">
                     outline_only
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export function QuarantineTuneDialog({
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-muted-foreground">
+                  <Label className="text-caption text-muted-foreground">
                     最小内容字符
                   </Label>
                   <Input
@@ -140,11 +140,11 @@ export function QuarantineTuneDialog({
                         governance_drop_outline_min_content_chars: value,
                       })
                     }}
-                    className="h-9 rounded-lg"
+                    className="h-8 rounded-[4px]"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-xs text-muted-foreground">
+                  <Label className="text-caption text-muted-foreground">
                     标题占比阈值
                   </Label>
                   <Input
@@ -165,17 +165,17 @@ export function QuarantineTuneDialog({
                         governance_drop_outline_max_heading_ratio: value,
                       })
                     }}
-                    className="h-9 rounded-lg"
+                    className="h-8 rounded-[4px]"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="space-y-3 rounded-xl border border-border bg-card/60 p-4">
+            <div className="space-y-3 rounded-[6px] border border-border bg-surface p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-medium">低密度过滤</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-compact font-medium">低密度过滤</div>
+                  <div className="text-caption text-muted-foreground">
                     low_density
                   </div>
                 </div>
@@ -191,7 +191,7 @@ export function QuarantineTuneDialog({
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs text-muted-foreground">
+                <Label className="text-caption text-muted-foreground">
                   密度阈值
                 </Label>
                 <Input
@@ -212,17 +212,17 @@ export function QuarantineTuneDialog({
                       governance_drop_low_density_threshold: value,
                     })
                   }}
-                  className="h-9 rounded-lg"
+                  className="h-8 rounded-[4px]"
                 />
               </div>
             </div>
           </div>
 
-          <div className="space-y-3 rounded-xl border border-border bg-card/60 p-4">
+          <div className="space-y-3 rounded-[6px] border border-border bg-surface p-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-medium">隔离策略</div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-compact font-medium">隔离策略</div>
+                <div className="text-caption text-muted-foreground">
                   quarantine_on_drop
                 </div>
               </div>
@@ -234,10 +234,10 @@ export function QuarantineTuneDialog({
                     governance_quarantine_on_drop: value,
                   })
                 }
-                className="data-[state=checked]:bg-primary"
+                className="data-[state=checked]:bg-foreground"
               />
             </div>
-            <div className="text-xs text-muted-foreground">
+            <div className="text-caption text-muted-foreground">
               开启后：触发质量过滤时标记为 quarantined（而非 failed），便于人工复核。
             </div>
           </div>
@@ -247,7 +247,7 @@ export function QuarantineTuneDialog({
           <Button
             type="button"
             variant="outline"
-            className="rounded-xl"
+            className="rounded-[6px]"
             onClick={() => onOpenChange(false)}
             disabled={tuneBusy}
           >
@@ -256,7 +256,7 @@ export function QuarantineTuneDialog({
           <Button
             type="button"
             variant="outline"
-            className="rounded-xl"
+            className="rounded-[6px]"
             onClick={() => onSave({ retryAfterSave: false })}
             disabled={tuneBusy}
           >
@@ -271,7 +271,7 @@ export function QuarantineTuneDialog({
           <Button
             type="button"
             variant="warning"
-            className="rounded-xl"
+            className="rounded-[6px]"
             onClick={() => onSave({ retryAfterSave: true })}
             disabled={tuneBusy}
           >

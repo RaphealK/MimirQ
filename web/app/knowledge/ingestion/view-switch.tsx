@@ -97,11 +97,9 @@ export function IngestionViewSwitch({
             aria-current={selected ? "page" : undefined}
             onClick={() => handleChangeView(option.value)}
             className={cn(
-              "inline-flex min-h-11 shrink-0 items-center border-b-2 px-3 text-caption font-medium transition-colors",
+              "inline-flex min-h-11 shrink-0 items-center border-b-2 px-3 text-caption font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8",
               selected
-                ? tone === "info"
-                  ? "border-info text-info"
-                  : "border-primary text-foreground"
+                ? "border-foreground text-foreground"
                 : "border-transparent text-muted-foreground hover:text-foreground",
               compact && "px-2.5",
             )}

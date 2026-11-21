@@ -65,7 +65,7 @@ const NO_DATASET_FILE_BUCKET = "__mimirq_no_dataset__";
 const EMPTY_FILES: File[] = [];
 const PAGE_COLUMN_CLASS =
   "mx-auto flex min-h-full w-full max-w-[720px] flex-col";
-const SECTION_CLASS = "border-b border-border/70 py-5";
+const SECTION_CLASS = "border-b border-border py-5";
 const SECTION_HEADER_CLASS = "flex items-baseline justify-between gap-3";
 const FIELD_HINT_CLASS = "text-micro leading-4 text-muted-foreground";
 
@@ -392,7 +392,7 @@ function SelectOptionBody({
           {title}
         </span>
         {badge ? (
-          <span className="shrink-0 rounded-sm border border-primary/30 bg-primary/5 px-1.5 py-0.5 text-micro font-medium leading-none text-primary">
+          <span className="shrink-0 rounded-[4px] border border-border bg-muted px-1.5 py-0.5 text-micro font-medium leading-none text-muted-foreground">
             {badge}
           </span>
         ) : null}
@@ -541,17 +541,6 @@ function parseExtensions(raw: string) {
 function apiPayloadFileType(filename: string) {
   const ext = filename.split(".").pop()?.trim().toLowerCase();
   return ext || "json";
-}
-
-function stageStatus(stageId: OperationStageId, enabled: boolean) {
-  if (!enabled) {
-    return stageId === "govern" || stageId === "index"
-      ? "跳过 · 需完整入库"
-      : "跳过";
-  }
-  if (stageId === "govern") return "已启用 · 随完整入库";
-  if (stageId === "index") return "已启用 · 完整入库终点";
-  return "已启用";
 }
 
 function Field({
@@ -1172,7 +1161,7 @@ export default function KnowledgeIngestionOperationPage() {
     return {
       id: stage.id,
       label: <span title={stage.description}>{stage.label}</span>,
-      status: stageStatus(stage.id, enabled),
+      status: enabled ? "已启用" : "跳过",
       state: enabled ? "active" : "skipped",
       disabled: stage.id === "register" && uploadOnlySourceBlocked,
     };
@@ -1310,7 +1299,7 @@ export default function KnowledgeIngestionOperationPage() {
             >
               <SelectTrigger id="ingestion-source" className="mt-3">
                 <span className="flex min-w-0 items-center gap-2">
-                  <ActiveSourceIcon className="size-4 shrink-0 text-info" />
+                  <ActiveSourceIcon className="size-4 shrink-0 text-foreground" />
                   <span className="truncate text-compact font-medium">
                     {activeSource.label}
                   </span>
@@ -1327,7 +1316,7 @@ export default function KnowledgeIngestionOperationPage() {
                       className="min-h-11"
                     >
                       <span className="flex items-start gap-2">
-                        <Icon className="mt-0.5 size-4 text-info" />
+                        <Icon className="mt-0.5 size-4 text-foreground" />
                         <span>
                           <span className="block font-medium">
                             {item.label}
@@ -1490,7 +1479,7 @@ export default function KnowledgeIngestionOperationPage() {
               <div data-ingestion-preflight="true" className="min-w-0">
                 <div className="flex items-center gap-2 text-caption">
                   {status === "uploading" ? (
-                    <Loader2 className="size-4 shrink-0 animate-spin text-info" />
+                    <Loader2 className="size-4 shrink-0 animate-spin text-foreground" />
                   ) : operationReady ? (
                     <CheckCircle2 className="size-4 shrink-0 text-success" />
                   ) : (
@@ -1500,7 +1489,7 @@ export default function KnowledgeIngestionOperationPage() {
                     className={cn(
                       "font-medium",
                       status === "uploading"
-                        ? "text-info"
+                        ? "text-foreground"
                         : operationReady
                           ? "text-success"
                           : "text-warning",
@@ -1516,7 +1505,7 @@ export default function KnowledgeIngestionOperationPage() {
                 ) : null}
               </div>
               <Button
-                className="w-full sm:w-auto"
+                className="w-full sm:min-w-32 sm:w-auto"
                 onClick={() =>
                   detachPromise(
                     uploadFiles(
@@ -1596,9 +1585,9 @@ function SourceConfiguration({
 }>) {
   if (source === "folder") {
     return (
-      <div className="flex flex-col gap-3 border-y border-border/70 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border-y border-border py-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex min-w-0 items-start gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center border border-border bg-background text-info">
+          <span className="flex size-9 shrink-0 items-center justify-center border border-border bg-background text-foreground">
             <Folder className="size-4" />
           </span>
           <div className="min-w-0">
@@ -1778,7 +1767,7 @@ function IngestionFileQueue({
       return { label: "已提交", className: "text-success" };
     if (uploadState === "failed")
       return { label: "失败", className: "text-destructive" };
-    if (submitting) return { label: "提交中", className: "text-info" };
+    if (submitting) return { label: "提交中", className: "text-foreground" };
     return { label: "待提交", className: "text-muted-foreground" };
   };
 
@@ -1786,7 +1775,7 @@ function IngestionFileQueue({
     <div
       data-ingestion-file-staging-workspace="true"
       data-selected-files-table="stable"
-      className={cn("mt-4 border-t border-border/70", dragging && "bg-info/5")}
+      className={cn("mt-4 border-t border-border", dragging && "bg-raised")}
       onDragEnter={(event) => {
         event.preventDefault();
         onDragState(true);
@@ -1838,10 +1827,10 @@ function IngestionFileQueue({
           <div className="overflow-x-auto">
             <table className="w-full table-fixed text-left text-caption">
               <colgroup>
-                <col className="w-[58%]" />
-                <col className="w-[14%]" />
+                <col className="sm:w-[58%]" />
+                <col className="w-16 sm:w-[14%]" />
                 <col className="w-[18%]" />
-                <col className="w-[10%]" />
+                <col className="w-11 sm:w-[10%]" />
               </colgroup>
               <thead className="text-micro text-muted-foreground">
                 <tr>
@@ -1856,7 +1845,7 @@ function IngestionFileQueue({
                   const uploadName = fileUploadName(file);
                   const statusView = fileStatus(file);
                   return (
-                    <tr key={key} className="h-11 border-t border-border/70">
+                    <tr key={key} className="h-11 border-t border-border">
                       <td className="min-w-0 py-1.5 pr-2">
                         <div className="flex min-w-0 items-center gap-2">
                           <Icon className="size-3.5 shrink-0 text-muted-foreground" />
@@ -1873,7 +1862,7 @@ function IngestionFileQueue({
                           </span>
                         </div>
                       </td>
-                      <td className="px-2 py-1.5 font-mono text-micro tabular-nums text-muted-foreground">
+                      <td className="whitespace-nowrap px-1 py-1.5 font-mono text-micro tabular-nums text-muted-foreground sm:px-2">
                         {formatFileSize(file.size)}
                       </td>
                       <td
@@ -1901,7 +1890,7 @@ function IngestionFileQueue({
               </tbody>
             </table>
           </div>
-          <div className="border-t border-border/70 py-2 text-micro text-muted-foreground">
+          <div className="border-t border-border py-2 text-micro text-muted-foreground">
             合计 {formatFileSize(totalBytes)}
           </div>
         </>
@@ -1912,10 +1901,10 @@ function IngestionFileQueue({
           onClick={onChoose}
           className={cn(
             "flex min-h-40 w-full flex-col items-center justify-center border-t border-dashed border-border px-6 py-6 text-center transition-colors hover:bg-muted/40",
-            dragging && "bg-info/5",
+            dragging && "bg-raised",
           )}
         >
-          <UploadCloud className="size-6 text-info" />
+          <UploadCloud className="size-6 text-foreground" />
           <span className="mt-2 text-body font-semibold text-foreground">
             添加文件到本次任务
           </span>
@@ -1953,7 +1942,7 @@ function AdvancedIngestSettings({
   return (
     <details
       data-ingestion-advanced-settings="true"
-      className="group mt-4 border-t border-border/70"
+      className="group mt-4 border-t border-border"
     >
       <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 py-3">
         <span className="flex min-w-0 flex-col gap-0.5">
@@ -1966,7 +1955,7 @@ function AdvancedIngestSettings({
         <ChevronDown className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
       </summary>
 
-      <div className="grid gap-4 border-t border-border/70 py-4">
+      <div className="grid gap-4 border-t border-border py-4">
         <Field label="入库模式" htmlFor="ingestion-ingest-mode">
           <Select
             value={draft.ingestMode}

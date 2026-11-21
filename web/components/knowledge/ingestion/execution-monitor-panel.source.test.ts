@@ -40,7 +40,7 @@ describe("execution monitor visual contracts", () => {
     expect(panel).not.toContain("Math.random");
   });
 
-  it("keeps monitor actions in the Ocean information hierarchy", () => {
+  it("keeps monitor actions in the monochrome information hierarchy", () => {
     const hero = read(
       "components/knowledge/ingestion/ingestion-hero-panel.tsx",
     );
@@ -58,10 +58,11 @@ describe("execution monitor visual contracts", () => {
     expect(normalize(operation)).toContain(
       '<IngestionViewSwitch compact tone="info" />',
     );
-    expect(hero).toContain("border-info/25 bg-info/5");
-    expect(hero).toContain("text-[11px] text-info");
+    expect(hero).toContain("border border-border bg-muted");
+    expect(hero).toContain("text-micro text-foreground");
     expect(normalize(switchSource)).toContain('tone?: "default" | "info"');
-    expect(normalize(switchSource)).toContain('tone === "info"');
+    expect(normalize(switchSource)).not.toContain("border-info");
+    expect(normalize(switchSource)).toContain("border-foreground text-foreground");
     expect(rail).not.toContain("[writing-mode:vertical-rl]");
     expect(rail).not.toContain("展开运行范围侧栏");
   });

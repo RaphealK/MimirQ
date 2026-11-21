@@ -649,7 +649,7 @@ export default function KnowledgePage() {
                       className={cn(
                         "min-h-11 border-b-2 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8",
                         activeTab === tab.key
-                          ? "border-primary font-medium text-foreground"
+                          ? "border-foreground font-medium text-foreground"
                           : "border-transparent text-muted-foreground hover:text-foreground",
                       )}
                     >
@@ -987,7 +987,7 @@ export default function KnowledgePage() {
           <SheetContent
             side="right"
             overlayClassName="bg-transparent"
-            className="flex w-[min(480px,100vw)] flex-col gap-0 border-l border-border bg-background p-0 shadow-none sm:max-w-[480px]"
+            className="flex w-[min(480px,100vw)] flex-col gap-0 border-l border-border bg-surface p-0 shadow-none sm:max-w-[480px]"
           >
             <SheetHeader className="border-b border-border px-4 py-3 text-left">
               <SheetTitle className="text-title-sm">任务历史</SheetTitle>
@@ -1016,7 +1016,7 @@ export default function KnowledgePage() {
           <SheetContent
             side="right"
             overlayClassName="bg-transparent"
-            className="flex w-[min(420px,100vw)] flex-col gap-0 border-l border-border bg-background p-0 shadow-none sm:max-w-[420px]"
+            className="flex w-[min(420px,100vw)] flex-col gap-0 border-l border-border bg-surface p-0 shadow-none sm:max-w-[420px]"
           >
             <SheetHeader className="border-b border-border px-4 py-3 text-left">
               <SheetTitle className="text-title-sm">索引审计</SheetTitle>

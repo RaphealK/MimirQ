@@ -42,7 +42,7 @@ export function IngestionDetailSurface({
       <Sheet open onOpenChange={(open) => !open && onCloseEvidenceFile()}>
         <SheetContent
           side="right"
-          className="h-[100dvh] w-[min(820px,100vw)] max-w-[820px] overflow-hidden border-l border-border/60 bg-background/95 shadow-strong"
+          className="h-[100dvh] w-[min(820px,100vw)] max-w-[820px] overflow-hidden border-l border-border bg-surface"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>
@@ -53,14 +53,14 @@ export function IngestionDetailSurface({
             </SheetDescription>
           </SheetHeader>
           <div className="flex h-full min-h-0 flex-col">
-            <div className="border-b border-border/60 px-6 py-5">
-              <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="border-b border-border px-6 py-5">
+              <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 入库依据
               </div>
               <div className="mt-1 text-lg font-semibold text-foreground">
                 {anonymizeEvidenceName(selectedEvidenceFile.name)}
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-caption text-muted-foreground">
                 <span className="font-mono tabular-nums">
                   {selectedEvidenceFile.file_type.toUpperCase()}
                 </span>
@@ -73,15 +73,15 @@ export function IngestionDetailSurface({
               </div>
             </div>
             <div className="flex-1 space-y-4 overflow-y-auto px-6 py-5">
-              <div className="rounded-[1.3rem] border border-border/60 bg-muted/20 p-4">
-                <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="rounded-[6px] border border-border bg-muted/20 p-4">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   处理标签
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {buildEvidenceSlotTags(selectedEvidenceFile).map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-border/60 bg-background/86 px-2.5 py-1 text-[11px] font-medium text-foreground"
+                      className="rounded-full border border-border bg-surface px-2.5 py-1 text-micro font-medium text-foreground"
                     >
                       {tag}
                     </span>
@@ -89,31 +89,31 @@ export function IngestionDetailSurface({
                 </div>
               </div>
 
-              <div className="rounded-[1.3rem] border border-border/60 bg-background/80 p-4">
-                <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="rounded-[6px] border border-border bg-surface p-4">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   为何复杂
                 </div>
-                <div className="mt-2 text-sm leading-6 text-foreground">
+                <div className="mt-2 text-compact leading-6 text-foreground">
                   {buildEvidenceSlotReason(selectedEvidenceFile)}
                 </div>
               </div>
 
               {selectedEvidenceFile.pdf_pages ? (
-                <div className="rounded-[1.3rem] border border-border/60 bg-background/80 p-4">
-                  <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                <div className="rounded-[6px] border border-border bg-surface p-4">
+                  <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                     PDF 类型分流依据
                   </div>
                   <div className="mt-3 grid gap-3 md:grid-cols-2">
-                    <div className="rounded-[1rem] border border-border/55 bg-muted/20 px-3 py-2.5 text-sm">
+                    <div className="rounded-[4px] border border-border bg-muted/20 px-3 py-2.5 text-compact">
                       总页数：{selectedEvidenceFile.pdf_pages.page_count}
                     </div>
-                    <div className="rounded-[1rem] border border-border/55 bg-muted/20 px-3 py-2.5 text-sm">
+                    <div className="rounded-[4px] border border-border bg-muted/20 px-3 py-2.5 text-compact">
                       扫描页：{selectedEvidenceFile.pdf_pages.scanned_pages}
                     </div>
-                    <div className="rounded-[1rem] border border-border/55 bg-muted/20 px-3 py-2.5 text-sm">
+                    <div className="rounded-[4px] border border-border bg-muted/20 px-3 py-2.5 text-compact">
                       文字页：{selectedEvidenceFile.pdf_pages.text_pages}
                     </div>
-                    <div className="rounded-[1rem] border border-border/55 bg-muted/20 px-3 py-2.5 text-sm">
+                    <div className="rounded-[4px] border border-border bg-muted/20 px-3 py-2.5 text-compact">
                       扫描占比：
                       {Math.round(selectedEvidenceFile.pdf_pages.scan_ratio * 100)}%
                     </div>
@@ -122,8 +122,8 @@ export function IngestionDetailSurface({
               ) : null}
 
               {selectedEvidenceFile.pii_samples?.length ? (
-                <div className="rounded-[1.3rem] border border-border/60 bg-background/80 p-4">
-                  <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                <div className="rounded-[6px] border border-border bg-surface p-4">
+                  <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                     敏感信息待审核列表
                   </div>
                   <div className="mt-3 space-y-3">
@@ -132,15 +132,15 @@ export function IngestionDetailSurface({
                       .map((item, index) => (
                         <div
                           key={`${item.kind}-${index}`}
-                          className="rounded-[1rem] border border-border/55 bg-muted/20 p-3 text-sm"
+                          className="rounded-[4px] border border-border bg-muted/20 p-3 text-compact"
                         >
-                          <div className="font-mono text-xs text-muted-foreground">
+                          <div className="font-mono text-caption text-muted-foreground">
                             {item.kind}
                           </div>
                           <div className="mt-1 font-mono text-foreground">
                             {item.masked}
                           </div>
-                          <div className="mt-2 rounded-lg border border-border/50 bg-background/80 px-3 py-2 font-mono text-xs text-muted-foreground">
+                          <div className="mt-2 rounded-[4px] border border-border bg-surface px-3 py-2 font-mono text-caption text-muted-foreground">
                             {item.context}
                           </div>
                         </div>
@@ -149,14 +149,14 @@ export function IngestionDetailSurface({
                 </div>
               ) : null}
 
-              <div className="rounded-[1.3rem] border border-border/60 bg-background/80 p-4">
-                <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="rounded-[6px] border border-border bg-surface p-4">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   本地复核
                 </div>
-                <div className="mt-2 text-sm leading-6 text-muted-foreground">
+                <div className="mt-2 text-compact leading-6 text-muted-foreground">
                   一键打开本地文件仅在本地入库复核模式可用；普通 Web 部署默认禁用。
                 </div>
-                <Button className="mt-3 rounded-xl" disabled>
+                <Button className="mt-3 rounded-[4px]" disabled>
                   打开本地文件
                 </Button>
               </div>
@@ -172,21 +172,21 @@ export function IngestionDetailSurface({
       <Sheet open onOpenChange={(open) => !open && onCloseActiveDetail()}>
         <SheetContent
           side="right"
-          className="h-[100dvh] w-[min(820px,100vw)] max-w-[820px] overflow-hidden border-l border-border/60 bg-background/95 shadow-strong"
+          className="h-[100dvh] w-[min(820px,100vw)] max-w-[820px] overflow-hidden border-l border-border bg-surface"
         >
           <SheetHeader className="sr-only">
             <SheetTitle>{activeAuditDocument.filename || '入库快照'}</SheetTitle>
             <SheetDescription>{activeAuditDocument.id || ''}</SheetDescription>
           </SheetHeader>
           <div className="flex h-full min-h-0 flex-col">
-            <div className="border-b border-border/60 px-6 py-5">
-              <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <div className="border-b border-border px-6 py-5">
+              <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                 入库快照
               </div>
               <div className="mt-1 text-lg font-semibold text-foreground">
                 {activeAuditDocument.filename}
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-caption text-muted-foreground">
                 <span className="font-mono tabular-nums">
                   {formatFileSize(activeAuditDocument.file_size || 0)}
                 </span>
@@ -199,11 +199,11 @@ export function IngestionDetailSurface({
               </div>
             </div>
             <div className="flex-1 space-y-4 overflow-y-auto px-6 py-5">
-              <div className="rounded-[1.4rem] border border-border/60 bg-muted/20 p-4">
-                <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="rounded-[6px] border border-border bg-muted/20 p-4">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   Sensitive Data Policy
                 </div>
-                <div className="mt-2 text-sm leading-6 text-foreground/82">
+                <div className="mt-2 text-compact leading-6 text-foreground">
                   默认仅展示脱敏后的聚合事实与待确认线索，不做主观评分。该快照用于演示侧边抽屉入库依据视图。
                 </div>
               </div>
@@ -219,24 +219,24 @@ export function IngestionDetailSurface({
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    className="rounded-[1.2rem] border border-border/60 bg-background/80 p-4"
+                    className="rounded-[6px] border border-border bg-surface p-4"
                   >
-                    <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                    <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                       {label}
                     </div>
-                    <div className="mt-2 text-sm font-medium text-foreground">
+                    <div className="mt-2 text-compact font-medium text-foreground">
                       {value}
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="rounded-[1.4rem] border border-border/60 bg-background/82 p-4">
-                <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              <div className="rounded-[6px] border border-border bg-surface p-4">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   建议动作
                 </div>
                 <div className="mt-3 grid gap-3 md:grid-cols-2">
                   <Button
-                    className="rounded-xl"
+                    className="rounded-[4px]"
                     onClick={() =>
                       onSampleDisposition(activeAuditDocument.id, 'approved')
                     }
@@ -245,7 +245,7 @@ export function IngestionDetailSurface({
                   </Button>
                   <Button
                     variant="outline"
-                    className="rounded-xl"
+                    className="rounded-[4px]"
                     onClick={() =>
                       onSampleDisposition(activeAuditDocument.id, 'manual')
                     }

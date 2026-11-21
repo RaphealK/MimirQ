@@ -172,16 +172,16 @@ export const DropZone = React.forwardRef<DropZoneHandle, {
       />
 
       {overlayVisible && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80">
           <div
             aria-live="polite"
-            className="rounded-3xl border border-dashed border-border/50 bg-background/95 px-10 py-12 text-center shadow-strong"
+            className="rounded-[6px] border border-dashed border-border bg-surface px-10 py-12 text-center"
           >
-            <UploadCloud className="mx-auto h-10 w-10 text-info" />
-            <p className="mt-4 text-base font-semibold text-foreground">
+            <UploadCloud className="mx-auto size-10 text-foreground" />
+            <p className="mt-4 text-body font-semibold text-foreground">
               {invalidDrop ? '仅支持文件' : defaultPrecheckOnly ? '拖入文件以开始评估' : '拖入文件以上传'}
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-compact text-muted-foreground">
               {invalidDrop ? '请放下本地文件，而不是链接或其它拖拽内容。' : `拖入 ${fileCount || '若干'} 个文件后即可开始上传。`}
             </p>
           </div>
@@ -200,7 +200,7 @@ export const DropZone = React.forwardRef<DropZoneHandle, {
           </DialogHeader>
 
           {datasets.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-border/60 bg-muted/20 p-4 text-sm">
+            <div className="rounded-[4px] border border-dashed border-border bg-muted/20 p-4 text-compact">
               <p className="font-medium text-foreground">尚无数据集,请先前往新建</p>
               <Button asChild className="mt-3" variant="outline">
                 <Link href="/datasets">前往新建</Link>
@@ -209,7 +209,7 @@ export const DropZone = React.forwardRef<DropZoneHandle, {
           ) : (
             <div className="space-y-4">
               <div className="space-y-2">
-                <div className="text-sm font-medium">数据集</div>
+                <div className="text-compact font-medium">数据集</div>
                 <Select value={selectedDatasetId} onValueChange={setSelectedDatasetId}>
                   <SelectTrigger>
                     <SelectValue placeholder="选择数据集" />
@@ -225,7 +225,7 @@ export const DropZone = React.forwardRef<DropZoneHandle, {
               </div>
 
               <div className="space-y-2">
-                <div className="text-sm font-medium">解析策略</div>
+                <div className="text-compact font-medium">解析策略</div>
                 <Select value={parserBackend} onValueChange={setParserBackend}>
                   <SelectTrigger>
                     <SelectValue />
@@ -240,9 +240,9 @@ export const DropZone = React.forwardRef<DropZoneHandle, {
                 </Select>
               </div>
 
-              <div className="rounded-xl border border-border/60 bg-muted/20 p-3 text-sm text-muted-foreground">
+              <div className="rounded-[4px] border border-border bg-muted/20 p-3 text-compact text-muted-foreground">
                 <div className="flex items-center gap-2 font-medium text-foreground">
-                  <FileUp className="h-4 w-4" />
+                  <FileUp className="size-4" />
                   {dialogPrecheckOnly ? '待评估' : '待入库'} {pendingDropFiles?.length ?? 0} 个文件
                 </div>
                 <div className="mt-2 space-y-1">

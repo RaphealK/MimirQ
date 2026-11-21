@@ -34,7 +34,7 @@ export function KnowledgeDocumentDrawer({
       <SheetContent
         side="right"
         overlayClassName="bg-transparent"
-        className="flex w-[min(520px,100vw)] flex-col gap-0 border-l border-border bg-background p-0 shadow-none sm:max-w-[520px]"
+        className="flex w-[min(520px,100vw)] flex-col gap-0 border-l border-border bg-surface p-0 shadow-none sm:max-w-[520px]"
         onCloseAutoFocus={(event) => {
           event.preventDefault();
           onAfterClose?.();

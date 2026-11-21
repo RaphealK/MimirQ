@@ -27,14 +27,14 @@ export function KnowledgeImportMenu({
 }: Readonly<KnowledgeImportMenuProps>) {
   return (
     <div className={cn('min-w-0', className)}>
-      <DropdownMenuLabel className="text-xs text-muted-foreground">添加</DropdownMenuLabel>
+      <DropdownMenuLabel className="text-caption text-muted-foreground">添加</DropdownMenuLabel>
       <DropdownMenuItem onSelect={onUploadFiles} className="gap-2">
         <Upload className="size-4 text-muted-foreground" />
         上传文件
       </DropdownMenuItem>
 
       <DropdownMenuSeparator />
-      <DropdownMenuLabel className="text-xs text-muted-foreground">导入</DropdownMenuLabel>
+      <DropdownMenuLabel className="text-caption text-muted-foreground">导入</DropdownMenuLabel>
 
       <DropdownMenuItem onSelect={onOpenUrlImport} className="gap-2">
         <Link2 className="size-4 text-muted-foreground" />
@@ -54,7 +54,7 @@ export function KnowledgeImportMenu({
       </DropdownMenuItem>
 
       <DropdownMenuSeparator />
-      <DropdownMenuLabel className="text-xs text-muted-foreground">配置</DropdownMenuLabel>
+      <DropdownMenuLabel className="text-caption text-muted-foreground">配置</DropdownMenuLabel>
       <DropdownMenuItem onSelect={onOpenPipelineConfig} className="gap-2">
         <SlidersHorizontal className="size-4 text-muted-foreground" />
         管线配置

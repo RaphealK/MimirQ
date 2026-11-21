@@ -171,7 +171,7 @@ export function KnowledgeScopePanel({
                     className={cn(
                       ROW_CLASS,
                       isActive
-                        ? "bg-selected font-medium text-foreground"
+                        ? "bg-raised font-medium text-foreground"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground",
                     )}
                   >
@@ -179,7 +179,7 @@ export function KnowledgeScopePanel({
                       aria-hidden="true"
                       className={cn(
                         "h-3.5 w-0.5 shrink-0",
-                        isActive ? "bg-primary" : "bg-transparent",
+                        isActive ? "bg-foreground" : "bg-transparent",
                       )}
                     />
                     <span className="min-w-0 truncate">{item.name}</span>
@@ -201,7 +201,7 @@ export function KnowledgeScopePanel({
                     ROW_CLASS,
                     "cursor-pointer",
                     statusFilter === item.key
-                      ? "bg-selected text-foreground"
+                      ? "bg-raised text-foreground"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground",
                   )}
                 >
@@ -211,7 +211,7 @@ export function KnowledgeScopePanel({
                     value={item.key}
                     checked={statusFilter === item.key}
                     onChange={() => setStatusFilter(item.key)}
-                    className="size-3.5 shrink-0 cursor-pointer accent-[hsl(var(--primary))]"
+                    className="size-3.5 shrink-0 cursor-pointer accent-[hsl(var(--foreground))]"
                   />
                   <span className="min-w-0 flex-1 truncate">{item.label}</span>
                   {item.key === "all" ? null : (
@@ -235,7 +235,7 @@ export function KnowledgeScopePanel({
                 <button
                   type="button"
                   onClick={() => setFolderPath(null)}
-                  className="text-micro text-primary underline-offset-4 hover:underline"
+                  className="text-micro text-foreground underline-offset-4 hover:underline"
                 >
                   {t("folder.clear")}
                 </button>

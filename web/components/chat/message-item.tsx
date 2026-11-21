@@ -321,7 +321,7 @@ function MessageMarkdownAnchor({ href, children }: MessageMarkdownLinkProps) {
         onClick={() => onClick(href)}
         onMouseEnter={() => onPrefetch(href)}
         onFocus={() => onPrefetch(href)}
-        className="inline-flex min-h-6 items-center rounded-[2px] border border-border bg-muted px-1.5 text-[0.85em] font-medium text-primary no-underline transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+        className="inline-flex min-h-6 items-center rounded-[4px] border border-border bg-muted px-1.5 text-[0.85em] font-medium text-foreground no-underline transition-colors hover:bg-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {children}
       </button>
@@ -337,7 +337,7 @@ function MessageMarkdownAnchor({ href, children }: MessageMarkdownLinkProps) {
       href={safeHref}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-primary font-medium underline-offset-4 hover:underline"
+      className="text-foreground font-medium underline-offset-4 hover:underline"
     >
       {children}
     </a>
@@ -357,7 +357,7 @@ function MessageMarkdownImage({ src, alt }: MessageMarkdownImageProps) {
       unoptimized
       sizes="(max-width: 768px) 100vw, 768px"
       loading="lazy"
-      className="my-3 h-auto max-h-96 w-full rounded-[2px] border border-border bg-background object-contain"
+      className="my-3 h-auto max-h-96 w-full rounded-[4px] border border-border bg-background object-contain"
     />
   );
 }
@@ -372,7 +372,7 @@ function MessageMarkdownBlockquote({ children }: MessageMarkdownChildrenProps) {
 
 function MessageMarkdownPre({ children }: MessageMarkdownChildrenProps) {
   return (
-    <pre className="my-3 overflow-x-auto rounded-[2px] border border-border bg-muted/40 p-3 text-compact leading-[20px]">
+    <pre className="my-3 overflow-x-auto rounded-[4px] border border-border bg-muted/40 p-3 text-compact leading-[20px]">
       {children}
     </pre>
   );
@@ -395,7 +395,7 @@ function MessageMarkdownCode({
   return (
     <code
       className={cn(
-        "rounded-[2px] bg-muted px-1 py-0.5 font-mono text-compact text-foreground",
+        "rounded-[4px] bg-muted px-1 py-0.5 font-mono text-compact text-foreground",
         className,
       )}
       {...props}
@@ -503,7 +503,7 @@ const CitationRow = memo(function CitationRow({
           onClick={handleClick}
           onMouseEnter={handlePrefetch}
           onFocus={handlePrefetch}
-          className="flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-[2px] px-1.5 text-left transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8"
+          className="flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-[4px] px-1.5 text-left transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8"
           title={citationScoreTitle}
         >
           <span className="w-[18px] shrink-0 text-micro tabular-nums text-muted-foreground">
@@ -525,7 +525,7 @@ const CitationRow = memo(function CitationRow({
           type="button"
           onClick={() => setExpanded((value) => !value)}
           aria-expanded={expanded}
-          className="min-h-11 shrink-0 px-2 text-micro text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8"
+          className="min-h-11 shrink-0 px-2 text-micro text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8"
         >
           {expanded ? "收起原文" : "原文"}
         </button>
@@ -533,7 +533,7 @@ const CitationRow = memo(function CitationRow({
           <button
             type="button"
             onClick={() => setViewerOpen(true)}
-            className="min-h-11 shrink-0 px-2 text-micro text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8"
+            className="min-h-11 shrink-0 px-2 text-micro text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8"
           >
             证据
           </button>
@@ -554,7 +554,7 @@ const CitationRow = memo(function CitationRow({
             <button
               type="button"
               onClick={() => setViewerOpen(true)}
-              className="relative mt-2 block aspect-video w-full overflow-hidden rounded-[2px] border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+              className="relative mt-2 block aspect-video w-full overflow-hidden rounded-[4px] border border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-label="打开证据查看器"
             >
               <AuthImage
@@ -639,7 +639,7 @@ const CitationBlock = memo(function CitationBlock({
 
   return (
     <section
-      className="mt-3 rounded-[2px] border border-border"
+      className="mt-3 rounded-[4px] border border-border"
       data-chat-citations
     >
       <div className="flex min-h-8 items-center gap-2 border-b border-border bg-muted/40 px-3 text-micro text-muted-foreground">
@@ -662,7 +662,7 @@ const CitationBlock = memo(function CitationBlock({
         <button
           type="button"
           onClick={() => setShowAll(true)}
-          className="min-h-11 w-full border-t border-border px-3 text-left text-micro text-primary hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8"
+          className="min-h-11 w-full border-t border-border px-3 text-left text-micro text-foreground hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8"
         >
           展开其余 {hiddenCount} 条
         </button>
@@ -716,10 +716,10 @@ const CitationBlock = memo(function CitationBlock({
                           disabled={disabled}
                           onClick={() => onOpenEvidence(ev)}
                           className={cn(
-                            "block min-h-11 w-full rounded-[2px] border border-border px-2 py-1.5 text-left transition-colors sm:min-h-8",
+                            "block min-h-11 w-full rounded-[4px] border border-border px-2 py-1.5 text-left transition-colors sm:min-h-8",
                             disabled
                               ? "cursor-not-allowed opacity-60"
-                              : "hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
+                              : "hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                           )}
                         >
                           <span className="flex items-start justify-between gap-2">
@@ -1188,7 +1188,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
       )}
     >
       {!isUser && isMinimal ? (
-        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-micro font-semibold text-foreground">
+        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-[4px] border border-border bg-muted text-micro font-semibold text-foreground">
           M
         </div>
       ) : !isUser ? (
@@ -1215,19 +1215,19 @@ export const ChatMessageItem = memo(function ChatMessageItem({
           isMinimal
             ? cn(
                 "flex-1 border border-border px-3 py-2",
-                isUser ? "max-w-[78%] bg-muted" : "max-w-[88%] bg-card",
+                isUser ? "max-w-[78%] bg-muted" : "max-w-[88%] bg-surface",
               )
             : "flex-1",
         )}
       >
         {!isUser && stepCount > 0 ? (
-          <div className="mb-2.5 rounded-[2px] border border-border">
+          <div className="mb-2.5 rounded-[4px] border border-border">
             <button
               type="button"
               aria-expanded={stepsOpen}
               aria-controls={stepsPanelId}
               onClick={() => setStepsOpen((open) => !open)}
-              className="flex min-h-11 w-full items-center gap-2 px-2.5 py-1.5 text-left text-caption text-muted-foreground transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8"
+              className="flex min-h-11 w-full items-center gap-2 px-2.5 py-1.5 text-left text-caption text-muted-foreground transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-h-8"
             >
               <span className="font-medium text-foreground">思考路径</span>
               <span>{stepCount} 步</span>
@@ -1302,7 +1302,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
           {confidenceMeta && confidenceScore != null ? (
             <span
               className={cn(
-                "inline-flex h-5 items-center rounded-[2px] border px-1.5 font-medium",
+                "inline-flex h-5 items-center rounded-[4px] border px-1.5 font-medium",
                 confidenceMeta.badgeClass,
               )}
               title={confidenceMeta.summary}
@@ -1359,7 +1359,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
         </div>
 
         {!isUser && canRate && feedbackOpen ? (
-          <div className="mt-2 rounded-[2px] border border-border bg-muted/20 p-3">
+          <div className="mt-2 rounded-[4px] border border-border bg-muted/20 p-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-micro text-muted-foreground">
                 用 1-5
@@ -1375,8 +1375,8 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                       disabled={ratingSending}
                       onClick={() => detachPromise(submitRating(value))}
                       className={cn(
-                        "inline-flex size-11 items-center justify-center rounded-[2px] transition-colors sm:size-8",
-                        "hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
+                        "inline-flex size-11 items-center justify-center rounded-[4px] transition-colors sm:size-8",
+                        "hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                         ratingSending && "cursor-not-allowed opacity-50",
                       )}
                       aria-label={`rate-${value}`}
@@ -1488,7 +1488,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
       </div>
 
       {isUser && isMinimal ? (
-        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-micro font-semibold text-foreground">
+        <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-[4px] border border-border bg-muted text-micro font-semibold text-foreground">
           你
         </div>
       ) : null}
@@ -1496,7 +1496,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
       {hasDiagnostics ? (
         <Dialog open={diagOpen} onOpenChange={setDiagOpen}>
           <DialogContent className="max-w-4xl overflow-hidden border border-border bg-popover p-0 text-popover-foreground">
-            <DialogHeader className="border-b border-border bg-card px-4 py-3">
+            <DialogHeader className="border-b border-border bg-surface px-4 py-3">
               <div className="flex items-start justify-between gap-3">
                 <DialogTitle className="flex items-center gap-2 text-compact">
                   <BarChart3
@@ -1526,7 +1526,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
             <div className="max-h-[70vh] space-y-4 overflow-y-auto overscroll-contain p-4 md:p-5">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
                 <div className="space-y-4 md:col-span-5">
-                  <div className="overflow-hidden rounded-[2px] border border-border bg-card">
+                  <div className="overflow-hidden rounded-[4px] border border-border bg-surface">
                     <div className="border-b border-border bg-muted/30 px-3 py-2 text-micro font-medium text-foreground">
                       元数据
                     </div>
@@ -1535,7 +1535,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                         <div className="mb-1 text-micro text-muted-foreground">
                           Message ID
                         </div>
-                        <div className="select-all break-all rounded-[2px] border border-border bg-background p-2 font-mono text-micro tabular-nums">
+                        <div className="select-all break-all rounded-[4px] border border-border bg-background p-2 font-mono text-micro tabular-nums">
                           {message.id}
                         </div>
                       </div>
@@ -1563,7 +1563,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                     </div>
                   </div>
 
-                  <div className="overflow-hidden rounded-[2px] border border-border bg-card">
+                  <div className="overflow-hidden rounded-[4px] border border-border bg-surface">
                     <div className="border-b border-border bg-muted/30 px-3 py-2 text-micro font-medium text-foreground">
                       Raw payload
                     </div>
@@ -1578,7 +1578,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                 </div>
 
                 <div className="space-y-4 md:col-span-7">
-                  <div className="flex min-h-[300px] flex-col overflow-hidden rounded-[2px] border border-border bg-card">
+                  <div className="flex min-h-[300px] flex-col overflow-hidden rounded-[4px] border border-border bg-surface">
                     <div className="flex items-center justify-between gap-3 border-b border-border bg-muted/30 px-3 py-2">
                       <div className="text-micro font-medium text-foreground">
                         引用来源
@@ -1676,7 +1676,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                     )}
                   </div>
 
-                  <div className="flex min-h-[240px] flex-col overflow-hidden rounded-[2px] border border-border bg-card">
+                  <div className="flex min-h-[240px] flex-col overflow-hidden rounded-[4px] border border-border bg-surface">
                     <div className="flex items-center justify-between gap-3 border-b border-border bg-muted/30 px-3 py-2">
                       <div className="text-micro font-medium text-foreground">
                         Claim Evidence
@@ -1702,7 +1702,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                                   .join(":") ||
                                 `diag-claim-${index}`
                               }
-                              className="rounded-[2px] border border-border bg-background p-2"
+                              className="rounded-[4px] border border-border bg-background p-2"
                             >
                               <div className="flex items-start justify-between gap-3">
                                 <div className="line-clamp-3 min-w-0 text-micro font-medium leading-4 text-foreground">
@@ -1745,7 +1745,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                                         disabled={disabled}
                                         onClick={() => handleOpenEvidence(ev)}
                                         className={cn(
-                                          "block w-full rounded-[2px] border border-border px-2 py-1.5 text-left transition-colors",
+                                          "block w-full rounded-[4px] border border-border px-2 py-1.5 text-left transition-colors",
                                           disabled
                                             ? "cursor-not-allowed opacity-60"
                                             : "hover:bg-muted/40",

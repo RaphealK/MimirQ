@@ -110,7 +110,7 @@ export function ConversationSummaryDialog(props: Readonly<{
         {hasConversation ? (
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-3">
-              <div className="text-xs text-muted-foreground">
+              <div className="text-caption text-muted-foreground">
                 状态：{statusText}
               </div>
               <div className="flex items-center gap-2">
@@ -163,21 +163,21 @@ export function ConversationSummaryDialog(props: Readonly<{
                     className="h-8 gap-2 text-destructive hover:text-destructive"
                     disabled={clearing || !hasConversation}
                   >
-                    <Trash2 className={clearing ? 'size-4 animate-pulse' : 'size-4'} />
+                    <Trash2 className="size-4" />
                     清空
                   </Button>
                 </ConfirmDialog>
               </div>
             </div>
 
-            <div className="rounded-lg border border-border bg-background p-3">
-              <pre className="text-xs whitespace-pre-wrap break-words leading-relaxed max-h-[420px] overflow-auto">
+            <div className="rounded-[4px] border border-border bg-surface p-3">
+              <pre className="text-caption whitespace-pre-wrap break-words leading-relaxed max-h-[420px] overflow-auto">
                 {summary.trim() ? summary : '(empty)'}
               </pre>
             </div>
           </div>
         ) : (
-          <div className="rounded-lg border border-border bg-muted/20 p-4 text-sm text-muted-foreground">
+          <div className="rounded-[4px] border border-border bg-muted/20 p-4 text-compact text-muted-foreground">
             当前还没有会话 ID。请先发送一条消息，再查看/更新摘要。
           </div>
         )}

@@ -37,7 +37,7 @@ const ForceGraph3D = dynamic(() => withSuppressedThreeClockWarning(() => import(
   ssr: false,
   loading: () => (
     <div className="flex h-full w-full items-center justify-center bg-background">
-      <Loader2 className="h-8 w-8 animate-spin text-primary motion-reduce:animate-none" />
+      <Loader2 className="h-8 w-8 animate-spin text-muted-foreground motion-reduce:animate-none" />
     </div>
   ),
 })
@@ -110,50 +110,50 @@ const EMPTY_NEBULA: NebulaData = { nodes: [], links: [], clusters: [] }
 const TYPE_STYLES: Record<string, Omit<ClusterDefinition, "count" | "chunkCount" | "center">> = {
   pdf: {
     label: "PDF 文档",
-    color: "#2563eb",
+    color: "#d4d4d4",
     style: {
       spread: 58,
       sizeRange: [0.8, 1.9],
       halo: { scale: 1.8, opacity: 0.22 },
       geometry: "icosahedron",
       densityLabel: "版面切片",
-      shapeLabel: "蓝色棱核",
+      shapeLabel: "棱核",
     },
   },
   xlsx: {
     label: "表格文档",
-    color: "#10b981",
+    color: "#a3a3a3",
     style: {
       spread: 42,
       sizeRange: [0.9, 2.2],
       halo: { scale: 1.65, opacity: 0.2 },
       geometry: "octahedron",
       densityLabel: "结构切片",
-      shapeLabel: "绿色菱核",
+      shapeLabel: "菱核",
     },
   },
   html: {
     label: "网页 / HTML",
-    color: "#f97316",
+    color: "#737373",
     style: {
       spread: 46,
       sizeRange: [0.8, 1.7],
       halo: { scale: 1.7, opacity: 0.2 },
       geometry: "dodecahedron",
       densityLabel: "标记切片",
-      shapeLabel: "橙色面核",
+      shapeLabel: "面核",
     },
   },
   default: {
     label: "其他文档",
-    color: "#8b5cf6",
+    color: "#525252",
     style: {
       spread: 52,
       sizeRange: [0.75, 1.6],
       halo: { scale: 1.55, opacity: 0.18 },
       geometry: "sphere",
       densityLabel: "通用切片",
-      shapeLabel: "紫色云核",
+      shapeLabel: "云核",
     },
   },
 }
@@ -328,7 +328,7 @@ export function VectorNebula() {
   }, [])
 
   const isDark = resolvedTheme === "dark"
-  const bgColor = getCssHslColor("--background", isDark ? "#020617" : "#ffffff")
+  const bgColor = getCssHslColor("--background", isDark ? "#0a0a0a" : "#ffffff")
   const totalChunks = useMemo(() => data.clusters.reduce((sum, cluster) => sum + cluster.chunkCount, 0), [data.clusters])
 
   return (
@@ -385,29 +385,29 @@ export function VectorNebula() {
         }}
       />
 
-      <div className="absolute left-4 top-4 max-w-xs rounded-xl border border-border bg-background/85 p-4 shadow-lg backdrop-blur-md">
+      <div className="absolute left-4 top-4 max-w-xs rounded-[6px] border border-border bg-surface p-4">
         <h3 className="mb-2 flex items-center gap-2 text-lg font-bold">
-          <span className="h-2 w-2 rounded-full bg-primary/60 animate-pulse motion-reduce:animate-none" />
+          <span className="h-2 w-2 rounded-full bg-foreground/60" />
           <span>语义星云</span>
         </h3>
-        <p className="mb-4 text-xs text-muted-foreground">
+        <p className="mb-4 text-caption text-muted-foreground">
           基于后端文档清单与真实 chunk 接口生成。节点代表入库切片，颜色来自文档类型，大小来自切片长度。
         </p>
         {loading ? (
-          <div className="flex items-center gap-2 rounded-lg border border-border/70 bg-muted/30 px-3 py-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 rounded-[4px] border border-border bg-muted/30 px-3 py-2 text-caption text-muted-foreground">
             <Loader2 className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" />
             正在读取真实切片...
           </div>
         ) : error ? (
           <div className="space-y-2">
-            <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+            <div className="flex items-start gap-2 rounded-[4px] border border-destructive/30 bg-destructive/10 px-3 py-2 text-caption text-destructive">
               <AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
               <span>{error}</span>
             </div>
             <Button
               size="sm"
               variant="outline"
-              className="h-8 text-xs"
+              className="h-8 text-caption"
               onClick={() => {
                 nebulaQuery.refetch()
               }}
@@ -417,21 +417,21 @@ export function VectorNebula() {
             </Button>
           </div>
         ) : data.nodes.length === 0 ? (
-          <div className="flex items-start gap-2 rounded-lg border border-border/70 bg-muted/30 px-3 py-2 text-xs text-muted-foreground">
+          <div className="flex items-start gap-2 rounded-[4px] border border-border bg-muted/30 px-3 py-2 text-caption text-muted-foreground">
             <Database className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             后端暂无可视化切片。请先上传并完成文档入库。
           </div>
         ) : (
           <div className="space-y-2">
-            <div className="rounded-lg border border-border/60 bg-background/50 px-2 py-1.5 text-xs">
+            <div className="rounded-[4px] border border-border bg-surface px-2 py-1.5 text-caption">
               <div className="flex items-center justify-between gap-3 font-medium">
                 <span>真实节点</span>
                 <span>{data.nodes.length} chunks</span>
               </div>
-              <p className="mt-1 text-[11px] text-muted-foreground">来源：/documents 与 /documents/:id/chunks</p>
+              <p className="mt-1 text-micro text-muted-foreground">来源：/documents 与 /documents/:id/chunks</p>
             </div>
             {data.clusters.map((cluster) => (
-              <div key={cluster.label} className="rounded-lg border border-border/60 bg-background/40 px-2 py-1.5 text-xs">
+              <div key={cluster.label} className="rounded-[4px] border border-border bg-surface px-2 py-1.5 text-caption">
                 <div className="flex items-center justify-between gap-3">
                   <span className="flex items-center gap-2 font-medium">
                     <span className="h-3 w-3 rounded-full" style={{ backgroundColor: cluster.color }} />
@@ -439,12 +439,12 @@ export function VectorNebula() {
                   </span>
                   <span className="text-muted-foreground">{cluster.chunkCount} 切片</span>
                 </div>
-                <p className="mt-1 text-[11px] text-muted-foreground">
+                <p className="mt-1 text-micro text-muted-foreground">
                   {cluster.count} 文档 · {cluster.style.shapeLabel} · {cluster.style.densityLabel}
                 </p>
               </div>
             ))}
-            <p className="text-[11px] text-muted-foreground">当前共 {totalChunks} 个后端切片参与布局。</p>
+            <p className="text-micro text-muted-foreground">当前共 {totalChunks} 个后端切片参与布局。</p>
           </div>
         )}
       </div>

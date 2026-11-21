@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { useMemo, useState } from 'react'
-import { Download, RotateCcw, Trash2, XCircle } from 'lucide-react'
+import { useMemo, useState } from "react";
+import { Download, RotateCcw, Trash2, XCircle } from "lucide-react";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,9 +11,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 export function BulkActionBar({
   selectionCount,
@@ -27,51 +27,84 @@ export function BulkActionBar({
   onDelete,
   onExport,
 }: Readonly<{
-  selectionCount: number
-  canRetry: boolean
-  canCancel: boolean
-  canDelete: boolean
-  canExport: boolean
-  onClear: () => void
-  onRetry: () => void
-  onCancel: () => void
-  onDelete: () => Promise<void> | void
-  onExport: () => void
+  selectionCount: number;
+  canRetry: boolean;
+  canCancel: boolean;
+  canDelete: boolean;
+  canExport: boolean;
+  onClear: () => void;
+  onRetry: () => void;
+  onCancel: () => void;
+  onDelete: () => Promise<void> | void;
+  onExport: () => void;
 }>) {
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deleteConfirmValue, setDeleteConfirmValue] = useState('')
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteConfirmValue, setDeleteConfirmValue] = useState("");
   const deleteEnabled = useMemo(
     () => canDelete && deleteConfirmValue === String(selectionCount),
-    [canDelete, deleteConfirmValue, selectionCount]
-  )
+    [canDelete, deleteConfirmValue, selectionCount],
+  );
 
   return (
     <>
       <div
         role="toolbar"
         aria-label="批量操作"
-        className="rounded-[1.1rem] border border-info/18 bg-[linear-gradient(180deg,hsl(var(--card)/0.98),hsl(var(--background)/0.94))] px-3 py-3 shadow-[0_18px_50px_hsl(var(--info)/0.14)] ring-1 ring-info/30 backdrop-blur-xl dark:ring-border/30"
+        className="rounded-[6px] border border-border bg-surface px-3 py-3"
       >
         <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0 flex items-center gap-3">
-            <div className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-info/15 bg-info/10 px-2 font-code text-sm font-semibold text-info shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]">
+          <div className="flex min-w-0 items-center gap-3">
+            <div className="inline-flex h-8 min-w-8 items-center justify-center rounded-[4px] border border-border bg-muted px-2 font-code text-body font-semibold tabular-nums text-foreground">
               {selectionCount}
             </div>
             <div className="min-w-0">
-              <div className="text-[0.66rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground/72">批量操作</div>
-              <div className="mt-0.5 text-[0.92rem] font-medium tracking-[-0.01em] text-foreground">选中 {selectionCount} 项</div>
+              <div className="text-micro font-semibold uppercase tracking-[0.18em] text-subtle-foreground">
+                批量操作
+              </div>
+              <div className="mt-0.5 text-compact font-medium tracking-[-0.01em] text-foreground">
+                选中 {selectionCount} 项
+              </div>
             </div>
           </div>
-          <Button variant="ghost" size="sm" className="h-8 rounded-full px-3 text-xs text-muted-foreground hover:bg-black/5 hover:text-foreground dark:hover:bg-card/10" onClick={onClear}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 rounded-[4px] px-3 text-caption text-muted-foreground hover:bg-muted hover:text-foreground"
+            onClick={onClear}
+          >
             清空
           </Button>
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <ActionTile icon={RotateCcw} label="Retry" tone="sky" disabled={!canRetry} onClick={onRetry} />
-          <ActionTile icon={XCircle} label="Cancel" tone="amber" disabled={!canCancel} onClick={onCancel} />
-          <ActionTile icon={Trash2} label="Delete" tone="rose" disabled={!canDelete} onClick={() => setDeleteOpen(true)} />
-          <ActionTile icon={Download} label="Export" tone="emerald" disabled={!canExport} onClick={onExport} />
+          <ActionTile
+            icon={RotateCcw}
+            label="Retry"
+            tone="sky"
+            disabled={!canRetry}
+            onClick={onRetry}
+          />
+          <ActionTile
+            icon={XCircle}
+            label="Cancel"
+            tone="amber"
+            disabled={!canCancel}
+            onClick={onCancel}
+          />
+          <ActionTile
+            icon={Trash2}
+            label="Delete"
+            tone="rose"
+            disabled={!canDelete}
+            onClick={() => setDeleteOpen(true)}
+          />
+          <ActionTile
+            icon={Download}
+            label="Export"
+            tone="emerald"
+            disabled={!canExport}
+            onClick={onExport}
+          />
         </div>
       </div>
 
@@ -97,9 +130,9 @@ export function BulkActionBar({
               variant="destructive"
               disabled={!deleteEnabled}
               onClick={async () => {
-                await onDelete()
-                setDeleteConfirmValue('')
-                setDeleteOpen(false)
+                await onDelete();
+                setDeleteConfirmValue("");
+                setDeleteOpen(false);
               }}
             >
               Confirm Delete
@@ -108,7 +141,7 @@ export function BulkActionBar({
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }
 
 function ActionTile({
@@ -118,18 +151,18 @@ function ActionTile({
   disabled,
   onClick,
 }: Readonly<{
-  icon: typeof RotateCcw
-  label: string
-  tone: 'sky' | 'amber' | 'rose' | 'emerald'
-  disabled: boolean
-  onClick: () => void
+  icon: typeof RotateCcw;
+  label: string;
+  tone: "sky" | "amber" | "rose" | "emerald";
+  disabled: boolean;
+  onClick: () => void;
 }>) {
   const toneClass = {
-    sky: 'border-info/18 bg-info/[0.07] text-info hover:border-info/28 hover:bg-info/[0.12]',
-    amber: 'border-info/16 bg-info/[0.05] text-foreground/85 hover:border-warning/26 hover:bg-warning/[0.10] hover:text-warning dark:hover:text-warning',
-    rose: 'border-info/16 bg-info/[0.05] text-foreground/85 hover:border-destructive/26 hover:bg-destructive/[0.10] hover:text-destructive dark:hover:text-destructive',
-    emerald: 'border-info/18 bg-info/[0.07] text-info hover:border-success/26 hover:bg-success/[0.10] hover:text-success',
-  }[tone]
+    sky: "border-border bg-surface text-foreground hover:bg-muted",
+    amber: "border-border bg-surface text-foreground hover:bg-muted",
+    rose: "border-destructive/30 bg-destructive/5 text-destructive hover:bg-destructive/10",
+    emerald: "border-border bg-surface text-foreground hover:bg-muted",
+  }[tone];
 
   return (
     <Button
@@ -138,14 +171,14 @@ function ActionTile({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'h-10 justify-start gap-2 rounded-[0.95rem] border px-3 text-[0.78rem] font-medium tracking-[0.01em] shadow-[inset_0_1px_0_rgba(255,255,255,0.32)] transition-all hover:-translate-y-0.5 disabled:opacity-35',
-        toneClass
+        "h-8 justify-start gap-2 rounded-[4px] border px-3 text-micro font-medium tracking-[0.01em] transition-colors duration-120 disabled:opacity-40",
+        toneClass,
       )}
     >
-      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-card/88 ring-1 ring-info/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] dark:bg-card/10 dark:ring-white/10">
-        <Icon className="h-3.5 w-3.5" />
+      <span className="inline-flex size-6 items-center justify-center rounded-[4px] bg-muted text-muted-foreground">
+        <Icon className="size-3.5" />
       </span>
       {label}
     </Button>
-  )
+  );
 }

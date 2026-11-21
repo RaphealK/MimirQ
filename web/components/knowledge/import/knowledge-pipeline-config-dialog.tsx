@@ -26,11 +26,11 @@ export function KnowledgePipelineConfigDialog({ open, onOpenChange }: Readonly<K
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">解析方式</div>
+            <div className="text-compact font-medium text-foreground">解析方式</div>
             <ParserDropdown value={parserBackend} onChange={setParserBackend} />
           </div>
           <div className="space-y-2">
-            <div className="text-sm font-medium text-foreground/80">切块策略</div>
+            <div className="text-compact font-medium text-foreground">切块策略</div>
             <ChunkStrategyDropdown value={chunkStrategy} onChange={setChunkStrategy} />
           </div>
         </div>

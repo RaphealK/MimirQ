@@ -97,35 +97,26 @@ export function SalesAuditSummaryPanel({
     <div
       title="入库依据"
       className={cn(
-        'relative overflow-hidden rounded-[1.3rem] border border-border/60 bg-background/86 p-2.5 shadow-[0_24px_68px_-44px_rgba(15,23,42,0.24)] md:p-3',
-        'bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] [background-size:28px_28px]'
+        'relative overflow-hidden rounded-[6px] border border-border bg-surface p-2.5  md:p-3'
       )}
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          background:
-            'radial-gradient(circle at 36% 24%, rgba(255,255,255,0.48), transparent 28%)',
-        }}
-      />
       <div className="relative z-10 space-y-2">
         <section className={cn(SALES_PANEL_CLASS, 'p-2.5')}>
           <div className="grid gap-1.5 xl:grid-cols-[184px_minmax(0,1fr)] xl:items-stretch">
-            <div className="rounded-[0.9rem] border border-border/50 bg-[linear-gradient(180deg,hsl(var(--card)),hsl(var(--muted)/0.3))] px-2.5 py-2">
+            <div className="rounded-[4px] border border-border bg-muted/30 px-2.5 py-2">
               <div className="flex items-center justify-between gap-2">
-                <div className="text-[7px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                <div className="text-micro font-medium uppercase tracking-[0.18em] text-muted-foreground">
                   入库依据
                 </div>
-                <FileDigit className="h-3 w-3 text-muted-foreground/65" />
+                <FileDigit className="h-3 w-3 text-muted-foreground" />
               </div>
-              <div className="mt-1 text-[11px] font-medium text-foreground">
+              <div className="mt-1 text-micro font-medium text-foreground">
                 核心摘要
               </div>
-              <p className="mt-1 text-[9px] leading-3.5 text-muted-foreground">
+              <p className="mt-1 text-micro leading-3.5 text-muted-foreground">
                 默认输出脱敏后的客观事实，用于解释入库策略、预检范围与人工阻断来源。
               </p>
-              <div className="mt-1.5 inline-flex items-center rounded-full border border-border/60 bg-background/80 px-1.5 py-0.5 text-[8px] font-medium text-muted-foreground">
+              <div className="mt-1.5 inline-flex items-center rounded-full border border-border bg-surface px-1.5 py-0.5 text-micro font-medium text-muted-foreground">
                 Evidence-first · De-identified
               </div>
             </div>
@@ -139,24 +130,24 @@ export function SalesAuditSummaryPanel({
                     key={label}
                     className={cn(
                       SALES_PANEL_INSET_CLASS,
-                      'px-1.5 py-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.58)]'
+                      'px-1.5 py-1.5 '
                     )}
                   >
                     <div className="flex items-center gap-1.5">
                       <div className="flex h-4 w-4 items-center justify-center rounded-full bg-muted/30">
                         <Icon className={cn('h-2.5 w-2.5', iconTone)} />
                       </div>
-                      <div className="text-[8px] font-medium uppercase tracking-[0.1em] text-muted-foreground">
+                      <div className="text-micro font-medium uppercase tracking-[0.1em] text-muted-foreground">
                         {label}
                       </div>
                     </div>
-                    <div className="mt-1 font-mono text-[11px] font-medium leading-none text-foreground">
+                    <div className="mt-1 font-mono text-micro font-medium leading-none text-foreground">
                       {value}
                     </div>
                     <div
                       className={cn(
-                        'mt-0.5 text-[7px] leading-3',
-                        index === 2 ? 'text-rose' : 'text-muted-foreground'
+                        'mt-0.5 text-micro leading-3',
+                        index === 2 ? 'text-destructive' : 'text-muted-foreground'
                       )}
                     >
                       {note}
@@ -174,7 +165,7 @@ export function SalesAuditSummaryPanel({
             <div className="mt-1 h-[9rem]">
               <EChart option={pdfSplitOption} />
             </div>
-            <div className="mt-auto rounded-[0.75rem] border border-warning/15 bg-warning/6 px-2 py-1 text-[8px] leading-3.5 text-warning">
+            <div className="mt-auto rounded-[4px] border border-warning/15 bg-warning/10 px-2 py-1 text-micro leading-3.5 text-warning">
               扫描型 PDF 需要先 OCR 处理，预计工期抬升较大。
             </div>
           </section>
@@ -197,10 +188,10 @@ export function SalesAuditSummaryPanel({
                 ].map(([label, value]) => (
                   <div
                     key={label}
-                    className="flex items-center justify-between gap-2 text-[8px]"
+                    className="flex items-center justify-between gap-2 text-micro"
                   >
                     <span className="text-muted-foreground">{label}</span>
-                    <span className="font-mono text-[9px] text-foreground">
+                    <span className="font-mono text-micro text-foreground">
                       {value}
                     </span>
                   </div>
@@ -213,7 +204,7 @@ export function SalesAuditSummaryPanel({
             <SalesPanelHeader
               title="复杂度细节"
               icon={Radar}
-              iconTone="text-accent"
+              iconTone="text-foreground"
             />
             <div className="mt-1.5 space-y-1">
               {costDrivers.map((driver) => (
@@ -221,7 +212,7 @@ export function SalesAuditSummaryPanel({
                   key={driver.key}
                   className={cn(
                     SALES_PANEL_INSET_CLASS,
-                    'flex items-center justify-between gap-3 px-2 py-1 text-[8px]'
+                    'flex items-center justify-between gap-3 px-2 py-1 text-micro'
                   )}
                 >
                   <div className="flex items-center gap-2">
@@ -230,7 +221,7 @@ export function SalesAuditSummaryPanel({
                     />
                     <span className="text-foreground">{driver.label}</span>
                   </div>
-                  <span className="font-mono text-[9px] text-foreground">
+                  <span className="font-mono text-micro text-foreground">
                     {driver.count}
                   </span>
                 </div>
@@ -247,7 +238,7 @@ export function SalesAuditSummaryPanel({
             <SalesPanelHeader
               title="风险热区（按风险类型）"
               icon={ShieldAlert}
-              iconTone="text-rose"
+              iconTone="text-destructive"
               actionLabel="查看全部"
               onAction={onClearSelectedReason}
             />
@@ -259,11 +250,11 @@ export function SalesAuditSummaryPanel({
                   onClick={() => onHeatmapSelect(item.name)}
                   className={cn(SALES_PANEL_INSET_CLASS, 'px-2 py-1.5 text-left')}
                 >
-                  <div className="text-[8px] text-muted-foreground">{item.name}</div>
-                  <div className="mt-1 font-mono text-[12px] font-medium text-foreground">
+                  <div className="text-micro text-muted-foreground">{item.name}</div>
+                  <div className="mt-1 font-mono text-caption font-medium text-foreground">
                     {item.count.toLocaleString()}
                   </div>
-                  <div className="mt-0.5 text-[8px] text-muted-foreground">
+                  <div className="mt-0.5 text-micro text-muted-foreground">
                     占比{' '}
                     {((item.count / Math.max(1, totalFiles || 1)) * 100).toFixed(1)}%
                   </div>
@@ -276,7 +267,7 @@ export function SalesAuditSummaryPanel({
             <SalesPanelHeader
               title="处理清单（待处理文件数）"
               icon={Workflow}
-              iconTone="text-info"
+              iconTone="text-foreground"
               actionLabel="查看全部"
               onAction={onClearSelectedReason}
             />
@@ -284,10 +275,10 @@ export function SalesAuditSummaryPanel({
               {processingLanes.map((lane) => (
                 <div
                   key={lane.key}
-                  className={cn('rounded-[0.9rem] border px-2 py-1.5', lane.tone)}
+                  className={cn('rounded-[4px] border px-2 py-1.5', lane.tone)}
                 >
-                  <div className="text-[8px]">{lane.label}</div>
-                  <div className="mt-1 text-center font-mono text-[14px] font-semibold">
+                  <div className="text-micro">{lane.label}</div>
+                  <div className="mt-1 text-center font-mono text-body font-semibold">
                     {lane.count.toLocaleString()}
                   </div>
                 </div>
@@ -305,8 +296,8 @@ export function SalesAuditSummaryPanel({
               subtitle="按复杂度维度覆盖主风险项"
               actionLabel="查看全部"
             />
-            <div className="mt-1.5 overflow-hidden rounded-[0.9rem] border border-border/50">
-              <table className="w-full text-left text-[8px]">
+            <div className="mt-1.5 overflow-hidden rounded-[4px] border border-border">
+              <table className="w-full text-left text-micro">
                 <thead className="bg-muted/25 text-muted-foreground">
                   <tr>
                     <th className="px-2 py-1 font-medium">文件名</th>
@@ -318,7 +309,7 @@ export function SalesAuditSummaryPanel({
                 </thead>
                 <tbody>
                   {pocCandidates.map((row) => (
-                    <tr key={row.id} className="border-t border-border/50">
+                    <tr key={row.id} className="border-t border-border">
                       <td className="px-2 py-1 font-mono text-foreground">
                         {row.fileName}
                       </td>
@@ -332,7 +323,7 @@ export function SalesAuditSummaryPanel({
                         {row.primaryRisk}
                       </td>
                       <td className="px-2 py-1">
-                        <span className="rounded-full border border-border/60 px-1.5 py-0.5 text-[7px] text-foreground">
+                        <span className="rounded-full border border-border px-1.5 py-0.5 text-micro text-foreground">
                           {row.actionLabel}
                         </span>
                       </td>
@@ -351,8 +342,8 @@ export function SalesAuditSummaryPanel({
               subtitle="优先解释阻断和人工处理归因"
               actionLabel="查看入库依据"
             />
-            <div className="mt-1.5 overflow-hidden rounded-[0.9rem] border border-border/50">
-              <table className="w-full text-left text-[8px]">
+            <div className="mt-1.5 overflow-hidden rounded-[4px] border border-border">
+              <table className="w-full text-left text-micro">
                 <thead className="bg-muted/25 text-muted-foreground">
                   <tr>
                     <th className="px-2 py-1 font-medium">文件名</th>
@@ -363,7 +354,7 @@ export function SalesAuditSummaryPanel({
                 </thead>
                 <tbody>
                   {highRiskFiles.map((row) => (
-                    <tr key={row.id} className="border-t border-border/50">
+                    <tr key={row.id} className="border-t border-border">
                       <td className="px-2 py-1 font-mono text-foreground">
                         {row.fileName}
                       </td>
@@ -377,7 +368,7 @@ export function SalesAuditSummaryPanel({
                         <button
                           type="button"
                           onClick={() => onOpenEvidenceFile(row.id)}
-                          className="text-[7px] text-info transition-colors hover:text-info"
+                          className="text-micro text-foreground transition-colors hover:text-foreground"
                         >
                           查看
                         </button>
@@ -393,58 +384,58 @@ export function SalesAuditSummaryPanel({
         <section className={cn(SALES_PANEL_CLASS, 'p-2.5')}>
           <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
             <div className="flex items-center gap-2">
-              <span className="inline-flex size-7 items-center justify-center rounded-full border border-info/20 bg-info/10 text-info">
+              <span className="inline-flex size-7 items-center justify-center rounded-full border border-border bg-muted text-muted-foreground">
                 <FileSearch className="size-3.5" />
               </span>
               <div>
-                <div className="text-[11px] font-semibold text-foreground">
+                <div className="text-micro font-semibold text-foreground">
                   批次数据画像
                 </div>
-                <div className="mt-0.5 text-[9px] text-muted-foreground text-pretty">
+                <div className="mt-0.5 text-micro text-muted-foreground text-pretty">
                   按 3/1000 抽代表样本，已出现的文件类型每类至少覆盖 1 个
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5 text-[9px]">
-              <span className="rounded-full border border-border/55 bg-muted/25 px-2 py-1 text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-1.5 text-micro">
+              <span className="rounded-full border border-border bg-muted/25 px-2 py-1 text-muted-foreground">
                 {sourceLabel}
               </span>
-              <span className="rounded-full border border-info/20 bg-info/10 px-2 py-1 font-medium text-info">
+              <span className="rounded-full border border-border bg-muted px-2 py-1 font-medium text-foreground">
                 难度 {complexity}
               </span>
-              <span className="rounded-full border border-warning/20 bg-warning/10 px-2 py-1 font-medium text-warning">
+              <span className="rounded-[4px] border border-warning/20 bg-warning/10 px-2 py-1 font-medium text-warning">
                 {pricingMode}
               </span>
             </div>
           </div>
           <div className="mt-3 grid gap-3 xl:grid-cols-[1fr_210px]">
-            <div className="h-[15rem] rounded-[1rem] border border-border/45 bg-card/86 p-2">
+            <div className="h-[15rem] rounded-[4px] border border-border bg-card/86 p-2">
               <EChart option={batchProfileBarOption} />
             </div>
             <div className="grid gap-2">
-              <div className="rounded-[1rem] border border-border/45 bg-muted/18 px-3 py-2.5">
-                <div className="text-[8px] text-muted-foreground">
+              <div className="rounded-[4px] border border-border bg-muted/18 px-3 py-2.5">
+                <div className="text-micro text-muted-foreground">
                   预检样本
                 </div>
-                <div className="mt-1 text-[18px] font-semibold text-foreground tabular-nums">
+                <div className="mt-1 text-title-sm font-semibold text-foreground tabular-nums">
                   {sampleTarget || '--'} 个
                 </div>
-                <div className="mt-1 text-[8px] text-muted-foreground">
+                <div className="mt-1 text-micro text-muted-foreground">
                   {sampleTargetDetail}
                 </div>
               </div>
-              <div className="rounded-[1rem] border border-border/45 bg-muted/18 px-3 py-2.5">
-                <div className="text-[8px] text-muted-foreground">
+              <div className="rounded-[4px] border border-border bg-muted/18 px-3 py-2.5">
+                <div className="text-micro text-muted-foreground">
                   批次体量
                 </div>
-                <div className="mt-1 font-mono text-[13px] font-semibold text-foreground tabular-nums">
+                <div className="mt-1 font-mono text-compact font-semibold text-foreground tabular-nums">
                   {totalSizeLabel}
                 </div>
-                <div className="mt-1 text-[8px] text-muted-foreground">
+                <div className="mt-1 text-micro text-muted-foreground">
                   {samplePoolLabel}
                 </div>
               </div>
-              <div className="rounded-[1rem] border border-border/45 bg-muted/18 px-3 py-2.5 text-[8px] leading-3.5 text-muted-foreground text-pretty">
+              <div className="rounded-[4px] border border-border bg-muted/18 px-3 py-2.5 text-micro leading-3.5 text-muted-foreground text-pretty">
                 {imageProxyNote}
               </div>
             </div>

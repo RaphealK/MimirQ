@@ -76,10 +76,10 @@ export function ChunksToolbarPanel({
           onChange={(event) => onChunkQueryChange(event.target.value)}
           onKeyDown={onSearchKeyDown}
           placeholder={searchPlaceholder}
-          className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="flex h-8 w-full rounded-[4px] border border-input bg-background px-3 py-1 text-compact transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
         />
         <div className="flex items-center gap-2">
-          <div className="min-w-[88px] text-right text-xs text-muted-foreground tabular-nums">{matchSummary}</div>
+          <div className="min-w-[88px] text-right text-caption text-muted-foreground tabular-nums">{matchSummary}</div>
           <Button size="sm" variant="outline" disabled={!canJumpMatches} onClick={onPrevMatch}>
             上一个
           </Button>
@@ -89,7 +89,7 @@ export function ChunksToolbarPanel({
         </div>
       </div>
 
-      <div className="mt-2 text-[11px] text-muted-foreground">快捷键：<span className="font-mono">/</span> 聚焦搜索 · <span className="font-mono">j / k</span> 快速切换结果</div>
+      <div className="mt-2 text-micro text-muted-foreground">快捷键：<span className="font-mono">/</span> 聚焦搜索 · <span className="font-mono">j / k</span> 快速切换结果</div>
 
       <div className="mt-2 flex items-center justify-end gap-2">
         <Button
@@ -119,15 +119,15 @@ export function ChunksToolbarPanel({
       </div>
 
       {serverMatchTruncatedHint ? (
-        <div className="mt-2 text-[11px] text-muted-foreground">匹配结果过多，仅返回前若干条（计数后缀 “+” 表示截断）。</div>
+        <div className="mt-2 text-micro text-muted-foreground">匹配结果过多，仅返回前若干条（计数后缀 “+” 表示截断）。</div>
       ) : null}
 
       {highlightChunkId && !loadAllChunks && !chunksLoaded ? (
-        <div className="mt-3 rounded-xl border border-border/60 bg-background/60 p-4">
+        <div className="mt-3 rounded-[6px] border border-border bg-surface p-4">
           <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div className="min-w-0">
-              <div className="text-xs font-semibold text-foreground">引用切片</div>
-              <div className="mt-1 text-[11px] text-muted-foreground">为避免一次性加载大量切片，先展示命中内容；需要全文切片可点击「加载全部切片」。</div>
+              <div className="text-caption font-semibold text-foreground">引用切片</div>
+              <div className="mt-1 text-micro text-muted-foreground">为避免一次性加载大量切片，先展示命中内容；需要全文切片可点击「加载全部切片」。</div>
             </div>
             <div className="flex items-center justify-end gap-2">
               <Button type="button" size="sm" variant="outline" onClick={onClearHighlight} disabled={highlightChunkLoading}>
@@ -141,7 +141,7 @@ export function ChunksToolbarPanel({
 
           <div className="mt-3">
             {highlightChunkLoading ? (
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-2 text-caption text-muted-foreground">
                 <Loader2 className="size-4 animate-spin motion-reduce:animate-none" />
                 <span>加载命中切片…</span>
               </div>
@@ -160,7 +160,7 @@ export function ChunksToolbarPanel({
                 onDelete={onDeleteChunk}
               />
             ) : (
-              <div className="text-xs text-muted-foreground">未找到命中切片（可能已被删除或无权限）</div>
+              <div className="text-caption text-muted-foreground">未找到命中切片（可能已被删除或无权限）</div>
             )}
           </div>
         </div>

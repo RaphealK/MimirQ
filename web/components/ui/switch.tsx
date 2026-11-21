@@ -54,7 +54,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         }}
         ref={ref}
         className={cn(
-          "peer relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-md border border-transparent ring-offset-background transition-colors duration-120 before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[''] before:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 sm:before:hidden",
+          "peer relative inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-md border border-transparent ring-offset-background transition-colors duration-120 before:absolute before:-inset-x-1 before:-inset-y-3 before:content-[''] before:rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-45 sm:before:hidden",
           checked ? "bg-primary" : "bg-border-strong",
           className,
         )}

@@ -70,7 +70,7 @@ export function StepFlow({
               <React.Fragment key={step.id}>
                 <button
                   type="button"
-                  className="step-flow__step disabled:cursor-not-allowed disabled:opacity-50"
+                  className="step-flow__step disabled:cursor-not-allowed disabled:opacity-45"
                   data-active={isActive ? "true" : "false"}
                   disabled={step.disabled || !onStepClick}
                   aria-pressed={isActive}

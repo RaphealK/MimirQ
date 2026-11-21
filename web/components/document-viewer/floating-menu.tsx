@@ -117,24 +117,24 @@ export function FloatingMenu() {
   return (
     <div
         ref={menuRef}
-        className="fixed z-60 flex gap-1 p-1 bg-popover text-popover-foreground rounded-lg shadow-strong border border-border/40 animate-in fade-in zoom-in-95 duration-200 motion-reduce:animate-none"
+        className="fixed z-60 flex gap-1 p-1 bg-popover text-popover-foreground rounded-[4px] border border-border transition-colors duration-120 motion-reduce:animate-none"
         style={{
           top: `max(${position.top}px, calc(env(safe-area-inset-top) + 8px))`,
           left: position.left,
           transform: "translateX(-50%)",
         }}
     >
-      <Button variant="ghost" size="sm" className="h-8 text-xs text-foreground hover:bg-accent/40" onClick={() => handleAction("explain")}>
-        <Sparkles className="size-3 mr-1.5 text-primary" />
+      <Button variant="ghost" size="sm" className="h-8 text-caption text-foreground hover:bg-muted" onClick={() => handleAction("explain")}>
+        <Sparkles className="size-3 mr-1.5 text-foreground" />
         解释
       </Button>
       <div className="w-px bg-border/60 my-1" />
-      <Button variant="ghost" size="sm" className="h-8 text-xs text-foreground hover:bg-accent/40" onClick={() => handleAction("translate")}>
-        <Languages className="size-3 mr-1.5 text-info" />
+      <Button variant="ghost" size="sm" className="h-8 text-caption text-foreground hover:bg-muted" onClick={() => handleAction("translate")}>
+        <Languages className="size-3 mr-1.5 text-foreground" />
         翻译
       </Button>
       <div className="w-px bg-border/60 my-1" />
-      <Button variant="ghost" size="sm" className="h-8 text-xs text-foreground hover:bg-accent/40" onClick={() => handleAction("summarize")}>
+      <Button variant="ghost" size="sm" className="h-8 text-caption text-foreground hover:bg-muted" onClick={() => handleAction("summarize")}>
         <FileText className="size-3 mr-1.5 text-warning" />
         摘要
       </Button>

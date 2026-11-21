@@ -39,19 +39,19 @@ export function DocumentChunkCard({
     <div
       id={`chunk-${chunk.id}`}
       className={cn(
-        'group rounded-xl border p-4 transition-colors transition-shadow duration-200 motion-reduce:transition-none',
+        'group rounded-[6px] border p-4 transition-colors duration-120 motion-reduce:transition-none',
         isActive
-          ? 'bg-primary/5 border-primary shadow-[0_0_0_1px_rgba(var(--primary),0.2)] ring-1 ring-primary/20'
-          : 'bg-background border-border hover:border-primary/30 hover:shadow-sm'
+          ? 'bg-raised border-foreground ring-1 ring-foreground/20'
+          : 'bg-background border-border hover:border-border-strong'
       )}
     >
       <div className="mb-2 flex items-center justify-between">
-        <span className="rounded bg-muted px-1.5 py-0.5 text-xs font-medium font-mono text-muted-foreground">
+        <span className="rounded bg-muted px-1.5 py-0.5 text-caption font-medium font-mono text-muted-foreground">
           #{chunk.chunk_index}
         </span>
         <div className="flex items-center gap-2">
           {chunk.page_number == null ? null : (
-            <span className="text-xs text-muted-foreground">P.{chunk.page_number}</span>
+            <span className="text-caption text-muted-foreground">P.{chunk.page_number}</span>
           )}
           <div
             className={cn(
@@ -121,7 +121,7 @@ export function DocumentChunkCard({
           </div>
         </div>
       </div>
-      <p className="font-mono text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap">
+      <p className="font-mono text-compact leading-relaxed text-foreground/90 whitespace-pre-wrap">
         <HighlightLayer content={chunk.content} query={query} />
       </p>
     </div>

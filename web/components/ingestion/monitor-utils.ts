@@ -375,13 +375,13 @@ export function buildExecutionStatusRows(documents: Document[]): ExecutionStatus
   })
 
   const meta: Record<string, { name: string; fill: string }> = {
-    processing: { name: '处理中', fill: '#38bdf8' },
-    pending: { name: '等待队列', fill: '#94a3b8' },
-    completed: { name: '已完成', fill: '#34d399' },
-    failed: { name: '解析失败', fill: '#fb7185' },
-    quarantined: { name: '失败/隔离', fill: '#f59e0b' },
-    cancelled: { name: '已取消', fill: '#a78bfa' },
-    unknown: { name: '未知状态', fill: '#64748b' },
+    processing: { name: '处理中', fill: 'hsl(var(--muted-foreground))' },
+    pending: { name: '等待队列', fill: 'hsl(var(--muted-foreground) / 0.6)' },
+    completed: { name: '已完成', fill: 'hsl(var(--success))' },
+    failed: { name: '解析失败', fill: 'hsl(var(--destructive))' },
+    quarantined: { name: '失败/隔离', fill: 'hsl(var(--warning))' },
+    cancelled: { name: '已取消', fill: 'hsl(var(--muted-foreground) / 0.75)' },
+    unknown: { name: '未知状态', fill: 'hsl(var(--subtle-foreground))' },
   }
 
   return Array.from(counts.entries())
@@ -395,7 +395,7 @@ export function buildExecutionStatusRows(documents: Document[]): ExecutionStatus
 }
 
 export function buildStageTreemapRows(stageCounts: Record<string, number>): StageTreemapRow[] {
-  const palette = ['#0ea5e9', '#8b5cf6', '#14b8a6', '#f97316', '#ef4444', '#a855f7', '#64748b']
+  const palette = ['hsl(var(--foreground) / 0.9)', 'hsl(var(--foreground) / 0.72)', 'hsl(var(--foreground) / 0.56)', 'hsl(var(--foreground) / 0.42)', 'hsl(var(--foreground) / 0.3)', 'hsl(var(--foreground) / 0.2)', 'hsl(var(--foreground) / 0.12)']
   return Object.entries(stageCounts)
     .filter(([, value]) => Number(value) > 0)
     .sort((left, right) => Number(right[1]) - Number(left[1]))
