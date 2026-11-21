@@ -135,7 +135,12 @@ async def preflight_model_provider_fast() -> tuple[bool, str | None]:
 
     try:
         base_url = normalize_openai_compatible_base_url(api_base).rstrip("/")
-        timeout = httpx.Timeout(1.5, connect=1.0, read=1.5, write=1.0, pool=0.5)
+        # NOTE(rafael): 1.5s read timeout was too tight for magpie group/fast
+        # (measured ~1.8s for a 1-token preflight) -> ReadTimeout tripped the
+        # model-provider circuit breaker on EVERY probe, permanently forcing
+        # extractive fallback answers. 5s still fails fast on real outages
+        # (LLM_TIMEOUT=60) while tolerating normal gateway latency.
+        timeout = httpx.Timeout(5.0, connect=2.0, read=5.0, write=2.0, pool=1.0)
         async with httpx.AsyncClient(trust_env=httpx_trust_env(), timeout=timeout) as client:
             response = await client.post(
                 f"{base_url}/chat/completions",
