@@ -31,8 +31,8 @@ describe('command menu remote search', () => {
     expect(messages).toContain("label: '打开文档工作台'")
     expect(messages).not.toContain('Command Center')
     expect(messages).not.toContain('Go to Documents')
-    expect(commandUi).toContain('data-[disabled=true]:opacity-50')
-    expect(commandUi).not.toContain('data-[disabled]:opacity-50')
+    expect(commandUi).toContain('data-[disabled=true]:opacity-45')
+    expect(commandUi).not.toContain('data-[disabled]:opacity-45')
   })
 
   it('keeps the command surfaces on ruled neutral boundaries', () => {
@@ -40,9 +40,9 @@ describe('command menu remote search', () => {
     const commandUi = fs.readFileSync(path.resolve(__dirname, 'ui/command.tsx'), 'utf8')
 
     expect(commandUi).toContain('data-command-dialog="true"')
-    expect(commandUi).toContain('border border-foreground/15 bg-background p-0 shadow-none')
-    expect(commandUi).toContain('border-b border-foreground/10')
-    expect(commandUi).toContain('aria-selected:bg-foreground/10 aria-selected:text-foreground')
+    expect(commandUi).toContain('border border-border bg-surface p-0 shadow-none')
+    expect(commandUi).toContain('border-b border-border')
+    expect(commandUi).toContain('aria-selected:bg-raised aria-selected:text-foreground')
     expect(commandUi).not.toContain('shadow-strong')
     expect(commandUi).not.toContain('aria-selected:text-primary')
 
