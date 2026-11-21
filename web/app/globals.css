@@ -1305,6 +1305,27 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
    block becomes a compact two-column row so the composer and the full copy
    stay inside the viewport. */
 @media (max-height: 560px) {
+  .graph-empty > section {
+    padding-block: 0.5rem;
+  }
+
+  .graph-empty > section > div:first-child {
+    display: none;
+  }
+
+  .parsing-empty__content h3 {
+    font-size: 1rem;
+  }
+
+  .parsing-empty__content p {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .parsing-empty__content .mt-3 {
+    display: none;
+  }
+
   .chat-welcome {
     display: grid;
     grid-template-columns: auto minmax(0, auto);
