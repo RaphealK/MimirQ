@@ -15,7 +15,7 @@ export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
         <table
           ref={ref}
           data-slot="data-table"
-          className={cn("data-table", className)}
+          className={cn("data-table rounded-none", className)}
           {...props}
         >
           {children}

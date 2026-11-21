@@ -6,7 +6,13 @@ function Skeleton({
   className,
   ...props
 }: Readonly<React.HTMLAttributes<HTMLDivElement>>) {
-  return <div className={cn("rounded-lg bg-muted", className)} {...props} />;
+  return (
+    <div
+      data-slot="skeleton"
+      className={cn("rounded-lg bg-raised", className)}
+      {...props}
+    />
+  );
 }
 
 export { Skeleton };

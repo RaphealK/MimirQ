@@ -74,7 +74,7 @@ export function PageHeader({
   description,
   icon: Icon,
   iconImage,
-  iconColor = "text-primary",
+  iconColor = "text-foreground",
   children,
   className,
   badge,
@@ -98,7 +98,7 @@ export function PageHeader({
         )}
       >
         <div
-          className="pointer-events-none absolute -bottom-px left-1 h-px w-12 bg-info/70"
+          className="pointer-events-none absolute -bottom-px left-1 h-px w-12 bg-foreground/30"
           aria-hidden="true"
         />
         <div
@@ -111,7 +111,7 @@ export function PageHeader({
           {headerIcon ? (
             <div
               className={cn(
-                "flex shrink-0 items-center justify-center border border-foreground/10 bg-background/70 text-info shadow-none",
+                "flex shrink-0 items-center justify-center rounded-md border border-border bg-surface text-foreground shadow-none",
                 getPageHeaderIconShellClass(compact),
               )}
             >
@@ -140,7 +140,7 @@ export function PageHeader({
                 <div className="w-full">{title}</div>
               )}
               {badge ? (
-                <span className="inline-flex items-center rounded-md border border-foreground/10 bg-background/70 px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-info tabular-nums">
+                <span className="inline-flex items-center rounded-md border border-border bg-surface px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.14em] text-muted-foreground tabular-nums">
                   {badge}
                 </span>
               ) : null}

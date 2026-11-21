@@ -14,11 +14,11 @@ const useIsomorphicLayoutEffect =
   globalThis.window === undefined ? React.useEffect : React.useLayoutEffect;
 
 /**
- * One-way migration from the legacy palette picker to the engineering skin.
+ * One-way migration from the legacy palette picker to the monochrome skin.
  *
  * Light/dark/system preference is managed by next-themes; this component only
  * removes old named-surface and arbitrary-accent preferences (storage, cookie
- * and inline tokens). The engineering palette itself lives in globals.css.
+ * and inline tokens). The monochrome palette itself lives in globals.css.
  */
 export function ThemeAppearanceProvider() {
   useIsomorphicLayoutEffect(() => {

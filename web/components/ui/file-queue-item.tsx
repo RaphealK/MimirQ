@@ -27,9 +27,9 @@ const FILE_TYPE_CONFIG: Record<
   ppt: { icon: Presentation, color: 'text-warning', bg: 'bg-warning/10' },
   xlsx: { icon: FileSpreadsheet, color: 'text-success', bg: 'bg-success/10' },
   xls: { icon: FileSpreadsheet, color: 'text-success', bg: 'bg-success/10' },
-  docx: { icon: FileType, color: 'text-info', bg: 'bg-info/10' },
-  doc: { icon: FileType, color: 'text-info', bg: 'bg-info/10' },
-  txt: { icon: File, color: 'text-muted-foreground', bg: 'bg-muted/60' },
+  docx: { icon: FileType, color: 'text-foreground', bg: 'bg-raised' },
+  doc: { icon: FileType, color: 'text-foreground', bg: 'bg-raised' },
+  txt: { icon: File, color: 'text-muted-foreground', bg: 'bg-raised' },
   md: { icon: FileText, color: 'text-accent', bg: 'bg-accent/10' },
 }
 
@@ -66,7 +66,7 @@ function getFileQueueSelectionLabel(isSelected: boolean): string {
 
 function getFileQueueSelectionClass(isSelected: boolean): string {
   if (isSelected) return 'border-primary bg-primary text-primary-foreground'
-  return 'border-border/70 bg-background text-transparent hover:border-primary/50 hover:text-primary/40'
+  return 'border-border bg-surface text-transparent hover:border-border-strong hover:text-foreground/40'
 }
 
 export type FileStatus = 'pending' | 'parsing' | 'parsed' | 'error'
@@ -155,7 +155,7 @@ export function FileQueueItem({
       case 'parsing':
         return (
           <div className="space-y-1.5">
-            <div className="flex items-center gap-1.5 text-[11px] text-info">
+            <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
               <Loader2 className="size-3 animate-spin motion-reduce:animate-none" />
               <span>{getFileQueueParsingLabel(file.progress, progressPct, t("fileQueueItem.parsing"))}</span>
             </div>
@@ -249,8 +249,8 @@ export function FileQueueItem({
       className={cn(
         'group cursor-pointer rounded-md border border-transparent px-2.5 py-2 transition-colors duration-150 motion-reduce:transition-none',
         isActive
-          ? 'bg-primary/[0.055] shadow-none'
-          : 'bg-background/60 hover:bg-muted/35'
+          ? 'bg-raised shadow-none'
+          : 'bg-surface hover:bg-raised'
       )}
     >
       <div className="flex items-start gap-2">
@@ -278,7 +278,7 @@ export function FileQueueItem({
               <button
                 type="button"
                 onClick={onRetry}
-                className="flex items-center gap-1 text-xs text-info hover:text-info/90 focus-ring rounded px-1.5 py-1"
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground focus-ring rounded px-1.5 py-1"
               >
                 <RotateCcw className="size-3" />
                 {t("fileQueueItem.retry")}

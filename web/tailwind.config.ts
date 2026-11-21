@@ -9,6 +9,12 @@ const config = {
     "./lib/**/*.{ts,tsx}",
     "./store/**/*.{ts,tsx}",
     "./contexts/**/*.{ts,tsx}",
+    /* Test assertions quote historical class strings; never compile them. */
+    "!./components/**/*.test.{ts,tsx}",
+    "!./app/**/*.test.{ts,tsx}",
+    "!./lib/**/*.test.{ts,tsx}",
+    "!./store/**/*.test.{ts,tsx}",
+    "!./contexts/**/*.test.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -55,10 +61,9 @@ const config = {
         /* Legacy alias kept for backward compat — prefer semantic names above */
         detail: ["0.6875rem", { lineHeight: "1rem", letterSpacing: "0.04em" }],
       },
-      /* Text colour namespace: `text-accent` is the engineering blue link
-         colour, while `bg-accent` remains the selected surface tint. */
+      /* Links stay monochrome: `text-accent` resolves to foreground. */
       textColor: {
-        accent: "hsl(var(--primary))",
+        accent: "hsl(var(--foreground))",
       },
       spacing: {
         "page-x": "var(--space-page-x)",
@@ -88,7 +93,10 @@ const config = {
         "280": "280ms",
       },
       colors: {
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "hsl(var(--border))",
+          strong: "hsl(var(--border-strong))",
+        },
         line: "hsl(var(--line))",
         input: "hsl(var(--input))",
         control: "hsl(var(--control))",
@@ -96,22 +104,30 @@ const config = {
         focus: "hsl(var(--focus))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        paper: "hsl(var(--engineering-paper))",
-        canvas: "hsl(var(--engineering-canvas))",
-        rail: "hsl(var(--engineering-rail))",
+        surface: {
+          DEFAULT: "hsl(var(--surface))",
+          0: "hsl(var(--surface-0))",
+          1: "hsl(var(--surface-1))",
+          2: "hsl(var(--surface-2))",
+          3: "hsl(var(--surface-3))",
+          4: "hsl(var(--surface-4))",
+          5: "hsl(var(--surface-5))",
+        },
+        raised: "hsl(var(--raised))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          50: "hsl(var(--primary-50))",
-          100: "hsl(var(--primary-100))",
-          200: "hsl(var(--primary-200))",
-          300: "hsl(var(--primary-300))",
-          400: "hsl(var(--primary-400))",
-          500: "hsl(var(--primary-500))",
-          600: "hsl(var(--primary-600))",
-          700: "hsl(var(--primary-700))",
-          800: "hsl(var(--primary-800))",
-          900: "hsl(var(--primary-900))",
+          pressed: "hsl(var(--primary-pressed))",
+          50: "hsl(var(--mono-50))",
+          100: "hsl(var(--mono-100))",
+          200: "hsl(var(--mono-200))",
+          300: "hsl(var(--mono-300))",
+          400: "hsl(var(--mono-400))",
+          500: "hsl(var(--mono-500))",
+          600: "hsl(var(--mono-600))",
+          700: "hsl(var(--mono-700))",
+          800: "hsl(var(--mono-800))",
+          900: "hsl(var(--mono-900))",
         },
         ink: {
           DEFAULT: "hsl(var(--ink))",
@@ -129,6 +145,10 @@ const config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        danger: {
+          DEFAULT: "hsl(var(--danger))",
+          foreground: "hsl(var(--danger-foreground))",
+        },
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
@@ -141,6 +161,7 @@ const config = {
           DEFAULT: "hsl(var(--info))",
           foreground: "hsl(var(--info-foreground))",
         },
+        /* Legacy names kept only so historical classes resolve neutrally. */
         teal: {
           DEFAULT: "hsl(var(--teal))",
           foreground: "hsl(var(--teal-foreground))",
@@ -161,6 +182,7 @@ const config = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
+        "subtle-foreground": "hsl(var(--subtle-foreground))",
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
@@ -173,13 +195,15 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        surface: {
-          0: "hsl(var(--surface-0))",
-          1: "hsl(var(--surface-1))",
-          2: "hsl(var(--surface-2))",
-          3: "hsl(var(--surface-3))",
-          4: "hsl(var(--surface-4))",
-          5: "hsl(var(--surface-5))",
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
+          6: "hsl(var(--chart-6))",
+          7: "hsl(var(--chart-7))",
+          8: "hsl(var(--chart-8))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -187,15 +211,16 @@ const config = {
           border: "hsl(var(--sidebar-border))",
         },
       },
-      /* One geometry: every named radius resolves to the 2px engineering radius. */
+      /* Three radii only: controls 4px, panels 6px, tables 0. */
       borderRadius: {
-        DEFAULT: "var(--radius)",
-        "3xl": "var(--radius)",
-        "2xl": "var(--radius)",
-        xl: "var(--radius)",
-        lg: "var(--radius)",
-        md: "var(--radius)",
-        sm: "var(--radius)",
+        DEFAULT: "var(--radius-control)",
+        none: "0",
+        sm: "var(--radius-control)",
+        md: "var(--radius-control)",
+        lg: "var(--radius-panel)",
+        xl: "var(--radius-panel)",
+        "2xl": "var(--radius-panel)",
+        "3xl": "var(--radius-panel)",
       },
       boxShadow: {
         subtle: "var(--shadow-subtle)",

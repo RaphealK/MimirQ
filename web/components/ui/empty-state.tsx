@@ -23,12 +23,12 @@ export function EmptyState({
   return (
     <section
       className={cn(
-        "flex min-h-[240px] flex-col items-center justify-center border border-border bg-card px-6 py-10 text-center",
+        "flex min-h-[240px] flex-col items-center justify-center border border-border bg-surface px-6 py-10 text-center",
         className,
       )}
     >
       {Icon ? (
-        <div className="mb-5 grid size-12 place-items-center border border-border bg-muted">
+        <div className="mb-5 grid size-12 place-items-center border border-border bg-raised">
           <Icon className={cn("size-6 text-muted-foreground", iconClassName)} />
         </div>
       ) : null}

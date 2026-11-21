@@ -5,26 +5,33 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-compact font-medium ring-offset-background transition-colors duration-120 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/70 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-compact font-medium ring-offset-background transition-[background-color,border-color,color,opacity] duration-120 ease-spring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-ink text-ink-foreground hover:bg-ink/90",
+        /* Primary is the foreground-inverse pair: white on dark, ink on light. */
+        default:
+          "bg-primary text-primary-foreground hover:opacity-[0.88] active:bg-primary-pressed",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        success: "bg-success text-success-foreground hover:bg-success/90",
-        warning: "bg-warning text-warning-foreground hover:bg-warning/90",
-        info: "bg-info text-info-foreground hover:bg-info/90",
+          "border border-danger bg-transparent text-danger hover:bg-danger/12 active:bg-danger/18",
+        /* Status variants are neutral controls; hue is reserved for indicators. */
+        success:
+          "border border-border bg-transparent text-foreground hover:bg-raised",
+        warning:
+          "border border-border bg-transparent text-foreground hover:bg-raised",
+        info: "border border-border bg-transparent text-foreground hover:bg-raised",
         outline:
-          "border border-control bg-background text-foreground hover:bg-muted",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-muted",
-        ghost: "hover:bg-muted hover:text-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "border border-border bg-transparent text-foreground hover:bg-raised active:bg-raised",
+        secondary:
+          "border border-border bg-transparent text-foreground hover:bg-raised active:bg-raised",
+        ghost:
+          "border border-transparent bg-transparent text-muted-foreground hover:bg-raised hover:text-foreground active:bg-raised active:text-foreground",
+        link: "text-foreground underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-11 px-3.5 sm:h-8",
-        sm: "h-11 rounded-md px-2.5 sm:h-7",
-        lg: "h-11 px-4 sm:h-9",
+        default: "h-11 px-3 sm:h-8",
+        sm: "h-11 px-3 sm:h-7",
+        lg: "h-11 px-3 sm:h-9",
         icon: "size-11 sm:size-8",
       },
     },

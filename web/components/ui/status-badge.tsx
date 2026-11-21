@@ -29,7 +29,7 @@ function getStatusMeta(
     pending: {
       label: t("statusBadge.pending"),
       icon: Clock,
-      dotColor: "bg-info",
+      dotColor: "bg-subtle-foreground",
     },
     processing: {
       label: t("statusBadge.processing"),
@@ -78,7 +78,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md bg-muted",
+        "inline-flex items-center gap-1.5 rounded-md border border-border bg-surface",
         dense
           ? "h-5 px-2 text-micro font-medium"
           : "h-5 px-2 text-micro font-medium",

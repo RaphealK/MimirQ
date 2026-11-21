@@ -17,7 +17,7 @@ describe("global page title baseline", () => {
     expect(src).toContain("min-h-14");
     expect(src).toContain("text-[22px]");
     expect(src).toContain("size-7 rounded-md");
-    expect(src).toContain("left-1 h-px w-12 bg-info/70");
+    expect(src).toContain("left-1 h-px w-12 bg-foreground/30");
     expect(src).not.toContain("min-h-[95px]");
     expect(src).not.toContain("text-4xl");
     expect(src).not.toContain("text-5xl");

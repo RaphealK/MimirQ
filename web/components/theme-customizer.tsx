@@ -45,9 +45,9 @@ export function ThemeCustomizer({
     <IconButton
       label={t("themeCustomizer.openLabel")}
       variant="outline"
-      className="fixed bottom-4 right-4 z-50 size-11 border-border bg-card shadow-soft hover:border-primary sm:size-10 supports-[padding:env(safe-area-inset-bottom)]:bottom-[calc(env(safe-area-inset-bottom)+1rem)] supports-[padding:env(safe-area-inset-right)]:right-[calc(env(safe-area-inset-right)+1rem)]"
+      className="fixed bottom-4 right-4 z-50 size-11 border-border bg-surface shadow-soft hover:border-border-strong sm:size-10 supports-[padding:env(safe-area-inset-bottom)]:bottom-[calc(env(safe-area-inset-bottom)+1rem)] supports-[padding:env(safe-area-inset-right)]:right-[calc(env(safe-area-inset-right)+1rem)]"
     >
-      <Settings2 className="size-5 text-primary" />
+      <Settings2 className="size-5 text-foreground" />
     </IconButton>
   );
 
@@ -88,7 +88,7 @@ export function ThemeCustomizer({
             </Label>
             <div
               role="group"
-              className="flex gap-1 rounded-md border border-border bg-muted p-1"
+              className="flex gap-1 rounded-md border border-border bg-surface p-1"
             >
               {MODE_OPTIONS.map((option) => {
                 const Icon = option.icon;
@@ -101,10 +101,10 @@ export function ThemeCustomizer({
                     aria-pressed={isActive}
                     data-active={isActive ? "true" : "false"}
                     className={cn(
-                      "inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md px-2 text-caption font-medium transition-colors duration-120 motion-reduce:transition-none sm:min-h-8",
+                      "inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md px-2 text-caption font-medium transition-[background-color,border-color,color,opacity] duration-120 ease-spring motion-reduce:transition-none sm:min-h-8",
                       isActive
-                        ? "bg-card text-foreground shadow-subtle"
-                        : "text-muted-foreground hover:bg-card/60 hover:text-foreground",
+                        ? "bg-raised text-foreground ring-1 ring-border"
+                        : "text-muted-foreground hover:bg-raised hover:text-foreground",
                     )}
                   >
                     <Icon className="size-3.5" />
@@ -115,8 +115,8 @@ export function ThemeCustomizer({
             </div>
           </div>
 
-          <p className="border-t border-border pt-3 text-micro leading-4 text-muted-foreground">
-            {t("themeCustomizer.engineeringNote")}
+          <p className="border-t border-border pt-3 text-micro leading-4 text-subtle-foreground">
+            {t("themeCustomizer.monochromeNote")}
           </p>
         </div>
       </PopoverContent>

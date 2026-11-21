@@ -77,43 +77,10 @@ const commonMessages = {
       openLabel: "打开外观设置",
       title: "外观",
       description: "选择浅色、深色或跟随系统",
-      engineeringNote:
-        "工程蓝为主色，焦点蓝仅用于聚焦环，主按钮使用墨色。旧的主题配色会在启动时自动清理。",
+      monochromeNote:
+        "全站使用黑白灰配色，状态色仅用于成功、警告和危险语义。旧的主题配色会在启动时自动清理。",
       resetAppearance: "重置为跟随系统",
-      surfaceLabel: "界面风格",
-      surfacePresetLabel: "选择界面风格：{name}",
-      surfaceSwatch: "底色",
-      primarySwatch: "主色",
-      surfacePresets: {
-        ocean: {
-          title: "默认海洋",
-          description: "清透冰蓝表面与深海军蓝主色，保持 MimirQ 默认层级。",
-        },
-        deepsea: {
-          title: "深海留白",
-          description: "雾白蓝灰表面与克制的深海蓝焦点，留白充足、层级清晰。",
-        },
-        neutral: {
-          title: "中性白",
-          description: "纯白表面、石墨文字与浅灰层级，仅保留必要的业务状态色。",
-        },
-        classic: {
-          title: "经典白灰",
-          description: "浅灰白背景、深灰正文与经典蓝主色，清爽且阅读友好。",
-        },
-        earth: {
-          title: "米白大地",
-          description: "暖米白背景与柔和灰褐层次，长时间阅读更温和。",
-        },
-      },
-      colorLabel: "主色调",
-      useSurfaceColor: "使用当前界面风格的自动主色",
-      autoColor: "自动",
-      surfaceColorActive: "当前：{style} · 自动主色 {color}",
-      customColorActive: "当前：{style} · 自定义主色 {color}",
       modeLabel: "模式",
-      presetLabel: "选择主色调：{name}",
-      selected: "已选中",
     },
     fileQueueItem: {
       pending: "等待解析",

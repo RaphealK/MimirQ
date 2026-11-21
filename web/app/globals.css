@@ -1,36 +1,304 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
+/* ------------------------------------------------------------------
+   Monochrome theme slots.
+
+   The product palette is black/white/grey. Every historical Tailwind
+   palette utility (blue-500, sky-200, emerald-300, …) is remapped onto
+   this single grey ramp at theme level, so those classes can never leak
+   a chromatic value into the compiled CSS. Status hues live separately
+   in the semantic tokens below and are only used for status meaning.
+   ------------------------------------------------------------------ */
+@theme {
+  /* red -> monochrome */
+  --color-red-50: hsl(var(--mono-50));
+  --color-red-100: hsl(var(--mono-100));
+  --color-red-200: hsl(var(--mono-200));
+  --color-red-300: hsl(var(--mono-300));
+  --color-red-400: hsl(var(--mono-400));
+  --color-red-500: hsl(var(--mono-500));
+  --color-red-600: hsl(var(--mono-600));
+  --color-red-700: hsl(var(--mono-700));
+  --color-red-800: hsl(var(--mono-800));
+  --color-red-900: hsl(var(--mono-900));
+  --color-red-950: hsl(var(--mono-950));
+  /* orange -> monochrome */
+  --color-orange-50: hsl(var(--mono-50));
+  --color-orange-100: hsl(var(--mono-100));
+  --color-orange-200: hsl(var(--mono-200));
+  --color-orange-300: hsl(var(--mono-300));
+  --color-orange-400: hsl(var(--mono-400));
+  --color-orange-500: hsl(var(--mono-500));
+  --color-orange-600: hsl(var(--mono-600));
+  --color-orange-700: hsl(var(--mono-700));
+  --color-orange-800: hsl(var(--mono-800));
+  --color-orange-900: hsl(var(--mono-900));
+  --color-orange-950: hsl(var(--mono-950));
+  /* amber -> monochrome */
+  --color-amber-50: hsl(var(--mono-50));
+  --color-amber-100: hsl(var(--mono-100));
+  --color-amber-200: hsl(var(--mono-200));
+  --color-amber-300: hsl(var(--mono-300));
+  --color-amber-400: hsl(var(--mono-400));
+  --color-amber-500: hsl(var(--mono-500));
+  --color-amber-600: hsl(var(--mono-600));
+  --color-amber-700: hsl(var(--mono-700));
+  --color-amber-800: hsl(var(--mono-800));
+  --color-amber-900: hsl(var(--mono-900));
+  --color-amber-950: hsl(var(--mono-950));
+  /* yellow -> monochrome */
+  --color-yellow-50: hsl(var(--mono-50));
+  --color-yellow-100: hsl(var(--mono-100));
+  --color-yellow-200: hsl(var(--mono-200));
+  --color-yellow-300: hsl(var(--mono-300));
+  --color-yellow-400: hsl(var(--mono-400));
+  --color-yellow-500: hsl(var(--mono-500));
+  --color-yellow-600: hsl(var(--mono-600));
+  --color-yellow-700: hsl(var(--mono-700));
+  --color-yellow-800: hsl(var(--mono-800));
+  --color-yellow-900: hsl(var(--mono-900));
+  --color-yellow-950: hsl(var(--mono-950));
+  /* lime -> monochrome */
+  --color-lime-50: hsl(var(--mono-50));
+  --color-lime-100: hsl(var(--mono-100));
+  --color-lime-200: hsl(var(--mono-200));
+  --color-lime-300: hsl(var(--mono-300));
+  --color-lime-400: hsl(var(--mono-400));
+  --color-lime-500: hsl(var(--mono-500));
+  --color-lime-600: hsl(var(--mono-600));
+  --color-lime-700: hsl(var(--mono-700));
+  --color-lime-800: hsl(var(--mono-800));
+  --color-lime-900: hsl(var(--mono-900));
+  --color-lime-950: hsl(var(--mono-950));
+  /* green -> monochrome */
+  --color-green-50: hsl(var(--mono-50));
+  --color-green-100: hsl(var(--mono-100));
+  --color-green-200: hsl(var(--mono-200));
+  --color-green-300: hsl(var(--mono-300));
+  --color-green-400: hsl(var(--mono-400));
+  --color-green-500: hsl(var(--mono-500));
+  --color-green-600: hsl(var(--mono-600));
+  --color-green-700: hsl(var(--mono-700));
+  --color-green-800: hsl(var(--mono-800));
+  --color-green-900: hsl(var(--mono-900));
+  --color-green-950: hsl(var(--mono-950));
+  /* emerald -> monochrome */
+  --color-emerald-50: hsl(var(--mono-50));
+  --color-emerald-100: hsl(var(--mono-100));
+  --color-emerald-200: hsl(var(--mono-200));
+  --color-emerald-300: hsl(var(--mono-300));
+  --color-emerald-400: hsl(var(--mono-400));
+  --color-emerald-500: hsl(var(--mono-500));
+  --color-emerald-600: hsl(var(--mono-600));
+  --color-emerald-700: hsl(var(--mono-700));
+  --color-emerald-800: hsl(var(--mono-800));
+  --color-emerald-900: hsl(var(--mono-900));
+  --color-emerald-950: hsl(var(--mono-950));
+  /* teal -> monochrome */
+  --color-teal-50: hsl(var(--mono-50));
+  --color-teal-100: hsl(var(--mono-100));
+  --color-teal-200: hsl(var(--mono-200));
+  --color-teal-300: hsl(var(--mono-300));
+  --color-teal-400: hsl(var(--mono-400));
+  --color-teal-500: hsl(var(--mono-500));
+  --color-teal-600: hsl(var(--mono-600));
+  --color-teal-700: hsl(var(--mono-700));
+  --color-teal-800: hsl(var(--mono-800));
+  --color-teal-900: hsl(var(--mono-900));
+  --color-teal-950: hsl(var(--mono-950));
+  /* cyan -> monochrome */
+  --color-cyan-50: hsl(var(--mono-50));
+  --color-cyan-100: hsl(var(--mono-100));
+  --color-cyan-200: hsl(var(--mono-200));
+  --color-cyan-300: hsl(var(--mono-300));
+  --color-cyan-400: hsl(var(--mono-400));
+  --color-cyan-500: hsl(var(--mono-500));
+  --color-cyan-600: hsl(var(--mono-600));
+  --color-cyan-700: hsl(var(--mono-700));
+  --color-cyan-800: hsl(var(--mono-800));
+  --color-cyan-900: hsl(var(--mono-900));
+  --color-cyan-950: hsl(var(--mono-950));
+  /* sky -> monochrome */
+  --color-sky-50: hsl(var(--mono-50));
+  --color-sky-100: hsl(var(--mono-100));
+  --color-sky-200: hsl(var(--mono-200));
+  --color-sky-300: hsl(var(--mono-300));
+  --color-sky-400: hsl(var(--mono-400));
+  --color-sky-500: hsl(var(--mono-500));
+  --color-sky-600: hsl(var(--mono-600));
+  --color-sky-700: hsl(var(--mono-700));
+  --color-sky-800: hsl(var(--mono-800));
+  --color-sky-900: hsl(var(--mono-900));
+  --color-sky-950: hsl(var(--mono-950));
+  /* blue -> monochrome */
+  --color-blue-50: hsl(var(--mono-50));
+  --color-blue-100: hsl(var(--mono-100));
+  --color-blue-200: hsl(var(--mono-200));
+  --color-blue-300: hsl(var(--mono-300));
+  --color-blue-400: hsl(var(--mono-400));
+  --color-blue-500: hsl(var(--mono-500));
+  --color-blue-600: hsl(var(--mono-600));
+  --color-blue-700: hsl(var(--mono-700));
+  --color-blue-800: hsl(var(--mono-800));
+  --color-blue-900: hsl(var(--mono-900));
+  --color-blue-950: hsl(var(--mono-950));
+  /* indigo -> monochrome */
+  --color-indigo-50: hsl(var(--mono-50));
+  --color-indigo-100: hsl(var(--mono-100));
+  --color-indigo-200: hsl(var(--mono-200));
+  --color-indigo-300: hsl(var(--mono-300));
+  --color-indigo-400: hsl(var(--mono-400));
+  --color-indigo-500: hsl(var(--mono-500));
+  --color-indigo-600: hsl(var(--mono-600));
+  --color-indigo-700: hsl(var(--mono-700));
+  --color-indigo-800: hsl(var(--mono-800));
+  --color-indigo-900: hsl(var(--mono-900));
+  --color-indigo-950: hsl(var(--mono-950));
+  /* violet -> monochrome */
+  --color-violet-50: hsl(var(--mono-50));
+  --color-violet-100: hsl(var(--mono-100));
+  --color-violet-200: hsl(var(--mono-200));
+  --color-violet-300: hsl(var(--mono-300));
+  --color-violet-400: hsl(var(--mono-400));
+  --color-violet-500: hsl(var(--mono-500));
+  --color-violet-600: hsl(var(--mono-600));
+  --color-violet-700: hsl(var(--mono-700));
+  --color-violet-800: hsl(var(--mono-800));
+  --color-violet-900: hsl(var(--mono-900));
+  --color-violet-950: hsl(var(--mono-950));
+  /* purple -> monochrome */
+  --color-purple-50: hsl(var(--mono-50));
+  --color-purple-100: hsl(var(--mono-100));
+  --color-purple-200: hsl(var(--mono-200));
+  --color-purple-300: hsl(var(--mono-300));
+  --color-purple-400: hsl(var(--mono-400));
+  --color-purple-500: hsl(var(--mono-500));
+  --color-purple-600: hsl(var(--mono-600));
+  --color-purple-700: hsl(var(--mono-700));
+  --color-purple-800: hsl(var(--mono-800));
+  --color-purple-900: hsl(var(--mono-900));
+  --color-purple-950: hsl(var(--mono-950));
+  /* fuchsia -> monochrome */
+  --color-fuchsia-50: hsl(var(--mono-50));
+  --color-fuchsia-100: hsl(var(--mono-100));
+  --color-fuchsia-200: hsl(var(--mono-200));
+  --color-fuchsia-300: hsl(var(--mono-300));
+  --color-fuchsia-400: hsl(var(--mono-400));
+  --color-fuchsia-500: hsl(var(--mono-500));
+  --color-fuchsia-600: hsl(var(--mono-600));
+  --color-fuchsia-700: hsl(var(--mono-700));
+  --color-fuchsia-800: hsl(var(--mono-800));
+  --color-fuchsia-900: hsl(var(--mono-900));
+  --color-fuchsia-950: hsl(var(--mono-950));
+  /* pink -> monochrome */
+  --color-pink-50: hsl(var(--mono-50));
+  --color-pink-100: hsl(var(--mono-100));
+  --color-pink-200: hsl(var(--mono-200));
+  --color-pink-300: hsl(var(--mono-300));
+  --color-pink-400: hsl(var(--mono-400));
+  --color-pink-500: hsl(var(--mono-500));
+  --color-pink-600: hsl(var(--mono-600));
+  --color-pink-700: hsl(var(--mono-700));
+  --color-pink-800: hsl(var(--mono-800));
+  --color-pink-900: hsl(var(--mono-900));
+  --color-pink-950: hsl(var(--mono-950));
+  /* rose -> monochrome */
+  --color-rose-50: hsl(var(--mono-50));
+  --color-rose-100: hsl(var(--mono-100));
+  --color-rose-200: hsl(var(--mono-200));
+  --color-rose-300: hsl(var(--mono-300));
+  --color-rose-400: hsl(var(--mono-400));
+  --color-rose-500: hsl(var(--mono-500));
+  --color-rose-600: hsl(var(--mono-600));
+  --color-rose-700: hsl(var(--mono-700));
+  --color-rose-800: hsl(var(--mono-800));
+  --color-rose-900: hsl(var(--mono-900));
+  --color-rose-950: hsl(var(--mono-950));
+  /* Neutral tints are also pinned to the same ramp. */
+  --color-neutral-50: hsl(var(--mono-50));
+  --color-neutral-100: hsl(var(--mono-100));
+  --color-neutral-200: hsl(var(--mono-200));
+  --color-neutral-300: hsl(var(--mono-300));
+  --color-neutral-400: hsl(var(--mono-400));
+  --color-neutral-500: hsl(var(--mono-500));
+  --color-neutral-600: hsl(var(--mono-600));
+  --color-neutral-700: hsl(var(--mono-700));
+  --color-neutral-800: hsl(var(--mono-800));
+  --color-neutral-900: hsl(var(--mono-900));
+  --color-neutral-950: hsl(var(--mono-950));
+  /* slate -> monochrome */
+  --color-slate-50: hsl(var(--mono-50));
+  --color-slate-100: hsl(var(--mono-100));
+  --color-slate-200: hsl(var(--mono-200));
+  --color-slate-300: hsl(var(--mono-300));
+  --color-slate-400: hsl(var(--mono-400));
+  --color-slate-500: hsl(var(--mono-500));
+  --color-slate-600: hsl(var(--mono-600));
+  --color-slate-700: hsl(var(--mono-700));
+  --color-slate-800: hsl(var(--mono-800));
+  --color-slate-900: hsl(var(--mono-900));
+  --color-slate-950: hsl(var(--mono-950));
+  /* gray -> monochrome */
+  --color-gray-50: hsl(var(--mono-50));
+  --color-gray-100: hsl(var(--mono-100));
+  --color-gray-200: hsl(var(--mono-200));
+  --color-gray-300: hsl(var(--mono-300));
+  --color-gray-400: hsl(var(--mono-400));
+  --color-gray-500: hsl(var(--mono-500));
+  --color-gray-600: hsl(var(--mono-600));
+  --color-gray-700: hsl(var(--mono-700));
+  --color-gray-800: hsl(var(--mono-800));
+  --color-gray-900: hsl(var(--mono-900));
+  --color-gray-950: hsl(var(--mono-950));
+  /* zinc -> monochrome */
+  --color-zinc-50: hsl(var(--mono-50));
+  --color-zinc-100: hsl(var(--mono-100));
+  --color-zinc-200: hsl(var(--mono-200));
+  --color-zinc-300: hsl(var(--mono-300));
+  --color-zinc-400: hsl(var(--mono-400));
+  --color-zinc-500: hsl(var(--mono-500));
+  --color-zinc-600: hsl(var(--mono-600));
+  --color-zinc-700: hsl(var(--mono-700));
+  --color-zinc-800: hsl(var(--mono-800));
+  --color-zinc-900: hsl(var(--mono-900));
+  --color-zinc-950: hsl(var(--mono-950));
+  /* stone -> monochrome */
+  --color-stone-50: hsl(var(--mono-50));
+  --color-stone-100: hsl(var(--mono-100));
+  --color-stone-200: hsl(var(--mono-200));
+  --color-stone-300: hsl(var(--mono-300));
+  --color-stone-400: hsl(var(--mono-400));
+  --color-stone-500: hsl(var(--mono-500));
+  --color-stone-600: hsl(var(--mono-600));
+  --color-stone-700: hsl(var(--mono-700));
+  --color-stone-800: hsl(var(--mono-800));
+  --color-stone-900: hsl(var(--mono-900));
+  --color-stone-950: hsl(var(--mono-950));
+}
+
 @layer base {
   :root {
-    /* Typography - System font stack with Inter preferred */
-    --font-sans: "Inter Variable", Inter, "Geist Sans", Geist, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* Typography: Latin first, then a Chinese stack with explicit weights. */
+    --font-sans: "Inter Variable", Inter, "Geist Sans", Geist, "SF Pro Text", -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+      "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", ui-sans-serif, system-ui, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --font-code: "Fira Code Variable", "Fira Code", var(--font-mono);
 
-    /* ------------------------------------------------------------------
-       Engineering skin — light
-       Single accent blue. Hairline structure. 2px geometry everywhere.
-       These engineering-* variables are the canonical source of truth;
-       the shadcn semantic tokens below map 1:1 onto them.
-       ------------------------------------------------------------------ */
-    --engineering-paper: 0 0% 100%;
-    --engineering-canvas: 200 17.6% 96.7%;
-    --engineering-rail: 200 21.4% 94.5%;
-    --engineering-text: 204.4 37% 14.3%;
-    --engineering-muted: 206.5 17.2% 38.8%;
-    --engineering-line: 204 19% 84.5%;
-    --engineering-control: 205 16.4% 71.4%;
-    --engineering-ink: 203.5 50.5% 19.8%;
-    --engineering-on-ink: 0 0% 100%;
-    --engineering-selected: 203.3 47.4% 92.5%;
-    --engineering-blue: 202.7 59% 31.6%;
-    --engineering-success: 152 42.9% 27.5%;
-    --engineering-warning: 34.4 70.5% 30.6%;
-    --engineering-error: 358.3 49.3% 42.5%;
-    --engineering-focus: 199.7 64.6% 38.8%;
-    --engineering-radius: 2px;
+    /* Grey ramp shared by the Tailwind palette remap. */
+    --mono-50: 220 20% 98.5%;
+    --mono-100: 220 16% 96%;
+    --mono-200: 220 12% 90%;
+    --mono-300: 220 10% 82%;
+    --mono-400: 220 8% 66%;
+    --mono-500: 220 8% 54%;
+    --mono-600: 220 8% 44%;
+    --mono-700: 220 9% 32%;
+    --mono-800: 220 10% 24%;
+    --mono-900: 220 11% 17%;
+    --mono-950: 220 13% 10%;
 
     /* Page rhythm: 4px base, 24px gutter, 1440px content cap. */
     --space-page-x: 24px;
@@ -38,101 +306,102 @@
     --space-group: 16px;
     --space-element: 8px;
 
-    /* Surfaces */
-    --background: 200 17.6% 96.7%;
-    --foreground: 204.4 37% 14.3%;
-    --card: 0 0% 100%;
-    --card-foreground: 204.4 37% 14.3%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 204.4 37% 14.3%;
+    /* Light theme — the switchable alternative. */
+    --background: 0 0% 100%;
+    --surface: 220 20% 98.5%;
+    --raised: 0 0% 100%;
+    --border: 220 15% 89%;
+    --border-strong: 220 13% 78%;
+    --foreground: 222 24% 11%;
+    --muted-foreground: 220 9% 40%;
+    --subtle-foreground: 220 8% 48%;
 
-    /* Accent role: engineering blue owns links, selected states, current nav. */
-    --primary: 202.7 59% 31.6%;
+    /* Primary is the foreground-inverse pair, never an accent hue. */
+    --primary: 222 24% 11%;
     --primary-foreground: 0 0% 100%;
-    --primary-50: 202.7 27.2% 95.9%;
-    --primary-100: 202.7 27.2% 90.4%;
-    --primary-200: 202.7 27.2% 80.8%;
-    --primary-300: 202.7 27.2% 68.5%;
-    --primary-400: 202.7 27.2% 52.1%;
-    --primary-500: 202.7 59% 31.6%;
-    --primary-600: 199.6 91.4% 23%;
-    --primary-700: 201.4 100% 18.5%;
-    --primary-800: 204.9 100% 15.1%;
-    --primary-900: 210 100% 11.8%;
+    --primary-pressed: 222 24% 5%;
 
-    /* Primary-button role: ink, not the accent blue. */
-    --ink: 203.5 50.5% 19.8%;
-    --ink-foreground: 0 0% 100%;
-
-    /* Selected/hover role: tinted surface, no second hue. */
-    --selected: 203.3 47.4% 92.5%;
-    --accent: 203.3 47.4% 92.5%;
-    --accent-foreground: 204.4 37% 14.3%;
-    --secondary: 200 21.4% 94.5%;
-    --secondary-foreground: 204.4 37% 14.3%;
-    --muted: 200 21.4% 94.5%;
-    --muted-foreground: 206.5 17.2% 38.8%;
-
-    /* Focus role: focus blue, independent of the accent override. */
-    --focus: 199.7 64.6% 38.8%;
-    --ring: 199.7 64.6% 38.8%;
-
-    /* Status colors are the only permitted non-blue hues. */
-    --destructive: 358.3 49.3% 42.5%;
-    --destructive-foreground: 0 0% 100%;
-    --success: 152 42.9% 27.5%;
+    /* The only permitted hues: state semantics. */
+    --success: 152 58% 32%;
     --success-foreground: 0 0% 100%;
-    --warning: 34.4 70.5% 30.6%;
-    --warning-foreground: 0 0% 100%;
-    --info: 202.7 59% 31.6%;
+    --warning: 32 95% 44%;
+    --warning-foreground: 222 24% 11%;
+    --danger: 0 68% 45%;
+    --danger-foreground: 0 0% 100%;
+    --destructive: 0 68% 45%;
+    --destructive-foreground: 0 0% 100%;
+    /* Informational tone is deliberately neutral. */
+    --info: 222 24% 11%;
     --info-foreground: 0 0% 100%;
 
-    /* Legacy palette aliases: collapse into blue/status so no second hue leaks. */
-    --teal: 202.7 59% 31.6%;
-    --teal-foreground: 0 0% 100%;
-    --orange: 34.4 70.5% 30.6%;
-    --orange-foreground: 0 0% 100%;
-    --rose: 358.3 49.3% 42.5%;
-    --rose-foreground: 0 0% 100%;
-    --indigo: 203.5 50.5% 19.8%;
-    --indigo-foreground: 0 0% 100%;
+    /* The contrast gate reads literals, so checked pairs stay explicit. */
+    --card: 220 20% 98.5%;
+    --card-foreground: 222 24% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 24% 11%;
+    --secondary: var(--surface);
+    --secondary-foreground: var(--foreground);
+    --muted: var(--raised);
+    --accent: var(--raised);
+    --accent-foreground: var(--foreground);
+    --selected: var(--raised);
+    --ring: var(--foreground);
+    --focus: var(--foreground);
+    --ink: var(--primary);
+    --ink-foreground: var(--primary-foreground);
+    --line: var(--border);
+    --input: var(--border);
+    --control: var(--border-strong);
 
-    /* Chart palette: blue ramp + status semantics, no decorative hues. */
-    --chart-1: 202.7 59% 31.6%;
-    --chart-2: 152 42.9% 27.5%;
-    --chart-3: 199.7 64.6% 38.8%;
-    --chart-4: 34.4 70.5% 30.6%;
-    --chart-5: 203.5 50.5% 19.8%;
-    --chart-6: 358.3 49.3% 42.5%;
-    --chart-7: 202.7 27.2% 52.1%;
-    --chart-8: 204 19% 84.5%;
+    /* Legacy colour names keep resolving, but neutralise to monochrome.
+       They must never become status hues: use success/warning/danger
+       explicitly where a status meaning is intended. */
+    --teal: var(--foreground);
+    --teal-foreground: var(--background);
+    --orange: var(--muted-foreground);
+    --orange-foreground: var(--background);
+    --rose: var(--subtle-foreground);
+    --rose-foreground: var(--background);
+    --indigo: var(--foreground);
+    --indigo-foreground: var(--background);
 
-    /* Structure */
-    --border: 204 19% 84.5%;
-    --line: 204 19% 84.5%;
-    --control: 205 16.4% 71.4%;
-    --input: 205 16.4% 71.4%;
+    /* Charts use a grey ramp; colour is reserved for status semantics. */
+    --chart-1: 222 24% 11%;
+    --chart-2: 220 10% 26%;
+    --chart-3: 220 9% 38%;
+    --chart-4: 220 8% 50%;
+    --chart-5: 220 8% 62%;
+    --chart-6: 220 10% 72%;
+    --chart-7: 220 13% 82%;
+    --chart-8: 220 15% 90%;
 
-    /* Geometry: one radius. */
-    --radius: 2px;
-    --radius-xl: 2px;
-    --radius-2xl: 2px;
-    --radius-3xl: 2px;
+    --code-background: var(--raised);
+    --sidebar-background: 220 20% 98.5%;
+    --sidebar-foreground: 222 24% 11%;
+    --sidebar-border: var(--border);
 
-    --code-background: 200 21.4% 94.5%;
-    --sidebar-background: 200 21.4% 94.5%;
-    --sidebar-foreground: 204.4 37% 14.3%;
-    --sidebar-border: 204 19% 84.5%;
+    /* Geometry: controls 4px, panels 6px, tables 0. */
+    --radius-control: 4px;
+    --radius-panel: 6px;
+    --radius: var(--radius-control);
+    --radius-sm: var(--radius-control);
+    --radius-md: var(--radius-control);
+    --radius-lg: var(--radius-panel);
+    --radius-xl: var(--radius-panel);
+    --radius-2xl: var(--radius-panel);
+    --radius-3xl: var(--radius-panel);
 
     /* Restrained elevation: structure comes from hairlines. */
-    --shadow-subtle: 0 1px 2px rgb(14 31 44 / 0.04);
-    --shadow-soft: 0 2px 6px rgb(14 31 44 / 0.06);
-    --shadow-strong: 0 8px 24px rgb(14 31 44 / 0.12);
+    --shadow-subtle: 0 1px 2px rgb(0 0 0 / 0.04);
+    --shadow-soft: 0 2px 6px rgb(0 0 0 / 0.06);
+    --shadow-strong: 0 8px 24px rgb(0 0 0 / 0.12);
 
     --surface-0: var(--background);
-    --surface-1: var(--card);
-    --surface-2: 200 21.4% 94.5%;
-    --surface-3: var(--popover);
+    --surface-1: var(--surface);
+    --surface-2: var(--surface);
+    --surface-3: var(--raised);
+    --surface-4: var(--raised);
+    --surface-5: var(--raised);
 
     --app-background-base: hsl(var(--background));
     --app-orb-primary-opacity: 0;
@@ -141,8 +410,8 @@
 
   /* ------------------------------------------------------------------
      Legacy named surface themes are archived. The selectors remain so
-     stored cookies keep resolving, but every preset maps to the single
-     engineering palette above.
+     stored cookies keep resolving, but every preset maps onto the single
+     monochrome palette above.
      ------------------------------------------------------------------ */
   html:not(.dark)[data-surface-theme="neutral"] { /* archived */ }
   html:not(.dark)[data-surface-theme="deepsea"] { /* archived */ }
@@ -155,107 +424,65 @@
   html.dark[data-surface-theme="classic"] { /* archived */ }
   html.dark[data-surface-theme="earth"] { /* archived */ }
 
+  /* Dark theme — the application default. */
   html.dark {
-    --engineering-paper: 204.7 23.3% 14.3%;
-    --engineering-canvas: 203.1 24.5% 10.4%;
-    --engineering-rail: 204 23.8% 12.4%;
-    --engineering-text: 200 20% 94.1%;
-    --engineering-muted: 203.1 18.8% 72.9%;
-    --engineering-line: 205 17.6% 26.7%;
-    --engineering-control: 201.3 13.8% 44.1%;
-    --engineering-ink: 198.8 55.2% 77.3%;
-    --engineering-on-ink: 200 63.9% 12%;
-    --engineering-selected: 202.7 32.7% 22.2%;
-    --engineering-blue: 200 60% 73.5%;
-    --engineering-success: 151.3 40.6% 65.7%;
-    --engineering-warning: 36.5 74.3% 71%;
-    --engineering-error: 359.3 78.8% 79.6%;
-    --engineering-focus: 197.1 63.7% 66.5%;
+    --background: 220 13% 6.5%;
+    --surface: 220 12% 9%;
+    --raised: 220 11% 12.5%;
+    --border: 220 10% 17%;
+    --border-strong: 220 9% 26%;
+    --foreground: 220 16% 96%;
+    --muted-foreground: 220 9% 64%;
+    --subtle-foreground: 220 8% 52%;
 
-    --background: 203.1 24.5% 10.4%;
-    --foreground: 200 20% 94.1%;
-    --card: 204.7 23.3% 14.3%;
-    --card-foreground: 200 20% 94.1%;
-    --popover: 204.7 23.3% 14.3%;
-    --popover-foreground: 200 20% 94.1%;
+    --primary: 220 16% 96%;
+    --primary-foreground: 220 13% 7%;
+    --primary-pressed: 220 16% 86%;
 
-    --primary: 200 60% 73.5%;
-    --primary-foreground: 200 63.9% 12%;
-    --primary-50: 200 21.6% 33.1%;
-    --primary-100: 200 21.6% 40.4%;
-    --primary-200: 200 21.6% 48.5%;
-    --primary-300: 200 29% 57.4%;
-    --primary-400: 200 42.3% 66.2%;
-    --primary-500: 200 60% 73.5%;
-    --primary-600: 200.1 67.8% 76.5%;
-    --primary-700: 200.2 82% 80.5%;
-    --primary-800: 198.2 100% 84.7%;
-    --primary-900: 189.9 100% 87.2%;
+    --success: 152 58% 38%;
+    --success-foreground: 220 13% 7%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 13% 7%;
+    --danger: 0 72% 51%;
+    --danger-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --info: 220 16% 96%;
+    --info-foreground: 220 13% 6.5%;
 
-    --ink: 198.8 55.2% 77.3%;
-    --ink-foreground: 200 63.9% 12%;
+    --card: 220 12% 9%;
+    --card-foreground: 220 16% 96%;
+    --popover: 220 11% 12.5%;
+    --popover-foreground: 220 16% 96%;
+    --secondary: var(--surface);
+    --secondary-foreground: var(--foreground);
+    --muted: var(--raised);
+    --accent: var(--raised);
+    --accent-foreground: var(--foreground);
+    --selected: var(--raised);
+    --ring: var(--foreground);
+    --focus: var(--foreground);
+    --ink: var(--primary);
+    --ink-foreground: var(--primary-foreground);
+    --line: var(--border);
+    --input: var(--border);
+    --control: var(--border-strong);
+    --sidebar-background: 220 12% 9%;
+    --sidebar-foreground: 220 16% 96%;
+    --sidebar-border: var(--border);
 
-    --selected: 202.7 32.7% 22.2%;
-    --accent: 202.7 32.7% 22.2%;
-    --accent-foreground: 200 20% 94.1%;
-    --secondary: 204 23.8% 12.4%;
-    --secondary-foreground: 200 20% 94.1%;
-    --muted: 204 23.8% 12.4%;
-    --muted-foreground: 203.1 18.8% 72.9%;
-
-    --focus: 197.1 63.7% 66.5%;
-    --ring: 197.1 63.7% 66.5%;
-
-    --destructive: 359.3 78.8% 79.6%;
-    --destructive-foreground: 200 63.9% 12%;
-    --success: 151.3 40.6% 65.7%;
-    --success-foreground: 200 63.9% 12%;
-    --warning: 36.5 74.3% 71%;
-    --warning-foreground: 200 63.9% 12%;
-    --info: 200 60% 73.5%;
-    --info-foreground: 200 63.9% 12%;
-
-    --teal: 200 60% 73.5%;
-    --teal-foreground: 200 63.9% 12%;
-    --orange: 36.5 74.3% 71%;
-    --orange-foreground: 200 63.9% 12%;
-    --rose: 359.3 78.8% 79.6%;
-    --rose-foreground: 200 63.9% 12%;
-    --indigo: 198.8 55.2% 77.3%;
-    --indigo-foreground: 200 63.9% 12%;
-
-    --chart-1: 200 60% 73.5%;
-    --chart-2: 151.3 40.6% 65.7%;
-    --chart-3: 197.1 63.7% 66.5%;
-    --chart-4: 36.5 74.3% 71%;
-    --chart-5: 198.8 55.2% 77.3%;
-    --chart-6: 359.3 78.8% 79.6%;
-    --chart-7: 200 21.6% 48.5%;
-    --chart-8: 205 17.6% 26.7%;
-
-    --border: 205 17.6% 26.7%;
-    --line: 205 17.6% 26.7%;
-    --control: 201.3 13.8% 44.1%;
-    --input: 201.3 13.8% 44.1%;
-
-    --radius: 2px;
-    --radius-xl: 2px;
-    --radius-2xl: 2px;
-    --radius-3xl: 2px;
-
-    --code-background: 204 23.8% 12.4%;
-    --sidebar-background: 204 23.8% 12.4%;
-    --sidebar-foreground: 200 20% 94.1%;
-    --sidebar-border: 205 17.6% 26.7%;
+    --chart-1: 220 8% 92%;
+    --chart-2: 220 8% 80%;
+    --chart-3: 220 7% 68%;
+    --chart-4: 220 7% 58%;
+    --chart-5: 220 7% 48%;
+    --chart-6: 220 8% 38%;
+    --chart-7: 220 9% 30%;
+    --chart-8: 220 10% 22%;
 
     --shadow-subtle: 0 1px 2px rgb(0 0 0 / 0.24);
     --shadow-soft: 0 2px 8px rgb(0 0 0 / 0.32);
     --shadow-strong: 0 10px 28px rgb(0 0 0 / 0.48);
-
-    --surface-0: var(--background);
-    --surface-1: var(--card);
-    --surface-2: 204 23.8% 12.4%;
-    --surface-3: var(--popover);
 
     --app-background-base: hsl(var(--background));
     --app-orb-primary-opacity: 0;
@@ -275,8 +502,9 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-foreground/15 selection:text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    font-synthesis-weight: none;
     line-height: 1.55;
     background-image: none;
     background-attachment: fixed;
@@ -290,6 +518,8 @@
     transition: filter 180ms ease, opacity 180ms ease;
   }
 
+  /* Archived neutral preset: keep the legacy desaturation contract without
+     introducing colour. The active skin never sets data-surface-theme=neutral. */
   html:not(.dark)[data-surface-theme="neutral"] [data-theme-illustration="page-title"] {
     filter: grayscale(1) saturate(0) contrast(0.92);
     opacity: 0.82;
@@ -337,7 +567,7 @@
 
 @layer components {
   /* ------------------------------------------------------------------
-     Engineering shell
+     Monochrome shell
      rail 224 / topbar 48 / page header / secondary tabs / gutter 24 /
      content max 1440.
      ------------------------------------------------------------------ */
@@ -383,7 +613,7 @@
     align-items: center;
     gap: 10px;
     border-top: 1px solid hsl(var(--border));
-    background-color: hsl(var(--card));
+    background-color: hsl(var(--surface));
     padding-inline: var(--space-page-x);
   }
 
@@ -404,7 +634,7 @@
 
   .eng-tabs__item:hover {
     color: hsl(var(--foreground));
-    background-color: hsl(var(--muted));
+    background-color: hsl(var(--raised));
   }
 
   .eng-tabs__item[data-state="active"],
@@ -421,7 +651,7 @@
     bottom: -1px;
     left: 8px;
     height: 2px;
-    background-color: hsl(var(--primary));
+    background-color: hsl(var(--foreground));
   }
 
   /* ------------------------------------------------------------------
@@ -456,7 +686,7 @@
     font-size: 0.6875rem;
     line-height: 1rem;
     letter-spacing: 0.04em;
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--subtle-foreground));
   }
 
   .stat-strip__value {
@@ -478,7 +708,7 @@
     line-height: 1rem;
     font-weight: 400;
     letter-spacing: 0;
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--subtle-foreground));
   }
 
   .stat-strip__detail {
@@ -487,13 +717,13 @@
     margin-top: 2px;
   }
 
-  /* Narrow viewports scroll the strip horizontally; it never wraps to two rows. */
-
   /* ------------------------------------------------------------------
-     DataTable — 40px rows, hairline rules, hover-revealed actions.
-     ------------------------------------------------------------------ */  .data-table {
+     DataTable — 40px rows, hairline rules, no radius, no zebra.
+     ------------------------------------------------------------------ */
+  .data-table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 0;
     font-size: 0.8125rem;
     line-height: 1.25rem;
     color: hsl(var(--muted-foreground));
@@ -509,7 +739,7 @@
     line-height: 1rem;
     font-weight: 500;
     letter-spacing: 0.04em;
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--subtle-foreground));
   }
 
   .data-table tbody td {
@@ -519,19 +749,24 @@
   }
 
   .data-table tbody tr {
-    transition: background-color 120ms ease;
+    transition: background-color 120ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .data-table tbody tr:hover td {
-    background-color: hsl(var(--muted));
+    background-color: hsl(var(--surface));
+  }
+
+  .data-table tbody tr:focus-visible {
+    outline: 2px solid hsl(var(--foreground));
+    outline-offset: -2px;
   }
 
   .data-table tbody tr[data-selected="true"] td {
-    background-color: hsl(var(--selected));
+    background-color: hsl(var(--raised));
   }
 
   .data-table tbody tr[data-selected="true"] td:first-child {
-    box-shadow: inset 2px 0 0 hsl(var(--primary));
+    box-shadow: inset 2px 0 0 hsl(var(--foreground));
   }
 
   .data-table .data-table__name {
@@ -601,15 +836,15 @@
     display: inline-block;
     width: 14px;
     height: 14px;
-    border: 1px solid hsl(var(--control));
+    border: 1px solid hsl(var(--border-strong));
     border-radius: 50%;
-    background-color: hsl(var(--card));
+    background-color: hsl(var(--surface));
   }
 
   .step-flow__preset[data-active="true"] .step-flow__preset-dot {
-    border-color: hsl(var(--primary));
-    box-shadow: inset 0 0 0 3px hsl(var(--card));
-    background-color: hsl(var(--primary));
+    border-color: hsl(var(--foreground));
+    box-shadow: inset 0 0 0 3px hsl(var(--surface));
+    background-color: hsl(var(--foreground));
   }
 
   .step-flow__track {
@@ -651,7 +886,7 @@
   .step-flow__state {
     font-size: 0.6875rem;
     line-height: 1rem;
-    color: hsl(var(--muted-foreground));
+    color: hsl(var(--subtle-foreground));
   }
 
   .step-flow__line {
@@ -684,21 +919,22 @@
     letter-spacing: 0.04em;
   }
 
+  /* Focus ring: foreground only, 2px ring with 2px offset. */
   .focus-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
 
   .focus-ring-soft {
-    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/50;
+    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
   }
 
   .glass {
-    /* Glass is retired: opaque card surface, no blur. */
-    @apply bg-card border border-border;
+    /* Glass is retired: opaque surface, no blur. */
+    @apply bg-surface border border-border;
   }
 
   .glass-card {
-    @apply bg-card border border-border transition-colors duration-120 hover:border-primary/40;
+    @apply bg-surface border border-border transition-colors duration-120 hover:border-border-strong;
   }
 
   @keyframes select-content-in {
@@ -762,10 +998,10 @@
     animation: popover-content-out 150ms cubic-bezier(0.4, 0, 1, 1) forwards;
   }
 
-  /* Row highlight for data updates */
+  /* Row highlight for data updates — neutral, no accent hue. */
   @keyframes row-highlight {
     0% {
-      background-color: hsl(var(--primary) / 0.08);
+      background-color: hsl(var(--foreground) / 0.08);
     }
     100% {
       background-color: transparent;
@@ -821,14 +1057,7 @@
     scrollbar-color: hsl(var(--muted-foreground) / 0.45) transparent;
   }
 
-  /* One geometry: legacy arbitrary radii collapse to 2px. */
-  :where(.rounded, [class*="rounded-"]):not(.rounded-full):not(.rounded-none) {
-    border-radius: var(--radius) !important;
-  }
-
-  /* Interactive controls keep the 2px geometry even when a legacy route
-     requested a pill. Native radios, dots, avatars, separators and chart
-     glyphs are intentionally excluded. */
+  /* Geometry: controls 4px. Legacy route-level radii cannot override it. */
   :where(
     button,
     [role="button"],
@@ -845,12 +1074,22 @@
     textarea,
     input:not([type="radio"]):not([type="range"]):not([type="color"])
   ) {
-    border-radius: var(--radius) !important;
+    border-radius: var(--radius-control) !important;
+  }
+
+  /* Tables are square: only the three documented radii exist. */
+  :where(table, .data-table) {
+    border-radius: 0 !important;
   }
 
   /* Text badges follow the control geometry; status dots/avatars do not. */
   :where([class*="badge"], [data-slot="badge"]) {
-    border-radius: var(--radius) !important;
+    border-radius: var(--radius-control) !important;
+  }
+
+  /* Skeletons are static; never animate them. */
+  :where([data-slot="skeleton"], .skeleton) {
+    animation: none !important;
   }
 }
 
@@ -865,17 +1104,66 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/20 rounded-full hover:bg-primary/50 transition-colors;
+  @apply bg-muted-foreground/20 rounded-full hover:bg-foreground/40 transition-colors;
 }
 
 html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 hover:bg-primary/60;
+  @apply bg-muted-foreground/30 hover:bg-foreground/50;
+}
+
+/* Prose: pin the typography plugin's palette to the monochrome tokens.
+   The plugin ships cold-grey oklch literals; these overrides keep every
+   reading surface on the same black/white ladder in both themes. */
+.prose {
+  --tw-prose-body: hsl(var(--muted-foreground));
+  --tw-prose-headings: hsl(var(--foreground));
+  --tw-prose-lead: hsl(var(--muted-foreground));
+  --tw-prose-links: hsl(var(--foreground));
+  --tw-prose-bold: hsl(var(--foreground));
+  --tw-prose-counters: hsl(var(--subtle-foreground));
+  --tw-prose-bullets: hsl(var(--border-strong));
+  --tw-prose-hr: hsl(var(--border));
+  --tw-prose-quotes: hsl(var(--foreground));
+  --tw-prose-quote-borders: hsl(var(--border-strong));
+  --tw-prose-captions: hsl(var(--subtle-foreground));
+  --tw-prose-code: hsl(var(--foreground));
+  --tw-prose-pre-code: hsl(var(--foreground));
+  --tw-prose-pre-bg: hsl(var(--raised));
+  --tw-prose-th-borders: hsl(var(--border-strong));
+  --tw-prose-td-borders: hsl(var(--border));
+  --tw-prose-kbd: hsl(var(--foreground));
+  --tw-prose-invert-body: hsl(var(--muted-foreground));
+  --tw-prose-invert-headings: hsl(var(--foreground));
+  --tw-prose-invert-lead: hsl(var(--muted-foreground));
+  --tw-prose-invert-links: hsl(var(--foreground));
+  --tw-prose-invert-bold: hsl(var(--foreground));
+  --tw-prose-invert-counters: hsl(var(--subtle-foreground));
+  --tw-prose-invert-bullets: hsl(var(--border-strong));
+  --tw-prose-invert-hr: hsl(var(--border));
+  --tw-prose-invert-quotes: hsl(var(--foreground));
+  --tw-prose-invert-quote-borders: hsl(var(--border-strong));
+  --tw-prose-invert-captions: hsl(var(--subtle-foreground));
+  --tw-prose-invert-code: hsl(var(--foreground));
+  --tw-prose-invert-pre-code: hsl(var(--foreground));
+  --tw-prose-invert-pre-bg: hsl(var(--raised));
+  --tw-prose-invert-th-borders: hsl(var(--border-strong));
+  --tw-prose-invert-td-borders: hsl(var(--border));
+  --tw-prose-invert-kbd: hsl(var(--foreground));
+}
+
+.prose :where(a) {
+  color: hsl(var(--foreground));
+  text-decoration: none;
+}
+
+.prose :where(a):hover {
+  text-decoration: underline;
 }
 
 /* Prose code block styling with theme-aware background */
 .prose code {
   background-color: hsl(var(--code-background));
-  border-radius: var(--radius);
+  border-radius: var(--radius-control);
   padding: 0.125rem 0.375rem;
   font-size: 0.875em;
 }
@@ -910,6 +1198,6 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
   .interactive-transition {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow;
     transition-duration: 120ms;
-    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
