@@ -43,11 +43,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import {
-  StepFlow,
-  type StepFlowState,
-  type StepFlowStep,
-} from "@/components/ui/step-flow";
+import { StepFlow, type StepFlowStep } from "@/components/ui/step-flow";
 import { Textarea } from "@/components/ui/textarea";
 import { connectorApi, datasetApi, documentApi, settingsApi } from "@/lib/api";
 import { formatApiError } from "@/lib/api-errors";
@@ -1134,15 +1130,16 @@ export default function KnowledgeIngestionOperationPage() {
         ? 2
         : OPERATION_STAGES.length;
   const ActiveSourceIcon = activeSource.icon;
+  const uploadOnlySourceBlocked =
+    source === "url" || source === "object" || source === "api";
   const sourceExecutionBlocked =
-    draft.executionMode === "upload_only" &&
-    (source === "url" || source === "object" || source === "api");
+    draft.executionMode === "upload_only" && uploadOnlySourceBlocked;
   const operationReady = canStartIngest && !sourceExecutionBlocked;
   const actionLabel =
     draft.executionMode === "upload_only"
       ? "登记文件"
       : draft.executionMode === "full_index"
-        ? "完整入库"
+        ? "解析并建索引"
         : "登记并解析";
   const emptySourceMessage =
     source === "local" || source === "folder"
@@ -1160,7 +1157,7 @@ export default function KnowledgeIngestionOperationPage() {
         ? "当前来源不支持“仅登记”"
         : pendingSourceCount === 0
           ? emptySourceMessage
-          : "0 阻断 · 可以提交";
+          : "可以提交";
   const preflightDisplay =
     status === "uploading" ? "正在提交，请稍候…" : preflightMessage;
   const selectedExecutionOption =
@@ -1169,26 +1166,15 @@ export default function KnowledgeIngestionOperationPage() {
     ) ?? EXECUTION_MODE_OPTIONS[0];
   const submissionSummary = uploadResponse
     ? `上次提交：成功 ${uploadResponse.successful_count} · 失败 ${uploadResponse.failed_count}`
-    : pendingSourceCount > 0
-      ? `将 ${pendingSourceCount} 项写入 ${selectedDataset?.name ?? "目标数据集"}，按“${selectedExecutionOption.title}”处理`
-      : "";
-  const sourceSummary =
-    source === "url"
-      ? `${parsedUrls.length} 个有效 URL 待提交`
-      : source === "object"
-        ? `最多扫描 ${objectMaxObjects} 个对象`
-        : source === "api"
-          ? apiContent.trim()
-            ? "1 段 API 内容待写入"
-            : "等待填写 API 内容"
-          : `${files.length} 个文件待提交`;
+    : "";
   const stepFlowSteps: StepFlowStep[] = OPERATION_STAGES.map((stage, index) => {
     const enabled = index < activeStageCount;
     return {
       id: stage.id,
       label: <span title={stage.description}>{stage.label}</span>,
       status: stageStatus(stage.id, enabled),
-      state: (enabled ? "active" : "skipped") as StepFlowState,
+      state: enabled ? "active" : "skipped",
+      disabled: stage.id === "register" && uploadOnlySourceBlocked,
     };
   });
 
@@ -1253,9 +1239,7 @@ export default function KnowledgeIngestionOperationPage() {
                 新建
               </Button>
             </div>
-            <p className="mt-1 section-description">
-              写入哪个知识库；下面的计数是当前数据集的真实聚合。
-            </p>
+            <p className="mt-1 section-description">本次入库写入的知识库。</p>
             <Select
               value={draft.datasetId}
               onValueChange={(value) => updateDraft("datasetId", value)}
@@ -1316,11 +1300,13 @@ export default function KnowledgeIngestionOperationPage() {
               </span>
             </div>
             <p className="mt-1 section-description">
-              五种真实来源共用同一个提交入口；切换来源会保留各自已填参数。
+              切换来源时，各来源参数会分别保留。
             </p>
             <Select
               value={source}
-              onValueChange={(value) => setSource(value as UploadSource)}
+              onValueChange={(value) =>
+                setSource(value as UploadSource)
+              }
             >
               <SelectTrigger id="ingestion-source" className="mt-3">
                 <span className="flex min-w-0 items-center gap-2">
@@ -1404,14 +1390,7 @@ export default function KnowledgeIngestionOperationPage() {
                 onClear={clearFiles}
                 onRemove={removeFile}
               />
-            ) : (
-              <div
-                data-ingestion-source-summary="true"
-                className="mt-4 border-t border-border/70 pt-3 text-caption text-muted-foreground"
-              >
-                {sourceSummary}
-              </div>
-            )}
+            ) : null}
 
             <input
               ref={inputRef}
@@ -1442,7 +1421,7 @@ export default function KnowledgeIngestionOperationPage() {
               </span>
             </div>
             <p className="mt-1 section-description">
-              预设与节点共用同一个终点；治理和建索引都映射完整入库，治理没有独立执行接口。
+              选择执行终点；预设与节点保持同步。
             </p>
 
             <fieldset className="mt-4">
@@ -1451,7 +1430,7 @@ export default function KnowledgeIngestionOperationPage() {
                 {EXECUTION_MODE_OPTIONS.map((option) => {
                   const selected = draft.executionMode === option.value;
                   const blocked =
-                    option.value === "upload_only" && sourceExecutionBlocked;
+                    option.value === "upload_only" && uploadOnlySourceBlocked;
                   return (
                     <label
                       key={option.value}
@@ -1492,7 +1471,7 @@ export default function KnowledgeIngestionOperationPage() {
               className="mt-4 [&_.step-flow__step]:min-h-11 [&_.step-flow__step:focus-visible]:outline-none [&_.step-flow__step:focus-visible]:ring-2 [&_.step-flow__step:focus-visible]:ring-ring/40"
             />
             <p className="mt-2 text-micro text-muted-foreground">
-              点击“治理”或“建索引”都会选择完整入库；不会新建治理单独终点，也不会改变提交参数。
+              治理随完整入库执行。
             </p>
 
             <AdvancedIngestSettings
@@ -1661,7 +1640,7 @@ function SourceConfiguration({
           htmlFor="ingestion-url-list"
           hint={
             urlIngestEnabled
-              ? `已识别 ${parsedUrls.length} 个有效 http(s) 地址，提交后走后端 URL 批量导入任务。`
+              ? `已识别 ${parsedUrls.length} 个有效 http(s) 地址。`
               : "URL 导入未启用：请先在系统设置开启 URL_INGEST_ENABLED。"
           }
         >
@@ -1746,7 +1725,7 @@ function SourceConfiguration({
       <Field
         label="生成文件名"
         htmlFor="ingestion-api-filename"
-        hint="提交时直接调用后端手动入库接口，按单段内容写入当前数据集。"
+        hint="按单段内容写入当前数据集。"
       >
         <Input
           id="ingestion-api-filename"
@@ -1923,7 +1902,7 @@ function IngestionFileQueue({
             </table>
           </div>
           <div className="border-t border-border/70 py-2 text-micro text-muted-foreground">
-            共 {rows.length} 个文件，合计 {formatFileSize(totalBytes)}
+            合计 {formatFileSize(totalBytes)}
           </div>
         </>
       ) : (
@@ -2073,7 +2052,7 @@ function AdvancedIngestSettings({
         <Field
           label="解析器"
           htmlFor="ingestion-parser"
-          hint="提交时写入 parser_backend。"
+          hint="本次入库使用的解析器。"
         >
           <Select
             value={draft.parserBackend}
@@ -2104,7 +2083,7 @@ function AdvancedIngestSettings({
         <Field
           label="切块方式"
           htmlFor="ingestion-chunk-strategy"
-          hint="提交时按现有规则归一化为后端 chunk_strategy。"
+          hint="本次入库使用的切块方式。"
         >
           <Select
             value={draft.chunkStrategy}
@@ -2138,7 +2117,7 @@ function AdvancedIngestSettings({
         <Field
           label="切块大小"
           htmlFor="ingestion-chunk-size"
-          hint="提交时写入 pipeline.chunk_size。"
+          hint="单个切块的目标长度。"
         >
           <Input
             id="ingestion-chunk-size"
@@ -2158,7 +2137,7 @@ function AdvancedIngestSettings({
         <Field
           label="重叠字符"
           htmlFor="ingestion-chunk-overlap"
-          hint="提交时写入 pipeline.chunk_overlap，可为 0。"
+          hint="相邻切块的重叠字符数，可为 0。"
         >
           <Input
             id="ingestion-chunk-overlap"

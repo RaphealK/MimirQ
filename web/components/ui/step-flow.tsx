@@ -9,6 +9,7 @@ export type StepFlowStep = {
   label: React.ReactNode;
   status?: React.ReactNode;
   state?: StepFlowState;
+  disabled?: boolean;
 };
 
 export type StepFlowPreset = {
@@ -69,9 +70,10 @@ export function StepFlow({
               <React.Fragment key={step.id}>
                 <button
                   type="button"
-                  className="step-flow__step"
+                  className="step-flow__step disabled:cursor-not-allowed disabled:opacity-50"
                   data-active={isActive ? "true" : "false"}
-                  aria-pressed={state === "active"}
+                  disabled={step.disabled || !onStepClick}
+                  aria-pressed={isActive}
                   onClick={() => onStepClick?.(step.id)}
                 >
                   <span className="step-flow__dot" aria-hidden="true" />

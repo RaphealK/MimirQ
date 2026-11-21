@@ -11,31 +11,43 @@ function readOperationSource() {
   return readSource("operation-page-client.tsx");
 }
 
+/**
+ * Structural assertions must not depend on the formatter's line wrapping or
+ * quote style. Collapse whitespace and normalize quotes before matching JSX
+ * and expressions; user-facing copy is still asserted against the raw source.
+ */
+function structuralSource(source: string) {
+  return source.replace(/\s+/g, " ").replace(/'/g, '"');
+}
+
 describe("ingestion operation engineering layout", () => {
   it("uses the shared page shell inside a 720px single column", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
-    expect(src).toContain('data-ingestion-operation-root="true"');
-    expect(src).toContain('data-ingestion-operation-workspace="true"');
-    expect(src).toContain("<PageHeader");
-    expect(src).toContain("<PageBody");
-    expect(src).toContain("max-w-[720px]");
-    expect(src).toContain('<IngestionViewSwitch compact tone="info" />');
+    expect(compact).toContain('data-ingestion-operation-root="true"');
+    expect(compact).toContain('data-ingestion-operation-workspace="true"');
+    expect(compact).toContain("<PageHeader");
+    expect(compact).toContain("<PageBody");
+    expect(compact).toContain("max-w-[720px]");
+    expect(compact).toContain('<IngestionViewSwitch compact tone="info" />');
 
-    expect(src).not.toContain("max-w-[1680px]");
-    expect(src).not.toContain("OPERATION_BACKGROUND_CLASS");
-    expect(src).not.toContain("radial-gradient");
-    expect(src).not.toContain("xl:grid-cols-[300px_minmax(0,1fr)]");
+    expect(compact).not.toContain("max-w-[1680px]");
+    expect(compact).not.toContain("OPERATION_BACKGROUND_CLASS");
+    expect(compact).not.toContain("radial-gradient");
+    expect(compact).not.toContain("xl:grid-cols-[300px_minmax(0,1fr)]");
   });
 
   it("keeps one secondary tab row with real sibling-route entries", () => {
     const src = readOperationSource();
     const switchSource = readSource("view-switch.tsx");
+    const compact = structuralSource(src);
+    const switchCompact = structuralSource(switchSource);
 
     expect(
       src.match(/<IngestionViewSwitch compact tone="info" \/>/g) ?? [],
     ).toHaveLength(1);
-    expect(switchSource).toContain('role="tablist"');
+    expect(switchCompact).toContain('role="tablist"');
     for (const label of [
       "新建任务",
       "文档解析",
@@ -46,20 +58,22 @@ describe("ingestion operation engineering layout", () => {
       expect(switchSource).toContain(label);
     }
     for (const route of ["/parsing", "/data-governance", "/chunk-preview"]) {
-      expect(switchSource).toContain(`route: "${route}"`);
+      expect(switchCompact).toContain(`route: "${route}"`);
     }
-    expect(switchSource).toContain('params.set("mode", "execution-monitor")');
-    expect(switchSource).toContain('params.delete("mode")');
-    expect(switchSource).toContain("datasetId");
-    expect(switchSource).toContain("dataset_id");
+    expect(switchCompact).toContain('params.set("mode", "execution-monitor")');
+    expect(switchCompact).toContain('params.delete("mode")');
+    expect(switchCompact).toContain("datasetId");
+    expect(switchCompact).toContain("dataset_id");
+    expect(compact).not.toContain("查看任务");
   });
 
   it("structures the three decisions with visible numbering", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
-    expect(src).toContain('data-ingestion-target-section="true"');
-    expect(src).toContain('data-ingestion-file-stage="true"');
-    expect(src).toContain('data-ingestion-pipeline="true"');
+    expect(compact).toContain('data-ingestion-target-section="true"');
+    expect(compact).toContain('data-ingestion-file-stage="true"');
+    expect(compact).toContain('data-ingestion-pipeline="true"');
     for (const number of ["①", "②", "③"]) {
       expect(src).toContain(number);
     }
@@ -70,14 +84,14 @@ describe("ingestion operation engineering layout", () => {
 
   it("keeps every real ingestion source and its existing parameters", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
     for (const source of ["local", "folder", "url", "object", "api"]) {
-      expect(src).toContain(`value: "${source}"`);
+      expect(compact).toContain(`value: "${source}"`);
     }
-    expect(src).toContain('SourceConfiguration source="folder"');
-    expect(src).toContain('SourceConfiguration source="url"');
-    expect(src).toContain('SourceConfiguration source="object"');
-    expect(src).toContain('SourceConfiguration source="api"');
+    for (const source of ["folder", "url", "object", "api"]) {
+      expect(compact).toContain(`SourceConfiguration source="${source}"`);
+    }
 
     for (const marker of [
       "选择本地文件夹",
@@ -92,53 +106,76 @@ describe("ingestion operation engineering layout", () => {
     ]) {
       expect(src).toContain(marker);
     }
-    expect(src).toContain(
-      'uploadFiles(draft.executionMode === "upload_only" ? "upload_only" : "ingest")',
+    expect(compact).toContain(
+      'draft.executionMode === "upload_only" ? "upload_only" : "ingest"',
     );
-    expect(src).toContain("buildPipeline(draft)");
-    expect(src).toContain("normalizeChunkStrategy(draft.chunkStrategy)");
+    expect(compact).toContain("buildPipeline(draft)");
+    expect(compact).toContain("normalizeChunkStrategy(draft.chunkStrategy)");
   });
 
   it("merges presets and clickable nodes onto the same legal endpoints", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
-    expect(src).toContain("<StepFlow");
-    expect(src).toContain("onStepClick={handleStepClick}");
-    expect(src).toContain('name="ingestion-execution-mode"');
-    for (const value of ["upload_only", "parse_only", "full_index"]) {
-      expect(src).toContain(`value="${value}"`);
-    }
+    expect(compact).toContain("<StepFlow");
+    expect(compact).toContain("onStepClick={handleStepClick}");
+    expect(compact).toContain('name="ingestion-execution-mode"');
+    expect(compact).toContain("value={option.value}");
     for (const preset of ["仅登记", "入库并解析", "完整入库"]) {
       expect(src).toContain(preset);
     }
 
-    expect(src).toContain('register: "upload_only"');
-    expect(src).toContain('parse: "parse_only"');
-    expect(src).toContain('govern: "full_index"');
-    expect(src).toContain('index: "full_index"');
-    expect(src).toContain("治理没有独立执行接口");
-    expect(src).toContain("不会新建治理单独终点");
+    expect(compact).toContain('register: "upload_only"');
+    expect(compact).toContain('parse: "parse_only"');
+    expect(compact).toContain('govern: "full_index"');
+    expect(compact).toContain('index: "full_index"');
+    expect(src).toContain("治理随完整入库执行");
 
-    expect(src).not.toContain("governance_only");
-    expect(src).not.toContain('executionMode: "govern"');
+    expect(compact).not.toContain("governance_only");
+    expect(compact).not.toContain('executionMode: "govern"');
   });
 
-  it("keeps exactly one preflight and one submit action in the footer", () => {
+  it("keeps upload-only blocked by source rather than by the current mode", () => {
+    const compact = structuralSource(readOperationSource());
+
+    expect(compact).toContain("uploadOnlySourceBlocked");
+    expect(compact).toContain(
+      'option.value === "upload_only" && uploadOnlySourceBlocked',
+    );
+    expect(compact).not.toContain(
+      'option.value === "upload_only" && sourceExecutionBlocked',
+    );
+    expect(compact).toContain(
+      'draft.executionMode === "upload_only" && uploadOnlySourceBlocked',
+    );
+  });
+
+  it("keeps exactly one preflight, one count per surface, and one submit action", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
     expect(src.match(/data-ingestion-action-bar="true"/g) ?? []).toHaveLength(
       1,
     );
     expect(src.match(/data-ingestion-preflight="true"/g) ?? []).toHaveLength(1);
-    expect(src).not.toContain("预检结果");
-    expect(src).toContain("正在提交");
-    expect(src).toContain("再次提交");
+    expect(compact).toContain("正在提交");
+    expect(compact).toContain("再次提交");
+    expect(compact).toContain("解析并建索引");
+    expect(compact).toContain("可以提交");
+
+    expect(compact).not.toContain("预检结果");
+    expect(compact).not.toContain("data-ingestion-source-summary");
+    expect(compact).not.toContain("共 {rows.length} 个文件");
+    expect(compact).not.toContain("将 ${pendingSourceCount} 项");
+    expect(compact).not.toContain("下面的计数是当前数据集的真实聚合");
+    expect(compact).not.toContain("不会改变提交参数");
   });
 
   it("binds advanced settings to the legacy draft and pipeline fields", () => {
     const src = readOperationSource();
+    const compact = structuralSource(src);
 
-    expect(src).toContain('data-ingestion-advanced-settings="true"');
+    expect(compact).toContain('data-ingestion-advanced-settings="true"');
     for (const label of [
       "高级设置",
       "入库模式",
@@ -162,7 +199,7 @@ describe("ingestion operation engineering layout", () => {
       "tags",
       "collection",
     ]) {
-      expect(src).toContain(field);
+      expect(compact).toContain(field);
     }
     for (const pipelineField of [
       "chunk_size: draft.chunkSize",
@@ -172,19 +209,19 @@ describe("ingestion operation engineering layout", () => {
       "chunk_vector_enabled",
       "bm25_index_enabled",
     ]) {
-      expect(src).toContain(pipelineField);
+      expect(compact).toContain(pipelineField);
     }
   });
 
   it("removes the old dashboard, task list, and decorative hero shell", () => {
-    const src = readOperationSource();
+    const compact = structuralSource(readOperationSource());
 
-    expect(src).not.toContain('data-ingestion-control-strip="true"');
-    expect(src).not.toContain('data-ingestion-status-rail="true"');
-    expect(src).not.toContain('data-ingestion-task-builder="true"');
-    expect(src).not.toContain('data-ingestion-task-list-card="true"');
-    expect(src).not.toContain("function TaskListCard(");
-    expect(src).not.toContain("OPERATION_HERO_PANEL_CLASS");
-    expect(src).not.toContain("rounded-[28px]");
+    expect(compact).not.toContain('data-ingestion-control-strip="true"');
+    expect(compact).not.toContain('data-ingestion-status-rail="true"');
+    expect(compact).not.toContain('data-ingestion-task-builder="true"');
+    expect(compact).not.toContain('data-ingestion-task-list-card="true"');
+    expect(compact).not.toContain("function TaskListCard(");
+    expect(compact).not.toContain("OPERATION_HERO_PANEL_CLASS");
+    expect(compact).not.toContain("rounded-[28px]");
   });
 });
