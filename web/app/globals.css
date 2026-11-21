@@ -884,9 +884,9 @@
     .step-flow__track .step-flow__line { display: none; }
     .step-flow__step { flex-direction: column; align-items: center; justify-content: flex-start; gap: 6px; text-align: center; }
     .step-flow__step .step-flow__label, .step-flow__step .step-flow__state { white-space: nowrap; }
-    .asset-register td, .asset-register th { padding-inline: 4px; }
+    .asset-register tbody td, .asset-register thead th { padding-inline: 4px; }
     .asset-register tbody td:first-child, .asset-register thead th:first-child,
-    .asset-register .data-table__actions { padding-inline: 0; }
+    .asset-register tbody .data-table__actions { padding-inline: 0; }
   }
 
   .step-flow__label {

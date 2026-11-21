@@ -78,7 +78,7 @@ export function StatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border border-border bg-surface",
+        "inline-flex items-center gap-1.5 whitespace-nowrap rounded-md border border-border bg-surface",
         dense
           ? "h-5 px-2 text-micro font-medium"
           : "h-5 px-2 text-micro font-medium",

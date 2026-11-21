@@ -1145,7 +1145,7 @@ export function KnowledgeDocumentsPanel({
                 <col className="w-11" />
                 <col />
                 {showDatasetColumn ? <col className="hidden md:table-column md:w-40" /> : null}
-                <col className="w-[4.5rem] md:w-[6.5rem]" />
+                <col className="w-20 md:w-[6.5rem]" />
                 <col className="hidden md:table-column md:w-[4.5rem]" />
                 <col className="hidden md:table-column md:w-[5.5rem]" />
                 <col className="hidden md:table-column md:w-[7rem]" />
