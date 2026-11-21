@@ -4,7 +4,6 @@
 'use client'
 
 import { useState, useEffect, useLayoutEffect, useRef, Suspense, useCallback, useDeferredValue, useMemo } from 'react'
-import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
@@ -875,15 +874,7 @@ function HistoryMainEmptyState({
         className="relative flex min-h-full items-center justify-center rounded-lg border border-foreground/15 bg-background px-6 py-10 text-center"
       >
         <div className="relative mx-auto flex max-w-md -translate-y-3 flex-col items-center">
-          <Image
-            src="/brand/mimirq-history-archive.png"
-            alt=""
-            aria-hidden="true"
-            width={96}
-            height={96}
-            loading="eager"
-            className="mb-1.5 size-24 object-contain"
-          />
+          <PageTitleIcon name="qa-history" className="size-12" />
           <p className="text-[10px] font-semibold tracking-[0.2em] text-info/72">
             {t('historyEmptyKicker')}
           </p>
@@ -931,15 +922,7 @@ function HistorySidebarEmptyState({
       aria-live="polite"
       className="mx-2 mt-5 px-4 text-center"
     >
-      <Image
-        src="/brand/mimirq-history-archive.png"
-        alt=""
-        aria-hidden="true"
-        width={64}
-        height={64}
-        loading="eager"
-        className="mx-auto mb-1 size-16 object-contain"
-      />
+      <PageTitleIcon name="qa-history" className="size-8" />
       <h3 className="text-sm font-semibold tracking-[-0.025em] text-foreground">
         {t('noConversationRecords')}
       </h3>

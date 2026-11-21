@@ -1,7 +1,8 @@
 'use client'
 
+import { PageTitleIcon } from '@/components/ui/page-title-icon'
+
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import {
@@ -773,14 +774,7 @@ export default function QuarantineQueuePage() {
                   data-quarantine-title-mark="true"
                   className="relative flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-md border-0 bg-info/10 text-info shadow-none dark:bg-info/[0.14]"
                 >
-                  <Image
-                    src="/brand/mimirq-quarantine-mark.png"
-                    alt="MimirQ 隔离审核标记"
-                    width={160}
-                    height={160}
-                    loading="eager"
-                    className="size-6 scale-110 object-contain"
-                  />
+                  <PageTitleIcon name="quarantine-queue" className="size-6" />
                 </div>
                 <div className="min-w-0 sm:flex sm:items-center sm:gap-2.5">
                   <h1 className="text-[19px] font-semibold leading-6 tracking-[-0.02em] text-foreground">
@@ -1010,26 +1004,26 @@ export default function QuarantineQueuePage() {
               title="规则命中分布 TOP5"
               items={reasonTopItems}
               colors={[
-                'hsl(var(--primary))',
-                'hsl(var(--info))',
-                'hsl(var(--success))',
-                'hsl(var(--warning))',
+                'hsl(var(--foreground))',
+                'hsl(var(--foreground) / 0.75)',
                 'hsl(var(--muted-foreground))',
+                'hsl(var(--muted-foreground) / 0.65)',
+                'hsl(var(--control))',
               ]}
             />
             <DonutSummaryCard
               title="疑似度分布"
               items={severityItems}
-              colors={['#ef4444', '#f59e0b', '#34d399']}
+              colors={['hsl(var(--destructive))', 'hsl(var(--warning))', 'hsl(var(--success))']}
             />
             <DonutSummaryCard
               title="来源分布"
               items={sourceItems}
               colors={[
-                'hsl(var(--primary))',
-                'hsl(var(--success))',
-                'hsl(var(--warning))',
-                'hsl(var(--info))',
+                'hsl(var(--foreground))',
+                'hsl(var(--muted-foreground))',
+                'hsl(var(--muted-foreground) / 0.65)',
+                'hsl(var(--control))',
               ]}
             />
 

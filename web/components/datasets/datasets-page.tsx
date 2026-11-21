@@ -1,7 +1,8 @@
 'use client'
 
+import { PageTitleIcon } from '@/components/ui/page-title-icon'
+
 import { useCallback, useEffect, useMemo, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react'
-import Image from 'next/image'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { motion } from 'framer-motion'
@@ -633,16 +634,7 @@ export default function DatasetsPage() {
                 className="flex size-8 shrink-0 items-center justify-center rounded-md border border-foreground/10 bg-background/70"
                 aria-hidden="true"
               >
-                <Image
-                  src="/brand/mimirq-dataset-mark.png"
-                  alt=""
-                  aria-hidden="true"
-                  draggable={false}
-                  width={64}
-                  height={64}
-                  loading="eager"
-                  className="size-7 scale-110 object-contain"
-                />
+                <PageTitleIcon name="dataset" className="size-5" />
               </span>
               <div className="min-w-0 sm:flex sm:items-center sm:gap-2.5">
                 <h1 className="text-[19px] font-semibold leading-6 tracking-[-0.02em] text-foreground">数据集</h1>

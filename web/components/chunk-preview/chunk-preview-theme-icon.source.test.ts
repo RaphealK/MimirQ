@@ -22,19 +22,11 @@ describe('chunk preview theme and compact icon', () => {
   it('keeps the workbench structure and routes the page title to a compact SVG', () => {
     const workbench = read('components/workbench/index.tsx')
     const pageTitleIcon = read('../ui/page-title-icon.tsx')
-    const icon = read('../../public/page-title-icons/chunk-preview.svg')
 
     expect(workbench).toContain('iconImage="chunk-preview"')
     expect(workbench).toContain('data-chunk-preview-empty-canvas="true"')
     expect(workbench).toContain('data-chunk-empty-visual-map')
-    expect(pageTitleIcon).toContain(
-      '"chunk-preview": "/page-title-icons/chunk-preview.svg"'
-    )
-    expect(pageTitleIcon).toContain(
-      'src={PAGE_TITLE_ICON_SOURCES[name] ?? `/page-title-icons/${name}.png`}'
-    )
-    expect(icon).toContain('<svg')
-    expect(icon).toContain('data-chunk-boundary="true"')
-    expect(icon).toContain('data-chunk-overlap="true"')
+    expect(pageTitleIcon).toMatch(/"chunk-preview": Layers/)
+    expect(pageTitleIcon).not.toContain('next/image')
   })
 })

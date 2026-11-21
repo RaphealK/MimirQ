@@ -250,21 +250,11 @@ function renderPage() {
 }
 
 describe('QuarantineQueuePage behavior', () => {
-  it('uses the project quarantine raster mark instead of PageTitleIcon', () => {
-    const pagePath = path.resolve(__dirname, 'page.tsx')
-    const assetPath = path.resolve(
-      __dirname,
-      '../../../public/brand/mimirq-quarantine-mark.png'
-    )
-    const src = fs.readFileSync(pagePath, 'utf8')
-
-    expect(fs.existsSync(assetPath)).toBe(true)
-    expect(src).toContain("import Image from 'next/image'")
+  it('keeps the quarantine title mark as a monochrome SVG', () => {
+    const src = fs.readFileSync(path.resolve(__dirname, 'page.tsx'), 'utf8')
     expect(src).toContain('data-quarantine-title-mark="true"')
-    expect(src).toContain('src="/brand/mimirq-quarantine-mark.png"')
-    expect(src).toContain('size-7 shrink-0 items-center justify-center')
-    expect(src).toContain('dark:bg-info/[0.14]')
-    expect(src).not.toContain('<PageTitleIcon name="quarantine-queue"')
+    expect(src).toContain('<PageTitleIcon name="quarantine-queue"')
+    expect(src).not.toContain('src="/brand/mimirq-quarantine-mark.png"')
   })
 
   beforeEach(() => {

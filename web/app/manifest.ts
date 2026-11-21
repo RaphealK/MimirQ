@@ -8,13 +8,14 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Inspectable, replaceable, regression-tested enterprise RAG infrastructure',
     start_url: '/',
     display: 'standalone',
-    background_color: '#f4fbff',
-    theme_color: '#55c7f3',
+    background_color: '#0e1013',
+    theme_color: '#0e1013',
     icons: [
+      { src: '/brand/mimirq-mark.png', sizes: '512x512', type: 'image/png' },
       {
         src: MIMIRQ_MARK_PATH,
-        sizes: '512x512',
-        type: 'image/png',
+        sizes: 'any',
+        type: 'image/svg+xml',
       },
     ],
   }

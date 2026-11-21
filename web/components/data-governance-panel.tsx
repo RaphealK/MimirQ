@@ -4,9 +4,10 @@
  */
 'use client'
 
+import { PageTitleIcon } from '@/components/ui/page-title-icon'
+
 import { useState, useCallback, useMemo, useEffect, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import Image from 'next/image'
 import {
   ShieldCheck,
   Sparkles,
@@ -1488,17 +1489,7 @@ export function DataGovernancePanel() {
                             <Sparkles className="size-7 animate-spin motion-reduce:animate-none" />
                           </span>
                         ) : (
-                          <Image
-                            src="/page-title-icons/data-governance.png"
-                            alt=""
-                            aria-hidden="true"
-                            draggable={false}
-                            width={96}
-                            height={96}
-                            priority
-                            unoptimized
-                            className="relative size-24 object-contain"
-                          />
+                          <PageTitleIcon name="data-governance" className="relative size-12" />
                         )}
                       </div>
 

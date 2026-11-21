@@ -19,10 +19,10 @@ describe('data governance theme surface', () => {
     expect(panel).not.toContain('-right-24 -top-16 h-72 w-72')
   })
 
-  it('keeps the existing governance layout and generated icon intact', () => {
+  it('keeps the governance layout and its shared SVG', () => {
     expect(panel).toContain('data-governance-empty-workbench="true"')
     expect(panel).toContain(
-      'src="/page-title-icons/data-governance.png"'
+      '<PageTitleIcon name="data-governance"'
     )
     expect(panel).toContain('xl:grid-cols-[minmax(0,1fr)_420px]')
   })

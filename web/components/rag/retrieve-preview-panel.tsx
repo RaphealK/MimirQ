@@ -1,7 +1,8 @@
 'use client'
 
+import { PageTitleIcon } from '@/components/ui/page-title-icon'
+
 import { useCallback, useMemo, useRef, useState } from 'react'
-import Image from 'next/image'
 import {
   ArrowRight,
   ChevronRight,
@@ -158,14 +159,7 @@ function SemanticRetrievalMark() {
       data-semantic-retrieval-mark="true"
       className="flex size-14 items-center justify-center rounded-xl border border-foreground/10 bg-background/70 shadow-none dark:border-foreground/10 dark:bg-background/70"
     >
-      <Image
-        src="/brand/mimirq-retrieval-mark.png"
-        alt="MimirQ 语义检索标记"
-        width={164}
-        height={150}
-        loading="eager"
-        className="size-12 scale-110 object-contain"
-      />
+      <PageTitleIcon name="kg-retrieval-evaluation" className="size-7" />
     </div>
   )
 }

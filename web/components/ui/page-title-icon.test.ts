@@ -1,17 +1,18 @@
-// Source contract check only; this is not behavior coverage.
-import fs from 'node:fs'
-import path from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { createElement } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, it } from "vitest";
+import { PAGE_TITLE_ICON_NAMES, PageTitleIcon } from "./page-title-icon";
 
-describe('PageTitleIcon theme behavior', () => {
-  it('lets neutral mode desaturate decorative page art without affecting brand assets', () => {
-    const component = fs.readFileSync(path.resolve(__dirname, 'page-title-icon.tsx'), 'utf8')
-    const globals = fs.readFileSync(path.resolve(__dirname, '../../app/globals.css'), 'utf8')
-
-    expect(component).toContain('data-theme-illustration="page-title"')
-    expect(globals).toContain(
-      'html:not(.dark)[data-surface-theme="neutral"] [data-theme-illustration="page-title"]'
-    )
-    expect(globals).toContain('filter: grayscale(1)')
-  })
-})
+describe("PageTitleIcon", () => {
+  it.each(PAGE_TITLE_ICON_NAMES)(
+    "renders %s as a scalable monochrome decorative SVG",
+    (name) => {
+      const svg = renderToStaticMarkup(createElement(PageTitleIcon, { name }));
+      expect(svg).toContain("<svg");
+      expect(svg).toContain('stroke="currentColor"');
+      expect(svg).toContain('aria-hidden="true"');
+      expect(svg).toContain(`data-page-icon="${name}"`);
+      expect(svg).not.toContain("<img");
+    },
+  );
+});
