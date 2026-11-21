@@ -748,6 +748,31 @@
     border-bottom: 1px solid hsl(var(--border));
   }
 
+  /* Keep selection + name readable while the narrow table scrolls sideways. */
+  .data-table thead th:nth-child(1),
+  .data-table tbody td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background-color: hsl(var(--background));
+  }
+
+  .data-table thead th:nth-child(2),
+  .data-table tbody td:nth-child(2) {
+    position: sticky;
+    left: 44px;
+    z-index: 1;
+    background-color: hsl(var(--background));
+  }
+
+  .data-table tbody tr:hover td:nth-child(-n + 2) {
+    background-color: hsl(var(--surface));
+  }
+
+  .data-table tbody tr[data-selected="true"] td:nth-child(-n + 2) {
+    background-color: hsl(var(--raised));
+  }
+
   .data-table tbody tr {
     transition: background-color 120ms cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -1254,6 +1279,60 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
   }
 }
 
+/* Short viewports (landscape phones / 125% laptop zoom): empty states must
+   stay reachable. The scroll parent starts at the top instead of clipping a
+   centred block. */
+@media (max-height: 620px) {
+  .parsing-empty__art {
+    display: none;
+  }
+
+  .parsing-empty__content {
+    padding-block: 0.75rem;
+  }
+
+  .parsing-empty__content h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .parsing-empty__content .mt-6 {
+    margin-top: 0.75rem;
+  }
+}
+
+/* Short windows (125% zoom, browser chrome, landscape phones): the welcome
+   block becomes a compact two-column row so the composer and the full copy
+   stay inside the viewport. */
+@media (max-height: 560px) {
+  .chat-welcome {
+    display: grid;
+    grid-template-columns: auto minmax(0, auto);
+    align-items: center;
+    justify-items: start;
+    gap: 0.25rem 0.75rem;
+    margin-inline: auto;
+    padding-block: 0.5rem;
+    text-align: left;
+  }
+
+  .chat-welcome > svg {
+    grid-row: 1 / 4;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .chat-welcome > h1,
+  .chat-welcome > p {
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  .chat-welcome > div[aria-hidden] {
+    display: none;
+  }
+}
+
 @media (pointer: coarse) {
   /* Step flow controls are visually compact by design; keep their tap target
      at 44px without enlarging the dot/label artwork. */
@@ -1317,32 +1396,5 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
 
   .knowledge-workbench [data-knowledge-documents-scroll-container] {
     overscroll-behavior-y: auto;
-  }
-
-  .chat-welcome {
-    display: grid;
-    grid-template-columns: auto minmax(0, auto);
-    align-items: center;
-    justify-items: start;
-    gap: 0.25rem 0.75rem;
-    margin-inline: auto;
-    padding-block: 0.5rem;
-    text-align: left;
-  }
-
-  .chat-welcome > svg {
-    grid-row: 1 / 4;
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-
-  .chat-welcome > h1,
-  .chat-welcome > p {
-    grid-column: 2;
-    margin-top: 0;
-  }
-
-  .chat-welcome > div[aria-hidden] {
-    display: none;
   }
 }

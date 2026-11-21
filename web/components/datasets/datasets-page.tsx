@@ -681,7 +681,7 @@ export default function DatasetsPage() {
           </header>
         }
       >
-        <div className="flex min-h-[calc(100vh-7rem)] flex-col overflow-hidden rounded-lg border border-foreground/15 bg-sidebar/18 xl:h-[calc(100vh-5.5rem)] xl:min-h-0">
+        <div className="flex min-h-[calc(100dvh-7rem)] flex-col overflow-hidden rounded-lg border border-foreground/15 bg-sidebar/18 xl:h-[calc(100dvh-5.5rem)] xl:min-h-0">
           <div
             data-testid="datasets-workspace"
             className={cn(
@@ -739,7 +739,7 @@ export default function DatasetsPage() {
               <div className="mt-3 border-t border-border/60 pt-2">
                 <div className="mb-1.5 text-[10px] font-medium text-muted-foreground">目录</div>
                 <DatasetCategoryTree
-                  className="max-h-[420px] overflow-y-auto pr-1 xl:max-h-[calc(100vh-17rem)]"
+                  className="max-h-[420px] overflow-y-auto pr-1 xl:max-h-[calc(100dvh-17rem)]"
                   selectedId={selectedCategoryId}
                   onSelect={(id) => setSelectedCategoryId(id)}
                 />

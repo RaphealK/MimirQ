@@ -492,7 +492,7 @@ function EvaluationResultsStage({
   return (
     <section
       className={cn(
-        'overflow-hidden rounded-[28px] border border-info/15 bg-background/78 shadow-none',
+        'overflow-y-auto overflow-x-hidden overscroll-contain rounded-[28px] border border-info/15 bg-background/78 shadow-none',
         'flex flex-col',
         fillAvailableHeight && 'min-h-0 flex-1',
         className
@@ -585,7 +585,7 @@ function EvaluationResultsStage({
               <p className="mt-1.5 max-w-2xl text-[12px] leading-5 text-muted-foreground">
                 {emptyRunState.description}
               </p>
-              <div className="mt-4 grid gap-2.5 sm:grid-cols-3">
+              <div className="mt-4 grid gap-2.5">
                 <div className="rounded-xl border border-info/15 bg-background/70 px-3 py-2.5 shadow-none">
                   <div className="text-[11px] font-bold text-info">
                     1 选择会话来源
@@ -1683,7 +1683,7 @@ function EvaluationsPageContent() {
                   side="left"
                 />
               ) : (
-                <aside className="flex min-h-[620px] flex-col rounded-2xl border border-info/15 bg-background/78 shadow-none xl:h-full xl:min-h-0">
+                <aside className="flex min-h-[620px] min-w-0 flex-col rounded-2xl border border-info/15 bg-background/78 shadow-none xl:h-full xl:min-h-0">
                   <div className="flex items-center justify-between border-b border-info/15 bg-info/[0.025] px-4 py-3">
                     <div className="inline-flex items-center gap-2.5 text-[14px] font-bold text-foreground">
                       <SlidersHorizontal

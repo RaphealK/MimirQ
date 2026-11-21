@@ -714,7 +714,7 @@ export function GraphCanvas({
                 id={semanticPanelId}
                 hidden={!isSemanticListVisible}
                 aria-label="知识图谱语义化结构列表"
-                className="space-y-3 px-3 py-3 max-h-[min(22rem,calc(100vh-12rem))] overflow-auto"
+                className="space-y-3 px-3 py-3 max-h-[min(22rem,calc(100dvh-12rem))] overflow-auto"
               >
                 {isSemanticListVisible ? (
                   <>
@@ -828,7 +828,7 @@ export function GraphCanvas({
           </aside>
         </>
       ) : (
-        <div className="absolute inset-x-0 bottom-0 top-16 z-10 flex items-center justify-center px-6 py-6 pr-28">
+        <div className="graph-empty absolute inset-x-0 bottom-0 top-16 z-10 flex items-start justify-center overflow-y-auto overscroll-contain px-6 py-6 pr-28">
           {isLoading ? (
             <div className="w-full max-w-2xl rounded-2xl border border-border/60 bg-card p-6 shadow-none">
               <div className="flex items-center gap-3">
@@ -849,7 +849,7 @@ export function GraphCanvas({
               </div>
             </div>
           ) : (
-            <section className="mx-auto flex w-full max-w-[36rem] flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16">
+            <section className="my-auto mx-auto flex w-full max-w-[36rem] flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16">
               <div className="mb-7 flex items-center justify-center">
                 <svg
                   aria-hidden="true"

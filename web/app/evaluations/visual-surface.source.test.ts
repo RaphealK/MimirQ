@@ -53,13 +53,13 @@ describe('analysis and observability surfaces stay crisp', () => {
       'overflow-hidden rounded-2xl border border-info/15 bg-background/72 shadow-none'
     )
     expect(src).toContain(
-      'overflow-hidden rounded-[28px] border border-info/15 bg-background/78 shadow-none'
+      'overflow-y-auto overflow-x-hidden overscroll-contain rounded-[28px] border border-info/15 bg-background/78 shadow-none'
     )
     expect(src).toContain(
       'rounded-2xl border border-info/15 bg-background/70 px-3.5 py-3 shadow-none'
     )
     expect(src).toContain(
-      'flex min-h-[620px] flex-col rounded-2xl border border-info/15 bg-background/78 shadow-none xl:h-full xl:min-h-0'
+      'flex min-h-[620px] min-w-0 flex-col rounded-2xl border border-info/15 bg-background/78 shadow-none xl:h-full xl:min-h-0'
     )
     expect(src).toContain(
       'flex min-h-[420px] flex-col overflow-hidden rounded-2xl border border-info/15 bg-background/78 p-3 shadow-none xl:h-full xl:min-h-0'
@@ -71,7 +71,7 @@ describe('analysis and observability surfaces stay crisp', () => {
       'overflow-hidden rounded-[28px] border border-info/20 bg-card shadow-none'
     )
     expect(src).not.toContain(
-      'flex min-h-0 max-h-[calc(100vh-246px)] flex-col rounded-2xl border border-info/20 bg-card shadow-none'
+      'flex min-h-0 max-h-[calc(100dvh-246px)] flex-col rounded-2xl border border-info/20 bg-card shadow-none'
     )
   })
 

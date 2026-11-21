@@ -1015,7 +1015,7 @@ export default function DatasetKGWorkbenchPage() {
                 </Panel>
               ) : null}
 
-              <Panel padding="none" className="relative overflow-hidden h-[min(720px,calc(100vh-260px))] min-h-[520px]">
+              <Panel padding="none" className="relative overflow-hidden h-[min(720px,calc(100dvh-260px))] min-h-[520px]">
                 {graphData && graphPreviewData ? (
                   <GraphViewer
                     ref={graphRef}

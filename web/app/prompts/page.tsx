@@ -759,7 +759,7 @@ function PromptsPageContent() {
                         <div>更新时间</div>
                         <div>操作</div>
                       </div>
-                      <div className="max-h-[calc(100vh-360px)] divide-y divide-border/50 overflow-y-auto">
+                      <div className="max-h-[calc(100dvh-360px)] divide-y divide-border/50 overflow-y-auto">
                         {paginatedTemplates.map((template) => (
                           <div
                             key={template.id}

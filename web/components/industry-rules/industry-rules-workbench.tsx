@@ -672,7 +672,7 @@ export function IndustryRulesWorkbench() {
         <div
           className={cn(
             WORKBENCH_PANEL,
-            'flex min-h-[calc(100vh-410px)] min-w-0 flex-col overflow-hidden'
+            'flex min-h-[calc(100dvh-410px)] min-w-0 flex-col overflow-hidden'
           )}
         >
           <Tabs defaultValue="glossary" className="flex h-full flex-col">

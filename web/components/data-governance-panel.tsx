@@ -2362,7 +2362,7 @@ export function DataGovernancePanel() {
                           className={cn(
                             'bg-card min-h-[800px] shadow-sm border border-border/60 rounded-xl overflow-hidden relative',
                             viewMode === 'edit'
-                              ? 'h-[calc(100vh-140px)] border-0 shadow-none bg-transparent'
+                              ? 'h-[calc(100dvh-140px)] border-0 shadow-none bg-transparent'
                               : 'p-10 md:p-14'
                           )}
                         >

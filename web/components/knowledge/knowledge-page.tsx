@@ -648,7 +648,7 @@ export default function KnowledgePage() {
                         setPeekingDocId(null);
                       }}
                       className={cn(
-                        "inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 pointer-fine:sm:min-h-8",
+                        "inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 min-w-11 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 pointer-fine:sm:min-h-8",
                         activeTab === tab.key
                           ? "border-foreground font-medium text-foreground"
                           : "border-transparent text-muted-foreground hover:text-foreground",
@@ -665,7 +665,7 @@ export default function KnowledgePage() {
                       ? `/knowledge/quarantine?datasetId=${encodeURIComponent(selectedDatasetId)}`
                       : "/knowledge/quarantine"
                   }
-                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   隔离
                 </Link>
@@ -675,13 +675,13 @@ export default function KnowledgePage() {
                       ? `/chunk-preview?dataset_id=${encodeURIComponent(selectedDatasetId)}`
                       : "/chunk-preview"
                   }
-                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   分块
                 </Link>
                 <Link
                   href="/knowledge/feedback"
-                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   反馈
                 </Link>

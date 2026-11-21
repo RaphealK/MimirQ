@@ -1389,7 +1389,7 @@ export default function FeedbackTriagePage() {
         }
         bodyClassName="w-full max-w-none px-2 md:px-3 xl:px-4 pb-5 z-10"
       >
-        <div className="grid gap-3 xl:h-[calc(100vh-14.25rem)] xl:min-h-0 xl:grid-cols-[minmax(0,1.72fr)_minmax(320px,0.78fr)]">
+        <div className="grid gap-3 xl:h-[calc(100dvh-14.25rem)] xl:min-h-0 xl:grid-cols-[minmax(0,1.72fr)_minmax(320px,0.78fr)]">
           <div className="xl:flex xl:min-h-0 xl:flex-col">
             <div data-feedback-list-board="true" className="overflow-hidden rounded-2xl border border-border/60 bg-background shadow-soft xl:flex xl:min-h-0 xl:flex-1 xl:flex-col">
               <div className="border-b border-border/60 px-5 py-3.5">

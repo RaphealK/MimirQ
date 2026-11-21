@@ -1496,7 +1496,7 @@ export function ParsingWorkbenchShell({
                 ) : (
                   <button
                     type="button"
-                    className="relative flex flex-1 items-center justify-center overflow-hidden bg-background"
+                    className="parsing-empty relative flex flex-1 items-start justify-center overflow-y-auto overscroll-contain bg-background"
                     onClick={() => requestUploadToFolder(currentFolderId)}
                     onDragOver={(event) =>
                       handleFolderDragOver(event, currentFolderId)
@@ -1508,8 +1508,8 @@ export function ParsingWorkbenchShell({
                       aria-hidden="true"
                       className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.035)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.035)_1px,transparent_1px)] bg-[size:42px_42px]"
                     />
-                    <div className="relative max-w-md px-8 text-center">
-                      <div className="mx-auto mb-6 flex size-28 items-center justify-center rounded-[30px] border border-foreground/10 bg-background/80 shadow-none">
+                    <div className="parsing-empty__content relative my-auto max-w-md px-8 py-6 text-center">
+                      <div className="parsing-empty__art mx-auto mb-6 flex size-28 items-center justify-center rounded-[30px] border border-foreground/10 bg-background/80 shadow-none">
                         <div className="relative flex h-20 w-16 items-center justify-center rounded-[18px] bg-muted/30 shadow-none">
                           <div className="absolute right-0 top-0 size-7 rounded-bl-2xl bg-info/15" />
                           <div className="space-y-2">

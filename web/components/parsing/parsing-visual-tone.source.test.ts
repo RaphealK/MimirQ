@@ -21,7 +21,8 @@ describe('parsing workbench visual tone', () => {
 
     expect(shell).toContain("'relative overflow-hidden rounded-[24px] border bg-background shadow-none'")
     expect(shell).toContain('className="flex flex-1 min-h-0 min-w-0 flex-col overflow-hidden bg-background"')
-    expect(shell).toContain('className="relative flex flex-1 items-center justify-center overflow-hidden bg-background"')
+    expect(shell).toContain('className="parsing-empty relative flex flex-1 items-start justify-center overflow-y-auto overscroll-contain bg-background"')
+    expect(shell).not.toContain('className="relative flex flex-1 items-center justify-center overflow-hidden bg-background"')
     expect(shell).toContain('hsl(var(--foreground)/0.035)')
     expect(shell).not.toContain('circle_at_50%_38%')
   })

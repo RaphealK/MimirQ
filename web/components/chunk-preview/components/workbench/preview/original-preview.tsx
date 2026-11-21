@@ -562,7 +562,7 @@ export function OriginalPreview() {
                     </p>
                   </div>
 	                  {tocEnabled && (<aside className="hidden xl:block w-64 shrink-0">
-	                      <div className="sticky top-6 max-h-[calc(100vh-220px)] overflow-y-auto overscroll-contain no-scrollbar rounded-xl border border-border/60 bg-card p-3">
+	                      <div className="sticky top-6 max-h-[calc(100dvh-220px)] overflow-y-auto overscroll-contain no-scrollbar rounded-xl border border-border/60 bg-card p-3">
 	                        <DeferredMarkdownToc markdown={effectiveOriginalText}/>
 	                      </div>
 	                    </aside>)}
