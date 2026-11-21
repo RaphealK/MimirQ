@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { TableScrollArea } from "@/components/ui/table-scroll-area";
 import { cn } from "@/lib/utils";
 
 type DataTableProps = React.TableHTMLAttributes<HTMLTableElement>;
@@ -11,7 +12,10 @@ type DataTableProps = React.TableHTMLAttributes<HTMLTableElement>;
 export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
   function DataTable({ className, children, ...props }, ref) {
     return (
-      <div className="w-full overflow-x-auto">
+      <TableScrollArea
+        label={props["aria-label"]}
+        labelledBy={props["aria-labelledby"]}
+      >
         <table
           ref={ref}
           data-slot="data-table"
@@ -20,7 +24,7 @@ export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
         >
           {children}
         </table>
-      </div>
+      </TableScrollArea>
     );
   },
 );

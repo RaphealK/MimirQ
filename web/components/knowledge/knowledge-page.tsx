@@ -110,6 +110,7 @@ export default function KnowledgePage() {
   const [peekingDocId, setPeekingDocId] = useState<string | null>(null);
   const [showConnectorRunsPanel, setShowConnectorRunsPanel] = useState(false);
   const [showRetrievalAuditPanel, setShowRetrievalAuditPanel] = useState(false);
+  const scopeTriggerRef = useRef<HTMLButtonElement>(null);
   const [mobileScopeOpen, setMobileScopeOpen] = useState(false);
   const detailTriggerRef = useRef<HTMLElement | null>(null);
 
@@ -609,7 +610,7 @@ export default function KnowledgePage() {
     >
       <div className="relative h-full overflow-hidden bg-background">
         <WorkbenchScaffold
-          className="relative z-10"
+          className="knowledge-workbench relative z-10"
           title={t("header.title")}
           headerClassName="mx-auto w-full max-w-page px-0"
           header={
@@ -647,7 +648,7 @@ export default function KnowledgePage() {
                         setPeekingDocId(null);
                       }}
                       className={cn(
-                        "min-h-11 border-b-2 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8",
+                        "inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 pointer-fine:sm:min-h-8",
                         activeTab === tab.key
                           ? "border-foreground font-medium text-foreground"
                           : "border-transparent text-muted-foreground hover:text-foreground",
@@ -664,7 +665,7 @@ export default function KnowledgePage() {
                       ? `/knowledge/quarantine?datasetId=${encodeURIComponent(selectedDatasetId)}`
                       : "/knowledge/quarantine"
                   }
-                  className="min-h-11 border-b-2 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground transition-colors hover:text-foreground sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   隔离
                 </Link>
@@ -674,13 +675,13 @@ export default function KnowledgePage() {
                       ? `/chunk-preview?dataset_id=${encodeURIComponent(selectedDatasetId)}`
                       : "/chunk-preview"
                   }
-                  className="min-h-11 border-b-2 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground transition-colors hover:text-foreground sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   分块
                 </Link>
                 <Link
                   href="/knowledge/feedback"
-                  className="min-h-11 border-b-2 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground transition-colors hover:text-foreground sm:min-h-8"
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center border-b-2 pointer-coarse:min-w-11 border-transparent px-2 pb-1.5 pt-1 text-compact text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline pointer-fine:sm:min-h-8"
                 >
                   反馈
                 </Link>
@@ -694,6 +695,7 @@ export default function KnowledgePage() {
                   className="max-sm:w-11 max-sm:px-0 lg:hidden"
                   aria-label="筛选"
                   title="筛选"
+                  ref={scopeTriggerRef}
                   onClick={() => setMobileScopeOpen(true)}
                 >
                   <Filter className="size-3.5" aria-hidden="true" />
@@ -853,7 +855,7 @@ export default function KnowledgePage() {
             </div>
           }
           toolbarClassName="px-0 py-2"
-          bodyClassName="min-h-0 pb-4"
+          bodyClassName="knowledge-workbench-body min-h-0 pb-4"
           paneGroupClassName="gap-0 overflow-hidden"
           mainPaneClassName="rounded-none! border-0! bg-transparent! shadow-none!"
           mainPaneBodyClassName={cn(
@@ -974,6 +976,7 @@ export default function KnowledgePage() {
           <div className="xl:hidden">
             <WorkbenchPanelDialog
               open={mobileScopeOpen}
+              returnFocusRef={scopeTriggerRef}
               onOpenChange={setMobileScopeOpen}
               title={t("dialogs.scope.title")}
               className="lg:hidden"

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 
 import { EChart } from '@/components/ui/echart'
+import { TableScrollArea } from '@/components/ui/table-scroll-area'
 import { SalesPanelHeader } from '@/app/knowledge/ingestion/components/sales-panel-header'
 import { cn } from '@/lib/utils'
 import {
@@ -248,7 +249,7 @@ export function SalesAuditSummaryPanel({
                   key={item.name}
                   type="button"
                   onClick={() => onHeatmapSelect(item.name)}
-                  className={cn(SALES_PANEL_INSET_CLASS, 'px-2 py-1.5 text-left')}
+                  className={cn(SALES_PANEL_INSET_CLASS, 'px-2 py-1.5 text-left min-h-11 pointer-coarse:min-w-11 pointer-fine:sm:min-h-0')}
                 >
                   <div className="text-micro text-muted-foreground">{item.name}</div>
                   <div className="mt-1 font-mono text-caption font-medium text-foreground">
@@ -296,13 +297,17 @@ export function SalesAuditSummaryPanel({
               subtitle="按复杂度维度覆盖主风险项"
               actionLabel="查看全部"
             />
-            <div className="mt-1.5 overflow-hidden rounded-[4px] border border-border">
-              <table className="w-full text-left text-micro">
+            <TableScrollArea
+              label="入库抽样确认"
+              surface="surface"
+              className="mt-1.5 rounded-[4px] border border-border"
+            >
+              <table className="w-full min-w-[520px] text-left text-micro">
                 <thead className="bg-muted/25 text-muted-foreground">
                   <tr>
                     <th className="px-2 py-1 font-medium">文件名</th>
                     <th className="px-2 py-1 font-medium">类型</th>
-                    <th className="px-2 py-1 font-medium">大小</th>
+                    <th className="px-2 py-1 text-right font-medium">大小</th>
                     <th className="px-2 py-1 font-medium">主要风险</th>
                     <th className="px-2 py-1 font-medium">建议处理</th>
                   </tr>
@@ -311,12 +316,17 @@ export function SalesAuditSummaryPanel({
                   {pocCandidates.map((row) => (
                     <tr key={row.id} className="border-t border-border">
                       <td className="px-2 py-1 font-mono text-foreground">
-                        {row.fileName}
+                        <span
+                          className="block max-w-[12rem] truncate"
+                          title={row.fileName}
+                        >
+                          {row.fileName}
+                        </span>
                       </td>
                       <td className="px-2 py-1 text-muted-foreground">
                         {row.fileType}
                       </td>
-                      <td className="px-2 py-1 font-mono text-muted-foreground">
+                      <td className="px-2 py-1 text-right font-mono text-muted-foreground">
                         {row.fileSizeLabel}
                       </td>
                       <td className="px-2 py-1 text-muted-foreground">
@@ -331,7 +341,7 @@ export function SalesAuditSummaryPanel({
                   ))}
                 </tbody>
               </table>
-            </div>
+            </TableScrollArea>
           </section>
 
           <section className={cn(SALES_PANEL_CLASS, 'p-2.5')}>
@@ -342,8 +352,12 @@ export function SalesAuditSummaryPanel({
               subtitle="优先解释阻断和人工处理归因"
               actionLabel="查看入库依据"
             />
-            <div className="mt-1.5 overflow-hidden rounded-[4px] border border-border">
-              <table className="w-full text-left text-micro">
+            <TableScrollArea
+              label="高风险文件"
+              surface="surface"
+              className="mt-1.5 rounded-[4px] border border-border"
+            >
+              <table className="w-full min-w-[480px] text-left text-micro">
                 <thead className="bg-muted/25 text-muted-foreground">
                   <tr>
                     <th className="px-2 py-1 font-medium">文件名</th>
@@ -356,7 +370,12 @@ export function SalesAuditSummaryPanel({
                   {highRiskFiles.map((row) => (
                     <tr key={row.id} className="border-t border-border">
                       <td className="px-2 py-1 font-mono text-foreground">
-                        {row.fileName}
+                        <span
+                          className="block max-w-[12rem] truncate"
+                          title={row.fileName}
+                        >
+                          {row.fileName}
+                        </span>
                       </td>
                       <td className="px-2 py-1 text-muted-foreground">
                         {row.primaryRisk}
@@ -368,7 +387,7 @@ export function SalesAuditSummaryPanel({
                         <button
                           type="button"
                           onClick={() => onOpenEvidenceFile(row.id)}
-                          className="text-micro text-foreground transition-colors hover:text-foreground"
+                          className="inline-flex min-h-11 pointer-coarse:min-w-11 items-center px-1 text-micro text-foreground transition-colors hover:text-foreground pointer-fine:sm:min-h-0"
                         >
                           查看
                         </button>
@@ -377,7 +396,7 @@ export function SalesAuditSummaryPanel({
                   ))}
                 </tbody>
               </table>
-            </div>
+            </TableScrollArea>
           </section>
         </div>
 

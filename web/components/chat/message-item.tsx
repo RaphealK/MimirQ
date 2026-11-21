@@ -321,7 +321,7 @@ function MessageMarkdownAnchor({ href, children }: MessageMarkdownLinkProps) {
         onClick={() => onClick(href)}
         onMouseEnter={() => onPrefetch(href)}
         onFocus={() => onPrefetch(href)}
-        className="inline-flex min-h-6 items-center rounded-[4px] border border-border bg-muted px-1.5 text-[0.85em] font-medium text-foreground no-underline transition-colors hover:bg-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="relative inline-flex min-h-6 items-center rounded-[4px] border border-border bg-muted px-1.5 text-[0.85em] font-medium text-foreground no-underline transition-colors pointer-coarse:min-h-11 pointer-coarse:min-w-11 pointer-coarse:justify-center hover:bg-raised focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {children}
       </button>
@@ -337,7 +337,7 @@ function MessageMarkdownAnchor({ href, children }: MessageMarkdownLinkProps) {
       href={safeHref}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-foreground font-medium underline-offset-4 hover:underline"
+      className="break-words font-medium text-foreground underline-offset-4 hover:underline"
     >
       {children}
     </a>
@@ -1211,7 +1211,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
 
       <div
         className={cn(
-          "min-w-0",
+          "min-w-0 break-words",
           isMinimal
             ? cn(
                 "flex-1 border border-border px-3 py-2",
@@ -1232,7 +1232,9 @@ export const ChatMessageItem = memo(function ChatMessageItem({
               <span className="font-medium text-foreground">思考路径</span>
               <span>{stepCount} 步</span>
               {!stepsOpen && latestStep ? (
-                <span className="min-w-0 truncate">{latestStep}</span>
+                <span className="min-w-0 truncate" title={latestStep}>
+                  {latestStep}
+                </span>
               ) : null}
               <ChevronDown
                 className={cn(
@@ -1745,7 +1747,7 @@ export const ChatMessageItem = memo(function ChatMessageItem({
                                         disabled={disabled}
                                         onClick={() => handleOpenEvidence(ev)}
                                         className={cn(
-                                          "block w-full rounded-[4px] border border-border px-2 py-1.5 text-left transition-colors",
+                                          "block min-h-11 w-full rounded-[4px] border border-border px-2 py-1.5 text-left transition-colors pointer-fine:sm:min-h-0",
                                           disabled
                                             ? "cursor-not-allowed opacity-60"
                                             : "hover:bg-muted/40",

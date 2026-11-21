@@ -541,7 +541,7 @@ export function KnowledgeRetrievalPanel({
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <div className="truncate text-caption font-medium text-foreground">
+                    <div className="truncate text-caption font-medium text-foreground" title={row.channel}>
                       {row.channel}
                     </div>
                     <div className="mt-1 text-micro text-subtle-foreground">
@@ -600,7 +600,7 @@ export function KnowledgeRetrievalPanel({
           <Button
             type="button"
             variant="outline"
-            className="h-8 rounded-[4px] border-border bg-surface px-4 text-caption font-medium uppercase"
+            className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-4 text-caption font-medium uppercase pointer-fine:sm:h-8"
             onClick={() => detachPromise(reconcileIndexAudit())}
             disabled={loading || !selectedDatasetId}
           >
@@ -818,7 +818,7 @@ export function KnowledgeRetrievalPanel({
               disabled={
                 !hasIndexDetails && (!selectedDatasetId || indexAuditLoading)
               }
-              className="h-8 w-full rounded-[4px] border-border bg-surface text-compact font-medium"
+              className="h-11 w-full rounded-[4px] border-border bg-surface text-compact font-medium pointer-fine:sm:h-8"
             >
               {!hasIndexDetails && indexAuditLoading ? (
                 <Loader2 className="mr-2 size-4 animate-spin" />
@@ -865,7 +865,7 @@ export function KnowledgeRetrievalPanel({
                       <div className="text-micro text-subtle-foreground">
                         {label}
                       </div>
-                      <div className="mt-1 truncate font-mono text-caption font-medium text-foreground">
+                      <div className="mt-1 truncate font-mono text-caption font-medium text-foreground" title={value}>
                         {value}
                       </div>
                     </div>

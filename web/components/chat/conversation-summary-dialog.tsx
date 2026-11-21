@@ -117,7 +117,7 @@ export function ConversationSummaryDialog(props: Readonly<{
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-8 gap-2"
+                  className="h-11 pointer-coarse:min-w-11 gap-2 pointer-fine:sm:h-8"
                   onClick={() => {
                     summaryQuery.refetch()
                   }}
@@ -129,7 +129,7 @@ export function ConversationSummaryDialog(props: Readonly<{
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-8 gap-2"
+                  className="h-11 pointer-coarse:min-w-11 gap-2 pointer-fine:sm:h-8"
                   onClick={() => updateMutation.mutate()}
                   disabled={updating || !hasConversation}
                 >
@@ -139,7 +139,7 @@ export function ConversationSummaryDialog(props: Readonly<{
                 <Button
                   variant="outline"
                   size="sm"
-                  className="h-8 gap-2"
+                  className="h-11 pointer-coarse:min-w-11 gap-2 pointer-fine:sm:h-8"
                   onClick={() => {
                     copy()
                   }}
@@ -160,7 +160,7 @@ export function ConversationSummaryDialog(props: Readonly<{
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-8 gap-2 text-destructive hover:text-destructive"
+                    className="h-11 pointer-coarse:min-w-11 gap-2 text-destructive hover:text-destructive pointer-fine:sm:h-8"
                     disabled={clearing || !hasConversation}
                   >
                     <Trash2 className="size-4" />

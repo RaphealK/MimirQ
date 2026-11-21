@@ -1,5 +1,6 @@
 'use client'
 
+import type { RefObject } from 'react'
 import type { LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -24,6 +25,7 @@ type WorkbenchPanelDialogProps = {
   trigger?: React.ReactNode
   triggerIcon?: LucideIcon
   triggerLabel?: string
+  returnFocusRef?: RefObject<HTMLButtonElement | null>
 
   className?: string
 }
@@ -36,6 +38,7 @@ export function WorkbenchPanelDialog({
   trigger,
   triggerIcon: TriggerIcon,
   triggerLabel,
+  returnFocusRef,
   className,
 }: Readonly<WorkbenchPanelDialogProps>) {
   return (
@@ -57,6 +60,10 @@ export function WorkbenchPanelDialog({
 })()}
 
       <DialogContent
+        onCloseAutoFocus={returnFocusRef ? (event) => {
+          event.preventDefault()
+          returnFocusRef.current?.focus({ preventScroll: true })
+        } : undefined}
         className={cn(
           'w-[92vw] max-w-[92vw] h-[85vh] max-h-[85vh] p-0 overflow-hidden grid grid-rows-[auto_1fr]',
           className

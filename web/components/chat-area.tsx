@@ -127,6 +127,7 @@ export function ChatArea({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const retrievalTriggerRef = useRef<HTMLButtonElement>(null);
   const retrievalPanelRef = useRef<HTMLElement>(null);
   const reflectedConversation = useRef<string | null>(null);
   const publishConversation = useCallback((id: string) => {
@@ -878,7 +879,7 @@ export function ChatArea({
                   onKeyUp={handleKeyUp}
                   placeholder={t("composerPlaceholder")}
                   autoFocus
-                  className="max-h-[200px] min-h-[72px] w-full resize-none bg-transparent px-3 py-2.5 text-body leading-[22px] text-foreground outline-none placeholder:text-muted-foreground no-scrollbar"
+                  className="max-h-[200px] min-h-[72px] w-full resize-none bg-transparent px-3 py-2.5 text-body leading-[22px] text-foreground outline-none placeholder:text-muted-foreground max-lg:text-[16px] max-lg:leading-6 no-scrollbar"
                   rows={1}
                 />
 
@@ -897,6 +898,7 @@ export function ChatArea({
                     type="button"
                     variant="ghost"
                     size="icon"
+                    ref={retrievalTriggerRef}
                     onClick={openRetrievalSettings}
                     aria-label={t("retrievalSettings")}
                     title={t("retrievalSettings")}
@@ -983,6 +985,10 @@ export function ChatArea({
       <Sheet open={settingsSheetOpen} onOpenChange={setSettingsSheetOpen}>
         <SheetContent
           side="right"
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            retrievalTriggerRef.current?.focus({ preventScroll: true });
+          }}
           className="w-[min(20rem,calc(100vw-2rem))] overflow-y-auto p-4 shadow-none sm:max-w-sm"
         >
           <SheetHeader className="mb-3 pr-8">
@@ -1033,7 +1039,7 @@ export function ChatArea({
 
 function WelcomeScreen() {
   return (
-    <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
+    <div className="chat-welcome flex flex-col items-center justify-center px-4 py-16 text-center">
       <svg
         viewBox="0 0 88 88"
         role="img"

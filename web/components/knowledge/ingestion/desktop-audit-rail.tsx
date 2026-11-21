@@ -76,7 +76,7 @@ export function DesktopAuditRail({
             : 'w-0 opacity-0 -translate-x-4 pointer-events-none'
         )}
       >
-        <div className="sticky top-4">
+        <div className="sticky top-4 max-lg:static">
           <div className="overflow-hidden rounded-[6px] border border-border bg-surface p-1.5">
             <div className="flex items-center justify-between gap-2 px-1 pb-1.5">
               <div className="flex min-w-0 items-center gap-2">
@@ -94,7 +94,7 @@ export function DesktopAuditRail({
               </div>
               <button
                 type="button"
-                className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground pointer-fine:sm:size-6"
                 onClick={() => onSetDesktopScopeCollapsed(true)}
               >
                 <ChevronLeft className="h-3.5 w-3.5" />
@@ -111,7 +111,7 @@ export function DesktopAuditRail({
                 </span>
               </div>
               <Select value={datasetScope} onValueChange={onDatasetScopeChange}>
-                <SelectTrigger className="h-7 rounded-[4px] border-border bg-surface px-2 text-micro font-medium">
+                <SelectTrigger className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-2 text-micro font-medium max-lg:text-[16px] pointer-fine:sm:h-7">
                   <SelectValue placeholder="全部项目" />
                 </SelectTrigger>
                 <SelectContent>
@@ -137,7 +137,7 @@ export function DesktopAuditRail({
                   aria-pressed={auditDispositionFilter === value}
                   onClick={() => onSetAuditDispositionFilter(value)}
                   className={cn(
-                    'rounded-[4px] border px-1.5 py-1 text-left text-micro transition-colors',
+                    'rounded-[4px] border px-1.5 py-1 text-left text-micro transition-colors min-h-11 pointer-coarse:min-w-11 pointer-fine:sm:min-h-0',
                     auditDispositionFilter === value
                       ? 'border-foreground/40 bg-raised text-foreground'
                       : 'border-border bg-surface text-muted-foreground hover:text-foreground'
@@ -152,7 +152,7 @@ export function DesktopAuditRail({
                 aria-pressed={auditDispositionFilter === 'all'}
                 onClick={() => onSetAuditDispositionFilter('all')}
                 className={cn(
-                  'rounded-[4px] border px-1.5 py-1 text-left text-micro transition-colors',
+                  'rounded-[4px] border px-1.5 py-1 text-left text-micro transition-colors min-h-11 pointer-coarse:min-w-11 pointer-fine:sm:min-h-0',
                   auditDispositionFilter === 'all'
                     ? 'border-foreground/40 bg-raised text-foreground'
                     : 'border-border bg-surface text-muted-foreground hover:text-foreground'
@@ -199,13 +199,15 @@ export function DesktopAuditRail({
                     className="group relative overflow-hidden rounded-[4px] border border-border bg-surface px-1.5 py-1.5 transition-colors hover:border-border hover:bg-surface"
                   >
                     <div className="flex items-start gap-2">
-                      <input
-                        checked={selectedAuditIds.includes(document.id)}
-                        onChange={() => onSelectAudit(document.id)}
-                        className="mt-1 h-2.5 w-2.5 rounded border-border text-foreground"
-                        type="checkbox"
-                        aria-label={`选择 ${document.filename}`}
-                      />
+                      <label className="flex size-11 shrink-0 cursor-pointer items-center justify-center pointer-fine:sm:mt-0.5 pointer-fine:sm:size-5">
+                        <input
+                          checked={selectedAuditIds.includes(document.id)}
+                          onChange={() => onSelectAudit(document.id)}
+                          className="h-2.5 w-2.5 rounded border-border text-foreground"
+                          type="checkbox"
+                          aria-label={`选择 ${document.filename}`}
+                        />
+                      </label>
                       <span
                         className={cn(
                           'mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[4px] border text-micro font-semibold uppercase',
@@ -217,7 +219,7 @@ export function DesktopAuditRail({
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
                           <div className="min-w-0">
-                            <div className="truncate text-micro font-semibold leading-4 text-foreground">
+                            <div className="truncate text-micro font-semibold leading-4 text-foreground" title={document.filename}>
                               {document.filename}
                             </div>
                           </div>
@@ -232,7 +234,7 @@ export function DesktopAuditRail({
                         </div>
 
                         <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-micro text-muted-foreground">
-                          <span className="max-w-[6.5rem] truncate">
+                          <span className="max-w-[6.5rem] truncate" title={stageLabel}>
                             {stageLabel}
                           </span>
                           <span className="font-mono tabular-nums">
@@ -266,7 +268,7 @@ export function DesktopAuditRail({
                     <div className="mt-1.5 grid grid-cols-3 gap-1">
                       <button
                         type="button"
-                        className="inline-flex h-5 items-center justify-center rounded-[4px] border border-success/20 bg-success/10 px-1.5 text-micro font-medium text-success transition-colors hover:border-success/35 hover:bg-success/12"
+                        className="inline-flex h-11 pointer-coarse:min-w-11 items-center justify-center rounded-[4px] border border-success/20 pointer-fine:sm:h-5 bg-success/10 px-1.5 text-micro font-medium text-success transition-colors hover:border-success/35 hover:bg-success/12"
                         onClick={() =>
                           onSampleDisposition(document.id, 'approved')
                         }
@@ -275,14 +277,14 @@ export function DesktopAuditRail({
                       </button>
                       <button
                         type="button"
-                        className="inline-flex h-5 items-center justify-center rounded-[4px] border border-warning/20 bg-warning/10 px-1.5 text-micro font-medium text-warning transition-colors hover:border-warning/35 hover:bg-warning/12"
+                        className="inline-flex h-11 pointer-coarse:min-w-11 items-center justify-center rounded-[4px] border border-warning/20 pointer-fine:sm:h-5 bg-warning/10 px-1.5 text-micro font-medium text-warning transition-colors hover:border-warning/35 hover:bg-warning/12"
                         onClick={() => onSampleDisposition(document.id, 'manual')}
                       >
                         转人工
                       </button>
                       <button
                         type="button"
-                        className="inline-flex h-5 items-center justify-center rounded-[4px] border border-border bg-surface px-1.5 text-micro font-medium text-foreground transition-colors hover:border-border-strong hover:text-foreground"
+                        className="inline-flex h-11 pointer-coarse:min-w-11 items-center justify-center rounded-[4px] border border-border bg-surface pointer-fine:sm:h-5 px-1.5 text-micro font-medium text-foreground transition-colors hover:border-border-strong hover:text-foreground"
                         onClick={() => onOpenAuditSnapshot(document.id)}
                       >
                         快照
@@ -301,7 +303,7 @@ export function DesktopAuditRail({
                 {selectedReason ? (
                   <button
                     type="button"
-                    className="text-foreground transition-colors hover:text-foreground"
+                    className="inline-flex min-h-11 pointer-coarse:min-w-11 items-center text-foreground transition-colors hover:text-foreground pointer-fine:sm:min-h-0"
                     onClick={onClearSelectedReason}
                   >
                     清除聚焦

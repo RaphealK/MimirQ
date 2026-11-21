@@ -38,7 +38,7 @@ export function SalesPanelHeader({
         <button
           type="button"
           onClick={onAction}
-          className="inline-flex min-h-4 shrink-0 items-center gap-0.5 text-[8px] font-medium text-info transition-colors hover:text-info"
+          className="inline-flex min-h-11 pointer-coarse:min-w-11 shrink-0 items-center gap-0.5 text-[8px] font-medium text-info transition-colors hover:text-info pointer-fine:sm:min-h-4"
         >
           <span>{actionLabel}</span>
           <ChevronRight className="h-3 w-3" />

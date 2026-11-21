@@ -220,7 +220,7 @@ export default function DocumentHealthPage({
               type="button"
               variant="outline"
               size="sm"
-              className="h-8 rounded-[4px] border-border bg-surface px-3 text-caption"
+              className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-3 text-caption pointer-fine:sm:h-8"
               onClick={() => router.push("/knowledge")}
             >
               <ArrowLeft className="mr-2 size-3.5" />
@@ -230,7 +230,7 @@ export default function DocumentHealthPage({
               type="button"
               variant="outline"
               size="sm"
-              className="h-8 rounded-[4px] border-border bg-surface px-3 text-caption"
+              className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-3 text-caption pointer-fine:sm:h-8"
               disabled={loading}
               onClick={() => {
                 healthQuery.refetch();
@@ -610,7 +610,7 @@ function InfoPill({
   return (
     <span className="inline-flex max-w-full items-center gap-1.5 rounded-[4px] border border-border bg-surface px-2 py-1 font-mono text-micro text-muted-foreground">
       <Icon className="size-3 shrink-0 text-muted-foreground" />
-      <span className="truncate">{value}</span>
+      <span className="truncate" title={value}>{value}</span>
     </span>
   );
 }
@@ -665,10 +665,10 @@ function ScoreTile({
             <Icon className="size-3.5 text-muted-foreground" />
             {label}
           </div>
-          <div className="mt-1 truncate font-mono text-title-sm font-semibold tabular-nums tracking-[-0.02em] text-foreground">
+          <div className="mt-1 truncate font-mono text-title-sm font-semibold tabular-nums tracking-[-0.02em] text-foreground" title={value}>
             {value}
           </div>
-          <div className="mt-0.5 truncate text-micro text-muted-foreground">
+          <div className="mt-0.5 truncate text-micro text-muted-foreground" title={detail}>
             {detail}
           </div>
         </div>

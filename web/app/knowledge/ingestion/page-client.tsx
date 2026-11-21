@@ -925,7 +925,7 @@ export default function KnowledgeIngestionPageClient() {
         value: executionAverageDuration.replace(' / 文件', ''),
         suffix: '/ 文件',
         icon: Clock3,
-        tone: 'text-indigo',
+        tone: 'text-foreground',
         detail: '近 5 分钟平均',
       },
       {
@@ -2219,7 +2219,7 @@ export default function KnowledgeIngestionPageClient() {
           />
 
           <div className="min-w-0 flex-1">
-            <div className={cn(mode === 'execution-monitor' ? 'relative z-20' : 'sticky top-3 z-30')}>
+            <div className={cn(mode === 'execution-monitor' ? 'relative z-20' : 'sticky top-3 z-30 max-lg:static')}>
               <motion.div
                 className={cn(
                   'relative overflow-hidden',

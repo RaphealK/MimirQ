@@ -13,7 +13,13 @@ import {
   Trash2,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { type Key, useCallback, useMemo, useRef, useState } from "react";
+import {
+  type Key,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { toast } from "sonner";
 
 import { DocumentOperationsPanel } from "@/components/documents/document-operations-panel";
@@ -151,10 +157,10 @@ type KnowledgeDocumentsPanelProps = {
 
 const GRID_COLUMN_CLASS: Record<number, string> = {
   1: "grid-cols-1",
-  2: "grid-cols-2",
-  3: "grid-cols-3",
-  4: "grid-cols-4",
-  5: "grid-cols-5",
+  2: "grid-cols-1 sm:grid-cols-2",
+  3: "grid-cols-1 sm:grid-cols-3",
+  4: "grid-cols-1 sm:grid-cols-4",
+  5: "grid-cols-1 sm:grid-cols-5",
 };
 
 const SORT_OPTIONS = [
@@ -497,7 +503,7 @@ export function KnowledgeDocumentsPanel({
           label={t("actions.moreActions")}
           variant="ghost"
           data-row-action="true"
-          className="size-11 text-muted-foreground sm:size-8"
+          className="size-11 text-muted-foreground pointer-fine:sm:size-8"
           onClick={(event) => event.stopPropagation()}
         >
           <MoreVertical className="size-4" />
@@ -551,7 +557,7 @@ export function KnowledgeDocumentsPanel({
         <DropdownMenuItem asChild>
           <Link
             href={`/knowledge/${doc.id}/health`}
-            className="flex items-center"
+            className="flex items-center text-foreground underline-offset-4 hover:underline"
           >
             <Activity className="mr-2 size-4" aria-hidden="true" />
             {t("actions.healthCard")}
@@ -622,7 +628,7 @@ export function KnowledgeDocumentsPanel({
           </span>
           <span className="flex shrink-0 items-center gap-1">
             <label
-              className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11"
+              className="flex size-11 cursor-pointer items-center justify-center pointer-fine:sm:size-8"
               onClick={(event) => event.stopPropagation()}
             >
               <input
@@ -640,7 +646,10 @@ export function KnowledgeDocumentsPanel({
         </div>
         <div className="mt-2 flex items-center justify-between gap-2 text-micro text-muted-foreground">
           <StatusBadge status={badge.status} label={badge.label} dense />
-          <span className="truncate">
+          <span
+            className="truncate"
+            title={datasetLabelById?.[doc.dataset_id || ""] || emptyValue}
+          >
             {datasetLabelById?.[doc.dataset_id || ""] || emptyValue}
           </span>
         </div>
@@ -685,7 +694,7 @@ export function KnowledgeDocumentsPanel({
       <div className="flex items-center gap-1">
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
+          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 pointer-fine:sm:size-8"
           disabled={page <= 1}
           aria-label="上一页"
           onClick={() => onPageChange(page - 1)}
@@ -697,7 +706,7 @@ export function KnowledgeDocumentsPanel({
         </span>
         <button
           type="button"
-          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
+          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 pointer-fine:sm:size-8"
           disabled={page >= pageCount}
           aria-label="下一页"
           onClick={() => onPageChange(page + 1)}
@@ -714,7 +723,7 @@ export function KnowledgeDocumentsPanel({
         value={docFilter}
         onValueChange={setDocFilter}
         containerClassName="min-w-0 w-full md:max-w-[320px]"
-        inputClassName="text-caption"
+        inputClassName="text-caption max-lg:text-[16px]"
         placeholder={
           showDatasetColumn
             ? "搜索文件名 / 文档 ID / 数据集 ID"
@@ -735,7 +744,7 @@ export function KnowledgeDocumentsPanel({
           }}
         >
           <SelectTrigger
-            className="w-[9.5rem]"
+            className="w-[9.5rem] max-lg:text-[16px]"
             aria-label={t("sort.ariaLabel")}
           >
             <SelectValue placeholder={t("sort.placeholder")} />
@@ -907,7 +916,7 @@ export function KnowledgeDocumentsPanel({
       </AlertDialog>
 
       {selectedDocIds.length > 0 ? (
-        <div className="fixed bottom-4 left-1/2 z-40 flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-2 overflow-x-auto border border-border bg-surface px-3 py-2 shadow-none">
+        <div className="fixed bottom-4 left-1/2 z-40 flex max-w-[calc(100vw-2rem)] -translate-x-1/2 items-center gap-2 overflow-x-auto border border-border bg-surface px-3 py-2 shadow-none supports-[bottom:env(safe-area-inset-bottom)]:bottom-[calc(env(safe-area-inset-bottom)+1rem)]">
           <span className="whitespace-nowrap text-caption text-muted-foreground">
             {t("selection.selectedCount", { count: selectedDocIds.length })}
           </span>
@@ -1140,21 +1149,26 @@ export function KnowledgeDocumentsPanel({
           </>
         ) : (
           <>
-            <DataTable className="asset-register table-fixed md:min-w-[880px]">
+            <DataTable
+              aria-label="文档列表"
+              className="asset-register table-fixed min-w-[480px] md:min-w-[880px]"
+            >
               <colgroup>
                 <col className="w-11" />
                 <col />
-                {showDatasetColumn ? <col className="hidden md:table-column md:w-40" /> : null}
-                <col className="w-20 md:w-[6.5rem]" />
-                <col className="hidden md:table-column md:w-[4.5rem]" />
-                <col className="hidden md:table-column md:w-[5.5rem]" />
+                {showDatasetColumn ? (
+                  <col className="hidden md:table-column md:w-40" />
+                ) : null}
+                <col className="w-[4.5rem] md:w-[6.5rem]" />
+                <col className="w-16 md:w-[4.5rem]" />
+                <col className="w-16 md:w-[5.5rem]" />
                 <col className="hidden md:table-column md:w-[7rem]" />
                 <col className="w-11 md:w-12" />
               </colgroup>
               <thead>
                 <tr>
                   <DataTableHeadCell className="sticky top-0 z-10 bg-background">
-                    <label className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11">
+                    <label className="flex size-11 cursor-pointer items-center justify-center pointer-fine:sm:size-8">
                       <input
                         type="checkbox"
                         className="size-4 cursor-pointer accent-[hsl(var(--foreground))]"
@@ -1177,13 +1191,13 @@ export function KnowledgeDocumentsPanel({
                   </DataTableHeadCell>
                   <DataTableHeadCell
                     numeric
-                    className="hidden md:table-cell sticky top-0 z-10 bg-background"
+                    className="sticky top-0 z-10 bg-background"
                   >
                     {t("table.columns.chunks")}
                   </DataTableHeadCell>
                   <DataTableHeadCell
                     numeric
-                    className="hidden md:table-cell sticky top-0 z-10 bg-background"
+                    className="sticky top-0 z-10 bg-background"
                   >
                     {t("table.columns.size")}
                   </DataTableHeadCell>
@@ -1222,6 +1236,7 @@ export function KnowledgeDocumentsPanel({
                       key={doc.id}
                       data-index={virtualRow.index}
                       selected={selectedSet.has(doc.id)}
+                      className="[&>td]:h-11 pointer-fine:md:[&>td]:h-10"
                       onClick={(event) => {
                         if (isInteractiveTarget(event.target)) return;
                         onOpenDetail(doc, event.currentTarget);
@@ -1234,7 +1249,7 @@ export function KnowledgeDocumentsPanel({
                     >
                       <td className="w-10">
                         <label
-                          className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11"
+                          className="flex size-11 cursor-pointer items-center justify-center pointer-fine:sm:size-8"
                           onClick={(event) => event.stopPropagation()}
                         >
                           <input
@@ -1258,7 +1273,10 @@ export function KnowledgeDocumentsPanel({
                               fileType.color,
                             )}
                           >
-                            <TypeIcon className="size-3.5" aria-hidden="true" />
+                            <TypeIcon
+                              className="size-3.5"
+                              aria-hidden="true"
+                            />
                           </span>
                           <span className="truncate" title={doc.filename}>
                             {doc.filename}
@@ -1267,7 +1285,10 @@ export function KnowledgeDocumentsPanel({
                       </DataTableCell>
                       {showDatasetColumn ? (
                         <DataTableCell className="hidden md:table-cell">
-                          <span className="block truncate" title={datasetLabel}>
+                          <span
+                            className="block truncate"
+                            title={datasetLabel}
+                          >
                             {datasetLabel}
                           </span>
                         </DataTableCell>
@@ -1279,10 +1300,10 @@ export function KnowledgeDocumentsPanel({
                           dense
                         />
                       </DataTableCell>
-                      <DataTableCell numeric className="hidden md:table-cell">
+                      <DataTableCell numeric>
                         {formatChunkCount(doc)}
                       </DataTableCell>
-                      <DataTableCell numeric className="hidden md:table-cell">
+                      <DataTableCell numeric>
                         {formatDocumentSize(doc)}
                       </DataTableCell>
                       <DataTableCell className="hidden md:table-cell">
@@ -1290,7 +1311,9 @@ export function KnowledgeDocumentsPanel({
                           {safeFormatDate(doc.created_at)}
                         </span>
                       </DataTableCell>
-                      <DataTableActions>{renderRowMenu(doc)}</DataTableActions>
+                      <DataTableActions>
+                        {renderRowMenu(doc)}
+                      </DataTableActions>
                     </DataTableRow>
                   );
                 })}

@@ -93,7 +93,7 @@ export function DatasetFolderTreeView({
       toggleControl = (
         <button
           type="button"
-          className="z-10 rounded-sm p-0.5 hover:bg-muted/50 focus-ring"
+          className="z-10 inline-flex shrink-0 items-center justify-center rounded-sm p-0.5 pointer-coarse:size-11 hover:bg-muted/50 focus-ring"
           aria-label={isExpanded ? labels.collapse : labels.expand}
           onClick={(e) => {
             e.stopPropagation()
@@ -121,11 +121,11 @@ export function DatasetFolderTreeView({
           <button
             type="button"
             onClick={() => onSelect(node.path || null)}
-            className="min-w-0 flex-1 flex items-center justify-between gap-2 text-left focus-ring rounded-md py-0.5"
+            className="min-w-0 flex-1 flex items-center justify-between gap-2 text-left focus-ring rounded-md py-0.5 pointer-coarse:min-h-11"
           >
             <span className="min-w-0 flex items-center gap-2">
               <Icon className={cn("h-4 w-4 transition-colors", isSelected ? "text-primary" : "text-muted-foreground/60")} />
-              <span className={cn("truncate  transition-colors", isSelected ? "font-bold" : "font-medium")}>
+              <span className={cn("truncate transition-colors", isSelected ? "font-bold" : "font-medium")} title={node.name || node.path || labels.unnamed}>
                 {node.name || node.path || labels.unnamed}
               </span>
             </span>
@@ -158,7 +158,7 @@ export function DatasetFolderTreeView({
         type="button"
         onClick={() => onSelect(null)}
         className={cn(
-          'w-full flex items-center justify-between rounded-md border border-transparent px-2 py-1.5 text-sm transition-colors focus-ring',
+          'w-full flex items-center justify-between rounded-md border border-transparent px-2 py-1.5 text-sm transition-colors focus-ring pointer-coarse:min-h-11',
           selectedPath
             ? 'hover:bg-muted/40'
             : 'border-foreground/10 bg-primary/[0.06] text-primary'

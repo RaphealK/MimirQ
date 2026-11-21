@@ -127,7 +127,7 @@ describe("execution monitor visual contracts", () => {
     const page = read("app/knowledge/ingestion/page-client.tsx");
 
     expect(page).toContain(
-      "mode === 'execution-monitor' ? 'relative z-20' : 'sticky top-3 z-30'",
+      "mode === 'execution-monitor' ? 'relative z-20' : 'sticky top-3 z-30 max-lg:static'",
     );
     expect(page).toContain(
       "mode === 'execution-monitor' ? 'bg-info/[0.025] dark:bg-background' : INGESTION_BACKGROUND_CLASS",

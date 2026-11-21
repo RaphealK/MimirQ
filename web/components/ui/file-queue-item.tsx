@@ -130,7 +130,7 @@ export function FileQueueItem({
         aria-pressed={isSelected}
         aria-label={getFileQueueSelectionLabel(isSelected)}
         className={cn(
-          'mt-1 flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors focus-ring',
+          'relative mt-1 flex size-5 shrink-0 items-center justify-center rounded-full border transition-colors focus-ring pointer-coarse:before:absolute pointer-coarse:before:-inset-[13px] pointer-coarse:before:content-[""]',
           getFileQueueSelectionClass(isSelected)
         )}
         onClick={(event) => {
@@ -278,7 +278,7 @@ export function FileQueueItem({
               <button
                 type="button"
                 onClick={onRetry}
-                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground focus-ring rounded px-1.5 py-1"
+                className="relative flex items-center gap-1 rounded px-1.5 py-1 text-xs text-muted-foreground hover:text-foreground focus-ring pointer-coarse:before:absolute pointer-coarse:before:-inset-y-3 pointer-coarse:before:-inset-x-1 pointer-coarse:before:content-['']"
               >
                 <RotateCcw className="size-3" />
                 {t("fileQueueItem.retry")}
@@ -290,7 +290,7 @@ export function FileQueueItem({
                 onClick={onRemove}
                 aria-label={t("fileQueueItem.removeLabel")}
                 title={t("fileQueueItem.removeTitle")}
-                className="rounded p-1 opacity-0 transition-opacity transition-colors duration-200 focus-ring motion-reduce:transition-none group-hover:opacity-100 hover:bg-destructive/10"
+                className="relative rounded p-1 opacity-0 transition-opacity transition-colors duration-200 focus-ring motion-reduce:transition-none group-hover:opacity-100 hover:bg-destructive/10 pointer-coarse:before:absolute pointer-coarse:before:-inset-3 pointer-coarse:before:content-['']"
               >
                 <Trash2 className="size-3.5 text-muted-foreground transition-colors duration-200 motion-reduce:transition-none hover:text-destructive" />
               </button>

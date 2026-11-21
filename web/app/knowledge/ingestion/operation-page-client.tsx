@@ -407,7 +407,10 @@ function SelectOptionBody({
 function DatasetOptionBody({ dataset }: Readonly<{ dataset: Dataset }>) {
   return (
     <span className="flex min-w-0 flex-col gap-0.5">
-      <span className="truncate text-compact font-semibold leading-4 text-foreground">
+      <span
+        className="truncate text-compact font-semibold leading-4 text-foreground"
+        title={dataset.name}
+      >
         {dataset.name}
       </span>
       <span className="font-mono text-micro leading-4 text-muted-foreground">
@@ -1178,7 +1181,7 @@ export default function KnowledgeIngestionOperationPage() {
   return (
     <div
       data-ingestion-operation-root="true"
-      className="flex h-full min-h-0 flex-col"
+      className="flex h-full min-h-0 flex-col max-lg:[&_[role=combobox]]:text-[16px] max-lg:[&_input]:text-[16px] max-lg:[&_textarea]:text-[16px]"
     >
       <PageHeader
         className="px-6 max-md:[&>div]:flex-row max-md:[&>div]:items-center max-md:[&>div]:justify-between"
@@ -1234,7 +1237,10 @@ export default function KnowledgeIngestionOperationPage() {
               onValueChange={(value) => updateDraft("datasetId", value)}
             >
               <SelectTrigger id="ingestion-dataset" className="mt-3">
-                <span className="min-w-0 truncate text-compact font-medium">
+                <span
+                  className="min-w-0 truncate text-compact font-medium"
+                  title={selectedDataset?.name}
+                >
                   {selectedDataset?.name ??
                     (datasetsQuery.isLoading
                       ? "正在加载数据集"
@@ -1457,7 +1463,7 @@ export default function KnowledgeIngestionOperationPage() {
             <StepFlow
               steps={stepFlowSteps}
               onStepClick={handleStepClick}
-              className="mt-4 [&_.step-flow__step]:min-h-11 [&_.step-flow__step:focus-visible]:outline-none [&_.step-flow__step:focus-visible]:ring-2 [&_.step-flow__step:focus-visible]:ring-ring/40"
+              className="mt-4 [&_.step-flow__label]:whitespace-nowrap [&_.step-flow__state]:whitespace-nowrap [&_.step-flow__step]:min-h-11 [&_.step-flow__step:focus-visible]:outline-none [&_.step-flow__step:focus-visible]:ring-2 [&_.step-flow__step:focus-visible]:ring-ring/40 pointer-coarse:[&_.step-flow__step]:min-w-11"
             />
             <p className="mt-2 text-micro text-muted-foreground">
               治理随完整入库执行。
@@ -1473,7 +1479,7 @@ export default function KnowledgeIngestionOperationPage() {
 
           <footer
             data-ingestion-action-bar="true"
-            className="sticky bottom-0 z-10 mt-auto border-t border-border bg-background"
+            className="sticky bottom-0 z-10 mt-auto border-t border-border bg-background safe-area-pb"
           >
             <div className="flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div data-ingestion-preflight="true" className="min-w-0">
@@ -1835,7 +1841,7 @@ function IngestionFileQueue({
               <thead className="text-micro text-muted-foreground">
                 <tr>
                   <th className="py-2 pr-2 font-medium">文件</th>
-                  <th className="px-2 py-2 font-medium">大小</th>
+                  <th className="px-2 py-2 text-right font-medium">大小</th>
                   <th className="px-2 py-2 font-medium">状态</th>
                   <th className="py-2 text-right font-medium">操作</th>
                 </tr>
@@ -1862,7 +1868,7 @@ function IngestionFileQueue({
                           </span>
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-1 py-1.5 font-mono text-micro tabular-nums text-muted-foreground sm:px-2">
+                      <td className="whitespace-nowrap px-1 py-1.5 text-right font-mono text-micro tabular-nums text-muted-foreground sm:px-2">
                         {formatFileSize(file.size)}
                       </td>
                       <td

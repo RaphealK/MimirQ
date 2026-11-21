@@ -51,7 +51,7 @@ type KnowledgeScopePanelProps = {
 };
 
 const ROW_CLASS =
-  "flex min-h-8 w-full items-center gap-2 px-2 py-1 text-left text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60";
+  "flex min-h-11 w-full items-center gap-2 px-2 py-1 text-left text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 pointer-fine:sm:min-h-8";
 
 export function KnowledgeScopePanel({
   className,
@@ -182,7 +182,9 @@ export function KnowledgeScopePanel({
                         isActive ? "bg-foreground" : "bg-transparent",
                       )}
                     />
-                    <span className="min-w-0 truncate">{item.name}</span>
+                    <span className="min-w-0 truncate" title={item.name}>
+                      {item.name}
+                    </span>
                   </button>
                 );
               })
@@ -235,14 +237,17 @@ export function KnowledgeScopePanel({
                 <button
                   type="button"
                   onClick={() => setFolderPath(null)}
-                  className="text-micro text-foreground underline-offset-4 hover:underline"
+                  className="inline-flex min-h-11 items-center text-micro pointer-coarse:min-w-11 text-foreground underline-offset-4 hover:underline pointer-fine:sm:min-h-8"
                 >
                   {t("folder.clear")}
                 </button>
               ) : null}
             </div>
             {folderPath ? (
-              <div className="mb-1.5 truncate font-mono text-micro text-muted-foreground">
+              <div
+                className="mb-1.5 truncate font-mono text-micro text-muted-foreground"
+                title={folderPath}
+              >
                 {folderPath}
               </div>
             ) : null}
@@ -266,7 +271,7 @@ export function KnowledgeScopePanel({
               }
             >
               <SelectTrigger
-                className="w-full"
+                className="w-full max-lg:text-[16px]"
                 aria-label={t("lifecycle.ariaLabel")}
               >
                 <SelectValue placeholder={t("lifecycle.placeholder")} />

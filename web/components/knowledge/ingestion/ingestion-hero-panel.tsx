@@ -158,7 +158,7 @@ export function IngestionHeroPanel({
               type="button"
               variant="outline"
               aria-pressed={!desktopScopeCollapsed}
-              className="h-8 rounded-[4px] border-border bg-surface px-2.5 text-micro font-medium text-muted-foreground hover:border-border-strong hover:bg-muted hover:text-foreground"
+              className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-2.5 text-micro font-medium text-muted-foreground pointer-fine:sm:h-8 hover:border-border-strong hover:bg-muted hover:text-foreground"
               onClick={onToggleDesktopScope}
             >
               {desktopScopeCollapsed ? (
@@ -174,7 +174,7 @@ export function IngestionHeroPanel({
             <Button
               type="button"
               variant="outline"
-              className="h-7 rounded-[4px] px-2 text-micro"
+              className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2 text-micro pointer-fine:sm:h-7"
               onClick={onExitDemoMode}
             >
               退出演示
@@ -185,7 +185,7 @@ export function IngestionHeroPanel({
               <Button
                 type="button"
                 variant="outline"
-                className="h-7 rounded-[4px] px-2 text-micro"
+                className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2 text-micro pointer-fine:sm:h-7"
                 onClick={onUploadSampleAssessment}
               >
                 <UploadCloud className="mr-1.5 h-3.5 w-3.5" />
@@ -193,7 +193,7 @@ export function IngestionHeroPanel({
               </Button>
               <Button
                 type="button"
-                className="h-7 rounded-[4px] px-2 text-micro"
+                className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2 text-micro pointer-fine:sm:h-7"
                 onClick={onUploadFormalIngest}
               >
                 <UploadCloud className="mr-1.5 h-3.5 w-3.5" />
@@ -202,7 +202,7 @@ export function IngestionHeroPanel({
               <Button
                 type="button"
                 variant="outline"
-                className="h-7 rounded-[4px] px-2 text-micro"
+                className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2 text-micro pointer-fine:sm:h-7"
                 onClick={onExportSalesAuditReport}
               >
                 <Download className="mr-1.5 h-3.5 w-3.5" />
@@ -213,7 +213,7 @@ export function IngestionHeroPanel({
             <Button
               type="button"
               variant="outline"
-              className="h-8 rounded-[4px] border border-border bg-muted px-2.5 text-micro text-foreground transition-colors hover:bg-raised hover:text-foreground"
+              className="h-11 pointer-coarse:min-w-11 rounded-[4px] border border-border bg-muted px-2.5 text-micro text-foreground pointer-fine:sm:h-8 transition-colors hover:bg-raised hover:text-foreground"
               onClick={onDownloadReport}
             >
               <Download className="mr-1.5 h-3.5 w-3.5" />
@@ -239,7 +239,7 @@ export function IngestionHeroPanel({
                     <Icon className={cn('h-2.5 w-2.5 shrink-0', tone)} />
                   </span>
                 </div>
-                <div className="mt-1 font-mono text-micro tabular-nums leading-none text-foreground">
+                <div className="mt-1 truncate font-mono text-micro tabular-nums leading-none text-foreground" title={value}>
                   {value}
                 </div>
                 {detail ? (

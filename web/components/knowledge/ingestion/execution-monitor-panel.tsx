@@ -18,6 +18,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { EChart } from "@/components/ui/echart";
+import { TableScrollArea } from "@/components/ui/table-scroll-area";
 import { getCssHslColor, getCssHslaColor } from "@/lib/css-vars";
 import { cn, formatFileSize } from "@/lib/utils";
 import {
@@ -285,7 +286,9 @@ export function ExecutionMonitorPanel({
                 {executionPipelineWarning ? (
                   <span className="inline-flex max-w-48 items-center gap-1 truncate rounded-[4px] border border-warning/20 bg-warning/10 px-1.5 py-0.5 text-micro text-warning">
                     <CircleAlert className="size-3 shrink-0" />
-                    <span className="truncate">{executionPipelineWarning}</span>
+                    <span className="truncate" title={executionPipelineWarning}>
+                      {executionPipelineWarning}
+                    </span>
                   </span>
                 ) : null}
               </div>
@@ -328,7 +331,10 @@ export function ExecutionMonitorPanel({
                       </span>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5">
-                          <span className="truncate text-micro font-semibold text-foreground">
+                          <span
+                            className="truncate text-micro font-semibold text-foreground"
+                            title={card.label}
+                          >
                             {card.label}
                           </span>
                           <span className="inline-flex items-center gap-1 text-micro text-muted-foreground">
@@ -356,7 +362,10 @@ export function ExecutionMonitorPanel({
                     <div className="mt-2 grid grid-cols-3 gap-1 border-t border-foreground/10 pt-1.5">
                       {card.metrics.map(([label, value]) => (
                         <div key={label} className="min-w-0 text-center">
-                          <div className="truncate font-mono text-micro font-semibold text-foreground tabular-nums">
+                          <div
+                            className="truncate font-mono text-micro font-semibold text-foreground tabular-nums"
+                            title={value}
+                          >
                             {value}
                           </div>
                           <div className="truncate text-micro text-muted-foreground">
@@ -562,7 +571,7 @@ export function ExecutionMonitorPanel({
                         <span className="font-mono">{log.time}</span>
                         <span>{log.stage}</span>
                       </div>
-                      <div className="mt-0.5 truncate text-micro text-foreground">
+                      <div className="mt-0.5 truncate text-micro text-foreground" title={log.detail}>
                         {log.detail}
                       </div>
                     </div>
@@ -584,17 +593,17 @@ export function ExecutionMonitorPanel({
               {executionTaskRows.length} 个任务
             </div>
           </div>
-          <div className="mt-2 overflow-hidden border-y border-foreground/10">
-            <table className="w-full text-left text-micro">
+          <TableScrollArea label="任务列表" className="mt-2 border-y border-foreground/10">
+            <table className="w-full min-w-[720px] text-left text-micro">
               <thead className="bg-muted/20 text-muted-foreground">
                 <tr>
                   <th className="px-3 py-2 font-medium">文件名</th>
                   <th className="px-3 py-2 font-medium">类型</th>
-                  <th className="px-3 py-2 font-medium">大小</th>
+                  <th className="px-3 py-2 text-right font-medium">大小</th>
                   <th className="px-3 py-2 font-medium">当前阶段</th>
                   <th className="px-3 py-2 font-medium">状态</th>
                   <th className="px-3 py-2 font-medium">处理进度</th>
-                  <th className="px-3 py-2 font-medium">耗时</th>
+                  <th className="px-3 py-2 text-right font-medium">耗时</th>
                   <th className="px-3 py-2 font-medium">操作</th>
                 </tr>
               </thead>
@@ -613,7 +622,7 @@ export function ExecutionMonitorPanel({
                           <Button
                             type="button"
                             size="sm"
-                            className="h-8 rounded-[4px] px-2.5 text-micro"
+                            className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2.5 text-micro pointer-fine:sm:h-8"
                             onClick={onOpenIngestionOperation}
                           >
                             去入库操作
@@ -623,7 +632,7 @@ export function ExecutionMonitorPanel({
                               type="button"
                               variant="outline"
                               size="sm"
-                              className="h-8 rounded-[4px] px-2.5 text-micro"
+                              className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2.5 text-micro pointer-fine:sm:h-8"
                               onClick={onScopeAllProjects}
                             >
                               查看全部项目
@@ -660,12 +669,17 @@ export function ExecutionMonitorPanel({
                         className="border-t border-foreground/10"
                       >
                         <td className="px-3 py-2 font-medium text-foreground">
-                          {document.filename}
+                          <span
+                            className="block max-w-[14rem] truncate"
+                            title={document.filename}
+                          >
+                            {document.filename}
+                          </span>
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
                           {String(document.file_type || "").toUpperCase()}
                         </td>
-                        <td className="px-3 py-2 font-mono text-muted-foreground">
+                        <td className="px-3 py-2 text-right font-mono text-muted-foreground">
                           {formatFileSize(document.file_size || 0)}
                         </td>
                         <td className="px-3 py-2 text-muted-foreground">
@@ -689,13 +703,13 @@ export function ExecutionMonitorPanel({
                             </span>
                           </div>
                         </td>
-                        <td className="px-3 py-2 font-mono text-muted-foreground">
+                        <td className="px-3 py-2 text-right font-mono text-muted-foreground">
                           {elapsedMinutes}
                         </td>
                         <td className="px-3 py-2">
                           <button
                             type="button"
-                            className="text-micro font-medium text-foreground transition-colors hover:text-foreground"
+                            className="inline-flex min-h-11 pointer-coarse:min-w-11 items-center px-2 text-micro font-medium text-foreground transition-colors hover:text-foreground pointer-fine:sm:min-h-0 pointer-fine:sm:px-0"
                             onClick={() => onOpenAuditSnapshot(document.id)}
                           >
                             详情
@@ -707,7 +721,7 @@ export function ExecutionMonitorPanel({
                 )}
               </tbody>
             </table>
-          </div>
+          </TableScrollArea>
           <div className="mt-2 flex flex-col gap-2 border-t border-foreground/10 pt-2 text-micro text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <span className="font-mono tabular-nums">
               共 {executionTaskRows.length} 条
@@ -717,7 +731,7 @@ export function ExecutionMonitorPanel({
                 type="button"
                 variant="outline"
                 size="sm"
-                className="h-8 rounded-[4px] px-2.5 text-micro"
+                className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2.5 text-micro pointer-fine:sm:h-8"
                 disabled={executionTaskPage <= 1}
                 onClick={onPrevPage}
               >
@@ -731,7 +745,7 @@ export function ExecutionMonitorPanel({
                 type="button"
                 variant="outline"
                 size="sm"
-                className="h-8 rounded-[4px] px-2.5 text-micro"
+                className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2.5 text-micro pointer-fine:sm:h-8"
                 disabled={executionTaskPage >= executionTaskPageCount}
                 onClick={onNextPage}
               >

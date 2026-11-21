@@ -6,6 +6,7 @@
  */
 "use client";
 
+import { useId } from "react";
 import { AlertTriangle, Route } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -112,19 +113,21 @@ function ToggleRow({
   onCheckedChange: (checked: boolean) => void;
   action?: React.ReactNode;
 }>) {
+  const switchId = useId();
   return (
-    <div className="flex min-h-11 items-center justify-between gap-2 sm:min-h-8">
-      <div className="min-w-0">
-        <p className="text-caption text-foreground">{label}</p>
+    <div className="flex min-h-11 items-center justify-between gap-2 pointer-fine:sm:min-h-8">
+      <label htmlFor={switchId} className="flex min-w-0 flex-1 cursor-pointer flex-col justify-center pointer-coarse:min-h-11">
+        <span className="text-caption text-foreground">{label}</span>
         {description ? (
-          <p className="text-micro leading-4 text-muted-foreground">
+          <span className="text-micro leading-4 text-muted-foreground">
             {description}
-          </p>
+          </span>
         ) : null}
-      </div>
+      </label>
       <div className="flex shrink-0 items-center gap-1.5">
         {action}
         <Switch
+          id={switchId}
           checked={checked}
           onCheckedChange={onCheckedChange}
           aria-label={label}
@@ -181,7 +184,10 @@ export function RetrievalSettingsPanel({
   const metadataJsonId = `${idPrefix}-metadata-json`;
 
   return (
-    <div className="space-y-3" data-chat-retrieval-settings={idPrefix}>
+    <div
+      className="space-y-3 max-lg:[&_[role=combobox]]:text-[16px] max-lg:[&_input]:text-[16px] max-lg:[&_textarea]:text-[16px]"
+      data-chat-retrieval-settings={idPrefix}
+    >
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-micro font-medium uppercase text-muted-foreground">
           {t("retrievalSettings")}
@@ -206,7 +212,7 @@ export function RetrievalSettingsPanel({
                 variant="link"
                 size="sm"
                 onClick={datasetsError ? onRetryDatasets : onRetrySettings}
-                className="h-auto min-h-11 justify-start px-0 text-micro text-warning sm:min-h-7"
+                className="h-auto min-h-11 justify-start px-0 text-micro text-warning pointer-fine:sm:min-h-7"
               >
                 重试
               </Button>
@@ -218,7 +224,7 @@ export function RetrievalSettingsPanel({
       <div className="space-y-1">
         <p className="text-micro text-muted-foreground">{t("selectDataset")}</p>
         {documentScopeActive ? (
-          <div className="flex min-h-11 items-center rounded-[4px] border border-border bg-muted/40 px-2.5 text-caption text-foreground sm:min-h-8">
+          <div className="flex min-h-11 items-center rounded-[4px] border border-border bg-muted/40 px-2.5 text-caption text-foreground pointer-fine:sm:min-h-8">
             {t("currentDocumentScope")}
           </div>
         ) : (
@@ -229,7 +235,8 @@ export function RetrievalSettingsPanel({
           >
             <SelectTrigger
               id={datasetFieldId}
-              className="text-caption"
+              title={datasets.find((dataset) => dataset.id === selectedDatasetId)?.name}
+              className="text-caption max-lg:text-[16px]"
               aria-label={t("selectDataset")}
             >
               <SelectValue
@@ -242,7 +249,11 @@ export function RetrievalSettingsPanel({
             </SelectTrigger>
             <SelectContent>
               {datasets.map((dataset) => (
-                <SelectItem key={dataset.id} value={dataset.id}>
+                <SelectItem
+                  key={dataset.id}
+                  value={dataset.id}
+                  title={dataset.name}
+                >
                   {dataset.name}
                 </SelectItem>
               ))}
@@ -271,7 +282,7 @@ export function RetrievalSettingsPanel({
         >
           <SelectTrigger
             id={`${idPrefix}-retrieval-mode`}
-            className="text-caption"
+            className="text-caption max-lg:text-[16px]"
             aria-label={t("retrievalMode")}
           >
             <SelectValue />
@@ -299,7 +310,7 @@ export function RetrievalSettingsPanel({
             onChange={(event) =>
               onConfigChange({ top_k: Number(event.target.value || 0) })
             }
-            className="text-caption tabular-nums"
+            className="text-caption tabular-nums max-lg:text-[16px]"
           />
         </Field>
         <Field id={thresholdId} label="分数阈值">
@@ -315,7 +326,7 @@ export function RetrievalSettingsPanel({
                 score_threshold: Number(event.target.value || 0),
               })
             }
-            className="text-caption tabular-nums"
+            className="text-caption tabular-nums max-lg:text-[16px]"
           />
         </Field>
       </div>
@@ -339,7 +350,7 @@ export function RetrievalSettingsPanel({
       ) : null}
 
       <details className="border-t border-border pt-2">
-        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 text-micro text-muted-foreground [&::-webkit-details-marker]:hidden sm:min-h-8">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 text-micro text-muted-foreground [&::-webkit-details-marker]:hidden pointer-fine:sm:min-h-8">
           <span>高级设置</span>
           <span>记忆 · 模板 · 追踪</span>
         </summary>
@@ -373,7 +384,7 @@ export function RetrievalSettingsPanel({
                       ? t("viewOrUpdateSummary")
                       : t("sendMessageFirst")
                   }
-                  className="min-h-11 px-2 text-micro sm:min-h-7"
+                  className="min-h-11 px-2 text-micro pointer-fine:sm:min-h-7"
                 >
                   {t("viewSummary")}
                 </Button>
@@ -402,7 +413,7 @@ export function RetrievalSettingsPanel({
                 >
                   <SelectTrigger
                     id={presetId}
-                    className="text-caption"
+                    className="text-caption max-lg:text-[16px]"
                     aria-label={t("structuredPresetPlaceholder")}
                   >
                     <SelectValue
@@ -440,7 +451,8 @@ export function RetrievalSettingsPanel({
               >
                 <SelectTrigger
                   id={templateId}
-                  className="text-caption"
+                  title={promptTemplates.find((template) => template.id === promptTemplateId)?.name}
+                  className="text-caption max-lg:text-[16px]"
                   aria-label={t("selectPromptTemplate")}
                 >
                   <SelectValue />
@@ -450,7 +462,11 @@ export function RetrievalSettingsPanel({
                     {t("defaultTemplate")}
                   </SelectItem>
                   {promptTemplates.map((template) => (
-                    <SelectItem key={template.id} value={template.id}>
+                    <SelectItem
+                      key={template.id}
+                      value={template.id}
+                      title={template.name}
+                    >
                       {template.name}
                     </SelectItem>
                   ))}
@@ -460,7 +476,7 @@ export function RetrievalSettingsPanel({
           ) : null}
 
           <details className="border-t border-border pt-2">
-            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 text-micro text-muted-foreground [&::-webkit-details-marker]:hidden sm:min-h-8">
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 text-micro text-muted-foreground [&::-webkit-details-marker]:hidden pointer-fine:sm:min-h-8">
               <span>{t("metadataFilter")}</span>
               <span>{metadataFilterMode === "all" ? "全部" : "已设置"}</span>
             </summary>
@@ -479,7 +495,7 @@ export function RetrievalSettingsPanel({
               >
                 <SelectTrigger
                   id={metadataId}
-                  className="text-caption"
+                  className="text-caption max-lg:text-[16px]"
                   aria-label={t("metadataFilter")}
                 >
                   <SelectValue placeholder={t("metadataFilterPlaceholder")} />
@@ -515,7 +531,7 @@ export function RetrievalSettingsPanel({
                       onMetadataFilterTextChange(event.target.value)
                     }
                     placeholder={t("metadataFilterExampleHandbook")}
-                    className="min-h-[92px] font-mono text-micro"
+                    className="min-h-[92px] font-mono text-micro max-lg:text-[16px]"
                   />
                   {metadataFilterError ? (
                     <p className="text-micro text-destructive">
@@ -523,7 +539,7 @@ export function RetrievalSettingsPanel({
                     </p>
                   ) : null}
                   <details className="rounded-[4px] border border-border bg-muted/30 px-2 py-1.5">
-                    <summary className="cursor-pointer list-none text-micro text-muted-foreground [&::-webkit-details-marker]:hidden">
+                    <summary className="flex min-h-11 cursor-pointer list-none items-center text-micro text-muted-foreground [&::-webkit-details-marker]:hidden pointer-fine:sm:min-h-0">
                       {t("supportedOperatorsExamples")}
                     </summary>
                     <div className="mt-1.5 space-y-1 text-micro text-muted-foreground">
@@ -556,7 +572,7 @@ export function RetrievalSettingsPanel({
               onClick={onOpenTrace}
               disabled={!conversationId}
               title={conversationId ? t("viewRagTrace") : t("sendMessageFirst")}
-              className="min-h-11 px-2 text-micro sm:min-h-7"
+              className="min-h-11 px-2 text-micro pointer-fine:sm:min-h-7"
             >
               {t("viewTrace")}
             </Button>
@@ -569,7 +585,7 @@ export function RetrievalSettingsPanel({
               variant="ghost"
               size="sm"
               onClick={onOpenVoice}
-              className="min-h-11 px-2 text-micro sm:min-h-7"
+              className="min-h-11 px-2 text-micro pointer-fine:sm:min-h-7"
             >
               {t("voiceMode")}
             </Button>

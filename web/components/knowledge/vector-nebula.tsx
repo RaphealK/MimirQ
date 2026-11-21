@@ -407,7 +407,7 @@ export function VectorNebula() {
             <Button
               size="sm"
               variant="outline"
-              className="h-8 text-caption"
+              className="h-11 pointer-coarse:min-w-11 text-caption pointer-fine:sm:h-8"
               onClick={() => {
                 nebulaQuery.refetch()
               }}

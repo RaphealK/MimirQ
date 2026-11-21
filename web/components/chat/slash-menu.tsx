@@ -70,7 +70,7 @@ export function SlashMenu({ open, onOpenChange, onSelect, position }: Readonly<S
         side="top"
       >
         <Command loop>
-          <CommandInput placeholder={t('placeholder')} autoFocus />
+          <CommandInput placeholder={t('placeholder')} autoFocus className="max-lg:text-[16px]" />
           <CommandList>
             <CommandEmpty>{t('empty')}</CommandEmpty>
             <CommandGroup heading={t('heading')}>

@@ -312,13 +312,14 @@ export function KnowledgeInspector({
                 href={buildChunkPreviewDocumentHref(selected.id)}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-foreground underline-offset-4 hover:underline"
               >
                 <Layers className="size-3.5" aria-hidden="true" />
                 切片管理
               </Link>
             </Button>
             <Button asChild variant="outline" size="sm">
-              <Link href={`/knowledge/${selected.id}/health`}>
+              <Link href={`/knowledge/${selected.id}/health`} className="text-foreground underline-offset-4 hover:underline">
                 <Route className="size-3.5" aria-hidden="true" />
                 健康卡片
               </Link>

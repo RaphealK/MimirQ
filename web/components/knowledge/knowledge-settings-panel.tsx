@@ -525,7 +525,7 @@ export function KnowledgeSettingsPanel({
                     >
                       <SelectTrigger
                         className={cn(
-                          "h-8 rounded-[4px] pl-3 pr-2 text-micro transition-colors duration-120 [&>span]:font-medium [&>span]:text-foreground [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-subtle-foreground",
+                          "h-11 pointer-coarse:min-w-11 rounded-[4px] pl-3 pr-2 text-micro transition-colors duration-120 max-lg:text-[16px] pointer-fine:sm:h-8 [&>span]:font-medium [&>span]:text-foreground [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-subtle-foreground",
                           SETTINGS_CONTROL_CLASS,
                         )}
                         aria-label="选择数据集配置作用域"
@@ -541,7 +541,7 @@ export function KnowledgeSettingsPanel({
                           系统默认 · 新数据集
                         </SelectItem>
                         {datasets.map((dataset) => (
-                          <SelectItem key={dataset.id} value={dataset.id}>
+                          <SelectItem key={dataset.id} value={dataset.id} title={dataset.name}>
                             {dataset.name} · {dataset.id.slice(0, 8)}
                           </SelectItem>
                         ))}
@@ -556,7 +556,11 @@ export function KnowledgeSettingsPanel({
 
                   <div className="flex items-center gap-2 text-micro font-medium text-subtle-foreground">
                     <span className="size-1.5 shrink-0 rounded-full bg-muted-foreground" />
-                    <span className="truncate">
+                    <span className="truncate" title={
+                        isDatasetScoped
+                          ? `${scopeLabel} · 仅影响后续入库`
+                          : "系统默认 · 用于新数据集"
+                      }>
                       {isDatasetScoped
                         ? `${scopeLabel} · 仅影响后续入库`
                         : "系统默认 · 用于新数据集"}
@@ -572,7 +576,7 @@ export function KnowledgeSettingsPanel({
                     aria-expanded={guideExpanded}
                     aria-controls={SETTINGS_GUIDE_PANEL_ID}
                     onClick={() => setGuideExpanded((expanded) => !expanded)}
-                    className="flex w-full items-center justify-between gap-3 text-micro font-medium text-foreground transition-colors hover:text-foreground"
+                    className="flex min-h-11 w-full items-center justify-between gap-3 text-micro font-medium text-foreground transition-colors hover:text-foreground pointer-fine:sm:min-h-0"
                   >
                     <span className="flex items-center gap-2">
                       <Info className="size-3 text-foreground" />
@@ -605,13 +609,13 @@ export function KnowledgeSettingsPanel({
                     aria-expanded={currentConfigOpen}
                     aria-controls="knowledge-current-config-panel"
                     onClick={() => setCurrentConfigOpen((open) => !open)}
-                    className="flex w-full items-center justify-between gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="flex min-h-11 w-full items-center justify-between gap-3 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring pointer-fine:sm:min-h-0"
                   >
                     <span className="min-w-0">
                       <span className="block text-micro font-medium text-foreground">
                         配置状态
                       </span>
-                      <span className="mt-0.5 block truncate text-micro text-subtle-foreground">
+                      <span className="mt-0.5 block truncate text-micro text-subtle-foreground" title={savedConfig?.embedding.model || "-"}>
                         {savedConfig?.embedding.model || "-"}
                       </span>
                     </span>
@@ -642,7 +646,7 @@ export function KnowledgeSettingsPanel({
                       <span className="text-micro text-subtle-foreground">
                         模型来源
                       </span>
-                      <span className="max-w-[8rem] truncate text-right text-micro font-medium text-foreground">
+                      <span className="max-w-[8rem] truncate text-right text-micro font-medium text-foreground" title={currentEmbeddingBrand}>
                         {currentEmbeddingBrand}
                       </span>
                     </div>
@@ -659,7 +663,7 @@ export function KnowledgeSettingsPanel({
                         校验状态
                       </span>
                       <span className="max-w-[8rem] text-right">
-                        <span className="block truncate font-mono text-micro text-foreground">
+                        <span className="block truncate font-mono text-micro text-foreground" title={ragHashLabel}>
                           {ragHashLabel}
                         </span>
                         <span className="mt-0.5 block text-micro text-subtle-foreground">
@@ -712,7 +716,7 @@ export function KnowledgeSettingsPanel({
                     <span className="shrink-0 font-medium text-subtle-foreground">
                       当前自定义模型
                     </span>
-                    <span className="truncate font-mono font-semibold text-foreground">
+                    <span className="truncate font-mono font-semibold text-foreground" title={configuredEmbeddingModel}>
                       {configuredEmbeddingModel}
                     </span>
                     <span className="shrink-0 text-subtle-foreground">·</span>
@@ -773,6 +777,7 @@ export function KnowledgeSettingsPanel({
                                   ? "text-foreground"
                                   : "text-foreground",
                               )}
+                              title={model}
                             >
                               {model}
                             </div>
@@ -797,7 +802,9 @@ export function KnowledgeSettingsPanel({
                             {preset.brand}
                           </span>
                           <span aria-hidden="true">·</span>
-                          <span className="truncate">
+                          <span className="truncate" title={EMBEDDING_MODEL_META[model].chips
+                              .slice(1)
+                              .join(" · ")}>
                             {EMBEDDING_MODEL_META[model].chips
                               .slice(1)
                               .join(" · ")}
@@ -830,7 +837,7 @@ export function KnowledgeSettingsPanel({
                     <Button
                       type="button"
                       variant="ghost"
-                      className="h-7 rounded-[4px] px-2.5 text-micro font-medium text-foreground hover:bg-muted hover:text-foreground"
+                      className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-2.5 text-micro font-medium text-foreground hover:bg-muted hover:text-foreground pointer-fine:sm:h-7"
                       onClick={handleApplyRecommendedConfig}
                     >
                       应用建议值
@@ -838,7 +845,7 @@ export function KnowledgeSettingsPanel({
                     <Button
                       type="button"
                       variant="outline"
-                      className="h-7 rounded-[4px] border-border bg-surface px-2.5 text-micro font-medium hover:bg-muted/20 dark:border-border dark:bg-surface"
+                      className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-2.5 text-micro font-medium hover:bg-muted/20 pointer-fine:sm:h-7 dark:border-border dark:bg-surface"
                       onClick={handleResetDraft}
                       disabled={!isDirty}
                     >
@@ -859,7 +866,7 @@ export function KnowledgeSettingsPanel({
                     </div>
                   </div>
                   <div className="mt-2.5">
-                    <div className="relative h-5">
+                    <div className="relative h-11">
                       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-1 rounded-full bg-muted/70 -translate-y-1/2 dark:bg-muted-foreground/20" />
                       <div
                         className="pointer-events-none absolute left-0 top-1/2 h-1 rounded-full bg-foreground -translate-y-1/2 dark:bg-muted-foreground"
@@ -883,7 +890,7 @@ export function KnowledgeSettingsPanel({
                               : null,
                           )
                         }
-                        className="relative z-10 h-5 w-full cursor-pointer appearance-none bg-transparent [&::-webkit-slider-runnable-track]:h-5 [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:mt-0 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-surface dark:[&::-webkit-slider-thumb]:border-border dark:[&::-webkit-slider-thumb]:bg-surface [&::-moz-range-track]:h-5 [&::-moz-range-track]:bg-transparent [&::-moz-range-progress]:h-5 [&::-moz-range-progress]:bg-transparent [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-foreground [&::-moz-range-thumb]:bg-surface"
+                        className="relative z-10 h-11 w-full cursor-pointer appearance-none bg-transparent [&::-webkit-slider-runnable-track]:mt-3 [&::-webkit-slider-runnable-track]:h-5 [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:mt-0 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-surface dark:[&::-webkit-slider-thumb]:border-border dark:[&::-webkit-slider-thumb]:bg-surface [&::-moz-range-track]:h-5 [&::-moz-range-track]:bg-transparent [&::-moz-range-progress]:h-5 [&::-moz-range-progress]:bg-transparent [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-foreground [&::-moz-range-thumb]:bg-surface"
                       />
                     </div>
                     <div className="mt-2 flex items-center justify-between text-micro font-medium text-subtle-foreground">
@@ -909,7 +916,7 @@ export function KnowledgeSettingsPanel({
                     </div>
                   </div>
                   <div className="mt-2.5">
-                    <div className="relative h-5">
+                    <div className="relative h-11">
                       <div className="pointer-events-none absolute inset-x-0 top-1/2 h-1 rounded-full bg-muted/70 -translate-y-1/2 dark:bg-muted-foreground/20" />
                       <div
                         className="pointer-events-none absolute left-0 top-1/2 h-1 rounded-full bg-foreground -translate-y-1/2 dark:bg-muted-foreground"
@@ -936,7 +943,7 @@ export function KnowledgeSettingsPanel({
                               : null,
                           )
                         }
-                        className="relative z-10 h-5 w-full cursor-pointer appearance-none bg-transparent [&::-webkit-slider-runnable-track]:h-5 [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:mt-0 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-surface dark:[&::-webkit-slider-thumb]:border-border dark:[&::-webkit-slider-thumb]:bg-surface [&::-moz-range-track]:h-5 [&::-moz-range-track]:bg-transparent [&::-moz-range-progress]:h-5 [&::-moz-range-progress]:bg-transparent [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-foreground [&::-moz-range-thumb]:bg-surface"
+                        className="relative z-10 h-11 w-full cursor-pointer appearance-none bg-transparent [&::-webkit-slider-runnable-track]:mt-3 [&::-webkit-slider-runnable-track]:h-5 [&::-webkit-slider-runnable-track]:bg-transparent [&::-webkit-slider-thumb]:mt-0 [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-foreground [&::-webkit-slider-thumb]:bg-surface dark:[&::-webkit-slider-thumb]:border-border dark:[&::-webkit-slider-thumb]:bg-surface [&::-moz-range-track]:h-5 [&::-moz-range-track]:bg-transparent [&::-moz-range-progress]:h-5 [&::-moz-range-progress]:bg-transparent [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-foreground [&::-moz-range-thumb]:bg-surface"
                       />
                     </div>
                     <div className="mt-2 flex items-center justify-between text-micro font-medium text-subtle-foreground">
@@ -981,7 +988,7 @@ export function KnowledgeSettingsPanel({
                       }
                       disabled={!isDatasetScoped}
                     >
-                      <SelectTrigger className="h-8 rounded-[4px] border-border bg-surface text-micro font-medium dark:border-border dark:bg-surface">
+                      <SelectTrigger className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface text-micro font-medium max-lg:text-[16px] pointer-fine:sm:h-8 dark:border-border dark:bg-surface">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -1013,7 +1020,7 @@ export function KnowledgeSettingsPanel({
                     <Button
                       type="button"
                       variant="outline"
-                      className="h-8 rounded-[4px] border-warning/30 bg-warning/5 px-4 text-micro font-medium text-warning hover:border-warning/40 hover:bg-warning/10 hover:text-warning dark:hover:bg-warning/20 dark:hover:text-warning"
+                      className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-warning/30 bg-warning/5 px-4 text-micro font-medium text-warning hover:border-warning/40 hover:bg-warning/10 hover:text-warning pointer-fine:sm:h-8 dark:hover:bg-warning/20 dark:hover:text-warning"
                       onClick={handleResetDraft}
                     >
                       重置更改
@@ -1022,7 +1029,7 @@ export function KnowledgeSettingsPanel({
                   <Button
                     type="button"
                     variant="outline"
-                    className="h-8 rounded-[4px] border-border bg-surface px-4 text-micro font-medium text-muted-foreground hover:border-foreground/40 hover:bg-surface hover:text-foreground disabled:border-border disabled:bg-muted/40 disabled:text-subtle-foreground dark:border-border dark:bg-surface dark:disabled:border-border dark:disabled:bg-surface dark:disabled:text-subtle-foreground"
+                    className="h-11 pointer-coarse:min-w-11 rounded-[4px] border-border bg-surface px-4 text-micro font-medium text-muted-foreground hover:border-foreground/40 hover:bg-surface hover:text-foreground disabled:border-border disabled:bg-muted/40 disabled:text-subtle-foreground pointer-fine:sm:h-8 dark:border-border dark:bg-surface dark:disabled:border-border dark:disabled:bg-surface dark:disabled:text-subtle-foreground"
                     onClick={handleSaveDraft}
                     disabled={isSavingSettings || !draftConfig || !isDirty}
                   >
@@ -1033,7 +1040,7 @@ export function KnowledgeSettingsPanel({
                   </Button>
                   <Button
                     type="button"
-                    className="h-8 rounded-[4px] px-4 text-micro font-medium "
+                    className="h-11 pointer-coarse:min-w-11 rounded-[4px] px-4 text-micro font-medium pointer-fine:sm:h-8"
                     onClick={() => {
                       onGoToRetrievalTest?.();
                     }}
@@ -1063,12 +1070,12 @@ export function KnowledgeSettingsPanel({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="h-8 rounded-[6px]">
+            <AlertDialogCancel className="h-11 pointer-coarse:min-w-11 rounded-[6px] pointer-fine:sm:h-8">
               取消
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleSave}
-              className="h-8 rounded-[6px] bg-foreground text-background"
+              className="h-11 pointer-coarse:min-w-11 rounded-[6px] bg-foreground text-background pointer-fine:sm:h-8"
             >
               确认保存配置
             </AlertDialogAction>
@@ -1156,13 +1163,13 @@ export function KnowledgeConnectorRunsPanel({
               <Switch
                 checked={autoRefresh}
                 onCheckedChange={setAutoRefresh}
-                className="scale-[0.5] origin-right"
+                className="origin-right"
               />
             </div>
             <IconButton
               label="刷新"
               variant="ghost"
-              className="h-6 w-6 rounded-[4px] text-muted-foreground hover:text-foreground"
+              className="size-11 rounded-[4px] text-muted-foreground hover:text-foreground pointer-fine:sm:size-6"
               onClick={() =>
                 onLoadConnectorRuns({ datasetId: selectedDatasetId })
               }
@@ -1213,7 +1220,7 @@ export function KnowledgeConnectorRunsPanel({
               key={item.key}
               onClick={() => setRunStatusFilter(item.key)}
               className={cn(
-                "flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-[4px] text-micro font-medium transition-colors duration-120",
+                "flex min-h-11 pointer-coarse:min-w-11 flex-1 items-center justify-center gap-1.5 rounded-[4px] py-1.5 text-micro font-medium transition-colors duration-120 pointer-fine:sm:min-h-0",
                 runStatusFilter === item.key
                   ? "bg-raised " + item.color
                   : "text-subtle-foreground hover:text-muted-foreground hover:bg-muted/40",
@@ -1301,7 +1308,7 @@ function TaskCard({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-caption font-medium text-foreground truncate max-w-[140px] leading-none">
+                <span className="text-caption font-medium text-foreground truncate max-w-[140px] leading-none" title={run.connector_id}>
                   {run.connector_id}
                 </span>
                 <div
@@ -1323,12 +1330,12 @@ function TaskCard({
             </div>
           </div>
 
-          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex items-center gap-1 opacity-100 transition-opacity pointer-fine:sm:opacity-0 pointer-fine:sm:group-hover:opacity-100 pointer-fine:sm:group-focus-within:opacity-100">
             {isRunning && (
               <IconButton
                 label="取消"
                 variant="ghost"
-                className="h-7 w-7 rounded-[4px] text-muted-foreground hover:text-destructive"
+                className="size-11 rounded-[4px] text-muted-foreground hover:text-destructive pointer-fine:sm:size-7"
                 onClick={() => onCancel(run.id)}
               >
                 <X className="size-3.5" />
@@ -1338,7 +1345,7 @@ function TaskCard({
               <IconButton
                 label="重试"
                 variant="ghost"
-                className="h-7 w-7 rounded-[4px] text-muted-foreground hover:text-foreground"
+                className="size-11 rounded-[4px] text-muted-foreground hover:text-foreground pointer-fine:sm:size-7"
                 onClick={() => onRetry(run.id)}
               >
                 <RotateCcw className="size-3.5" />
@@ -1348,7 +1355,7 @@ function TaskCard({
               <IconButton
                 label="继续"
                 variant="ghost"
-                className="h-7 w-7 rounded-[4px] text-muted-foreground hover:text-foreground"
+                className="size-11 rounded-[4px] text-muted-foreground hover:text-foreground pointer-fine:sm:size-7"
                 onClick={() => onResume(run.id)}
               >
                 <RefreshCw className="size-3.5" />
@@ -1357,7 +1364,7 @@ function TaskCard({
             <IconButton
               label="复制"
               variant="ghost"
-              className="h-7 w-7 rounded-[4px] text-muted-foreground"
+              className="size-11 rounded-[4px] text-muted-foreground pointer-fine:sm:size-7"
               onClick={() => {
                 navigator.clipboard.writeText(run.id);
                 toast.success("Copied");
@@ -1393,7 +1400,7 @@ function TaskCard({
         {isFailed && run.error_message && (
           <button
             onClick={onToggleExpand}
-            className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-[4px] bg-destructive/5 border border-destructive/10 text-destructive hover:bg-destructive/10 transition-colors"
+            className="flex min-h-11 w-full items-center justify-between rounded-[4px] border border-destructive/10 bg-destructive/5 px-2.5 py-1.5 text-destructive transition-colors hover:bg-destructive/10 pointer-fine:sm:min-h-0"
           >
             <span className="text-micro font-medium truncate uppercase">
               Error Details
@@ -1422,6 +1429,10 @@ function TaskCard({
                     "error",
                   )}
                   className="mt-1 opacity-60 truncate"
+                  title={toTrimmedPrimitiveString(
+                    err.error ?? err.message ?? err.code,
+                    "error",
+                  )}
                 >
                   !{" "}
                   {toTrimmedPrimitiveString(
