@@ -1,53 +1,88 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
+import Link from "next/link";
 import {
   CalendarClock,
   Database,
+  ExternalLink,
   FileSearch,
   FolderTree,
   Hash,
   Layers,
   Route,
-  type LucideIcon,
-} from 'lucide-react'
+} from "lucide-react";
 
-import type { Document } from '@/types'
-
-import { Button } from '@/components/ui/button'
-import { Panel } from '@/components/ui/panel'
-import { getFileTypeMeta } from '@/components/knowledge/file-type'
-import { buildChunkPreviewDocumentHref } from '@/lib/chunk-preview-links'
-import { toTrimmedPrimitiveString } from '@/lib/primitive-text'
-import { cn, formatDate, formatFileSize } from '@/lib/utils'
+import { DocumentTags } from "@/components/documents/document-tags";
+import { Button } from "@/components/ui/button";
+import { Panel } from "@/components/ui/panel";
+import { getFileTypeMeta } from "@/components/knowledge/file-type";
+import { buildChunkPreviewDocumentHref } from "@/lib/chunk-preview-links";
+import { getUserTagsFromDocument } from "@/lib/document-user-tags";
+import { toTrimmedPrimitiveString } from "@/lib/primitive-text";
+import { cn, formatDate, formatFileSize } from "@/lib/utils";
+import type { Document } from "@/types";
 
 type KnowledgeInspectorProps = {
-  selectedDocs: Document[]
-  children?: React.ReactNode
-  className?: string
-  embedded?: boolean
-}
+  selectedDocs: Document[];
+  children?: React.ReactNode;
+  className?: string;
+  embedded?: boolean;
+  onOpenOriginal?: (doc: Document) => void;
+};
+
+const EMPTY_VALUE = "—";
 
 function formatShortId(value: string) {
-  const text = String(value || '').trim()
-  if (!text) return '—'
-  return text.length > 18 ? `${text.slice(0, 8)}…${text.slice(-6)}` : text
+  const text = String(value || "").trim();
+  if (!text) return EMPTY_VALUE;
+  return text.length > 24 ? `${text.slice(0, 12)}…${text.slice(-8)}` : text;
 }
 
 function getStatusLabel(status: unknown) {
-  const value = String(status || '').toLowerCase()
-  if (value === 'completed' || value === 'ready') return '已就绪'
-  if (value === 'processing' || value === 'pending') return '处理中'
-  if (value === 'failed') return '失败'
-  if (value === 'quarantined') return '隔离'
-  return value || '未知'
+  const value = String(status || "").toLowerCase();
+  if (value === "completed" || value === "ready") return "已就绪";
+  if (value === "processing") return "处理中";
+  if (value === "pending") return "等待";
+  if (value === "failed") return "失败";
+  if (value === "quarantined") return "隔离";
+  if (value === "cancelled") return "已取消";
+  return value || "未知";
+}
+
+function getLifecycleLabel(doc: Document) {
+  if (doc.archived_at) return "已归档";
+  if (doc.disabled_at) return "已禁用";
+  return "启用中";
 }
 
 function buildSourceTrail(sourcePath: string) {
   return sourcePath
-    .split('/')
+    .split("/")
     .map((segment) => segment.trim())
-    .filter(Boolean)
+    .filter(Boolean);
+}
+
+function MetaRow({
+  label,
+  value,
+  mono = false,
+}: Readonly<{ label: string; value: React.ReactNode; mono?: boolean }>) {
+  return (
+    <div className="flex min-w-0 items-baseline gap-2 border-b border-border py-1.5 last:border-b-0">
+      <span className="w-16 shrink-0 text-micro text-muted-foreground">
+        {label}
+      </span>
+      <span
+        className={cn(
+          "min-w-0 flex-1 truncate text-caption text-foreground",
+          mono && "font-mono tabular-nums",
+        )}
+        title={typeof value === "string" ? value : undefined}
+      >
+        {value}
+      </span>
+    </div>
+  );
 }
 
 export function KnowledgeInspector({
@@ -55,265 +90,249 @@ export function KnowledgeInspector({
   children,
   className,
   embedded = false,
+  onOpenOriginal,
 }: Readonly<KnowledgeInspectorProps>) {
-  const selected = selectedDocs.length === 1 ? selectedDocs[0] : null
-  const fileType = selected ? getFileTypeMeta(selected) : null
-  const TypeIcon = fileType?.icon
-  const metadata = selected?.metadata
-  const sourcePath = selected ? toTrimmedPrimitiveString(metadata?.source_path) : ''
-  const sourceTrail = buildSourceTrail(sourcePath)
-  const folderPath = sourceTrail.length > 1 ? sourceTrail.slice(0, -1).join(' / ') : ''
+  const selected = selectedDocs.length === 1 ? selectedDocs[0] : null;
+  const fileType = selected ? getFileTypeMeta(selected) : null;
+  const TypeIcon = fileType?.icon;
+  const metadata = selected?.metadata;
+  const sourcePath = selected
+    ? toTrimmedPrimitiveString(metadata?.source_path)
+    : "";
+  const sourceTrail = buildSourceTrail(sourcePath);
   const parserLabel = selected
-    ? toTrimmedPrimitiveString(metadata?.parser_backend) || '自动'
-    : '—'
+    ? toTrimmedPrimitiveString(metadata?.parser_backend) || "自动"
+    : EMPTY_VALUE;
+  const userTags = selected ? getUserTagsFromDocument(selected) : [];
 
   const header = (
-    <div
-      className={cn(
-        'flex items-center justify-between gap-3 border-b border-border/50',
-        embedded
-          ? 'bg-card/44 px-4 py-3 backdrop-blur-sm'
-          : 'bg-card/58 px-4 py-3'
-      )}
-    >
+    <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
       <div className="min-w-0">
-        <div className="text-[13px] font-semibold leading-none tracking-[-0.01em] text-foreground">
-          审查面板
-        </div>
-        <div className="mt-1 text-[11px] leading-none text-muted-foreground/72">
-          单文档切片、来源和健康入口
+        <div className="text-compact font-medium text-foreground">文档详情</div>
+        <div className="mt-0.5 text-micro text-muted-foreground">
+          元数据、来源与切片入口
         </div>
       </div>
-      <div className="inline-flex h-7 items-center gap-1.5 rounded-full border border-border/50 bg-background/70 px-2.5 text-[11px] text-muted-foreground">
-        <span className="size-1.5 rounded-full bg-info" />
-        <span className="font-mono tabular-nums">{selectedDocs.length}</span>
-      </div>
+      <span className="font-mono text-micro tabular-nums text-muted-foreground">
+        {selectedDocs.length}
+      </span>
     </div>
-  )
+  );
 
   const summary = (() => {
     if (selected) {
       return (
         <div className="space-y-3">
-          <div className="relative overflow-hidden rounded-[18px] border border-border/50 bg-[linear-gradient(135deg,hsl(var(--card)/0.86),hsl(var(--surface-2)/0.50))] p-3.5 shadow-[0_14px_30px_-30px_hsl(var(--primary)/0.28)]">
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-[linear-gradient(90deg,hsl(var(--primary)/0.12),hsl(var(--info)/0.44),hsl(var(--primary)/0.10))]" />
-            <div className="flex items-start gap-3">
-              {fileType && TypeIcon ? (
-                <div
-                  className={cn(
-                    'shrink-0 rounded-[14px] border p-2.5 shadow-[inset_0_1px_0_hsl(var(--card)/0.72)]',
-                    fileType.bg,
-                    fileType.border,
-                    fileType.color
-                  )}
-                >
-                  <TypeIcon className="h-4 w-4" />
-                </div>
-              ) : null}
-
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-start gap-2">
-                  <div className="min-w-0 flex-1 break-words text-[14px] font-semibold leading-5 text-foreground">
-                    {selected.filename}
-                  </div>
-                  {fileType ? (
-                    <span
-                      className={cn(
-                        'inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold',
-                        fileType.bg,
-                        fileType.border,
-                        fileType.color
-                      )}
-                      title={fileType.label}
-                    >
-                      {fileType.label}
-                    </span>
-                  ) : null}
-                </div>
-
-                <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border/45 bg-background/62 px-2 py-1 font-mono text-[10px] text-muted-foreground">
-                    <Hash className="size-3 text-muted-foreground/55" />
-                    {formatShortId(selected.id)}
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-border/45 bg-background/62 px-2 py-1 text-[10px] text-muted-foreground">
-                    {getStatusLabel(selected.status)}
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-border/45 bg-background/62 px-2 py-1 text-[10px] text-muted-foreground">
-                    解析器 {parserLabel}
-                  </span>
-                </div>
+          <div className="flex min-w-0 items-start gap-3">
+            {fileType && TypeIcon ? (
+              <div
+                className={cn(
+                  "mt-0.5 flex size-9 shrink-0 items-center justify-center border",
+                  fileType.bg,
+                  fileType.border,
+                  fileType.color,
+                )}
+              >
+                <TypeIcon className="size-4" aria-hidden="true" />
+              </div>
+            ) : null}
+            <div className="min-w-0 flex-1">
+              <div className="break-words text-body font-medium leading-5 text-foreground">
+                {selected.filename}
+              </div>
+              <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-micro text-muted-foreground">
+                <span>{getStatusLabel(selected.status)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{getLifecycleLabel(selected)}</span>
+                {fileType ? (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{fileType.label}</span>
+                  </>
+                ) : null}
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-[11px] text-muted-foreground">
-            <MetricTile
-              icon={FileSearch}
-              label="文件大小"
-              value={formatFileSize(Number(selected.file_size || 0))}
+          <div className="border-t border-border">
+            <MetaRow label="文档 ID" value={formatShortId(selected.id)} mono />
+            <MetaRow
+              label="数据集"
+              value={
+                selected.dataset_id ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Database
+                      className="size-3 text-muted-foreground"
+                      aria-hidden="true"
+                    />
+                    {selected.dataset_id}
+                  </span>
+                ) : (
+                  EMPTY_VALUE
+                )
+              }
             />
-            <MetricTile
-              icon={Layers}
-              label="切片数"
-              value={String(selected.chunk_count ?? 0)}
+            <MetaRow
+              label="大小"
+              value={
+                Number.isFinite(Number(selected.file_size))
+                  ? formatFileSize(Number(selected.file_size))
+                  : EMPTY_VALUE
+              }
+              mono
             />
-            <MetricTile
-              icon={CalendarClock}
-              label="创建时间"
-              value={formatDate(selected.created_at)}
+            <MetaRow
+              label="分块"
+              value={
+                selected.status === "processing" ||
+                selected.status === "pending"
+                  ? EMPTY_VALUE
+                  : (selected.chunk_count ?? EMPTY_VALUE)
+              }
+              mono
             />
-            <MetricTile
-              icon={CalendarClock}
-              label="更新时间"
-              value={formatDate(selected.updated_at || selected.created_at)}
+            <MetaRow
+              label="创建"
+              value={
+                selected.created_at
+                  ? formatDate(selected.created_at)
+                  : EMPTY_VALUE
+              }
+              mono
             />
+            <MetaRow
+              label="更新"
+              value={
+                selected.updated_at || selected.created_at
+                  ? formatDate(selected.updated_at || selected.created_at)
+                  : EMPTY_VALUE
+              }
+              mono
+            />
+            <MetaRow label="解析器" value={parserLabel} />
           </div>
 
-          {selected.dataset_id ? (
-            <div className="rounded-[16px] border border-border/48 bg-card/62 px-3 py-2.5 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)]">
-              <div className="mb-1.5 flex items-center gap-2 text-[11px] font-semibold text-muted-foreground/76">
-                <Database className="size-3.5 text-info" />
-                所属知识库
+          {userTags.length ? (
+            <div>
+              <div className="mb-1 text-micro font-medium uppercase tracking-[0.04em] text-muted-foreground">
+                标签
               </div>
-              <div className="break-all rounded-[10px] bg-background/60 px-2 py-1.5 font-mono text-[10px] leading-4 text-foreground/72">
-                {selected.dataset_id}
-              </div>
+              <DocumentTags tags={userTags} max={6} dense />
             </div>
           ) : null}
 
           {sourcePath ? (
-            <div className="overflow-hidden rounded-[16px] border border-border/48 bg-card/62 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)]">
-              <div className="border-b border-border/45 px-3 py-2">
-                <div className="flex items-center gap-2 text-[11px] font-semibold text-muted-foreground/76">
-                  <FolderTree className="size-3.5 text-info" />
-                  来源路径
-                </div>
-                {folderPath ? (
-                  <div className="mt-1 line-clamp-2 text-[11px] leading-4 text-muted-foreground/72" title={folderPath}>
-                    {folderPath}
-                  </div>
-                ) : null}
+            <div>
+              <div className="mb-1 flex items-center gap-1.5 text-micro font-medium uppercase tracking-[0.04em] text-muted-foreground">
+                <FolderTree className="size-3.5" aria-hidden="true" />
+                来源路径
               </div>
-              <div className="space-y-2 px-3 py-2.5">
-                <div className="flex flex-wrap gap-1.5">
-                  {sourceTrail.slice(0, 5).map((segment, index) => (
-                    <span
-                      key={`${segment}-${index}`}
-                      className="inline-flex max-w-full items-center rounded-full border border-border/45 bg-background/62 px-2 py-1 text-[10px] text-foreground/72"
-                      title={segment}
-                    >
-                      <span className="max-w-[9rem] truncate">{segment}</span>
-                    </span>
-                  ))}
-                  {sourceTrail.length > 5 ? (
-                    <span className="inline-flex items-center rounded-full border border-border/45 bg-background/62 px-2 py-1 text-[10px] text-muted-foreground">
-                      +{sourceTrail.length - 5}
-                    </span>
-                  ) : null}
+              {sourceTrail.length > 1 ? (
+                <div className="mb-1 break-words text-caption text-muted-foreground">
+                  {sourceTrail.slice(0, -1).join(" / ")}
                 </div>
-                <div className="break-all rounded-[10px] bg-background/58 px-2 py-1.5 font-mono text-[10px] leading-4 text-muted-foreground/82">
-                  {sourcePath}
-                </div>
+              ) : null}
+              <div className="break-all font-mono text-micro leading-4 text-foreground">
+                {sourcePath}
               </div>
             </div>
           ) : null}
 
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="h-8 rounded-xl border-info/18 bg-info/[0.06] px-2.5 text-[11px] font-medium text-info hover:bg-info/[0.10] dark:text-info"
-            >
+          <div className="grid gap-1.5 sm:grid-cols-2">
+            <Button asChild variant="outline" size="sm">
               <Link
                 href={buildChunkPreviewDocumentHref(selected.id)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Layers className="mr-1.5 size-3.5" />
+                <Layers className="size-3.5" aria-hidden="true" />
                 切片管理
               </Link>
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="h-8 rounded-xl border-border/50 bg-background/72 px-2.5 text-[11px] font-medium text-foreground/78 hover:bg-card/92"
-            >
+            <Button asChild variant="outline" size="sm">
               <Link href={`/knowledge/${selected.id}/health`}>
-                <Route className="mr-1.5 size-3.5" />
-                健康卡
+                <Route className="size-3.5" aria-hidden="true" />
+                健康卡片
               </Link>
             </Button>
+            {onOpenOriginal ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="sm:col-span-2"
+                onClick={() => onOpenOriginal(selected)}
+              >
+                <ExternalLink className="size-3.5" aria-hidden="true" />
+                打开原文抽屉
+              </Button>
+            ) : null}
           </div>
+
+          <div className="grid grid-cols-3 border-y border-border py-2 text-micro text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <FileSearch className="size-3.5" aria-hidden="true" />
+              来源
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Hash className="size-3.5" aria-hidden="true" />
+              {selected.chunk_count ?? EMPTY_VALUE} 分块
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarClock className="size-3.5" aria-hidden="true" />
+              {selected.processed_at
+                ? formatDate(selected.processed_at)
+                : EMPTY_VALUE}
+            </span>
+          </div>
+
+          {children}
         </div>
-      )
+      );
     }
 
     if (selectedDocs.length > 1) {
       return (
-        <div className="rounded-xl border border-dashed border-border/60 bg-transparent px-3 py-3 text-xs text-muted-foreground">
-          已选择 <span className="font-mono tabular-nums text-foreground">{selectedDocs.length}</span> 份文档。请收窄选择范围以查看单文档详情。
+        <div className="border border-border px-3 py-4 text-caption text-muted-foreground">
+          已选择 {selectedDocs.length} 份文档。请收窄选择范围以查看单文档详情。
         </div>
-      )
+      );
     }
 
     return (
-      <div className="rounded-xl border border-dashed border-border/60 bg-transparent px-3 py-3 text-xs text-muted-foreground">
+      <div className="border border-border px-3 py-4 text-caption text-muted-foreground">
         选择一个文档以查看详情。
       </div>
-    )
-  })()
+    );
+  })();
+
+  const content = <div className="space-y-3 p-4">{summary}</div>;
 
   if (embedded) {
     return (
-      <div className={cn('flex flex-col border-0 bg-transparent', className)}>
+      <div
+        className={cn("flex min-h-0 flex-1 flex-col bg-background", className)}
+      >
         {header}
-        <div className="space-y-3 overflow-y-auto p-3.5 lg:p-4">
-          {summary}
-          {children ? <div className="rounded-[16px] border border-border/50 bg-background/70 p-3">{children}</div> : null}
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain custom-scrollbar">
+          {content}
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <Panel
       padding="none"
-      className={cn('min-h-0 overflow-hidden flex flex-col border-border/50 bg-card', className)}
+      className={cn("flex min-h-0 flex-col overflow-hidden", className)}
     >
       {header}
-
       <div
         data-page-scroll-container="true"
-        className="flex-1 min-h-0 overflow-y-auto overscroll-contain custom-scrollbar p-4 space-y-3"
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain custom-scrollbar"
       >
-        {summary}
-        {children ? <div className="border-t border-border/50 pt-3">{children}</div> : null}
+        {content}
       </div>
     </Panel>
-  )
-}
-
-function MetricTile({
-  icon: Icon,
-  label,
-  value,
-}: Readonly<{
-  icon: LucideIcon
-  label: string
-  value: string
-}>) {
-  return (
-    <div className="rounded-[14px] border border-border/48 bg-card/62 px-2.5 py-2 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)]">
-      <div className="flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground/66">
-        <Icon className="size-3 text-info/78" />
-        {label}
-      </div>
-      <div className="mt-1 truncate font-mono text-[11px] font-semibold tabular-nums text-foreground/86" title={value}>
-        {value}
-      </div>
-    </div>
-  )
+  );
 }

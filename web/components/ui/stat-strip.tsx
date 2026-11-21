@@ -9,6 +9,8 @@ export type StatStripItem = {
   label: string;
   value: React.ReactNode;
   detail?: React.ReactNode;
+  /** @deprecated Use detail. Kept for SystemDataStrip compatibility. */
+  hint?: React.ReactNode;
   tone?: StatStripTone;
   mono?: boolean;
 };
@@ -18,6 +20,8 @@ type StatStripProps = {
   className?: string;
   /** Engineering rule: a viewport shows at most five aggregates. */
   max?: number;
+  /** Minimum cell width; narrow viewports scroll the single row horizontally. */
+  minColumnWidth?: number;
 };
 
 const TONE_CLASS: Record<StatStripTone, string> = {
@@ -35,13 +39,21 @@ export function StatStrip({
   items,
   className,
   max = 5,
+  minColumnWidth = 140,
 }: Readonly<StatStripProps>) {
   if (!items.length) return null;
 
   const visibleItems = items.slice(0, Math.max(1, Math.min(max, 5)));
+  const cellWidth = Math.max(140, Math.floor(minColumnWidth));
 
   return (
-    <dl data-slot="stat-strip" className={cn("stat-strip", className)}>
+    <dl
+      data-slot="stat-strip"
+      className={cn("stat-strip", className)}
+      style={
+        { "--stat-strip-min-width": `${cellWidth}px` } as React.CSSProperties
+      }
+    >
       {visibleItems.map((item, index) => (
         <div
           key={item.id || `${item.label}-${index}`}
@@ -58,8 +70,8 @@ export function StatStrip({
           >
             {item.value}
           </dd>
-          {item.detail ? (
-            <div className="stat-strip__detail">{item.detail}</div>
+          {(item.detail ?? item.hint) ? (
+            <div className="stat-strip__detail">{item.detail ?? item.hint}</div>
           ) : null}
         </div>
       ))}

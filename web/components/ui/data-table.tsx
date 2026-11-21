@@ -8,72 +8,85 @@ type DataTableProps = React.TableHTMLAttributes<HTMLTableElement>;
  * Engineering table: 36px header, 40px rows, hairline rules, no zebra striping.
  * Row actions are revealed on hover/focus via `.data-table__actions`.
  */
-export function DataTable({
-  className,
-  children,
-  ...props
-}: Readonly<DataTableProps>) {
-  return (
-    <div className="w-full overflow-x-auto">
-      <table
-        data-slot="data-table"
-        className={cn("data-table", className)}
-        {...props}
-      >
-        {children}
-      </table>
-    </div>
-  );
-}
+export const DataTable = React.forwardRef<HTMLTableElement, DataTableProps>(
+  function DataTable({ className, children, ...props }, ref) {
+    return (
+      <div className="w-full overflow-x-auto">
+        <table
+          ref={ref}
+          data-slot="data-table"
+          className={cn("data-table", className)}
+          {...props}
+        >
+          {children}
+        </table>
+      </div>
+    );
+  },
+);
+DataTable.displayName = "DataTable";
 
 type DataTableRowProps = React.HTMLAttributes<HTMLTableRowElement> & {
   selected?: boolean;
   interactive?: boolean;
 };
 
-export function DataTableRow({
-  selected = false,
-  interactive = true,
-  className,
-  onClick,
-  onKeyDown,
-  ...props
-}: Readonly<DataTableRowProps>) {
+export const DataTableRow = React.forwardRef<
+  HTMLTableRowElement,
+  Readonly<DataTableRowProps>
+>(function DataTableRow(
+  {
+    selected = false,
+    interactive = true,
+    className,
+    onClick,
+    onKeyDown,
+    ...props
+  },
+  ref,
+) {
+  const isActionable = interactive && Boolean(onClick);
+
   return (
     <tr
+      ref={ref}
       data-selected={selected ? "true" : undefined}
-      tabIndex={interactive ? 0 : undefined}
+      tabIndex={isActionable ? 0 : undefined}
       className={cn(interactive && "cursor-pointer", className)}
       onClick={onClick}
       onKeyDown={(event) => {
-        if (
-          interactive &&
-          onClick &&
-          (event.key === "Enter" || event.key === " ")
-        ) {
+        onKeyDown?.(event);
+        if (event.defaultPrevented) return;
+        if (!isActionable) return;
+        // Only the row itself activates on Enter/Space; inputs and action
+        // buttons inside cells keep their native keyboard behaviour.
+        if (event.target !== event.currentTarget) return;
+        if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
           event.currentTarget.click();
         }
-        onKeyDown?.(event);
       }}
       {...props}
     />
   );
-}
+});
+DataTableRow.displayName = "DataTableRow";
 
 type DataTableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
   numeric?: boolean;
   name?: boolean;
 };
 
-export function DataTableCell({
-  numeric = false,
-  name = false,
-  className,
-  ...props
-}: Readonly<DataTableCellProps>) {
+export const DataTableCell = React.forwardRef<
+  HTMLTableCellElement,
+  Readonly<DataTableCellProps>
+>(function DataTableCell(
+  { numeric = false, name = false, className, ...props },
+  ref,
+) {
   return (
     <td
+      ref={ref}
       className={cn(
         numeric && "data-table__num",
         name && "data-table__name",
@@ -82,30 +95,38 @@ export function DataTableCell({
       {...props}
     />
   );
-}
+});
+DataTableCell.displayName = "DataTableCell";
 
 type DataTableHeadCellProps = React.ThHTMLAttributes<HTMLTableCellElement> & {
   numeric?: boolean;
 };
 
-export function DataTableHeadCell({
-  numeric = false,
-  className,
-  ...props
-}: Readonly<DataTableHeadCellProps>) {
+export const DataTableHeadCell = React.forwardRef<
+  HTMLTableCellElement,
+  Readonly<DataTableHeadCellProps>
+>(function DataTableHeadCell({ numeric = false, className, ...props }, ref) {
   return (
-    <th className={cn(numeric && "data-table__num", className)} {...props} />
+    <th
+      ref={ref}
+      className={cn(numeric && "data-table__num", className)}
+      {...props}
+    />
   );
-}
+});
+DataTableHeadCell.displayName = "DataTableHeadCell";
 
 type DataTableActionsProps = React.TdHTMLAttributes<HTMLTableCellElement>;
 
-export function DataTableActions({
-  className,
-  ...props
-}: Readonly<DataTableActionsProps>) {
-  return <td className={cn("data-table__actions", className)} {...props} />;
-}
+export const DataTableActions = React.forwardRef<
+  HTMLTableCellElement,
+  Readonly<DataTableActionsProps>
+>(function DataTableActions({ className, ...props }, ref) {
+  return (
+    <td ref={ref} className={cn("data-table__actions", className)} {...props} />
+  );
+});
+DataTableActions.displayName = "DataTableActions";
 
 type DataTableEmptyProps = {
   colSpan: number;

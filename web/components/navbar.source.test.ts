@@ -91,6 +91,19 @@ describe("navbar source", () => {
     expect(topbarSrc).toContain("h-11 w-11");
   });
 
+  it("keeps the topbar diagnostics guard hydration-equivalent to the rail", () => {
+    const topbarSrc = fs.readFileSync(
+      path.resolve(__dirname, "app-frame-topbar.tsx"),
+      "utf8",
+    );
+
+    expect(topbarSrc).toContain("hasHydratedNavigationAccess");
+    expect(topbarSrc).toMatch(
+      /allowDevNavigation\s*=\s*hasHydratedNavigationAccess\s*&&\s*isDevMode/,
+    );
+    expect(topbarSrc).toMatch(/tenantAccessAllows\(\s*navigationTenantAccess/);
+  });
+
   it("filters system navigation by tenant permissions", () => {
     const src = fs.readFileSync(path.resolve(__dirname, "navbar.tsx"), "utf8");
 

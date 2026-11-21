@@ -1,79 +1,115 @@
-'use client'
+"use client";
 
-import { useCallback } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useCallback } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 
-type IngestionView = 'operation' | 'execution-monitor'
+type IngestionView =
+  | "operation"
+  | "parsing"
+  | "governance"
+  | "chunk-preview"
+  | "execution-monitor";
 
 type IngestionViewSwitchProps = {
-  className?: string
-  compact?: boolean
-  tone?: 'default' | 'info'
-}
+  className?: string;
+  compact?: boolean;
+  tone?: "default" | "info";
+};
 
-const VIEW_OPTIONS: Array<{ value: IngestionView; label: string }> = [
-  { value: 'operation', label: '入库操作' },
-  { value: 'execution-monitor', label: '执行监控' },
-]
+const VIEW_OPTIONS: Array<{
+  value: IngestionView;
+  label: string;
+  route?: string;
+}> = [
+  { value: "operation", label: "新建任务" },
+  { value: "parsing", label: "文档解析", route: "/parsing" },
+  { value: "governance", label: "数据治理", route: "/data-governance" },
+  { value: "chunk-preview", label: "切块预览", route: "/chunk-preview" },
+  { value: "execution-monitor", label: "任务监控" },
+];
+
+function resolveActiveView(
+  pathname: string,
+  mode: string | null,
+): IngestionView {
+  if (mode === "execution-monitor") return "execution-monitor";
+  if (pathname.endsWith("/parsing")) return "parsing";
+  if (pathname.endsWith("/data-governance")) return "governance";
+  if (pathname.endsWith("/chunk-preview")) return "chunk-preview";
+  return "operation";
+}
 
 export function IngestionViewSwitch({
   className,
   compact = false,
-  tone = 'default',
+  tone = "default",
 }: Readonly<IngestionViewSwitchProps>) {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
-  const router = useRouter()
-  const activeView: IngestionView =
-    searchParams.get('mode') === 'execution-monitor' ? 'execution-monitor' : 'operation'
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+  const activeView = resolveActiveView(pathname, searchParams.get("mode"));
 
   const handleChangeView = useCallback(
     (nextView: IngestionView) => {
-      const params = new URLSearchParams(searchParams.toString())
-      if (nextView === 'execution-monitor') {
-        params.set('mode', 'execution-monitor')
-      } else {
-        params.delete('mode')
+      if (nextView === "operation" || nextView === "execution-monitor") {
+        const params = new URLSearchParams(searchParams.toString());
+        if (nextView === "execution-monitor") {
+          params.set("mode", "execution-monitor");
+        } else {
+          params.delete("mode");
+        }
+        const query = params.toString();
+        router.replace(query ? `${pathname}?${query}` : pathname);
+        return;
       }
-      const query = params.toString()
-      router.replace(query ? `${pathname}?${query}` : pathname)
+
+      const option = VIEW_OPTIONS.find((item) => item.value === nextView);
+      if (!option?.route) return;
+      const datasetId =
+        searchParams.get("datasetId") || searchParams.get("dataset_id") || "";
+      const params = new URLSearchParams();
+      if (datasetId) params.set("dataset_id", datasetId);
+      const query = params.toString();
+      router.push(query ? `${option.route}?${query}` : option.route);
     },
-    [pathname, router, searchParams]
-  )
+    [pathname, router, searchParams],
+  );
 
   return (
     <div
+      role="tablist"
+      aria-label="入库流程视图"
       className={cn(
-        'inline-flex rounded-2xl border border-border/60 bg-card/72 p-1 shadow-[0_10px_28px_hsl(var(--primary)/0.06)] backdrop-blur-xl',
-        tone === 'info' && 'border-info/20 bg-info/[0.04] shadow-none',
-        compact && 'rounded-lg border-border/55 bg-background/60 p-0.5 shadow-none backdrop-blur-none',
-        className
+        "flex w-full items-center gap-1 overflow-x-auto",
+        className,
       )}
     >
       {VIEW_OPTIONS.map((option) => {
-        const selected = activeView === option.value
+        const selected = activeView === option.value;
         return (
           <button
             key={option.value}
             type="button"
-            aria-pressed={selected}
+            role="tab"
+            aria-selected={selected}
+            aria-current={selected ? "page" : undefined}
             onClick={() => handleChangeView(option.value)}
             className={cn(
-              'h-8 rounded-xl px-3 text-sm font-medium transition-colors',
-              compact && 'h-8 rounded-md px-2.5 text-[11px]',
+              "inline-flex min-h-11 shrink-0 items-center border-b-2 px-3 text-caption font-medium transition-colors",
               selected
-                ? tone === 'info'
-                  ? 'bg-info text-info-foreground shadow-none'
-                  : 'bg-primary text-primary-foreground shadow-[0_8px_20px_hsl(var(--primary)/0.18)]'
-                : 'text-muted-foreground hover:bg-background/82 hover:text-foreground'
+                ? tone === "info"
+                  ? "border-info text-info"
+                  : "border-primary text-foreground"
+                : "border-transparent text-muted-foreground hover:text-foreground",
+              compact && "px-2.5",
             )}
           >
             {option.label}
           </button>
-        )
+        );
       })}
     </div>
-  )
+  );
 }

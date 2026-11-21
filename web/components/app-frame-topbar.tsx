@@ -6,6 +6,7 @@
  */
 "use client";
 
+import { useEffect, useState } from "react";
 import { ChevronRight, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -90,6 +91,14 @@ export function AppFrameTopbar() {
   const { data: backendMeta } = useBackendMetaDetails();
   const backendReady = useBackendReady();
   const tenantAccess = useTenantAccess();
+  // Match the rail guard: client-cached tenant access must not change the
+  // first render. Apply it (and dev-mode navigation) only after hydration.
+  const [hasHydratedNavigationAccess, setHasHydratedNavigationAccess] =
+    useState(false);
+
+  useEffect(() => {
+    setHasHydratedNavigationAccess(true);
+  }, []);
 
   const breadcrumb = getNavigationBreadcrumb(pathname);
   const readyDetails = backendReady.data ?? null;
@@ -115,10 +124,14 @@ export function AppFrameTopbar() {
   );
   const buildSha = String(backendMeta?.build?.sha || "");
   const buildShaShort = buildSha ? buildSha.slice(0, 8) : "";
+  const navigationTenantAccess = hasHydratedNavigationAccess
+    ? tenantAccess.data
+    : undefined;
+  const allowDevNavigation = hasHydratedNavigationAccess && isDevMode;
   const canOpenDiagnostics =
-    isDevMode ||
+    allowDevNavigation ||
     tenantAccessAllows(
-      tenantAccess.data,
+      navigationTenantAccess,
       TENANT_PERMISSIONS.OBSERVABILITY_READ,
     );
 

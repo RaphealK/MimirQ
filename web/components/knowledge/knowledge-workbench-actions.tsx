@@ -1,38 +1,42 @@
-'use client'
+"use client";
 
-import type { ConnectorRunOut, Dataset } from '@/types'
-import type { ChangeEvent } from 'react'
-import { useCallback, useRef, useState } from 'react'
-import { Plus } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import type { ConnectorRunOut, Dataset } from "@/types";
+import type { ChangeEvent } from "react";
+import { useCallback, useRef, useState } from "react";
+import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
-import { KnowledgeImportMenu } from '@/components/knowledge/import/knowledge-import-menu'
-import { KnowledgeJiraProjectDialog } from '@/components/knowledge/import/knowledge-jira-project-dialog'
-import { KnowledgePipelineConfigDialog } from '@/components/knowledge/import/knowledge-pipeline-config-dialog'
-import { KnowledgeUrlBatchDialog } from '@/components/knowledge/import/knowledge-url-batch-dialog'
-import { KnowledgeUrlImportDialog } from '@/components/knowledge/import/knowledge-url-import-dialog'
-import { KnowledgeWebCrawlDialog } from '@/components/knowledge/import/knowledge-web-crawl-dialog'
-import { Button } from '@/components/ui/button'
+import { KnowledgeImportMenu } from "@/components/knowledge/import/knowledge-import-menu";
+import { KnowledgeJiraProjectDialog } from "@/components/knowledge/import/knowledge-jira-project-dialog";
+import { KnowledgePipelineConfigDialog } from "@/components/knowledge/import/knowledge-pipeline-config-dialog";
+import { KnowledgeUrlBatchDialog } from "@/components/knowledge/import/knowledge-url-batch-dialog";
+import { KnowledgeUrlImportDialog } from "@/components/knowledge/import/knowledge-url-import-dialog";
+import { KnowledgeWebCrawlDialog } from "@/components/knowledge/import/knowledge-web-crawl-dialog";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { UPLOAD_ACCEPT } from '@/lib/upload-extensions'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/dropdown-menu";
+import { UPLOAD_ACCEPT } from "@/lib/upload-extensions";
+import { cn } from "@/lib/utils";
 
 type KnowledgeWorkbenchActionsProps = {
-  datasets: Dataset[]
-  datasetsLoading: boolean
-  selectedDatasetId?: string
-  datasetDefaultValue: string
-  handleFileUpload: (event: ChangeEvent<HTMLInputElement>) => void
-  uploadDocumentFromUrl: (params: { url: string; filename?: string; dataset_id?: string }) => Promise<unknown>
-  loadDocuments: () => void | Promise<void>
-  loadConnectorRuns: (params?: { datasetId?: string }) => void | Promise<void>
-  onConnectorRunCreated?: (run: ConnectorRunOut) => void
-  className?: string
-}
+  datasets: Dataset[];
+  datasetsLoading: boolean;
+  selectedDatasetId?: string;
+  datasetDefaultValue: string;
+  handleFileUpload: (event: ChangeEvent<HTMLInputElement>) => void;
+  uploadDocumentFromUrl: (params: {
+    url: string;
+    filename?: string;
+    dataset_id?: string;
+  }) => Promise<unknown>;
+  loadDocuments: () => void | Promise<void>;
+  loadConnectorRuns: (params?: { datasetId?: string }) => void | Promise<void>;
+  onConnectorRunCreated?: (run: ConnectorRunOut) => void;
+  className?: string;
+};
 
 export function KnowledgeWorkbenchActions({
   datasets,
@@ -46,17 +50,17 @@ export function KnowledgeWorkbenchActions({
   onConnectorRunCreated,
   className,
 }: Readonly<KnowledgeWorkbenchActionsProps>) {
-  const t = useTranslations('KnowledgeWorkbenchActions')
-  const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [pipelineConfigOpen, setPipelineConfigOpen] = useState(false)
-  const [urlImportOpen, setUrlImportOpen] = useState(false)
-  const [urlBatchOpen, setUrlBatchOpen] = useState(false)
-  const [webCrawlOpen, setWebCrawlOpen] = useState(false)
-  const [jiraProjectOpen, setJiraProjectOpen] = useState(false)
+  const t = useTranslations("KnowledgeWorkbenchActions");
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [pipelineConfigOpen, setPipelineConfigOpen] = useState(false);
+  const [urlImportOpen, setUrlImportOpen] = useState(false);
+  const [urlBatchOpen, setUrlBatchOpen] = useState(false);
+  const [webCrawlOpen, setWebCrawlOpen] = useState(false);
+  const [jiraProjectOpen, setJiraProjectOpen] = useState(false);
 
   const handleOpenFilePicker = useCallback(() => {
-    fileInputRef.current?.click()
-  }, [])
+    fileInputRef.current?.click();
+  }, []);
 
   return (
     <>
@@ -74,13 +78,10 @@ export function KnowledgeWorkbenchActions({
           <Button
             type="button"
             size="sm"
-            className={cn(
-              'group/action relative overflow-hidden bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm before:pointer-events-none before:absolute before:inset-y-0 before:left-[-22%] before:w-[28%] before:-skew-x-[18deg] before:bg-card/25 before:opacity-0 before:blur-md before:transition-[left,opacity] before:duration-500 hover:before:left-[118%] hover:before:opacity-100 active:before:opacity-70',
-              className,
-            )}
+            className={cn("whitespace-nowrap", className)}
           >
-            <Plus className="relative z-10 size-4 transition-transform duration-200 group-hover/action:rotate-90 group-active/action:scale-90" />
-            <span className="relative z-10">{t('importOrCreate')}</span>
+            <Plus className="size-3.5" aria-hidden="true" />
+            {t("importOrCreate")}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-72">
@@ -95,7 +96,10 @@ export function KnowledgeWorkbenchActions({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <KnowledgePipelineConfigDialog open={pipelineConfigOpen} onOpenChange={setPipelineConfigOpen} />
+      <KnowledgePipelineConfigDialog
+        open={pipelineConfigOpen}
+        onOpenChange={setPipelineConfigOpen}
+      />
 
       <KnowledgeUrlImportDialog
         open={urlImportOpen}
@@ -144,5 +148,5 @@ export function KnowledgeWorkbenchActions({
         onRunCreated={onConnectorRunCreated}
       />
     </>
-  )
+  );
 }

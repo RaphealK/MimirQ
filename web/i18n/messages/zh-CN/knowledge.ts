@@ -9,8 +9,8 @@ KnowledgeIngestionPage: {
   },
 KnowledgePage: {
     header: {
-      title: '知识库管理',
-      description: '管理您的文档资产，构建专属知识大脑',
+      title: '文档资产',
+      description: '按数据集查看文档、处理状态与来源。',
     },
     stats: {
       totalDocuments: '文档总数',
@@ -37,7 +37,7 @@ KnowledgePage: {
         title: '范围筛选',
       },
       inspector: {
-        title: 'Inspector',
+        title: '文档详情',
       },
     },
     actions: {
@@ -152,7 +152,7 @@ KnowledgeDocumentsPanel: {
       deleteSuccess: '已删除文档',
       copyUnsupported: '复制失败：浏览器不支持 Clipboard API',
       copyFailed: '复制失败',
-      copySourcePath: '已复制 Source Path',
+      copySourcePath: '已复制来源路径',
       copyDocumentId: '已复制文档 ID',
       copyFilename: '已复制文件名',
     },
@@ -175,7 +175,7 @@ KnowledgeDocumentsPanel: {
       moreActions: '更多操作',
       copyDocumentId: '复制文档 ID',
       copyFilename: '复制文件名',
-      copySourcePath: '复制 Source Path',
+      copySourcePath: '复制来源路径',
       healthCard: '健康卡片',
       peekChunks: '切片管理',
       deleteDocument: '删除文档',
@@ -189,14 +189,14 @@ KnowledgeDocumentsPanel: {
       },
       emptyDataset: {
         title: '该数据集暂无文档',
-        description: '当前范围为 {dataset}。可切换到全部数据集查看其他文档，或通过顶部“导入/新增”上传/导入。',
+        description: '当前数据集为 {dataset}。可切换数据集或导入文档。',
         actions: {
           switchToAllDatasets: '切换到全部数据集',
         },
       },
       blank: {
-        title: '知识库空空如也',
-        description: '上传您的第一份文档，MimirQ 将自动解析并构建专属知识索引。',
+        title: '知识库暂无文档',
+        description: '选择导入文档，添加本地文件或配置数据来源。',
         formats: '支持 PDF, TXT, Markdown, Excel, Word 等常见格式。',
       },
     },
@@ -243,13 +243,13 @@ KnowledgeDocumentsPanel: {
     },
     row: {
       parseQualityLow: '解析质量偏低 (score={score})',
-      copySourcePathTitle: '点击复制 Source Path',
-      disabled: 'Disabled',
-      archived: 'Archived',
+      copySourcePathTitle: '点击复制来源路径',
+      disabled: '已禁用',
+      archived: '已归档',
       size: '大小',
       chunks: '分块',
       time: '时间',
-      parserAuto: 'Auto',
+      parserAuto: '自动',
     },
   },
 KnowledgeRetrievalPanel: {

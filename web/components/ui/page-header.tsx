@@ -34,8 +34,8 @@ function getPageHeaderIconShellClass(compact: boolean): string {
 }
 
 function getPageHeaderTitleClass(compact: boolean): string {
-  if (compact) return "text-[19px] leading-6 tracking-[-0.02em]";
-  return "text-[22px] leading-7 tracking-[-0.025em]";
+  if (compact) return "text-[22px] leading-7 tracking-[-0.015em]";
+  return "text-[22px] leading-7 tracking-[-0.015em]";
 }
 
 function getPageHeaderDescriptionClass(compact: boolean): string {

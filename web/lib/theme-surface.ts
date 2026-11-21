@@ -1,13 +1,13 @@
-import chroma, { type Color } from "chroma-js";
+import chroma from "chroma-js";
 import { getClientStorage } from "./client-storage";
 
 /**
  * Engineering appearance.
  *
- * The product now ships exactly one palette: engineering blue accents, a
- * single 2px geometry and light/dark modes. Named "surface themes" and
- * arbitrary accent colours are retained here only as migration inputs for
- * preferences written by older releases.
+ * The product ships exactly one palette: engineering blue accents, a single
+ * 2px geometry and light/dark modes. Named surface themes and arbitrary accent
+ * colours remain only as migration inputs for preferences written by older
+ * releases.
  */
 export type SurfaceThemeKey = "ocean";
 
@@ -24,18 +24,13 @@ export const ENGINEERING_FOCUS = "#2379a3";
 /** Engineering ink: primary-button surface, never used as a decorative accent. */
 export const ENGINEERING_INK = "#19384c";
 
-const LEGACY_SURFACE_THEMES = new Set([
-  "ocean",
-  "deepsea",
-  "neutral",
-  "classic",
-  "earth",
-]);
-
 const THEME_COLOR_TOKEN_NAMES = [
   "--primary",
   "--ring",
+  "--focus",
   "--info",
+  "--ink",
+  "--ink-foreground",
   "--accent",
   "--accent-foreground",
   "--primary-foreground",
@@ -52,9 +47,9 @@ const THEME_COLOR_TOKEN_NAMES = [
 ] as const;
 
 /**
- * Only the accent role is overridable. Focus (`--ring`), selected surfaces
- * (`--accent`) and the primary-button ink (`--ink`) stay fixed so legacy
- * colour choices cannot collapse the three distinct roles.
+ * Only the accent role is representable. Focus (`--ring`/`--focus`), selected
+ * surfaces (`--accent`) and primary-button ink (`--ink`) are never derived from
+ * this override, so legacy colour choices cannot collapse the three roles.
  */
 const ENGINEERING_ACCENT_TOKENS: Record<string, string> = {
   "--primary": "202.7 59% 31.6%",
@@ -73,14 +68,8 @@ const ENGINEERING_ACCENT_TOKENS: Record<string, string> = {
   "--info-foreground": "0 0% 100%",
 };
 
-type StorageReader = Pick<Storage, "getItem">;
 type StorageWriter = Pick<Storage, "setItem" | "removeItem">;
-type ThemeEventTarget = Pick<Window, "dispatchEvent">;
 type ThemeCookieTarget = { cookie: string };
-
-type ApplyThemeAppearanceOptions = {
-  notify?: boolean;
-};
 
 export const SURFACE_THEMES: Array<{
   key: SurfaceThemeKey;
@@ -98,62 +87,10 @@ export const SURFACE_THEMES: Array<{
   },
 ];
 
-function isLegacySurfaceTheme(value: string): boolean {
-  return LEGACY_SURFACE_THEMES.has(value);
-}
-
-/**
- * Old surface names are accepted and migrated to the single engineering
- * appearance. The function stays total so stale cookies cannot break SSR.
- */
+/** Old surface names are accepted and migrated to the engineering appearance. */
 export function normalizeSurfaceTheme(value?: string | null): SurfaceThemeKey {
-  const raw = String(value || "")
-    .trim()
-    .toLowerCase();
-  if (isLegacySurfaceTheme(raw)) return "ocean";
+  void value;
   return "ocean";
-}
-
-export function getSurfaceThemeMeta(theme: SurfaceThemeKey) {
-  return SURFACE_THEMES.find((item) => item.key === theme) || SURFACE_THEMES[0];
-}
-
-export function readSurfaceTheme(
-  storage?: StorageReader | null,
-): SurfaceThemeKey {
-  return normalizeSurfaceTheme(storage?.getItem(SURFACE_THEME_STORAGE_KEY));
-}
-
-export function applySurfaceTheme(
-  theme: SurfaceThemeKey,
-  root?: HTMLElement | null,
-) {
-  const target =
-    root ?? (typeof document === "undefined" ? null : document.documentElement);
-  if (!target) return;
-  target.dataset.surfaceTheme = normalizeSurfaceTheme(theme);
-}
-
-function toHsl(color: Color): string {
-  const [hue, saturation, lightness] = color.hsl();
-  const safeHue = Number.isFinite(hue) ? hue : 0;
-
-  return `${safeHue.toFixed(1)} ${(saturation * 100).toFixed(1)}% ${(lightness * 100).toFixed(1)}%`;
-}
-
-function getReadableForeground(color: Color): Color {
-  return chroma.contrast(color, "white") >= 4.5
-    ? chroma("white")
-    : chroma("black");
-}
-
-export function readThemeColor(
-  storage?: StorageReader | null,
-  surfaceTheme: SurfaceThemeKey = "ocean",
-): string {
-  void storage;
-  void surfaceTheme;
-  return ENGINEERING_ACCENT;
 }
 
 export function normalizeThemeColor(value?: string | null): string | null {
@@ -178,37 +115,14 @@ export function isEngineeringAccent(value?: string | null): boolean {
 }
 
 /**
- * Returns the raw stored preference only when it is still the engineering
- * accent. Arbitrary legacy colours are reported as null so callers clear
- * their inline overrides instead of re-applying the old palette.
- */
-export function readThemeColorOverride(
-  storage?: StorageReader | null,
-): string | null {
-  const stored = normalizeThemeColor(storage?.getItem(THEME_COLOR_STORAGE_KEY));
-  return stored && isEngineeringAccent(stored) ? stored : null;
-}
-
-/**
- * Accent tokens deliberately exclude `--ring`, `--accent` and `--ink`.
- * The focus ring, selected surface and primary-button ink are fixed roles.
+ * Accent tokens deliberately exclude `--ring`/`--focus`, `--accent` and
+ * `--ink`; the focus ring, selected surface and primary-button ink stay fixed.
  */
 export function getThemeColorTokens(
   color: string,
 ): Record<string, string> | null {
   if (!isEngineeringAccent(color)) return null;
   return { ...ENGINEERING_ACCENT_TOKENS };
-}
-
-export function applyThemeColor(color: string, root?: HTMLElement | null) {
-  const target =
-    root ?? (typeof document === "undefined" ? null : document.documentElement);
-  const tokens = getThemeColorTokens(color);
-  if (!target || !tokens) return;
-
-  for (const [token, value] of Object.entries(tokens)) {
-    target.style.setProperty(token, value);
-  }
 }
 
 /** Removes both current and legacy inline tokens, including old ring/accent values. */
@@ -220,50 +134,6 @@ export function clearThemeColor(root?: HTMLElement | null) {
   for (const token of THEME_COLOR_TOKEN_NAMES) {
     target.style.removeProperty(token);
   }
-}
-
-export function persistThemeAppearance(
-  theme: SurfaceThemeKey,
-  colorOverride: string | null,
-  storage: StorageWriter | null = getClientStorage(),
-  cookieTarget: ThemeCookieTarget | null = globalThis.document ?? null,
-) {
-  const surfaceTheme = normalizeSurfaceTheme(theme);
-  const normalizedColor = isEngineeringAccent(colorOverride)
-    ? ENGINEERING_ACCENT
-    : null;
-
-  try {
-    storage?.setItem(SURFACE_THEME_STORAGE_KEY, surfaceTheme);
-    if (normalizedColor)
-      storage?.setItem(THEME_COLOR_STORAGE_KEY, normalizedColor);
-    else storage?.removeItem(THEME_COLOR_STORAGE_KEY);
-  } catch {
-    // Storage can be unavailable in private or policy-restricted browser contexts.
-  }
-
-  if (cookieTarget) {
-    const commonAttributes = "Path=/; Max-Age=31536000; SameSite=Lax";
-    cookieTarget.cookie = `${SURFACE_THEME_COOKIE_KEY}=${surfaceTheme}; ${commonAttributes}`;
-    cookieTarget.cookie = normalizedColor
-      ? `${THEME_COLOR_COOKIE_KEY}=${normalizedColor.slice(1)}; ${commonAttributes}`
-      : `${THEME_COLOR_COOKIE_KEY}=; Path=/; Max-Age=0; SameSite=Lax`;
-  }
-
-  return { surfaceTheme, colorOverride: normalizedColor };
-}
-
-export function notifyThemeAppearanceChanged(
-  eventTarget: ThemeEventTarget | null = globalThis.window ?? null,
-) {
-  const target = eventTarget;
-  if (!target) return;
-
-  const event =
-    typeof CustomEvent === "function"
-      ? new CustomEvent(THEME_APPEARANCE_CHANGED_EVENT)
-      : new Event(THEME_APPEARANCE_CHANGED_EVENT);
-  target.dispatchEvent(event);
 }
 
 /**
@@ -295,34 +165,4 @@ export function migrateLegacyThemeAppearance(
     clearThemeColor(target);
     delete target.dataset.surfaceTheme;
   }
-}
-
-/**
- * Applies the engineering defaults. Kept for callers that used to apply the
- * stored palette during hydration; it now always clears legacy overrides.
- */
-export function applyStoredThemeAppearance(
-  storage: StorageReader | null = getClientStorage(),
-  root?: HTMLElement | null,
-  eventTarget?: ThemeEventTarget | null,
-  options: ApplyThemeAppearanceOptions = {},
-) {
-  void storage;
-
-  const target =
-    root ?? (typeof document === "undefined" ? null : document.documentElement);
-  if (target) {
-    target.dataset.surfaceTheme = "ocean";
-    clearThemeColor(target);
-  }
-
-  if (options.notify !== false) {
-    notifyThemeAppearanceChanged(eventTarget);
-  }
-
-  return {
-    surfaceTheme: "ocean" as const,
-    color: ENGINEERING_ACCENT,
-    colorOverride: null,
-  };
 }
