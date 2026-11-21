@@ -886,7 +886,7 @@ function HistoryMainEmptyState({
           </p>
 
           <div className="mt-5 flex items-center justify-center">
-            <Button asChild className="h-9 rounded-md bg-foreground px-4 text-[12px] font-semibold text-background hover:bg-foreground/92">
+            <Button asChild variant="outline" className="h-9 rounded-md px-4 text-[12px] font-semibold">
               <Link href="/">
                 <Plus className="size-3.5" />
                 {t('startNewConversation')}

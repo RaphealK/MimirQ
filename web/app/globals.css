@@ -1163,13 +1163,32 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
   --tw-prose-invert-kbd: hsl(var(--foreground));
 }
 
+:where(p) a[href],
 .prose :where(a) {
   color: hsl(var(--foreground));
-  text-decoration: none;
 }
 
+:where(p) a[href]:hover,
 .prose :where(a):hover {
   text-decoration: underline;
+}
+
+@layer base {
+  /* Component utilities can still supply the foreground of an inverse button. */
+  a[href],
+  a[href]:visited {
+    color: hsl(var(--foreground));
+  }
+
+  a[href]:not([class]):hover {
+    text-decoration: underline;
+  }
+
+  /* Safari can add its own inline style to a detected phone number or address. */
+  a[x-apple-data-detectors] {
+    color: hsl(var(--foreground)) !important;
+    text-decoration: underline !important;
+  }
 }
 
 /* Prose code block styling with theme-aware background */

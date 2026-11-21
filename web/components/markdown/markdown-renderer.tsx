@@ -149,7 +149,7 @@ function MarkdownHeadingComponent({
             scrollToElementId(id, { scrollContainerSelector })
             flashElementId(id, FLASH_CLASS)
           }}
-          className="ml-2 no-underline text-muted-foreground/60 hover:text-primary opacity-0 group-hover:opacity-100"
+          className="ml-2 text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-foreground hover:underline focus-visible:opacity-100"
           aria-label="Jump to section"
         >
           #

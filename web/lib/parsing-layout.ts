@@ -25,8 +25,8 @@ const PARSING_LAYOUT_META: Record<ParsingLayoutKind, ParsingLayoutMeta> = {
   heading: {
     label: '标题',
     shortLabel: '标题',
-    chipClassName: 'border-info/30 bg-info/10 text-info dark:border-sky-900/60 dark:bg-sky-950/40 dark:text-sky-200',
-    dotClassName: 'bg-info dark:bg-sky-300',
+    chipClassName: 'border-info/30 bg-info/10 text-info',
+    dotClassName: 'bg-info',
     overlayClassName: 'border-info/75 bg-info/10',
   },
   paragraph: {

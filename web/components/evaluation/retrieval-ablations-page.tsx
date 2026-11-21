@@ -2176,7 +2176,7 @@ export function RetrievalAblationsPage() {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-9 rounded-xl border-border bg-card px-3 text-[12px] text-foreground/85 hover:bg-muted/50 hover:text-foreground"
+                  className="h-9 rounded-xl border-border bg-card px-3 text-[12px] hover:bg-muted/50"
                 >
                   <Link href="/evaluations">
                     <ChevronLeft className="mr-1.5 h-4 w-4" />

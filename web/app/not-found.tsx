@@ -20,7 +20,7 @@ export default function NotFound() {
             {t("notFound.description")}
           </p>
           <div className="mt-6 flex items-center justify-center gap-3">
-            <Button asChild>
+            <Button variant="outline" asChild>
               <Link href="/">{t("notFound.goHome")}</Link>
             </Button>
             <Button variant="outline" asChild>
