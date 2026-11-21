@@ -54,6 +54,11 @@ import {
 } from "@/store/document-view";
 import { resolveSafeCitationImageUrl } from "@/lib/citation-images";
 import { EvidenceViewerDialog } from "@/components/evidence/evidence-viewer-dialog";
+import {
+  formatCitationRankScore,
+  formatCitationScore,
+  isUsableScore,
+} from "@/components/chat/citation-score";
 
 import {
   Dialog,
@@ -220,30 +225,6 @@ function formatMetricValue(value: unknown): string | null {
     return value ? "true" : "false";
   }
   return null;
-}
-
-function toFiniteScore(value: unknown): number | null {
-  const score = Number(value);
-  return Number.isFinite(score) ? score : null;
-}
-
-function formatCitationScore(value: unknown): string {
-  const score = toFiniteScore(value);
-  if (score == null) return "—";
-  if (score >= 0 && score <= 1) return `${Math.round(score * 100)}%`;
-  return score.toFixed(3);
-}
-
-function formatCitationRankScore(value: unknown): string {
-  const score = toFiniteScore(value);
-  if (score == null) return "—";
-  if (score >= 0 && score <= 1) return score.toFixed(2);
-  return score.toFixed(3);
-}
-
-function isUsableScore(value: unknown): boolean {
-  const score = toFiniteScore(value);
-  return score != null && score > 0;
 }
 
 function getCitationSecondaryScore(

@@ -20,7 +20,7 @@ import {
 } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { ArrowDown, Mic, Send, Settings2, StopCircle } from "lucide-react";
+import { ArrowDown, Send, Settings2, StopCircle, Wand2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import { useChat } from "@/hooks/use-chat";
@@ -72,28 +72,6 @@ function escapeAttributeSelector(value: string): string {
     return globalThis.CSS.escape(value);
   }
   return String(value).replace(/["\\\]]/g, String.raw`\$&`);
-}
-
-function retrievalModeLabelKey(
-  mode: string,
-):
-  | "retrievalModes.auto"
-  | "retrievalModes.hybrid"
-  | "retrievalModes.vector"
-  | "retrievalModes.keyword"
-  | "retrievalModes.mmr" {
-  switch (mode) {
-    case "hybrid":
-      return "retrievalModes.hybrid";
-    case "vector":
-      return "retrievalModes.vector";
-    case "keyword":
-      return "retrievalModes.keyword";
-    case "mmr":
-      return "retrievalModes.mmr";
-    default:
-      return "retrievalModes.auto";
-  }
 }
 
 export function ChatArea({
@@ -165,6 +143,7 @@ export function ChatArea({
     height: number;
   } | null>(null);
   const autoSendPromptRef = useRef(false);
+  const initialRagSettingsHandledRef = useRef(false);
   // Slash Menu State
   const [slashOpen, setSlashOpen] = useState(false);
   const [slashPos, setSlashPos] = useState({ top: 0, left: 0 });
@@ -331,6 +310,7 @@ export function ChatArea({
   }, [metadataFilterMode, metadataFilterText, t]);
 
   const handleKeyUp = useCallback((e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.nativeEvent.isComposing || e.keyCode === 229) return;
     if (e.key === "/") {
       const el = e.currentTarget;
       const caret = getCaretCoordinates(el, el.selectionEnd);
@@ -379,6 +359,10 @@ export function ChatArea({
     }
     setSettingsSheetOpen(true);
   }, [isDocumentViewerOpen]);
+
+  const openCommandMenu = useCallback((query = "") => {
+    globalEventBus.emit("command-menu:set-open", { open: true, query });
+  }, []);
 
   const handleSlashSelect = useCallback(
     (cmd: string) => {
@@ -636,7 +620,8 @@ export function ChatArea({
   }, [initialPrompt]);
 
   useEffect(() => {
-    if (!initialOpenRagSettings) return;
+    if (!initialOpenRagSettings || initialRagSettingsHandledRef.current) return;
+    initialRagSettingsHandledRef.current = true;
     openRetrievalSettings();
   }, [initialOpenRagSettings, openRetrievalSettings]);
 
@@ -661,7 +646,6 @@ export function ChatArea({
     ? t("currentDocumentScope")
     : selectedDataset?.name ||
       (datasetsLoading ? t("datasetScopeLoading") : t("selectDataset"));
-  const retrievalModeLabel = t(retrievalModeLabelKey(ragConfig.retrieval_mode));
 
   const hiddenCount = Math.max(0, messages.length - visibleCount);
   const visibleMessages = useMemo(
@@ -733,6 +717,7 @@ export function ChatArea({
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.nativeEvent.isComposing || e.keyCode === 229) return;
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         handleSend();
@@ -773,8 +758,18 @@ export function ChatArea({
     enableSummaryMemory,
     onEnableSummaryMemoryChange: setEnableSummaryMemory,
     conversationId,
-    onOpenSummary: () => setSummaryDialogOpen(true),
-    onOpenTrace: () => setTraceDialogOpen(true),
+    onOpenSummary: () => {
+      setSettingsSheetOpen(false);
+      setSummaryDialogOpen(true);
+    },
+    onOpenTrace: () => {
+      setSettingsSheetOpen(false);
+      setTraceDialogOpen(true);
+    },
+    onOpenVoice: () => {
+      setSettingsSheetOpen(false);
+      setVoiceModeOpen(true);
+    },
     rerank: rerankStatus,
     settingsError: settingsQuery.isError,
     onRetrySettings: () => {
@@ -900,12 +895,6 @@ export function ChatArea({
                   >
                     {scopeLabel}
                   </Badge>
-                  <Badge variant="outline" className="whitespace-nowrap">
-                    {retrievalModeLabel}
-                  </Badge>
-                  {deepReasoningEnabled ? (
-                    <Badge variant="info">深度思考</Badge>
-                  ) : null}
 
                   <span className="flex-1" />
 
@@ -918,16 +907,6 @@ export function ChatArea({
                     title={t("retrievalSettings")}
                   >
                     <Settings2 className="size-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setVoiceModeOpen(true)}
-                    aria-label={t("voiceMode")}
-                    title={t("voiceMode")}
-                  >
-                    <Mic className="size-4" />
                   </Button>
                   {isLoading ? (
                     <Button
@@ -961,7 +940,21 @@ export function ChatArea({
                 </div>
               </div>
 
-              {isWelcomeState ? null : (
+              {isWelcomeState ? (
+                <div className="mt-2 flex justify-center">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => openCommandMenu("/")}
+                    className="text-micro text-muted-foreground"
+                    title="工具 / 快捷指令"
+                  >
+                    <Wand2 className="size-3.5" />
+                    工具
+                  </Button>
+                </div>
+              ) : (
                 <p className="mt-2 text-center text-micro text-muted-foreground">
                   {t.rich("composerHelpText", {
                     slash: renderComposerSlash,

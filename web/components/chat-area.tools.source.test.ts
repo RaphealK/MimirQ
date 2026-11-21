@@ -22,9 +22,8 @@ describe("chat engineering layout source", () => {
     expect(chatArea).toContain("SheetContent");
     expect(chatArea).toContain("openRetrievalSettings");
     expect(chatArea).toContain("initialOpenRagSettings");
-    expect(chatArea).toContain('idPrefix="chat-retrieval-panel"');
-    expect(chatArea).toContain('idPrefix="chat-retrieval-sheet"');
     expect(chatArea).toContain("{...panelProps}");
+    expect(chatArea).toContain("onOpenVoice");
 
     // The form itself is shared; the two mount points only differ by id prefix.
     expect(retrievalPanel).toContain("export function RetrievalSettingsPanel");
@@ -33,7 +32,19 @@ describe("chat engineering layout source", () => {
     expect(retrievalPanel).toContain("retrieval_mode");
     expect(retrievalPanel).toContain("use_graph");
     expect(retrievalPanel).toContain("metadata_filter");
+    expect(retrievalPanel).toContain("高级设置");
+    expect(retrievalPanel).toContain("onOpenVoice");
+    expect(retrievalPanel).toContain('t("voiceMode")');
     expect(retrievalPanel).toContain("改动只作用于下一轮提问。");
+  });
+
+  it("handles IME composition and keeps the welcome tool entry", () => {
+    expect(chatArea).toContain("e.nativeEvent.isComposing");
+    expect(chatArea).toContain("e.keyCode === 229");
+    expect(chatArea).toContain("openCommandMenu");
+    expect(chatArea).toContain('"command-menu:set-open"');
+    // The composer no longer duplicates the retrieval mode as a second badge.
+    expect(chatArea).not.toContain("retrievalModeLabel");
   });
 
   it("shows only real settings and real rerank status", () => {
@@ -76,7 +87,7 @@ describe("chat engineering layout source", () => {
 
     // No entrance animation, typewriter, magnetic hover or nested bubbles.
     expect(messageItem).not.toContain("CinematicTypewriter");
-    expect(messageItem).not.toContain("from 'framer-motion'");
+    expect(messageItem).not.toContain("framer-motion");
     expect(chatArea).not.toContain("Magnetic");
     expect(chatArea).not.toContain("CinematicTypewriter");
   });
