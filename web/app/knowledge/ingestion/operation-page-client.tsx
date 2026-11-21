@@ -1181,7 +1181,7 @@ export default function KnowledgeIngestionOperationPage() {
       className="flex h-full min-h-0 flex-col"
     >
       <PageHeader
-        className="px-6"
+        className="px-6 max-md:[&>div]:flex-row max-md:[&>div]:items-center max-md:[&>div]:justify-between"
         title="新建入库任务"
         description="选择目标与来源，确认执行路径后提交。"
       >

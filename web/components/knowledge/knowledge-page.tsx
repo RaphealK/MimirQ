@@ -630,7 +630,7 @@ export default function KnowledgePage() {
           size="full"
           toolbar={
             <div className="mx-auto flex w-full max-w-page flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
-              <div className="flex items-center gap-1">
+              <div className="flex min-w-0 items-center gap-1 overflow-x-auto whitespace-nowrap">
                 <div
                   role="tablist"
                   aria-label={t("header.title")}
@@ -691,11 +691,13 @@ export default function KnowledgePage() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="lg:hidden"
+                  className="max-sm:w-11 max-sm:px-0 lg:hidden"
+                  aria-label="筛选"
+                  title="筛选"
                   onClick={() => setMobileScopeOpen(true)}
                 >
                   <Filter className="size-3.5" aria-hidden="true" />
-                  筛选
+                  <span className="hidden sm:inline">筛选</span>
                 </Button>
 
                 <Button
@@ -746,6 +748,9 @@ export default function KnowledgePage() {
                           : "ghost"
                       }
                       size="sm"
+                      className="max-sm:w-11 max-sm:px-0"
+                      aria-label={activeTasksCount ? `${activeTasksCount} 个任务进行中` : "任务历史"}
+                      title="任务历史"
                       onClick={() => {
                         setShowRetrievalAuditPanel(false);
                         setShowConnectorRunsPanel((prev) => {
@@ -763,9 +768,9 @@ export default function KnowledgePage() {
                       ) : (
                         <History className="size-3.5" aria-hidden="true" />
                       )}
-                      {activeTasksCount > 0
+                      <span className="hidden sm:inline">{activeTasksCount > 0
                         ? `${activeTasksCount} 个任务进行中`
-                        : "任务历史"}
+                        : "任务历史"}</span>
                     </Button>
 
                     <KnowledgeWorkbenchActions

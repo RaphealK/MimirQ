@@ -766,10 +766,13 @@ export function KnowledgeDocumentsPanel({
           variant={opsOpen ? "secondary" : "outline"}
           size="sm"
           aria-expanded={opsOpen}
+          aria-label="运维工具"
+          title="运维工具"
+          className="max-sm:w-11 max-sm:px-0"
           onClick={() => setOpsOpen((open) => !open)}
         >
           <Activity className="size-3.5" aria-hidden="true" />
-          运维工具
+          <span className="hidden sm:inline">运维工具</span>
         </Button>
 
         <Button
