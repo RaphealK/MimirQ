@@ -1,8 +1,9 @@
 /**
  * 模型提供商图标组件
- * 支持 SVG 和 PNG 格式的品牌 Logo
+ * 供应商 SVG 与通用模型图标
  */
 import Image from 'next/image'
+import { Cpu } from 'lucide-react'
 
 interface ProviderIconProps {
   providerId: string
@@ -10,8 +11,8 @@ interface ProviderIconProps {
 }
 
 /**
- * 优先使用 LobeHub 彩色 SVG（web/public/logos/lobehub/*.svg）。
- * 无匹配时回退到旧的 /public/logos 资源映射，避免历史 providerId 断裂。
+ * 优先使用 LobeHub 品牌 SVG（web/public/logos/lobehub/*.svg）。
+ * 本地模型用既有本地 SVG，未知供应商显示通用图标。
  */
 const LOBEHUB_ICON_BY_PROVIDER_ID: Record<string, string> = {
   openai: 'openai',
@@ -62,38 +63,9 @@ function normalizeProviderId(providerId: string): string {
   return String(providerId || '').trim().toLowerCase()
 }
 
-// 提供商 ID 到图标文件的映射（旧资源兜底）
-const PROVIDER_ICONS: Record<string, { file: string; format: 'svg' | 'png' }> = {
-  // PNG 格式（来自 providers 目录）
-  openai: { file: 'openai', format: 'png' },
-  deepseek: { file: 'deepseek', format: 'png' },
-  zhipu: { file: 'zhipuai', format: 'png' },
-  zhipuai: { file: 'zhipuai', format: 'png' },
-  qwen: { file: 'dashscope', format: 'png' },
-  'qwen-embedding': { file: 'dashscope', format: 'png' },
-  dashscope: { file: 'dashscope', format: 'png' },
-  ark: { file: 'ark', format: 'png' },
-  lingyiwanwu: { file: 'lingyiwanwu', format: 'png' },
-  yi: { file: 'lingyiwanwu', format: 'png' },
-  openrouter: { file: 'openrouterai', format: 'png' },
-  openrouterai: { file: 'openrouterai', format: 'png' },
-  qianfan: { file: 'qianfan', format: 'png' },
-  baidu: { file: 'qianfan', format: 'png' },
-  siliconflow: { file: 'siliconflow', format: 'png' },
-  together: { file: 'together.ai', format: 'png' },
-  togetherai: { file: 'together.ai', format: 'png' },
-  // SVG 格式（保留原有的）
-  anthropic: { file: 'anthropic', format: 'svg' },
-  moonshot: { file: 'moonshot', format: 'svg' },
-  ollama: { file: 'ollama', format: 'svg' },
-  local: { file: 'local', format: 'svg' },
-  'local-embedding': { file: 'local', format: 'svg' },
-  reranker: { file: 'reranker', format: 'svg' },
-  'local-reranker': { file: 'reranker', format: 'svg' },
+const localIcons: Record<string, string> = {
+  local: 'local', 'local-embedding': 'local', reranker: 'reranker', 'local-reranker': 'reranker',
 }
-
-// 默认图标
-const DEFAULT_ICON = { file: 'default', format: 'png' }
 
 export function ProviderIcon({ providerId, className = 'w-8 h-8' }: Readonly<ProviderIconProps>) {
   const pid = normalizeProviderId(providerId)
@@ -113,18 +85,8 @@ export function ProviderIcon({ providerId, className = 'w-8 h-8' }: Readonly<Pro
     )
   }
 
-  const icon = PROVIDER_ICONS[pid] || DEFAULT_ICON
-  const src = `/logos/${icon.file}.${icon.format}`
-
-  return (
-    <Image
-      src={src}
-      alt={`${providerId} logo`}
-      width={32}
-      height={32}
-      className={`${className} grayscale`}
-      priority
-      unoptimized={icon.format === 'png'}
-    />
-  )
+  const local = localIcons[pid]
+  if (!local) return <Cpu role="img" aria-label={`${providerId} logo`} className={className} />
+  return <Image src={`/logos/${local}.svg`} alt={`${providerId} logo`} width={32} height={32}
+    className={`${className} grayscale`} unoptimized />
 }
