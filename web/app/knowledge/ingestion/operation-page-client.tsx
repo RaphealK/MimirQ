@@ -1463,7 +1463,7 @@ export default function KnowledgeIngestionOperationPage() {
             <StepFlow
               steps={stepFlowSteps}
               onStepClick={handleStepClick}
-              className="mt-4 [&_.step-flow__label]:whitespace-nowrap [&_.step-flow__state]:whitespace-nowrap [&_.step-flow__step]:min-h-11 [&_.step-flow__step:focus-visible]:outline-none [&_.step-flow__step:focus-visible]:ring-2 [&_.step-flow__step:focus-visible]:ring-ring/40 pointer-coarse:[&_.step-flow__step]:min-w-11"
+              className="mt-4 [&_.step-flow__label]:whitespace-nowrap [&_.step-flow__state]:whitespace-nowrap [&_.step-flow__step]:min-h-11 [&_.step-flow__step:focus-visible]:outline-none [&_.step-flow__step:focus-visible]:ring-2 [&_.step-flow__step:focus-visible]:ring-ring/40"
             />
             <p className="mt-2 text-micro text-muted-foreground">
               治理随完整入库执行。

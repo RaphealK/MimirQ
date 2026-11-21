@@ -158,7 +158,8 @@ export function DatasetFolderTreeView({
         type="button"
         onClick={() => onSelect(null)}
         className={cn(
-          'w-full flex items-center justify-between rounded-md border border-transparent px-2 py-1.5 text-sm transition-colors focus-ring pointer-coarse:min-h-11',
+          'w-full flex items-center justify-between rounded-md border border-transparent px-2 py-1.5 text-sm transition-colors focus-ring',
+          'pointer-coarse:min-h-11',
           selectedPath
             ? 'hover:bg-muted/40'
             : 'border-foreground/10 bg-primary/[0.06] text-primary'

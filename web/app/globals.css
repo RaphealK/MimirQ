@@ -1259,6 +1259,7 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
      at 44px without enlarging the dot/label artwork. */
   .step-flow__preset,
   .step-flow__step {
+    min-width: 44px;
     min-height: 44px;
   }
 }
@@ -1277,6 +1278,36 @@ html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
   .knowledge-workbench > .sticky {
     position: static;
     flex-shrink: 0;
+  }
+
+  .knowledge-heading {
+    padding-bottom: 0.25rem;
+  }
+
+  .knowledge-heading > div,
+  .knowledge-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .knowledge-toolbar > :last-child {
+    flex-shrink: 0;
+  }
+
+  .knowledge-shortcut {
+    width: 44px;
+    padding-inline: 0;
+  }
+
+  .knowledge-shortcut > span {
+    display: none;
+  }
+
+  .knowledge-workbench .stat-strip__item {
+    padding-block: 4px;
   }
 
   .knowledge-workbench-body {

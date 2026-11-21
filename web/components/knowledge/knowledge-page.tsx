@@ -616,7 +616,7 @@ export default function KnowledgePage() {
           header={
             <header
               data-testid="knowledge-page-toolbar"
-              className="flex flex-col gap-2 border-b border-foreground/15 pb-3 sm:flex-row sm:items-end sm:justify-between"
+              className="knowledge-heading flex flex-col gap-2 border-b border-foreground/15 pb-3 sm:flex-row sm:items-end sm:justify-between"
             >
               <div className="min-w-0">
                 <h1 className="text-title font-semibold text-foreground">
@@ -630,7 +630,7 @@ export default function KnowledgePage() {
           }
           size="full"
           toolbar={
-            <div className="mx-auto flex w-full max-w-page flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
+            <div className="knowledge-toolbar mx-auto flex w-full max-w-page flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex min-w-0 items-center gap-1 overflow-x-auto whitespace-nowrap">
                 <div
                   role="tablist"
@@ -692,7 +692,7 @@ export default function KnowledgePage() {
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="max-sm:w-11 max-sm:px-0 lg:hidden"
+                  className="knowledge-shortcut max-sm:w-11 max-sm:px-0 lg:hidden"
                   aria-label="筛选"
                   title="筛选"
                   ref={scopeTriggerRef}
@@ -750,7 +750,7 @@ export default function KnowledgePage() {
                           : "ghost"
                       }
                       size="sm"
-                      className="max-sm:w-11 max-sm:px-0"
+                      className={cn("max-sm:w-11 max-sm:px-0", !activeTasksCount && "knowledge-shortcut")}
                       aria-label={activeTasksCount ? `${activeTasksCount} 个任务进行中` : "任务历史"}
                       title="任务历史"
                       onClick={() => {
