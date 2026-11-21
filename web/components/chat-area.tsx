@@ -11,6 +11,7 @@
 import {
   useCallback,
   useEffect,
+  useEffectEvent,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -127,9 +128,12 @@ export function ChatArea({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const retrievalPanelRef = useRef<HTMLElement>(null);
-  const prevInitialConversationIdRef = useRef<string | undefined>(
-    initialConversationId,
-  );
+  const reflectedConversation = useRef<string | null>(null);
+  const publishConversation = useCallback((id: string) => {
+    if (id === initialConversationId) return;
+    reflectedConversation.current = id;
+    onConversationId?.(id);
+  }, [initialConversationId, onConversationId]);
   const autoScrollRef = useRef(true);
   const [isNearBottom, setIsNearBottom] = useState(true);
   const [focusedMessageId, setFocusedMessageId] = useState<string | null>(null);
@@ -461,7 +465,7 @@ export function ChatArea({
     structuredPreset: structuredPreset || undefined,
     enableLongTermMemory,
     enableSummaryMemory,
-    onConversationId,
+    onConversationId: publishConversation,
     onError: (error) => {
       reportClientError("Chat request failed", error);
       toast.error(error || t("requestFailed"));
@@ -491,30 +495,23 @@ export function ChatArea({
     return () => unsubscribe();
   }, [focusMessageById, messages]);
 
-  // Sync URL conversation -> local state
-  useEffect(() => {
-    const prev = (prevInitialConversationIdRef.current || "").trim();
-    const desired = (initialConversationId || "").trim();
-    prevInitialConversationIdRef.current = initialConversationId;
-
-    const current = (conversationId || "").trim();
-    if (desired) {
-      if (desired !== current) {
-        loadConversation(desired).catch((err) => {
-          reportClientError("Failed to load conversation", err);
-        });
+  // A stream writes its new ID back to the URL. External navigation and reloads
+  // load history; that one reflected update must leave the active stream alone.
+  const followConversationRoute = useEffectEvent((id: string) => {
+    const reflected = reflectedConversation.current;
+    reflectedConversation.current = null;
+    if (id) {
+      if (id !== reflected) {
+        void loadConversation(id).catch((error) => reportClientError("Failed to load conversation", error));
       }
-      return;
-    }
-    if (prev && current) {
+    } else if (conversationId || isLoading) {
       resetConversation();
     }
-  }, [
-    initialConversationId,
-    conversationId,
-    loadConversation,
-    resetConversation,
-  ]);
+  });
+
+  useEffect(() => {
+    followConversationRoute((initialConversationId ?? "").trim());
+  }, [initialConversationId]);
 
   useEffect(() => {
     setVisibleCount(DEFAULT_VISIBLE_MESSAGES);
