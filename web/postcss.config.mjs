@@ -2,7 +2,7 @@
 const config = {
   plugins: {
     "@tailwindcss/postcss": {},
-    "./styles/xyflow-tokens.cjs": {},
+    "./styles/xyflow-tokens.js": {},
     autoprefixer: {},
   },
 };

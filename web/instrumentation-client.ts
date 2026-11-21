@@ -1,4 +1,8 @@
+import { config as configureValidation } from 'zod/v4/core'
 import { reloadOnceForStaleChunk } from '@/lib/stale-chunk-recovery'
+
+// CSP disallows dynamic code generation. Select the interpreted validator before schemas are initialized.
+configureValidation({ jitless: true })
 
 const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN
 const shouldEnableSentry = process.env.NODE_ENV === 'production' && Boolean(dsn)
