@@ -1,49 +1,29 @@
-# Design Memory
+# MimirQ 工作台设计约定
 
-## Brand Tone
+MimirQ 为需要核对文档、配置和证据的人员提供操作界面。标签写对象，按钮写动作，错误说明原因和可执行的下一步。数量、时间、任务状态与引用分数来自当前数据范围。
 
-- Calm, precise, trustworthy and technical.
-- Keep the light Ocean identity; dark mode must feel like the same product.
-- Avoid generic AI dashboards, decorative metrics, large nested cards, dense gradients and prototype-only telemetry.
+## 页面与排版
 
-## Layout & Spacing
+- 页面使用实际 `AppFrame` 与导航。桌面侧栏展开 224 px，顶栏高 48 px，正文边距 24 px，工作区最大宽度 1440 px。窄屏按任务折叠侧栏和检查器，保留下钻入口。
+- 页面标题、二级导航、筛选、列表、详情按阅读顺序排列。分区用 1 px 分隔线和留白。页高由内容决定。单列入库表单和对话阅读列最大宽度 720 px。
+- 间距以 4 px 为基数。桌面控件通常高 32 px，移动端可触达区域至少 44 × 44 px。常规表头 36 px、记录行 40 px。
+- 字号/行高为 28/36、22/28、18/24、16/26、14/22、13/20、12/18、11/16。分别用于展示标题、页标题、小标题、长文、对话、工作台正文、辅助说明和元数据。等宽字用于可复制的标识、代码和需要纵向比较的数值。
 
-- Use the real `AppFrame` and Navbar when evaluating product pages.
-- Default page gutter: 12px; maximum workbench width: 1680px.
-- Prefer continuous work surfaces, aligned columns and hairline separators for operational pages.
-- Let content determine height. Do not add fixed minimum height merely to fill a screenshot.
-- Use a 4px spacing base and keep related controls close.
+## 工程风主题
 
-## Typography
+- 浅色为默认，深色使用同一组语义令牌。组件从 Tailwind 和 CSS 变量取色。浅色正文 `#172732`，次要文字 `#526574`，分隔线 `#d0d9df`。
+- 链接、当前导航项和可选中的对象共用蓝色 `#215c80`。选中底 `#e3eef5`，键盘焦点环 `#2379a3`。主按钮在一处工作流中只强调当前首要动作。
+- 成功 `#286448`、警告 `#855617`、错误 `#a2373a` 专用于业务状态，始终配文字。深色分别使用 `#84cba9`、`#ecc17e`、`#f4a2a3`。深色强调蓝 `#93c9e4`，焦点 `#73c1e0`。
+- 控件圆角 2 px，页面与分区平直。导航选中线表达位置。层级由排版、留白和分隔线表达。浮层、当前选中、悬停和键盘焦点各有清晰状态。
 
-- Page title: existing 19px/24px MimirQ baseline with `PageTitleIcon`.
-- Supporting page copy: 12px/20px.
-- Primary content: 13–14px; metadata: 10–11px.
-- Monospace is for IDs and tabular data, not decorative labels.
+## 数据与动作
 
-## Color & Depth
+- 筛选项承载筛选维度，指标条承载其余聚合量，每条最多五项。总数、分状态计数、所选数量有各自明确的范围与位置。缺失值与真实零值分别表达。
+- 列表行主动作是查看详情。复选框独立控制批量集合，次要行操作收进一个菜单。鼠标悬停和键盘聚焦都能显示入口，触摸屏直接可见。
+- 引用紧贴回答。来源、页码、分数与摘录属于对应证据。高级检索参数渐进展开，原文查看器保留定位和返回能力。
+- 入库先选目标，再选来源，最后确认执行路径。预设、节点和提交文案从同一执行模式派生。预检在提交处反馈，运行进度由原有执行监控负责。
+- 空状态告诉用户下一步。请求中、权限受限、失败、部分成功和可重试分别呈现。成功文案准确区分“已登记”“已提交任务”和“索引已完成”。
 
-- All colors must use existing semantic tokens.
-- Structural hierarchy uses subtle surface shifts and low-opacity borders.
-- Rounded corners and shadows are for controls, dropdowns and primary actions—not page sections.
-- Color communicates selected, ready, warning, failure or focus state; it is not decoration.
+## 实施与回归
 
-## Interaction Patterns
-
-- Primary action copy should describe the selected endpoint: register, parse, or index.
-- Empty states tell the user the next action; never summarize “0 items” as if it were a confirmation.
-- Advanced options use progressive disclosure.
-- Monitoring remains a separate existing workflow; do not duplicate it inside the composer.
-- Before replacing an established page, verify the proposed UI inside the real product shell.
-
-## Accessibility Rules
-
-- Prefer native labels, radios, details/summary and semantic buttons.
-- Every control requires hover, focus, disabled and loading states.
-- Never rely on color alone for operational status.
-
-## Repository Conventions
-
-- Reuse shared Button, Select, Input, Tabs, PageTitleIcon and theme tokens.
-- Preserve existing API/query logic during visual refactors.
-- Add source-level layout contracts for large JSX restructuring.
+复用现有按钮、选择器、标签页、图标、抽屉及业务组件，保留原有事件、权限和数据契约。优先使用原生标签、单选框、按钮、`details/summary` 以及已有的焦点管理。组件必须支持键盘、读屏、禁用、加载和减少动效偏好。较大结构调整用有效的组件或布局契约测试覆盖，发布验收按项目指定命令执行。

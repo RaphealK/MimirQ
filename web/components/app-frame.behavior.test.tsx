@@ -1,76 +1,92 @@
 // @vitest-environment happy-dom
 
-import React, { act } from 'react'
-import { createRoot } from 'react-dom/client'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import React, { act } from "react";
+import { createRoot } from "react-dom/client";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-vi.mock('next-intl', () => ({
+vi.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
-}))
+}));
 
-vi.mock('@/components/navbar', () => ({
+vi.mock("@/components/navbar", () => ({
   Navbar: ({ isSidebarOpen }: { isSidebarOpen: boolean }) => (
     <div data-testid="navbar" data-open={String(isSidebarOpen)} />
   ),
-}))
+}));
 
-vi.mock('@/components/ui/app-background', () => ({
+vi.mock("@/components/app-frame-topbar", () => ({
+  AppFrameTopbar: () => <header data-testid="app-frame-topbar" />,
+}));
+
+vi.mock("@/components/ui/app-background", () => ({
   AppBackground: () => null,
-}))
+}));
 
-vi.mock('@/store/document-view', () => ({
+vi.mock("@/store/document-view", () => ({
   useDocumentView: () => ({ isOpen: false }),
-}))
+}));
 
-import { AppFrame } from './app-frame'
+import { AppFrame } from "./app-frame";
 
 function renderFrame(isMobile: boolean) {
-  ;(
+  (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
-  ).IS_REACT_ACT_ENVIRONMENT = true
+  ).IS_REACT_ACT_ENVIRONMENT = true;
 
-  Object.defineProperty(window, 'matchMedia', {
+  Object.defineProperty(window, "matchMedia", {
     configurable: true,
     value: vi.fn().mockReturnValue({ matches: isMobile }),
-  })
+  });
 
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-  const root = createRoot(container)
+  const container = document.createElement("div");
+  document.body.appendChild(container);
+  const root = createRoot(container);
 
   act(() => {
-    root.render(<AppFrame>content</AppFrame>)
-  })
+    root.render(<AppFrame>content</AppFrame>);
+  });
 
   return {
     container,
     unmount() {
-      act(() => root.unmount())
-      container.remove()
+      act(() => root.unmount());
+      container.remove();
     },
-  }
+  };
 }
 
-describe('AppFrame responsive sidebar', () => {
+describe("AppFrame responsive sidebar", () => {
   afterEach(() => {
-    vi.restoreAllMocks()
-    document.body.replaceChildren()
-  })
+    vi.restoreAllMocks();
+    document.body.replaceChildren();
+  });
 
-  it('starts with page content available on mobile', () => {
-    const view = renderFrame(true)
+  it("starts with page content available on mobile", () => {
+    const view = renderFrame(true);
 
-    expect(view.container.querySelector('[data-testid="navbar"]')?.getAttribute('data-open')).toBe('false')
-    expect(view.container.querySelector('#main-content')?.parentElement?.hasAttribute('aria-hidden')).toBe(false)
+    expect(
+      view.container
+        .querySelector('[data-testid="navbar"]')
+        ?.getAttribute("data-open"),
+    ).toBe("false");
+    expect(
+      view.container
+        .querySelector("#main-content")
+        ?.parentElement?.hasAttribute("aria-hidden"),
+    ).toBe(false);
 
-    view.unmount()
-  })
+    view.unmount();
+  });
 
-  it('preserves the desktop-open default', () => {
-    const view = renderFrame(false)
+  it("preserves the desktop-open default", () => {
+    const view = renderFrame(false);
 
-    expect(view.container.querySelector('[data-testid="navbar"]')?.getAttribute('data-open')).toBe('true')
+    expect(
+      view.container
+        .querySelector('[data-testid="navbar"]')
+        ?.getAttribute("data-open"),
+    ).toBe("true");
 
-    view.unmount()
-  })
-})
+    view.unmount();
+  });
+});

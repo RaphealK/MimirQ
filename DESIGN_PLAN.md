@@ -1,59 +1,44 @@
-# Design Implementation Record: Knowledge Ingestion Operation
+# MimirQ 工程风界面 · 结构交接
 
-## Summary
+本轮以工程风的蓝色、2 px 控件和深浅主题实现设计板第 05 节的三个真实入口。`/knowledge` 对应文档资产，`/` 对应对话，`/knowledge/ingestion` 对应新建任务。数据集策略 `/datasets/[id]/ingestion` 与执行监控 `/knowledge/ingestion?mode=execution-monitor` 有各自的职责。
 
-- **Scope:** Page redesign
-- **Target:** `web/app/knowledge/ingestion/operation-page-client.tsx`
-- **Selected direction:** F — flat ingestion composer inside the existing MimirQ product shell
-- **Preserved boundary:** Existing execution monitor remains implemented by `page-client.tsx`
+## 分工与范围
 
-## Implemented Changes
+| 交付单位 | 文件边界 | 设计意图 |
+| --- | --- | --- |
+| 共享组件与外观 | `web/app/globals.css`、`web/tailwind.config.ts`、`web/components/ui` 与外观偏好 | 一套深浅语义令牌、尺寸与排版，支持指标条、表格、流程节点。首屏颜色与客户端采用相同规则。 |
+| 应用外壳 | `web/components/app-frame*`、`web/components/navbar*`、根布局的外观接线 | 桌面侧栏 224 px，顶栏 48 px。保留按权限显示的模块、命令搜索、用户动作和窄屏导航。 |
+| 文档资产 | `web/components/knowledge` 的文档工作区、筛选器、列表与审查 | 先选择数据范围，再扫描数据行，按需打开文档详情。批量操作使用复选框。 |
+| 对话 | `web/components/chat-area*`、`web/components/chat` | 用居中阅读列呈现回答和证据，将检索范围与设置集中在右侧。 |
+| 新建入库任务 | `web/app/knowledge/ingestion` 的操作页和专用组件 | 将目标、来源、执行路径串成单列。提交、部分成功、阻断、失败重试的反馈都能追溯到原请求。 |
 
-- [x] Replaced the dashboard/card stack with one compact two-column composer.
-- [x] Kept all real dataset, local folder, URL, object storage, API, pipeline and upload handlers.
-- [x] Added compact execution-path feedback for register, parse, govern and index stages.
-- [x] Moved ingest mode, tags, collection and deduplication into progressive advanced settings.
-- [x] Kept the existing `IngestionViewSwitch` and execution-monitor route.
-- [x] Removed duplicate operation-page metrics and task monitoring.
+数据集与数据集九个子页、历史、图谱及图谱诊断、Golden/消融评测、报告、提示词、文档解析、治理、隔离、反馈、设置、用量、审计和运维沿用共享颜色和控件，受 `AppFrame` 承载的页面同时继承导航骨架。这些页面各有图谱画布、编辑器、队列、角色限制或独立查询，三张基准画板覆盖的交互以外保留原业务结构。认证页面沿用自身的登录与回调流程。
 
-## Files Changed
+## 信息保留规则
 
-- `web/app/knowledge/ingestion/operation-page-client.tsx` — production composer and cleanup
-- `web/app/knowledge/ingestion/operation-page-client.source.test.ts` — layout and capability contracts
-- `web/app/knowledge/ingestion/operation-page-client.behavior.test.tsx` — rendered source/mode/submit behavior coverage
-- `DESIGN_MEMORY.md` — durable product-design constraints
+- 真实后端字段决定信息可见性。文件数、分块数、已索引数量、召回分数、回答置信度有不同分母和作用域。缺少原始数值时按其实际可用性显示。
+- 同一条文件记录通过 ID 在列表、详情、健康页和原文查看器间衔接。行高亮、勾选集合、当前检索范围保持独立。
+- 所有既有 `tab`、`view`、`q`、`dataset`、`folder`、`status`、`lifecycle`、`order_by`、`order_dir`、`run` 仍由知识库的解析与序列化函数管理。入库使用自身的 `datasetId`、`mode` 规则。
+- 文件和文件夹采用原批量上传，URL 与对象存储创建原连接器任务，API 内容走原手动入库分支。提交按钮与执行阶段都读取同一个 `executionMode`。数据集范围切换后的文件暂存、旧草稿兼容、重试条件和后端错误说明属于验收契约。
+- 引用、断言证据、页码、分块 ID、字符范围、分数与追踪标识跟随对应消息或文档。用户通过真实查看器继续阅读与核对。
 
-## Required UI States
+## 原信息与目标位置
 
-- **No source content:** Natural next-step guidance and disabled primary action.
-- **Ready:** Green preflight result and enabled action matching the execution endpoint.
-- **Submitting:** Disabled action with spinner and submitting copy.
-- **Completed/partial failure:** Previous successful/failed counts shown in the action summary.
-- **Blocked connector:** Warning copy for disabled URL/object ingestion or incompatible upload-only mode.
+| 原字段或操作 | 重构后的目标位置 | 信息来源与边界 |
+| --- | --- | --- |
+| 全局导航、用户、明暗与命令搜索 | 侧栏、顶栏及对应弹层 | 复用导航权限、账户状态、命令面板和快捷键。依赖健康详情使用已有就绪查询。 |
+| 文档所属数据集、目录、状态、生命周期 | 左侧范围筛选，窄屏通过筛选入口访问 | 保留目录前缀、具体数据集、状态与生命周期各自的 URL 字段。 |
+| 文档名称、标签、分块、大小、上传时间和排序 | 文档列表及详情摘要 | 客户端排序保留时间、文件名、文件大小的升降序。原数据缺失时保留其缺失语义。 |
+| 文档 ID、解析器、文件元信息、来源路径、健康、切片与原文 | 文档详情抽屉和原文查看器 | 复制、打开健康页、打开分块和查看原文继续使用原对象及对应入口。 |
+| 全选当页、选中记录、批量启用/禁用、归档/取消归档、重新入库和删除 | 复选框、批量操作栏及确认框 | 对同一组文档 ID 调用原处理函数。行内菜单服务于一条记录。 |
+| 上传、URL 批量、抓取网站、Jira、管线配置和任务运行号 | 导入菜单、任务和配置入口 | 连接器的取消、恢复和重试、检索测试及索引审计继续沿用原权限及调用。 |
+| 本地文件/文件夹的名称、大小、类型、相对目录，URL、Bucket、前缀、扩展名、对象数及 API 内容 | 入库第 2 步的来源表单与暂存清单 | 五类来源继续绑定各自的旧字段。清空和移除作用于当前目标数据集的文件。 |
+| 执行终点、运行阶段、解析/切块配置、入库模式、标签、目标目录与去重 | 入库第 3 步的预设、流程节点和高级设置 | 仅登记、一并解析、完整入库分别使用现有 `upload_only`、`parse_only`、`full_index` 值。治理和索引属于完整入库。 |
+| 同步数据集、提交阻断、提交中、成功与失败计数、执行监控 | 目标选择、底部提交区、独立监控入口 | 只显示真实状态及任务结果，成功项与失败项分别计数。 |
+| 问答正文、思考、结构化内容、追问、置信度、评分和定位 | 对话阅读列、回答下方动作及原文查看器 | 消息与证据保留各自的 ID。停止后保留已收到的流式输出。 |
+| 文件/页码/分块/字符范围、召回与重排分数、图片/表格证据 | 紧贴相应回答的引用区及其展开项 | 只展示该条 Citation 实际提供的字段，保留文件预取、页码跳转和单文档追问。 |
+| 数据集或单文档范围、检索方式、Top K、元数据过滤、模板、记忆、摘要和请求追踪 | 检索信息栏及高级设置 | 可编辑字段沿用当前对话配置；实际系统支持与权限决定相应入口。 |
 
-## Accessibility Checklist
+## 交付验收
 
-- [x] Native labels for dataset/source controls
-- [x] Native radio controls for execution endpoint
-- [x] Keyboard-accessible advanced settings
-- [x] Visible focus treatment from shared controls
-- [x] Semantic status colors with accompanying text
-
-## Verification
-
-- [x] 1848×910, 1600×900, 1024×768
-- [x] Ocean light and dark themes
-- [x] Local file selection and file ledger
-- [x] Execution endpoint updates pipeline and CTA
-- [x] Advanced settings disclosure
-- [x] URL-source blocking state
-- [x] Existing execution-monitor navigation
-- [x] Vitest, TypeScript, ESLint, UI checks and `git diff --check`
-- [x] Seven rendered operation-page behavior scenarios
-
-## Design Tokens
-
-- Existing `background`, `foreground`, `border`, `muted`, `info`, `success`, and `warning` tokens only
-- 12px page gutter, 1680px maximum content width
-- Shared 19px page title and 12px page description
-- Rounded corners and subtle shadows limited to real controls
+验收在本地功能分支的 `web/` 目录执行 `pnpm typecheck`、`pnpm lint`、`pnpm test`、`pnpm ui-check`、`pnpm api-check`、`pnpm build`。项目现有设计令牌、对比度和接口检查保持启用。

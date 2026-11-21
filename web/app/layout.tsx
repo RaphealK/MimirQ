@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import type { CSSProperties } from 'react'
 import { cookies, headers } from 'next/headers'
 import { connection } from 'next/server'
 import { NextIntlClientProvider } from 'next-intl'
@@ -9,7 +8,6 @@ import { ThemeAppearanceProvider } from '@/components/theme-appearance-provider'
 import { ThemeProvider } from "@/components/theme-provider"
 import { SonnerToaster } from "@/components/sonner-toaster"
 import { CommandMenu } from "@/components/command-menu"
-import { FluidCursor } from "@/components/ui/fluid-cursor"
 import { TaskCenter } from "@/components/task-center"
 import { QueryProvider } from "@/components/providers/query-provider"
 import { ServiceWorkerRegistrar } from "@/components/providers/service-worker-registrar"
@@ -19,11 +17,8 @@ import { AuthGuard } from "@/components/auth-guard"
 import { resolveRequestDocumentSettings } from '@/lib/document-language'
 import { MIMIRQ_MARK_PATH } from '@/lib/brand'
 import {
-  getThemeColorTokens,
   normalizeSurfaceTheme,
-  normalizeThemeColorCookie,
   SURFACE_THEME_COOKIE_KEY,
-  THEME_COLOR_COOKIE_KEY,
 } from '@/lib/theme-surface'
 
 export const metadata: Metadata = {
@@ -46,7 +41,6 @@ export default async function RootLayout({
 }>) {
   await connection()
 
-  const enableFluidCursor = process.env.NEXT_PUBLIC_ENABLE_FLUID_CURSOR === "1"
   const locale = await getLocale()
   const messages = await getMessages()
   const requestHeaders = await headers()
@@ -55,12 +49,6 @@ export default async function RootLayout({
   const surfaceTheme = normalizeSurfaceTheme(
     appearanceCookies.get(SURFACE_THEME_COOKIE_KEY)?.value
   )
-  const themeColorOverride = normalizeThemeColorCookie(
-    appearanceCookies.get(THEME_COLOR_COOKIE_KEY)?.value
-  )
-  const themeColorStyle = themeColorOverride
-    ? (getThemeColorTokens(themeColorOverride) as CSSProperties)
-    : undefined
   const { lang: documentLang, dir: documentDir } = resolveRequestDocumentSettings(
     requestHeaders,
     locale || process.env.NEXT_PUBLIC_APP_LANG?.trim() || undefined
@@ -73,14 +61,13 @@ export default async function RootLayout({
       suppressHydrationWarning
       className="h-full overflow-hidden"
       data-surface-theme={surfaceTheme}
-      style={themeColorStyle}
     >
       {/* Lock window scrolling: the app uses panel-internal scrolling for better UX. */}
       <body className="font-sans h-dvh overflow-hidden">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
             nonce={cspNonce}
@@ -92,7 +79,6 @@ export default async function RootLayout({
               <ThemeAppearanceProvider />
               <CommandMenu />
               <RouteScrollReset />
-              {enableFluidCursor ? <FluidCursor /> : null}
               <TaskCenter />
               <AuthGuard>{children}</AuthGuard>
             </QueryProvider>

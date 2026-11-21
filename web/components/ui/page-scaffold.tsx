@@ -1,60 +1,66 @@
-import type { LucideIcon } from "lucide-react"
-import type { ComponentProps } from "react"
+import type { LucideIcon } from "lucide-react";
+import type { ComponentProps } from "react";
 
-import { PageBody } from "@/components/ui/page-body"
-import { PageContainer } from "@/components/ui/page-container"
-import { PageHeader } from "@/components/ui/page-header"
-import { PageHeaderBar } from "@/components/ui/page-header-bar"
-import type { PageTitleIconName } from "@/components/ui/page-title-icon"
-import { PageToolbar } from "@/components/ui/page-toolbar"
-import { cn } from "@/lib/utils"
+import { PageBody } from "@/components/ui/page-body";
+import { PageContainer } from "@/components/ui/page-container";
+import { PageHeader } from "@/components/ui/page-header";
+import { PageHeaderBar } from "@/components/ui/page-header-bar";
+import type { PageTitleIconName } from "@/components/ui/page-title-icon";
+import { PageToolbar } from "@/components/ui/page-toolbar";
+import { cn } from "@/lib/utils";
 
 type PageScaffoldProps = {
-  title: string
-  description?: React.ReactNode
-  icon?: LucideIcon
-  iconImage?: PageTitleIconName
-  iconColor?: string
-  badge?: string
-  actions?: React.ReactNode
-  top?: React.ReactNode
-  toolbar?: React.ReactNode
-  children: React.ReactNode
-  size?: ComponentProps<typeof PageContainer>["size"]
-  showHeader?: boolean
-  compact?: boolean
-  density?: "default" | "system-dense"
-  bodyGutter?: ComponentProps<typeof PageBody>["gutter"]
-  headerClassName?: string
-  topClassName?: string
-  toolbarClassName?: string
-  toolbarBarClassName?: string
-  bodyClassName?: string
-  bodyContainerClassName?: string
-}
+  title: string;
+  description?: React.ReactNode;
+  icon?: LucideIcon;
+  iconImage?: PageTitleIconName;
+  iconColor?: string;
+  badge?: string;
+  actions?: React.ReactNode;
+  top?: React.ReactNode;
+  toolbar?: React.ReactNode;
+  children: React.ReactNode;
+  size?: ComponentProps<typeof PageContainer>["size"];
+  showHeader?: boolean;
+  compact?: boolean;
+  density?: "default" | "system-dense";
+  bodyGutter?: ComponentProps<typeof PageBody>["gutter"];
+  headerClassName?: string;
+  topClassName?: string;
+  toolbarClassName?: string;
+  toolbarBarClassName?: string;
+  bodyClassName?: string;
+  bodyContainerClassName?: string;
+};
 
-function getHeaderSpacingClass(isSystemDense: boolean, compact: boolean): string {
-  if (isSystemDense || compact) return "px-4 py-2 md:px-5 lg:px-6"
-  return "px-6 py-3 md:px-8"
+function getHeaderSpacingClass(
+  isSystemDense: boolean,
+  compact: boolean,
+): string {
+  if (isSystemDense || compact) return "px-6 py-2";
+  return "px-6 py-3";
 }
 
 function getTopSpacingClass(isSystemDense: boolean, compact: boolean): string {
-  if (isSystemDense || compact) return "px-4 md:px-5 lg:px-6 pb-2.5"
-  return "px-6 md:px-8 pb-6"
+  if (isSystemDense || compact) return "px-6 pb-2.5";
+  return "px-6 pb-6";
 }
 
-function getToolbarSpacingClass(isSystemDense: boolean, compact: boolean): string {
-  if (isSystemDense || compact) return "px-4 md:px-5 lg:px-6 py-2"
-  return "px-6 md:px-8 py-3 md:py-4"
+function getToolbarSpacingClass(
+  isSystemDense: boolean,
+  compact: boolean,
+): string {
+  if (isSystemDense || compact) return "px-6 py-2";
+  return "px-6 py-3";
 }
 
 function getBodyGutter(
   bodyGutter: PageScaffoldProps["bodyGutter"],
-  isSystemDense: boolean
+  isSystemDense: boolean,
 ): ComponentProps<typeof PageBody>["gutter"] {
-  if (bodyGutter) return bodyGutter
-  if (isSystemDense) return "dense"
-  return "default"
+  if (bodyGutter) return bodyGutter;
+  if (isSystemDense) return "dense";
+  return "default";
 }
 
 export function PageScaffold({
@@ -80,7 +86,7 @@ export function PageScaffold({
   bodyClassName,
   bodyContainerClassName,
 }: Readonly<PageScaffoldProps>) {
-  const isSystemDense = density === "system-dense"
+  const isSystemDense = density === "system-dense";
 
   return (
     <>
@@ -88,7 +94,7 @@ export function PageScaffold({
         <div
           className={cn(
             "flex-shrink-0 relative z-10",
-            getHeaderSpacingClass(isSystemDense, compact)
+            getHeaderSpacingClass(isSystemDense, compact),
           )}
         >
           <PageContainer size={size}>
@@ -113,7 +119,7 @@ export function PageScaffold({
           className={cn(
             "flex-shrink-0 relative z-10",
             getTopSpacingClass(isSystemDense, compact),
-            topClassName
+            topClassName,
           )}
         >
           <PageContainer size={size}>{top}</PageContainer>
@@ -125,7 +131,7 @@ export function PageScaffold({
           <div
             className={cn(
               getToolbarSpacingClass(isSystemDense, compact),
-              toolbarClassName
+              toolbarClassName,
             )}
           >
             <PageContainer size={size}>
@@ -145,5 +151,5 @@ export function PageScaffold({
         </PageContainer>
       </PageBody>
     </>
-  )
+  );
 }
