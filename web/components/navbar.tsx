@@ -1,12 +1,20 @@
 /**
- * 左侧固定导航栏组件（224px rail）。
+ * 左侧固定导航栏组件（可收缩 rail）。
  *
- * 工程风骨架：品牌、新对话、分组导航、外观与账户。
- * 顶栏负责当前位置、命令搜索与依赖状态，见 app-frame-topbar.tsx。
+ * 展开 224px；收起 64px，只保留图标、工具提示与可访问名称。
+ * 768–1023px 默认收起，< 768px 由顶栏按钮控制遮罩抽屉。
+ * 顶栏负责当前位置、命令搜索、侧栏开关与依赖状态，见 app-frame-topbar.tsx。
  */
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import {
@@ -23,8 +31,6 @@ import {
   LogIn,
   LogOut,
   MessageSquare,
-  PanelLeftClose,
-  PanelLeftOpen,
   Plus,
   Scissors,
   Settings,
@@ -36,13 +42,13 @@ import {
   Users,
   Wand2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { readClientStorage, writeClientStorage } from "@/lib/client-storage";
 import { MIMIRQ_MARK_PATH } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useAuth } from "@/hooks/use-auth";
+import type { NavbarSidebarController } from "@/hooks/use-navbar-sidebar";
 import { useTenantAccess } from "@/hooks/use-tenant-access";
 import {
   TENANT_PERMISSIONS,
@@ -325,26 +331,29 @@ function loadOpenSections(): Record<SectionId, boolean> {
 }
 
 export function Navbar({
-  isSidebarOpen: externalIsOpen,
-  setSidebarOpen: externalSetOpen,
+  sidebar,
+  toggleButtonRef,
 }: Readonly<{
-  isSidebarOpen?: boolean;
-  setSidebarOpen?: (isOpen: boolean) => void;
-}> = {}) {
+  sidebar: NavbarSidebarController;
+  toggleButtonRef?: RefObject<HTMLButtonElement | null>;
+}>) {
   const navRef = useRef<HTMLElement | null>(null);
-  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const firstActionRef = useRef<HTMLButtonElement | null>(null);
-  const prevIsSidebarOpenRef = useRef<boolean | null>(null);
-  const restoreToggleFocusOnCloseRef = useRef(false);
-  const [internalIsOpen, setInternalIsOpen] = useState(true);
+  const previousDrawerOpenRef = useRef(sidebar.isDrawerOpen);
   const [openSections, setOpenSections] = useState<Record<SectionId, boolean>>(
     createInitialOpenSections,
   );
   const [hasHydratedOpenSections, setHasHydratedOpenSections] = useState(false);
   const [hasHydratedNavigationAccess, setHasHydratedNavigationAccess] =
     useState(false);
-  const isSidebarOpen = externalIsOpen ?? internalIsOpen;
-  const setSidebarOpen = externalSetOpen ?? setInternalIsOpen;
+  const {
+    isOverlay,
+    isDrawerOpen,
+    isExpanded,
+    isCollapsed,
+    isVisible,
+    closeDrawer,
+  } = sidebar;
   const pathname = usePathname();
   const router = useRouter();
   const { user, isAuthenticated, isDevMode, logout } = useAuth();
@@ -391,118 +400,58 @@ export function Navbar({
     activePathname,
     visibleMenuItems,
   );
-  const closeSidebarOnMobile = useCallback(() => {
-    if (globalThis.window === undefined) return;
-    try {
-      if (globalThis.window.matchMedia("(max-width: 768px)").matches)
-        setSidebarOpen(false);
-    } catch {
-      // ignore
-    }
-  }, [setSidebarOpen]);
+  const handleNavigate = useCallback(() => {
+    if (isOverlay) closeDrawer();
+  }, [closeDrawer, isOverlay]);
   const toggleSection = useCallback((sectionId: SectionId) => {
     setOpenSections((current) => ({
       ...current,
       [sectionId]: !current[sectionId],
     }));
   }, []);
-  const handleSidebarTogglePointerDown = useCallback(() => {
-    restoreToggleFocusOnCloseRef.current = false;
-  }, []);
-  const handleSidebarToggleKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (event.key === "Enter" || event.key === " ") {
-        restoreToggleFocusOnCloseRef.current = true;
-      }
-    },
-    [],
-  );
-  const handleSidebarToggle = useCallback(() => {
-    if (isSidebarOpen) {
-      restoreToggleFocusOnCloseRef.current =
-        restoreToggleFocusOnCloseRef.current ||
-        document.activeElement === toggleButtonRef.current;
-    } else {
-      restoreToggleFocusOnCloseRef.current = false;
-    }
-    setSidebarOpen(!isSidebarOpen);
-  }, [isSidebarOpen, setSidebarOpen]);
 
-  // Accessibility: prevent focus from entering the sidebar when collapsed/hidden.
+  // Accessibility: 遮罩抽屉打开时 Esc 关闭，并把焦点交还给顶栏开关。
   useEffect(() => {
-    const el = navRef.current as (HTMLElement & { inert: boolean }) | null;
-    if (!el) return;
-    const inertNow = !isSidebarOpen;
-    try {
-      el.inert = inertNow;
-    } catch {
-      // ignore: inert is not supported in all environments
-    }
-  }, [isSidebarOpen]);
-
-  // Accessibility: close the mobile overlay with Escape.
-  useEffect(() => {
-    if (!isSidebarOpen) return;
+    if (!isOverlay || !isDrawerOpen) return;
     if (globalThis.window === undefined) return;
 
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.defaultPrevented) return;
-      if (e.key !== "Escape") return;
-      try {
-        // Only treat as an overlay on small screens.
-        if (!globalThis.window.matchMedia("(max-width: 768px)").matches) return;
-      } catch {
-        return;
-      }
-      e.preventDefault();
-      restoreToggleFocusOnCloseRef.current = true;
-      setSidebarOpen(false);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      closeDrawer();
+      toggleButtonRef?.current?.focus();
     };
 
     globalThis.window.addEventListener("keydown", onKeyDown);
     return () => globalThis.window.removeEventListener("keydown", onKeyDown);
-  }, [isSidebarOpen, setSidebarOpen]);
+  }, [closeDrawer, isDrawerOpen, isOverlay, toggleButtonRef]);
 
-  // Accessibility: restore focus to the toggle on close; move focus into the sidebar on open.
+  // Accessibility: 抽屉打开时焦点进入导航；关闭时若焦点仍在导航内则回到开关。
   useEffect(() => {
     if (globalThis.window === undefined) return;
-    if (prevIsSidebarOpenRef.current === null) {
-      prevIsSidebarOpenRef.current = isSidebarOpen;
+    const wasOpen = previousDrawerOpenRef.current;
+    previousDrawerOpenRef.current = isDrawerOpen;
+    if (!isOverlay || wasOpen === isDrawerOpen) return;
+
+    const toggleButton = toggleButtonRef?.current ?? null;
+    if (isDrawerOpen) {
+      if (toggleButton && document.activeElement === toggleButton) {
+        firstActionRef.current?.focus();
+      }
       return;
     }
-
-    const prev = prevIsSidebarOpenRef.current;
-    prevIsSidebarOpenRef.current = isSidebarOpen;
-    if (prev === isSidebarOpen) return;
 
     const active = document.activeElement;
-    if (isSidebarOpen) {
-      // Only move focus when the user opened the sidebar from the toggle (keyboard).
-      if (
-        active &&
-        toggleButtonRef.current &&
-        active !== toggleButtonRef.current
-      )
-        return;
-      requestAnimationFrame(() => {
-        firstActionRef.current?.focus();
-      });
-      return;
+    const focusIsInsideNav = Boolean(
+      navRef.current &&
+      active instanceof Node &&
+      navRef.current.contains(active),
+    );
+    if (!active || active === document.body || focusIsInsideNav) {
+      toggleButton?.focus();
     }
-
-    const navEl = navRef.current;
-    const shouldRestore =
-      !active ||
-      active === document.body ||
-      Boolean(navEl && active instanceof Node && navEl.contains(active));
-    const shouldRestoreToggleFocus = restoreToggleFocusOnCloseRef.current;
-    restoreToggleFocusOnCloseRef.current = false;
-    if (!shouldRestore || !shouldRestoreToggleFocus) return;
-
-    requestAnimationFrame(() => {
-      toggleButtonRef.current?.focus();
-    });
-  }, [isSidebarOpen]);
+  }, [isDrawerOpen, isOverlay, toggleButtonRef]);
 
   useEffect(() => {
     setOpenSections(loadOpenSections());
@@ -585,17 +534,55 @@ export function Navbar({
     : t("user.offlineEnvironment");
   const canOpenSettings = canAccessPermission(TENANT_PERMISSIONS.SETTINGS_READ);
 
+  const renderMenuItem = (item: MenuItem) => {
+    const Icon = item.icon;
+    const isActive = activeHref === item.href;
+    const label = t(item.labelKey);
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        prefetch={false}
+        onClick={handleNavigate}
+        aria-current={isActive ? "page" : undefined}
+        aria-label={isCollapsed ? label : undefined}
+        title={isCollapsed ? label : undefined}
+        data-navbar-item={item.href}
+        data-navbar-active={isActive ? "true" : undefined}
+        className={cn(
+          "group relative flex items-center rounded-md text-compact transition-colors focus-ring",
+          "min-h-11 pointer-fine:md:min-h-8",
+          "before:pointer-events-none before:absolute before:inset-y-1 before:left-0 before:w-0.5 before:rounded-full before:transition-colors",
+          isCollapsed ? "w-full justify-center px-0" : "w-full gap-2.5 px-2",
+          isActive
+            ? "bg-raised font-semibold text-foreground before:bg-foreground"
+            : "text-muted-foreground before:bg-transparent hover:bg-surface hover:text-foreground",
+        )}
+      >
+        <Icon
+          className={cn(
+            "size-4 shrink-0",
+            isActive ? "text-foreground" : "text-muted-foreground",
+          )}
+        />
+        {!isCollapsed ? <span className="truncate">{label}</span> : null}
+      </Link>
+    );
+  };
+
   return (
     <>
       {/* Mobile Overlay */}
-      {isSidebarOpen ? (
+      {isOverlay && isDrawerOpen ? (
         <button
           type="button"
           aria-label={t("toolbar.sidebarClose")}
-          className="fixed inset-0 z-40 border-0 bg-foreground/30 p-0 transition-opacity md:hidden focus:outline-none"
+          data-navbar-backdrop="true"
+          className="fixed inset-0 z-40 border-0 bg-foreground/30 p-0 transition-opacity duration-180 focus:outline-none md:hidden"
           onClick={() => {
-            restoreToggleFocusOnCloseRef.current = false;
-            setSidebarOpen(false);
+            closeDrawer();
+            toggleButtonRef?.current?.focus();
           }}
         />
       ) : null}
@@ -604,20 +591,42 @@ export function Navbar({
         id="mimirq-sidebar"
         ref={navRef}
         aria-label={t("toolbar.navLabel")}
-        aria-hidden={!isSidebarOpen}
+        aria-hidden={isVisible ? undefined : true}
+        inert={isVisible ? undefined : true}
+        hidden={isOverlay && !isDrawerOpen}
+        data-navbar-state={
+          isOverlay
+            ? isDrawerOpen
+              ? "overlay-open"
+              : "overlay-closed"
+            : isExpanded
+              ? "expanded"
+              : "collapsed"
+        }
         className={cn(
-          "z-50 flex w-56 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-transform duration-200 ease-out",
-          "fixed inset-y-0 left-0 md:relative",
-          isSidebarOpen
-            ? "translate-x-0"
-            : "-translate-x-full md:w-0 md:translate-x-0 md:overflow-hidden md:border-r-0",
+          "z-50 flex shrink-0 flex-col border-r border-border bg-background text-foreground",
+          "fixed inset-y-0 left-0 w-56 md:relative md:inset-auto",
+          "transition-[width,opacity] duration-180 ease-out",
+          isVisible ? "opacity-100" : "pointer-events-none opacity-0",
+          isCollapsed ? "md:w-16" : "md:w-56",
         )}
       >
         {/* 品牌 */}
-        <div className="flex h-12 shrink-0 items-center gap-2 border-b border-sidebar-border px-3">
+        <div
+          className={cn(
+            "flex h-12 shrink-0 items-center border-b border-border",
+            isCollapsed ? "justify-center px-2" : "gap-2 px-3",
+          )}
+        >
           <Link
             href="/"
-            className="flex min-w-0 items-center gap-2 rounded-[2px] focus-ring"
+            aria-label={isCollapsed ? "MimirQ" : undefined}
+            title={isCollapsed ? "MimirQ" : undefined}
+            onClick={handleNavigate}
+            className={cn(
+              "flex min-w-0 items-center gap-2 rounded-md focus-ring",
+              isCollapsed ? "justify-center" : "",
+            )}
           >
             <Image
               src={MIMIRQ_MARK_PATH}
@@ -629,41 +638,40 @@ export function Navbar({
               unoptimized
               className="size-7 shrink-0 object-contain"
             />
-            <span className="flex min-w-0 flex-col">
-              <span className="truncate text-compact font-semibold leading-tight text-sidebar-foreground">
-                MimirQ
+            {!isCollapsed ? (
+              <span className="flex min-w-0 flex-col">
+                <span className="truncate text-compact font-semibold leading-tight text-foreground">
+                  MimirQ
+                </span>
+                <span className="truncate text-micro leading-tight text-subtle-foreground">
+                  {t("brand.tagline")}
+                </span>
               </span>
-              <span className="truncate text-micro leading-tight text-muted-foreground">
-                {t("brand.tagline")}
-              </span>
-            </span>
+            ) : null}
           </Link>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="ml-auto size-11 shrink-0 rounded-[2px] hover:bg-info/10 hover:text-foreground md:hidden"
-            onClick={() => setSidebarOpen(false)}
-            aria-label={t("toolbar.sidebarClose")}
-            title={t("toolbar.sidebarClose")}
-          >
-            <PanelLeftClose className="size-4" />
-          </Button>
         </div>
 
         {/* 新对话 */}
         <div className="px-2 pt-2">
-          <Button
+          <button
             ref={firstActionRef}
-            variant="ghost"
-            className="h-11 w-full justify-start gap-2 rounded-[2px] px-2 text-compact font-medium text-sidebar-foreground shadow-none transition-colors hover:bg-info/10 hover:text-foreground md:h-8"
+            type="button"
+            className={cn(
+              "inline-flex h-11 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md px-3 text-compact font-medium text-muted-foreground transition-colors duration-120 hover:bg-raised hover:text-foreground focus-ring pointer-fine:md:h-8",
+              isCollapsed ? "px-0" : "justify-start",
+            )}
+            aria-label={t("actions.newConversation")}
+            title={isCollapsed ? t("actions.newConversation") : undefined}
             onClick={() => {
               router.push("/");
-              closeSidebarOnMobile();
+              handleNavigate();
             }}
           >
-            <Plus className="size-4 shrink-0 text-info" />
-            <span>{t("actions.newConversation")}</span>
-          </Button>
+            <Plus className="size-4 shrink-0" />
+            {!isCollapsed ? (
+              <span className="truncate">{t("actions.newConversation")}</span>
+            ) : null}
+          </button>
         </div>
 
         {/* 导航菜单 */}
@@ -672,6 +680,8 @@ export function Navbar({
           <div className="space-y-1.5">
             {visibleMenuSections.map((section, index) => {
               const isOpen = openSections[section.id] ?? false;
+              // 64px 图标栏没有分组标题：面板强制展开，保证所有模块可达。
+              const panelIsOpen = isCollapsed || isOpen;
               const hasActiveItem = sectionHasActiveRoute(
                 activeHref,
                 section.items,
@@ -681,17 +691,19 @@ export function Navbar({
               return (
                 <section
                   key={section.id}
+                  data-navbar-section={section.id}
                   className={cn(
-                    index > 0 ? "border-t border-sidebar-border/70 pt-1.5" : "",
+                    index > 0 ? "border-t border-border/70 pt-1.5" : "",
                   )}
                 >
                   <button
                     type="button"
+                    hidden={isCollapsed}
                     className={cn(
-                      "flex min-h-11 w-full items-center justify-between gap-2 rounded-[2px] px-2 text-left transition-colors focus-ring md:min-h-7",
+                      "flex min-h-11 w-full items-center justify-between gap-2 rounded-md px-2 text-left transition-colors focus-ring pointer-fine:md:min-h-7",
                       hasActiveItem
                         ? "text-foreground"
-                        : "text-muted-foreground hover:bg-info/5 hover:text-foreground",
+                        : "text-subtle-foreground hover:bg-surface hover:text-foreground",
                     )}
                     onClick={() => toggleSection(section.id)}
                     aria-expanded={isOpen}
@@ -705,47 +717,13 @@ export function Navbar({
 
                   <div
                     id={`sidebar-section-${section.id}`}
-                    className={cn(
-                      "grid overflow-hidden transition-[grid-template-rows] duration-200 ease-out",
-                      isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-                    )}
+                    data-navbar-section-panel={section.id}
+                    hidden={!panelIsOpen}
+                    inert={panelIsOpen ? undefined : true}
+                    aria-hidden={panelIsOpen ? undefined : true}
                   >
-                    <div className="overflow-hidden">
-                      <div className="space-y-0.5 pb-1">
-                        {section.items.map((item) => {
-                          const Icon = item.icon;
-                          const isActive = activeHref === item.href;
-
-                          return (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              prefetch={false}
-                              onClick={closeSidebarOnMobile}
-                              aria-current={isActive ? "page" : undefined}
-                              className={cn(
-                                "relative flex min-h-11 items-center gap-2.5 rounded-[2px] px-2 text-compact transition-colors group focus-ring md:min-h-8",
-                                "before:pointer-events-none before:absolute before:inset-y-1 before:left-0 before:w-0.5 before:rounded-[2px] before:transition-colors",
-                                isActive
-                                  ? "bg-info/10 font-semibold text-foreground before:bg-info"
-                                  : "text-muted-foreground before:bg-transparent hover:bg-info/5 hover:text-foreground",
-                              )}
-                            >
-                              <Icon
-                                className={cn(
-                                  "size-4 shrink-0",
-                                  isActive
-                                    ? "text-info"
-                                    : "text-muted-foreground",
-                                )}
-                              />
-                              <span className="truncate">
-                                {t(item.labelKey)}
-                              </span>
-                            </Link>
-                          );
-                        })}
-                      </div>
+                    <div className="space-y-0.5 pb-1">
+                      {section.items.map(renderMenuItem)}
                     </div>
                   </div>
                 </section>
@@ -755,8 +733,13 @@ export function Navbar({
         </div>
 
         {/* 底部：账户与外观 */}
-        <div className="shrink-0 border-t border-sidebar-border p-2">
-          <div className="flex items-center gap-1">
+        <div className="shrink-0 border-t border-border p-2">
+          <div
+            className={cn(
+              "flex items-center",
+              isCollapsed ? "flex-col gap-1" : "gap-1",
+            )}
+          >
             <button
               type="button"
               aria-label={
@@ -765,14 +748,19 @@ export function Navbar({
               title={
                 isAuthenticated ? t("user.openSettings") : t("auth.goToLogin")
               }
-              className="flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-[2px] px-2 py-1 text-left transition-colors hover:bg-info/10 focus-ring md:min-h-10"
+              className={cn(
+                "flex min-h-11 min-w-0 items-center rounded-md text-left transition-colors hover:bg-surface focus-ring pointer-fine:md:min-h-10",
+                isCollapsed
+                  ? "w-full justify-center px-0"
+                  : "flex-1 gap-2 px-2 py-1",
+              )}
               onClick={() => {
                 if (isAuthenticated) {
                   router.push(canOpenSettings ? "/settings" : "/");
                 } else {
                   router.push("/auth");
                 }
-                closeSidebarOnMobile();
+                handleNavigate();
               }}
             >
               <span className="relative flex size-7 shrink-0 items-center justify-center">
@@ -787,22 +775,23 @@ export function Navbar({
                   className="size-7 object-contain"
                 />
                 {isAuthenticated && (
-                  <span className="absolute -bottom-0.5 -right-0.5 size-2 rounded-full border border-sidebar-background bg-success" />
+                  <span className="absolute -bottom-0.5 -right-0.5 size-2 rounded-full border border-background bg-success" />
                 )}
               </span>
-              <span className="min-w-0 flex-1">
-                <span className="block truncate text-compact font-medium text-sidebar-foreground">
-                  {userDisplayName}
+              {!isCollapsed ? (
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-compact font-medium text-foreground">
+                    {userDisplayName}
+                  </span>
+                  <span className="block truncate text-micro leading-tight text-subtle-foreground">
+                    {userStatusLine}
+                  </span>
                 </span>
-                <span className="block truncate text-micro leading-tight text-muted-foreground">
-                  {userStatusLine}
-                </span>
-              </span>
+              ) : null}
             </button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-11 shrink-0 rounded-[2px] hover:bg-destructive/10 hover:text-destructive md:size-8"
+            <button
+              type="button"
+              className="inline-flex size-11 shrink-0 items-center justify-center rounded-md border border-transparent text-muted-foreground transition-colors duration-120 hover:bg-destructive/10 hover:text-destructive focus-ring pointer-fine:md:size-8"
               onClick={() => {
                 if (isAuthenticated) {
                   logout();
@@ -818,66 +807,26 @@ export function Navbar({
               ) : (
                 <LogIn className="size-4" />
               )}
-            </Button>
+            </button>
           </div>
 
-          <div className="mt-1 flex items-center gap-1 rounded-[2px] px-2">
-            <span className="min-w-0 flex-1 truncate text-micro font-medium text-muted-foreground">
-              {t("toolbar.appearance")}
-            </span>
-            <div className="shrink-0 [&_button]:size-11 [&_button]:rounded-[2px] md:[&_button]:size-8">
+          <div
+            className={cn(
+              "mt-1 flex items-center rounded-md",
+              isCollapsed ? "justify-center" : "gap-1 px-2",
+            )}
+          >
+            {!isCollapsed ? (
+              <span className="min-w-0 flex-1 truncate text-micro font-medium text-subtle-foreground">
+                {t("toolbar.appearance")}
+              </span>
+            ) : null}
+            <div className="shrink-0 [&_button]:size-11 pointer-fine:md:[&_button]:size-8">
               <ModeToggle />
             </div>
           </div>
         </div>
       </nav>
-
-      {/* 侧边栏折叠/展开按钮 */}
-      {isSidebarOpen ? (
-        <Button
-          ref={toggleButtonRef}
-          variant="ghost"
-          size="icon"
-          aria-controls="mimirq-sidebar"
-          aria-expanded={true}
-          aria-label={t("toolbar.collapse")}
-          title={t("toolbar.collapse")}
-          className={cn(
-            "fixed bottom-3 left-56 z-50 hidden size-8 rounded-[2px] border border-border bg-background text-muted-foreground shadow-none transition-colors hover:bg-info/10 hover:text-foreground md:inline-flex",
-            "supports-[padding:env(safe-area-inset-bottom)]:bottom-[calc(env(safe-area-inset-bottom)+0.75rem)]",
-          )}
-          onPointerDown={handleSidebarTogglePointerDown}
-          onKeyDown={handleSidebarToggleKeyDown}
-          onClick={handleSidebarToggle}
-        >
-          <PanelLeftClose className="size-4" />
-        </Button>
-      ) : (
-        <div className="fixed left-0 top-0 z-50 h-12 w-12 md:top-1/2 md:h-8 md:w-8 md:-translate-y-1/2">
-          <div className="group/sidebar-toggle relative h-full w-full">
-            <Button
-              ref={toggleButtonRef}
-              variant="ghost"
-              size="icon"
-              aria-controls="mimirq-sidebar"
-              aria-expanded={false}
-              aria-label={t("toolbar.expand")}
-              title={t("toolbar.expand")}
-              className={cn(
-                "absolute left-0 top-0.5 z-50 size-11 rounded-[2px] border border-border bg-background text-muted-foreground shadow-none transition-all duration-200 ease-out hover:bg-info/10 hover:text-foreground md:top-0 md:size-8 md:-translate-x-[120%] md:opacity-0 md:pointer-events-none",
-                "md:group-hover/sidebar-toggle:translate-x-1 md:group-hover/sidebar-toggle:opacity-100 md:group-hover/sidebar-toggle:pointer-events-auto",
-                "md:group-focus-within/sidebar-toggle:translate-x-1 md:group-focus-within/sidebar-toggle:opacity-100 md:group-focus-within/sidebar-toggle:pointer-events-auto",
-                "focus-visible:translate-x-0 focus-visible:opacity-100 focus-visible:pointer-events-auto",
-              )}
-              onPointerDown={handleSidebarTogglePointerDown}
-              onKeyDown={handleSidebarToggleKeyDown}
-              onClick={handleSidebarToggle}
-            >
-              <PanelLeftOpen className="size-4" />
-            </Button>
-          </div>
-        </div>
-      )}
     </>
   );
 }

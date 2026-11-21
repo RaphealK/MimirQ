@@ -77,18 +77,22 @@ describe("navbar source", () => {
     expect(topbarSrc).toMatch(/t\(["']command\.triggerLabel["']\)/);
   });
 
-  it("keeps the engineering shell at a 224px rail and 48px topbar", () => {
+  it("keeps the engineering shell at a 224px/64px rail and 48px topbar", () => {
     const src = fs.readFileSync(path.resolve(__dirname, "navbar.tsx"), "utf8");
     const topbarSrc = fs.readFileSync(
       path.resolve(__dirname, "app-frame-topbar.tsx"),
       "utf8",
     );
 
-    expect(src).toContain("w-56 shrink-0 flex-col");
+    expect(src).toContain("md:w-56");
+    expect(src).toContain("md:w-16");
+    expect(src).toContain("transition-[width,opacity]");
+    expect(src).toContain("duration-180");
     expect(src).toContain("h-12");
     expect(src).toContain("size-11");
     expect(topbarSrc).toContain("h-12 shrink-0 items-center");
     expect(topbarSrc).toContain("h-11 w-11");
+    expect(topbarSrc).toContain('aria-controls="mimirq-sidebar"');
   });
 
   it("keeps the topbar diagnostics guard hydration-equivalent to the rail", () => {
@@ -156,5 +160,48 @@ describe("navbar source", () => {
     expect(chatMessages).toContain("datasets: '数据集'");
     expect(chatMessages).toContain("knowledgeBase: '知识库'");
     expect(chatMessages).toContain("ragas: 'RAG评测'");
+  });
+
+  it("keeps the sidebar breakpoint and persistence contract in one hook", () => {
+    const src = fs.readFileSync(
+      path.resolve(__dirname, "../hooks/use-navbar-sidebar.ts"),
+      "utf8",
+    );
+
+    expect(src).toContain(
+      'NAVBAR_SIDEBAR_STORAGE_KEY = "mimirq_navbar_sidebar"',
+    );
+    expect(src).toContain(
+      'NAVBAR_SIDEBAR_TABLET_STORAGE_KEY = "mimirq_navbar_sidebar:tablet"',
+    );
+    expect(src).toContain('"(max-width: 767.98px)"');
+    expect(src).toContain('"(min-width: 1024px)"');
+    expect(src).toMatch(/resolvedBreakpoint === "desktop"/);
+    expect(src).toMatch(/resolvedBreakpoint === "mobile"/);
+    expect(src).toContain("writeClientStorage");
+    expect(src).toContain("readClientStorage");
+  });
+
+  it("uses the monochrome foreground/surface/raised ladder without an accent hue", () => {
+    const navbarSrc = fs.readFileSync(
+      path.resolve(__dirname, "navbar.tsx"),
+      "utf8",
+    );
+    const topbarSrc = fs.readFileSync(
+      path.resolve(__dirname, "app-frame-topbar.tsx"),
+      "utf8",
+    );
+
+    for (const src of [navbarSrc, topbarSrc]) {
+      expect(src).not.toMatch(
+        /\b(?:bg|text|border|hover:bg|hover:border)-info\b/,
+      );
+      expect(src).not.toMatch(/\b(?:bg|text|border)-info\/\d+/);
+      expect(src).not.toMatch(/\btext-(?:blue|cyan|indigo)-\d{2,3}\b/);
+    }
+    expect(navbarSrc).toContain("bg-raised");
+    expect(navbarSrc).toContain("bg-surface");
+    expect(navbarSrc).toContain("text-subtle-foreground");
+    expect(navbarSrc).toContain("before:bg-foreground");
   });
 });

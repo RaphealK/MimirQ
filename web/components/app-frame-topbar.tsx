@@ -1,13 +1,19 @@
 /**
- * 顶栏：当前位置、命令搜索与后端依赖状态。
+ * 顶栏：侧栏开关、当前位置、命令搜索与后端依赖状态。
  *
  * 顶栏固定 48px；窄屏控件保持 44px 触控目标。
+ * 左侧按钮持有 aria-controls / aria-expanded，是侧栏唯一的收展入口。
  * 只承载全局定位与既有动作，任务入口仍由全局 TaskCenter 独占。
  */
 "use client";
 
-import { useEffect, useState } from "react";
-import { ChevronRight, Search } from "lucide-react";
+import { useEffect, useState, type Ref } from "react";
+import {
+  ChevronRight,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Search,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { getNavigationBreadcrumb } from "@/components/navbar";
@@ -20,6 +26,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { useAuth } from "@/hooks/use-auth";
 import { useBackendMetaDetails } from "@/hooks/use-backend-meta";
 import { useBackendReady } from "@/hooks/use-backend-ready";
+import type { NavbarSidebarController } from "@/hooks/use-navbar-sidebar";
 import { useTenantAccess } from "@/hooks/use-tenant-access";
 import { Link, usePathname } from "@/i18n/navigation";
 import {
@@ -82,7 +89,15 @@ function resolveBackendState(ok: boolean | null) {
   };
 }
 
-export function AppFrameTopbar() {
+type AppFrameTopbarProps = {
+  sidebar?: NavbarSidebarController;
+  toggleButtonRef?: Ref<HTMLButtonElement>;
+};
+
+export function AppFrameTopbar({
+  sidebar,
+  toggleButtonRef,
+}: Readonly<AppFrameTopbarProps> = {}) {
   const t = useTranslations("Navbar");
   const pathname = usePathname();
   const commandMenuOpen = useCommandMenuState((state) => state.open);
@@ -134,6 +149,14 @@ export function AppFrameTopbar() {
       navigationTenantAccess,
       TENANT_PERMISSIONS.OBSERVABILITY_READ,
     );
+  const sidebarExpanded = sidebar
+    ? sidebar.isOverlay
+      ? sidebar.isDrawerOpen
+      : sidebar.isExpanded
+    : false;
+  const toggleLabel = sidebarExpanded
+    ? t("toolbar.collapse")
+    : t("toolbar.expand");
 
   const depRows: Array<{
     key: string;
@@ -180,7 +203,28 @@ export function AppFrameTopbar() {
     : [];
 
   return (
-    <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border bg-background px-2 pl-[52px] md:gap-3 md:px-4 md:pl-4">
+    <header className="flex h-12 shrink-0 items-center gap-2 border-b border-border bg-background px-2 md:gap-3 md:px-4">
+      {sidebar ? (
+        <button
+          ref={toggleButtonRef}
+          type="button"
+          data-navbar-toggle="true"
+          data-navbar-toggle-mode={sidebar.isOverlay ? "overlay" : "rail"}
+          aria-controls="mimirq-sidebar"
+          aria-expanded={sidebarExpanded}
+          aria-label={toggleLabel}
+          title={toggleLabel}
+          onClick={sidebar.toggle}
+          className="flex size-11 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors duration-120 hover:bg-surface hover:text-foreground focus-ring pointer-fine:md:size-8"
+        >
+          {sidebarExpanded ? (
+            <PanelLeftClose className="size-4" aria-hidden="true" />
+          ) : (
+            <PanelLeftOpen className="size-4" aria-hidden="true" />
+          )}
+        </button>
+      ) : null}
+
       <div className="flex min-w-0 flex-1 items-center gap-1.5 text-caption text-muted-foreground">
         {breadcrumb ? (
           <>
@@ -209,13 +253,13 @@ export function AppFrameTopbar() {
           aria-expanded={commandMenuOpen}
           aria-controls="mimirq-command-menu"
           title={t("command.triggerLabel")}
-          className="flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-[2px] border border-border bg-background px-0 text-left text-compact text-muted-foreground transition-colors hover:border-info/40 hover:bg-info/5 focus-ring sm:w-auto sm:max-w-xs sm:justify-start sm:px-2.5 md:h-8"
+          className="flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-md border border-border bg-background px-0 text-left text-compact text-muted-foreground transition-colors hover:bg-surface focus-ring sm:w-auto sm:max-w-xs sm:justify-start sm:px-2.5 pointer-fine:md:h-8"
         >
           <Search className="size-4 shrink-0" aria-hidden="true" />
           <span className="hidden truncate sm:inline">
             {t("command.triggerLabel")}
           </span>
-          <span className="ml-auto hidden shrink-0 border border-border bg-muted px-1.5 py-0.5 text-micro font-medium text-muted-foreground lg:inline">
+          <span className="ml-auto hidden shrink-0 border border-border bg-raised px-1.5 py-0.5 text-micro font-medium text-muted-foreground lg:inline">
             ⌘K
           </span>
         </button>
@@ -224,7 +268,7 @@ export function AppFrameTopbar() {
           <PopoverTrigger asChild>
             <button
               type="button"
-              className="flex min-h-11 items-center rounded-[2px] px-1 focus-ring md:min-h-8"
+              className="flex min-h-11 items-center rounded-md px-1 focus-ring pointer-fine:md:min-h-8"
               aria-label={t("deps.openStatus")}
               title={t("deps.openStatus")}
             >
@@ -267,7 +311,7 @@ export function AppFrameTopbar() {
                 </div>
               </div>
 
-              <div className="rounded-[2px] border border-border bg-background p-2.5">
+              <div className="rounded-md border border-border bg-background p-2.5">
                 {readyDetails ? (
                   <div className="space-y-2">
                     {depRows.map((row) => {
@@ -313,7 +357,7 @@ export function AppFrameTopbar() {
                 {canOpenDiagnostics ? (
                   <Link
                     href="/diagnostics"
-                    className="text-micro text-info hover:underline"
+                    className="text-micro text-foreground underline-offset-4 hover:underline"
                   >
                     {t("deps.diagnosticsLink")}
                   </Link>

@@ -151,7 +151,25 @@ vi.mock("@/components/ui/popover", () => ({
     React.createElement(React.Fragment, null, children),
 }));
 
+import type { NavbarSidebarController } from "@/hooks/use-navbar-sidebar";
+
 import { Navbar } from "./navbar";
+
+function createSidebar(
+  overrides: Partial<NavbarSidebarController> = {},
+): NavbarSidebarController {
+  return {
+    breakpoint: "desktop",
+    isOverlay: false,
+    isDrawerOpen: false,
+    isExpanded: true,
+    isCollapsed: false,
+    isVisible: true,
+    toggle: vi.fn(),
+    closeDrawer: vi.fn(),
+    ...overrides,
+  };
+}
 
 function renderComponent(element: React.ReactElement) {
   (
@@ -168,6 +186,11 @@ function renderComponent(element: React.ReactElement) {
 
   return {
     container,
+    rerender(element: React.ReactElement) {
+      act(() => {
+        root.render(element);
+      });
+    },
     unmount() {
       act(() => {
         root.unmount();
@@ -206,7 +229,9 @@ describe("Navbar behavior", () => {
   });
 
   it("keeps the advanced similarity route out of the primary sidebar", () => {
-    const view = renderComponent(React.createElement(Navbar));
+    const view = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
 
     const knowledgeSection = view.container.querySelector(
       'button[aria-controls="sidebar-section-knowledge"]',
@@ -237,7 +262,9 @@ describe("Navbar behavior", () => {
   });
 
   it("maps dataset and knowledge labels to the intended routes", () => {
-    const view = renderComponent(React.createElement(Navbar));
+    const view = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
 
     const datasetsLink = Array.from(view.container.querySelectorAll("a")).find(
       (node) => node.textContent?.includes(chatMessages.Navbar.items.datasets),
@@ -254,7 +281,9 @@ describe("Navbar behavior", () => {
   });
 
   it("offers one appearance entry from the global navigation", () => {
-    const view = renderComponent(React.createElement(Navbar));
+    const view = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
 
     expect(
       view.container.querySelector('[data-testid="mode-toggle"]'),
@@ -268,7 +297,9 @@ describe("Navbar behavior", () => {
   it("preserves manually collapsed sections across remounts while opening the active section", () => {
     routerMocks.pathname = "/";
 
-    const firstView = renderComponent(React.createElement(Navbar));
+    const firstView = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
     const coreToggle = firstView.container.querySelector(
       'button[aria-controls="sidebar-section-core"]',
     ) as HTMLButtonElement;
@@ -285,7 +316,9 @@ describe("Navbar behavior", () => {
 
     routerMocks.pathname = "/graph";
 
-    const secondView = renderComponent(React.createElement(Navbar));
+    const secondView = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
     const coreToggleAfterRemount = secondView.container.querySelector(
       'button[aria-controls="sidebar-section-core"]',
     ) as HTMLButtonElement;
@@ -312,7 +345,9 @@ describe("Navbar behavior", () => {
   it("keeps permission-gated navigation stable across hydration when tenant access is client-cached", async () => {
     routerMocks.pathname = "/usage";
     tenantAccessMock.current = { data: undefined };
-    const html = renderToString(React.createElement(Navbar));
+    const html = renderToString(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
 
     const container = document.createElement("div");
     container.innerHTML = html;
@@ -325,7 +360,10 @@ describe("Navbar behavior", () => {
     let root: ReturnType<typeof hydrateRoot> | null = null;
 
     await act(async () => {
-      root = hydrateRoot(container, React.createElement(Navbar));
+      root = hydrateRoot(
+        container,
+        React.createElement(Navbar, { sidebar: createSidebar() }),
+      );
       await Promise.resolve();
     });
 
@@ -338,5 +376,189 @@ describe("Navbar behavior", () => {
       root?.unmount();
     });
     container.remove();
+  });
+
+  it("renders a 64px icon rail with tooltips, an active foreground line and every visible module", () => {
+    routerMocks.pathname = "/evaluations";
+    const view = renderComponent(
+      React.createElement(Navbar, {
+        sidebar: createSidebar({ isExpanded: false, isCollapsed: true }),
+      }),
+    );
+
+    const nav = view.container.querySelector("#mimirq-sidebar");
+    expect(nav?.getAttribute("data-navbar-state")).toBe("collapsed");
+    expect(nav?.className).toContain("md:w-16");
+    const sectionToggles = view.container.querySelectorAll(
+      'button[aria-controls^="sidebar-section-"]',
+    );
+    expect(sectionToggles.length).toBeGreaterThan(0);
+    for (const sectionToggle of Array.from(sectionToggles)) {
+      expect(sectionToggle.hasAttribute("hidden")).toBe(true);
+    }
+    expect(
+      view.container
+        .querySelector("#sidebar-section-system")
+        ?.hasAttribute("hidden"),
+    ).toBe(false);
+
+    const datasets = view.container.querySelector(
+      'a[data-navbar-item="/datasets"]',
+    );
+    expect(datasets?.textContent).toBe("");
+    expect(datasets?.getAttribute("aria-label")).toBe(
+      chatMessages.Navbar.items.datasets,
+    );
+    expect(datasets?.getAttribute("title")).toBe(
+      chatMessages.Navbar.items.datasets,
+    );
+
+    const active = view.container.querySelector('a[aria-current="page"]');
+    expect(active?.getAttribute("data-navbar-item")).toBe("/evaluations");
+    expect(active?.className).toContain("bg-raised");
+    expect(active?.className).toContain("before:bg-foreground");
+    expect(active?.className).toContain("text-foreground");
+
+    for (const href of [
+      "/",
+      "/knowledge",
+      "/knowledge/ingestion",
+      "/settings",
+    ]) {
+      expect(
+        view.container.querySelector(`a[data-navbar-item="${href}"]`),
+      ).not.toBeNull();
+    }
+
+    view.unmount();
+  });
+
+  it("keeps focus and tab access on a nav item while the rail switches to icon-only", () => {
+    routerMocks.pathname = "/datasets";
+    const view = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
+
+    const link = view.container.querySelector(
+      'a[data-navbar-item="/datasets"]',
+    ) as HTMLAnchorElement | null;
+    expect(link).not.toBeNull();
+    act(() => {
+      link?.focus();
+    });
+    expect(document.activeElement).toBe(link);
+
+    act(() => {
+      view.rerender(
+        React.createElement(Navbar, {
+          sidebar: createSidebar({ isExpanded: false, isCollapsed: true }),
+        }),
+      );
+    });
+
+    const collapsedLink = view.container.querySelector(
+      'a[data-navbar-item="/datasets"]',
+    );
+    // The anchor stays mounted while the label span and group headings disappear.
+    expect(collapsedLink).toBe(link);
+    expect(document.activeElement).toBe(link);
+    expect(link?.getAttribute("title")).toBe(
+      chatMessages.Navbar.items.datasets,
+    );
+    expect(link?.getAttribute("aria-label")).toBe(
+      chatMessages.Navbar.items.datasets,
+    );
+    expect(link?.getAttribute("tabindex")).toBeNull();
+    expect(link?.closest("nav")?.hasAttribute("inert")).toBe(false);
+
+    act(() => {
+      view.rerender(React.createElement(Navbar, { sidebar: createSidebar() }));
+    });
+    expect(document.activeElement).toBe(link);
+
+    view.unmount();
+  });
+
+  it("keeps the expanded rail at 224px and marks closed section panels inert", () => {
+    routerMocks.pathname = "/";
+    const view = renderComponent(
+      React.createElement(Navbar, { sidebar: createSidebar() }),
+    );
+
+    const nav = view.container.querySelector("#mimirq-sidebar");
+    expect(nav?.getAttribute("data-navbar-state")).toBe("expanded");
+    expect(nav?.className).toContain("md:w-56");
+    expect(nav?.getAttribute("aria-hidden")).toBeNull();
+    expect(nav?.hasAttribute("inert")).toBe(false);
+
+    const systemPanel = view.container.querySelector("#sidebar-section-system");
+    expect(systemPanel?.getAttribute("aria-hidden")).toBe("true");
+    expect(systemPanel?.hasAttribute("inert")).toBe(true);
+
+    const knowledgePanel = view.container.querySelector(
+      "#sidebar-section-knowledge",
+    );
+    expect(knowledgePanel?.hasAttribute("inert")).toBe(false);
+
+    view.unmount();
+  });
+
+  it("hides a closed overlay from focus and closes it with Escape", () => {
+    const closeDrawer = vi.fn();
+    const toggleButton = document.createElement("button");
+    document.body.appendChild(toggleButton);
+    const toggleButtonRef = { current: toggleButton };
+    const closed = renderComponent(
+      React.createElement(Navbar, {
+        sidebar: createSidebar({
+          breakpoint: "mobile",
+          isOverlay: true,
+          isExpanded: false,
+          isVisible: false,
+          closeDrawer,
+        }),
+        toggleButtonRef,
+      }),
+    );
+
+    const closedNav = closed.container.querySelector("#mimirq-sidebar");
+    expect(closedNav?.getAttribute("data-navbar-state")).toBe("overlay-closed");
+    expect(closedNav?.getAttribute("aria-hidden")).toBe("true");
+    expect(closedNav?.hasAttribute("hidden")).toBe(true);
+    expect(closedNav?.hasAttribute("inert")).toBe(true);
+    expect(closed.container.querySelector("[data-navbar-backdrop]")).toBeNull();
+    closed.unmount();
+
+    const open = renderComponent(
+      React.createElement(Navbar, {
+        sidebar: createSidebar({
+          breakpoint: "mobile",
+          isOverlay: true,
+          isDrawerOpen: true,
+          isVisible: true,
+          closeDrawer,
+        }),
+        toggleButtonRef,
+      }),
+    );
+
+    const openNav = open.container.querySelector("#mimirq-sidebar");
+    expect(openNav?.getAttribute("data-navbar-state")).toBe("overlay-open");
+    expect(openNav?.getAttribute("aria-hidden")).toBeNull();
+    expect(openNav?.hasAttribute("hidden")).toBe(false);
+    expect(openNav?.hasAttribute("inert")).toBe(false);
+    expect(
+      open.container.querySelector("[data-navbar-backdrop]"),
+    ).not.toBeNull();
+
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    });
+
+    expect(closeDrawer).toHaveBeenCalledTimes(1);
+    expect(document.activeElement).toBe(toggleButton);
+
+    open.unmount();
+    toggleButton.remove();
   });
 });

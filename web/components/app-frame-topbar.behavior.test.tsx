@@ -71,9 +71,27 @@ vi.mock("@/components/ui/status-badge", () => ({
     React.createElement("span", null, label),
 }));
 
+import type { NavbarSidebarController } from "@/hooks/use-navbar-sidebar";
+
 import { AppFrameTopbar } from "./app-frame-topbar";
 
-function renderTopbar() {
+function createSidebar(
+  overrides: Partial<NavbarSidebarController> = {},
+): NavbarSidebarController {
+  return {
+    breakpoint: "desktop",
+    isOverlay: false,
+    isDrawerOpen: false,
+    isExpanded: true,
+    isCollapsed: false,
+    isVisible: true,
+    toggle: vi.fn(),
+    closeDrawer: vi.fn(),
+    ...overrides,
+  };
+}
+
+function renderTopbar(sidebar = createSidebar()) {
   (
     globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT?: boolean }
   ).IS_REACT_ACT_ENVIRONMENT = true;
@@ -83,11 +101,18 @@ function renderTopbar() {
   const root = createRoot(container);
 
   act(() => {
-    root.render(React.createElement(AppFrameTopbar));
+    root.render(React.createElement(AppFrameTopbar, { sidebar }));
   });
 
   return {
     container,
+    rerender(nextSidebar: NavbarSidebarController) {
+      act(() => {
+        root.render(
+          React.createElement(AppFrameTopbar, { sidebar: nextSidebar }),
+        );
+      });
+    },
     unmount() {
       act(() => root.unmount());
       container.remove();
@@ -136,6 +161,94 @@ describe("AppFrameTopbar", () => {
     expect(header?.className).toContain("h-12");
     expect(search?.className).toContain("h-11");
     expect(search?.className).toContain("w-11");
+
+    view.unmount();
+  });
+
+  it("exposes the single sidebar toggle with aria-controls/expanded", () => {
+    const sidebar = createSidebar();
+    const view = renderTopbar(sidebar);
+    const toggle = view.container.querySelector(
+      '[data-navbar-toggle="true"]',
+    ) as HTMLButtonElement | null;
+
+    expect(toggle?.getAttribute("aria-controls")).toBe("mimirq-sidebar");
+    expect(toggle?.getAttribute("aria-expanded")).toBe("true");
+    expect(toggle?.getAttribute("aria-label")).toBe("toolbar.collapse");
+    expect(toggle?.className).toContain("size-11");
+
+    act(() => {
+      toggle?.click();
+    });
+    expect(sidebar.toggle).toHaveBeenCalledTimes(1);
+
+    view.unmount();
+  });
+
+  it("announces a collapsed rail as not expanded", () => {
+    const view = renderTopbar(
+      createSidebar({ isExpanded: false, isCollapsed: true, isVisible: false }),
+    );
+    const toggle = view.container.querySelector('[data-navbar-toggle="true"]');
+
+    expect(toggle?.getAttribute("aria-expanded")).toBe("false");
+    expect(toggle?.getAttribute("aria-label")).toBe("toolbar.expand");
+
+    view.unmount();
+  });
+
+  it("uses the drawer state for aria-expanded in overlay mode", () => {
+    const view = renderTopbar(
+      createSidebar({
+        breakpoint: "mobile",
+        isOverlay: true,
+        isDrawerOpen: true,
+        isExpanded: false,
+        isVisible: true,
+      }),
+    );
+    const toggle = view.container.querySelector('[data-navbar-toggle="true"]');
+
+    expect(toggle?.getAttribute("data-navbar-toggle-mode")).toBe("overlay");
+    expect(toggle?.getAttribute("aria-expanded")).toBe("true");
+    expect(toggle?.getAttribute("aria-label")).toBe("toolbar.collapse");
+
+    view.unmount();
+  });
+
+  it("keeps focus on the same toggle while its icon and label change", () => {
+    const view = renderTopbar(createSidebar());
+    const toggle = view.container.querySelector(
+      '[data-navbar-toggle="true"]',
+    ) as HTMLButtonElement | null;
+
+    act(() => {
+      toggle?.focus();
+    });
+    expect(document.activeElement).toBe(toggle);
+
+    act(() => {
+      view.rerender(
+        createSidebar({
+          isExpanded: false,
+          isCollapsed: true,
+          isVisible: false,
+        }),
+      );
+    });
+
+    const collapsedToggle = view.container.querySelector(
+      '[data-navbar-toggle="true"]',
+    );
+    expect(collapsedToggle).toBe(toggle);
+    expect(document.activeElement).toBe(toggle);
+    expect(collapsedToggle?.getAttribute("aria-expanded")).toBe("false");
+    expect(collapsedToggle?.querySelector("svg")).not.toBeNull();
+
+    act(() => {
+      view.rerender(createSidebar());
+    });
+    expect(document.activeElement).toBe(toggle);
 
     view.unmount();
   });
