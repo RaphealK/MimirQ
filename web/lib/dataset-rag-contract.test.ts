@@ -73,6 +73,35 @@ describe('dataset rag contract helpers', () => {
     })
   })
 
+  it('treats a contract with only unset values as unconfigured', () => {
+    const defaults: DatasetRagDefaults = { top_k: null, alpha: null }
+
+    expect(hasDatasetRagContract(defaults)).toBe(false)
+    expect(buildRetrievalConfigHashRequest(defaults)).toBeNull()
+  })
+
+  it('omits unset request fields while preserving zero and false overrides', () => {
+    const defaults: DatasetRagDefaults = {
+      top_k: 12,
+      retrieval_mode: 'auto',
+      score_threshold: 0,
+      enable_reranker: false,
+      alpha: null,
+      reranker_provider: null,
+    }
+
+    expect(hasDatasetRagContract(defaults)).toBe(true)
+    expect(buildRetrievalConfigHashRequest(defaults)).toEqual({
+      rag_config: {
+        top_k: 12,
+        retrieval_mode: 'auto',
+        score_threshold: 0,
+        enable_reranker: false,
+      },
+      include_runtime_defaults: true,
+    })
+  })
+
   it('creates a config-hash request only when a dataset contract exists', () => {
     expect(hasDatasetRagContract(null)).toBe(false)
     expect(buildRetrievalConfigHashRequest(null)).toBeNull()

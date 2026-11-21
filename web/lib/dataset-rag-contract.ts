@@ -33,7 +33,10 @@ function toOptionalString(value: unknown): string | undefined {
 export function hasDatasetRagContract(
   value: DatasetRagDefaults | Record<string, unknown> | null | undefined
 ): value is DatasetRagDefaults {
-  return isRecord(value) && Object.keys(value).length > 0
+  return (
+    isRecord(value) &&
+    Object.values(value).some((fieldValue) => fieldValue !== null && fieldValue !== undefined)
+  )
 }
 
 export function mergeDatasetRagDefaultsIntoRagConfig(
@@ -131,8 +134,15 @@ export function buildRetrievalConfigHashRequest(
   defaults?: DatasetRagDefaults | null
 ): { rag_config: Record<string, unknown>; include_runtime_defaults: true } | null {
   if (!hasDatasetRagContract(defaults)) return null
+
+  const rag_config = Object.fromEntries(
+    Object.entries(defaults).filter(
+      ([, fieldValue]) => fieldValue !== null && fieldValue !== undefined
+    )
+  )
+
   return {
-    rag_config: { ...defaults },
+    rag_config,
     include_runtime_defaults: true,
   }
 }
