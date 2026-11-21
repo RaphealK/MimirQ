@@ -37,7 +37,7 @@ describe('frontend boundary system', () => {
     expect(src).not.toContain('radial-gradient')
   })
 
-  it('makes default cards flat while keeping glass an explicit opt-in', () => {
+  it('keeps panels opaque for callers using the legacy glass variant', () => {
     const card = readWorkspaceFile('components/ui/card.tsx')
     const panel = readWorkspaceFile('components/ui/panel.tsx')
 
@@ -49,6 +49,7 @@ describe('frontend boundary system', () => {
     expect(panel).toContain(
       'default: "rounded-lg border border-foreground/10 bg-background shadow-none"'
     )
-    expect(panel).toContain('glass: "rounded-xl border border-border/40 bg-card/50 shadow-soft backdrop-blur-xl"')
+    expect(panel).toContain('glass: "rounded-lg border border-border bg-card shadow-none"')
+    expect(panel).not.toContain('backdrop-blur')
   })
 })

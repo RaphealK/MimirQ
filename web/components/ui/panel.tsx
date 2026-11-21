@@ -10,7 +10,7 @@ const panelVariants = cva(
       variant: {
         default: "rounded-lg border border-foreground/10 bg-background shadow-none",
         muted: "rounded-lg border border-foreground/10 bg-muted/20 shadow-none",
-        glass: "rounded-xl border border-border/40 bg-card/50 shadow-soft backdrop-blur-xl",
+        glass: "rounded-lg border border-border bg-card shadow-none",
         seamless:
           "rounded-none border-x-0 border-t-0 border-b border-foreground/15 bg-background shadow-none transition-none",
       },
