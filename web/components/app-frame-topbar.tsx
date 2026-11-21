@@ -97,7 +97,7 @@ type AppFrameTopbarProps = {
 export function AppFrameTopbar({
   sidebar,
   toggleButtonRef,
-}: Readonly<AppFrameTopbarProps> = {}) {
+}: Readonly<AppFrameTopbarProps>) {
   const t = useTranslations("Navbar");
   const pathname = usePathname();
   const commandMenuOpen = useCommandMenuState((state) => state.open);
