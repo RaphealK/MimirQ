@@ -200,14 +200,14 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       radius = 14
     ) => {
       context.save()
-      context.shadowColor = 'rgba(15, 23, 42, 0.08)'
+      context.shadowColor = 'rgba(0, 0, 0, 0.08)'
       context.shadowBlur = 26
       context.shadowOffsetY = 12
       context.fillStyle = 'rgba(255, 255, 255, 0.92)'
       roundRect(x, y, rectWidth, rectHeight, radius)
       context.fill()
       context.restore()
-      context.strokeStyle = '#dfe7f2'
+      context.strokeStyle = '#d4d4d4'
       context.lineWidth = 1
       roundRect(x, y, rectWidth, rectHeight, radius)
       context.stroke()
@@ -255,16 +255,16 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
     ) => {
       drawCardBase(x, y, rectWidth, rectHeight, 12)
       const tones = [
-        '#1264e8',
-        '#1264e8',
-        '#334155',
-        '#6d47e8',
-        '#0ea5b7',
-        '#6d47e8',
-        '#1264e8',
-        '#0ea5b7',
+        '#525252',
+        '#525252',
+        '#3f3f3f',
+        '#6b6b6b',
+        '#8f8f8f',
+        '#6b6b6b',
+        '#525252',
+        '#8f8f8f',
       ]
-      const tone = tones[index % tones.length] ?? '#1264e8'
+      const tone = tones[index % tones.length] ?? '#525252'
       context.fillStyle = `${tone}18`
       roundRect(x + 22, y + 24, 60, 60, 16)
       context.fill()
@@ -276,10 +276,10 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       context.textAlign = 'left'
       context.textBaseline = 'alphabetic'
       setFont(14, 500)
-      context.fillStyle = '#52627a'
+      context.fillStyle = '#525252'
       context.fillText(card.label, x + 102, y + 44)
       setFont(26, 900)
-      context.fillStyle = '#0c1730'
+      context.fillStyle = '#171717'
       drawTextLines(card.value, x + 102, y + 78, rectWidth - 126, 28, 1)
     }
     const drawSection = (
@@ -303,11 +303,11 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       drawCardBase(x, y, rectWidth, rectHeight, 12)
 
       setFont(20, 800)
-      context.fillStyle = '#0c1730'
+      context.fillStyle = '#171717'
       context.fillText(section.title, x + 20, y + 32)
       if (section.note) {
         setFont(13, 400)
-        context.fillStyle = '#52627a'
+        context.fillStyle = '#525252'
         drawTextLines(section.note, x + 20, y + 56, rectWidth - 40, 18, 1)
       }
 
@@ -315,23 +315,23 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       context.fillStyle = '#ffffff'
       roundRect(x + 18, tableY, rectWidth - 36, tableHeight, 10)
       context.fill()
-      context.strokeStyle = '#dfe7f2'
+      context.strokeStyle = '#d4d4d4'
       context.stroke()
 
       if (!headers.length) {
         setFont(14, 500)
-        context.fillStyle = '#52627a'
+        context.fillStyle = '#525252'
         context.fillText('暂无数据', x + 34, tableY + 34)
         return y + rectHeight
       }
 
       const tableWidth = rectWidth - 36
       const columnWidth = tableWidth / Math.max(1, headers.length)
-      context.fillStyle = '#f8fbff'
+      context.fillStyle = '#fafafa'
       roundRect(x + 18, tableY, tableWidth, 44, 10)
       context.fill()
       setFont(12, 800)
-      context.fillStyle = '#475569'
+      context.fillStyle = '#525252'
       headers.forEach((header, index) => {
         drawTextLines(
           header,
@@ -344,13 +344,13 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       })
       rows.forEach((row, rowIndex) => {
         const currentY = tableY + 44 + rowIndex * rowHeight
-        context.strokeStyle = '#edf2f8'
+        context.strokeStyle = '#e5e5e5'
         context.beginPath()
         context.moveTo(x + 18, currentY)
         context.lineTo(x + 18 + tableWidth, currentY)
         context.stroke()
         setFont(13, rowIndex === 0 ? 650 : 500)
-        context.fillStyle = '#0c1730'
+        context.fillStyle = '#171717'
         row.slice(0, headers.length).forEach((cell, index) => {
           drawTextLines(
             cell || '-',
@@ -364,7 +364,7 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
       })
       if (!rows.length) {
         setFont(14, 500)
-        context.fillStyle = '#52627a'
+        context.fillStyle = '#525252'
         context.fillText('暂无数据', x + 34, tableY + 82)
       }
       return y + rectHeight
@@ -381,25 +381,25 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
     canvas.width = Math.ceil(width * pixelRatio)
     canvas.height = Math.ceil(height * pixelRatio)
     context.scale(pixelRatio, pixelRatio)
-    context.fillStyle = '#f5f8fc'
+    context.fillStyle = '#f5f5f5'
     context.fillRect(0, 0, width, height)
     const gradient = context.createLinearGradient(0, 0, 0, height)
-    gradient.addColorStop(0, '#f8fbff')
-    gradient.addColorStop(0.55, '#f5f8fc')
-    gradient.addColorStop(1, '#eef4fb')
+    gradient.addColorStop(0, '#fafafa')
+    gradient.addColorStop(0.55, '#f5f5f5')
+    gradient.addColorStop(1, '#ededed')
     context.fillStyle = gradient
     context.fillRect(0, 0, width, height)
 
     let y = margin
     setFont(40, 900)
-    context.fillStyle = '#0c1730'
+    context.fillStyle = '#171717'
     context.fillText(title, margin, y + 28)
     setFont(15, 400)
-    context.fillStyle = '#52627a'
+    context.fillStyle = '#525252'
     y = drawTextLines(subtitle, margin, y + 66, 1060, 22, 2)
     if (generatedAt) {
       setFont(12, 500)
-      context.fillStyle = '#718096'
+      context.fillStyle = '#737373'
       context.fillText(generatedAt, margin, y + 8)
     }
     y += 34
@@ -425,10 +425,10 @@ export async function renderReportHtmlToJpeg(html: string, filename: string) {
     }
     drawCardBase(margin, y, contentWidth, 178, 12)
     setFont(20, 800)
-    context.fillStyle = '#0c1730'
+    context.fillStyle = '#171717'
     context.fillText(basisSection.title, margin + 20, y + 32)
     setFont(13, 400)
-    context.fillStyle = '#52627a'
+    context.fillStyle = '#525252'
     context.fillText(basisSection.note, margin + 20, y + 56)
     basisCards.slice(0, 4).forEach((card, index) => {
       const x = margin + 18 + index * ((contentWidth - 36 - gap * 3) / 4 + gap)

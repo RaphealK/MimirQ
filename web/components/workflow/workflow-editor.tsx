@@ -43,7 +43,7 @@ const COLUMN_GAP = 280
 const ROW_GAP = 112
 const ORIGIN_X = 48
 const ORIGIN_Y = 48
-const FALLBACK_NODE_COLOR = '#94a3b8'
+const FALLBACK_NODE_COLOR = '#c4c4c4'
 
 function isRecord(value: unknown): value is JsonRecord {
   return !!value && typeof value === 'object' && !Array.isArray(value)
@@ -157,7 +157,7 @@ function buildEditorNodes(graph: GraphData, workflowLayout: JsonRecord | null | 
         border: `1px solid ${color}`,
         background: `${color}18`,
         color: 'hsl(var(--foreground))',
-        boxShadow: '0 12px 30px rgba(15, 23, 42, 0.08)',
+        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
         fontSize: 12,
         fontWeight: 600,
         padding: 12,
@@ -189,8 +189,8 @@ function buildEditorEdges(
       label,
       type: 'smoothstep',
       markerEnd: { type: MarkerType.ArrowClosed },
-      style: { strokeWidth: 1.5, stroke: '#64748b' },
-      labelStyle: { fill: '#475569', fontSize: 11, fontWeight: 600 },
+      style: { strokeWidth: 1.5, stroke: 'hsl(var(--muted-foreground))' },
+      labelStyle: { fill: 'hsl(var(--muted-foreground))', fontSize: 11, fontWeight: 600 },
     }]
   })
 }
@@ -250,7 +250,7 @@ export function WorkflowEditor({
       id: buildEdgeId(connection.source, connection.target, edges.length),
       type: 'smoothstep',
       markerEnd: { type: MarkerType.ArrowClosed },
-      style: { strokeWidth: 1.5, stroke: '#64748b' },
+      style: { strokeWidth: 1.5, stroke: 'hsl(var(--muted-foreground))' },
     }
     publishWorkflowLayout(nodes, addEdge(nextEdge, edges))
   }, [edges, nodes, publishWorkflowLayout])
@@ -279,7 +279,7 @@ export function WorkflowEditor({
         fitView
         proOptions={{ hideAttribution: true }}
       >
-        <Background gap={24} size={1} color="rgba(100, 116, 139, 0.25)" />
+        <Background gap={24} size={1} color="rgba(115, 115, 115, 0.25)" />
         <Controls className="!bg-card/95 !border !border-border/70 !rounded-xl overflow-hidden shadow-sm" showInteractive={false} />
       </ReactFlow>
     </div>

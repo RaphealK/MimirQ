@@ -13,7 +13,7 @@ function parseHslTriplet(raw: string): { h: string; s: string; l: string } | nul
   return { h, s, l }
 }
 
-// Returns a CSS color string like `hsl(210, 40%, 98%)` using the resolved HSL triplet stored in CSS variables.
+// Returns a CSS color string like `hsl(0, 0%, 98%)` using the resolved HSL triplet stored in CSS variables.
 export function getCssHslColor(varName: string, fallback: string): string {
   const raw = getCssVarValue(varName)
   if (!raw) return fallback

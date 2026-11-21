@@ -76,7 +76,7 @@ export function GraphMinimap({
     ctx.clearRect(0, 0, w, h)
 
     // Background
-    ctx.fillStyle = isDark ? 'rgba(2, 6, 23, 0.6)' : 'rgba(255, 255, 255, 0.8)'
+    ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.6)' : 'rgba(255, 255, 255, 0.8)'
     ctx.fillRect(0, 0, w, h)
 
     // BBox (prefer force-graph API when available)
@@ -119,7 +119,7 @@ export function GraphMinimap({
     const sy = (y: number) => ((y - ymin) / (ymax - ymin)) * h
 
     // Nodes
-    ctx.fillStyle = isDark ? 'rgba(148, 163, 184, 0.65)' : 'rgba(71, 85, 105, 0.55)'
+    ctx.fillStyle = isDark ? 'rgba(163, 163, 163, 0.65)' : 'rgba(82, 82, 82, 0.55)'
     for (const p of nodePositions) {
       ctx.fillRect(sx(p.x), sy(p.y), 1.5, 1.5)
     }
@@ -156,7 +156,7 @@ export function GraphMinimap({
     const vw = Math.min(w, Math.max(0, sx(right))) - vx
     const vh = Math.min(h, Math.max(0, sy(bottom))) - vy
 
-    ctx.strokeStyle = isDark ? 'rgba(56, 189, 248, 0.9)' : 'rgba(2, 132, 199, 0.9)'
+    ctx.strokeStyle = isDark ? 'rgba(245, 245, 245, 0.9)' : 'rgba(23, 23, 23, 0.9)'
     ctx.lineWidth = 1
     ctx.strokeRect(vx, vy, Math.max(0, vw), Math.max(0, vh))
   }, [graphRef, graphWidth, graphHeight, isDark, nodePositions])

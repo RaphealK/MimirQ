@@ -369,14 +369,14 @@ export default function ObservabilityPage() {
                       label="重排平均耗时"
                       value={summary.rerank_avg_elapsed_sec == null ? '-' : `${summary.rerank_avg_elapsed_sec.toFixed(3)}s`}
                       subValue={`${summary.reranker_api_count} 次 reranker_api`}
-                      color="amber"
+                      color="teal"
                     />
                     <StatCard
                       icon={Quote}
                       label="平均引用数"
                       value={summary.citations_avg_count == null ? '-' : summary.citations_avg_count.toFixed(2)}
                       subValue="每次回答"
-                      color="green"
+                      color="teal"
                     />
                   </StatsGrid>
 
@@ -411,7 +411,7 @@ export default function ObservabilityPage() {
                           <Line
                             type="monotone"
                             dataKey="retrieval_avg_elapsed_sec"
-                            stroke="hsl(var(--info))"
+                            stroke="hsl(var(--foreground))"
                             strokeWidth={2}
                             dot={false}
                           />
@@ -511,9 +511,9 @@ export default function ObservabilityPage() {
                   <StatsGrid className="mt-2">
                     <StatCard icon={Zap} label="Requests" value={analytics.rag_trace_count} subValue={`${analytics.window_minutes} 分钟`} color="sky"/>
                     <StatCard icon={Hash} label="Unique query_hash" value={analytics.unique_query_hashes} subValue="16-char stable hash" color="teal"/>
-                    <StatCard icon={SearchX} label="Zero-hit rate" value={fmtPercent(analytics.zero_hit_rate)} subValue={`${analytics.zero_hit_count} 次（citations=0）`} color="amber"/>
-                    <StatCard icon={Timer} label="Slow rate" value={fmtPercent(analytics.slow_rate)} subValue={`${analytics.slow_count} 次（≥ ${analytics.slow_threshold_sec}s）`} color="orange"/>
-                    <StatCard icon={Timer} label="Retrieval p95 / p99" value={`${fmtSec(analytics.retrieval_p95_elapsed_sec, 3)} · ${fmtSec(analytics.retrieval_p99_elapsed_sec, 3)}`} subValue={`p50 ${fmtSec(analytics.retrieval_p50_elapsed_sec, 3)}`} color="green"/>
+                    <StatCard icon={SearchX} label="Zero-hit rate" value={fmtPercent(analytics.zero_hit_rate)} subValue={`${analytics.zero_hit_count} 次（citations=0）`} color="teal"/>
+                    <StatCard icon={Timer} label="Slow rate" value={fmtPercent(analytics.slow_rate)} subValue={`${analytics.slow_count} 次（≥ ${analytics.slow_threshold_sec}s）`} color="teal"/>
+                    <StatCard icon={Timer} label="Retrieval p95 / p99" value={`${fmtSec(analytics.retrieval_p95_elapsed_sec, 3)} · ${fmtSec(analytics.retrieval_p99_elapsed_sec, 3)}`} subValue={`p50 ${fmtSec(analytics.retrieval_p50_elapsed_sec, 3)}`} color="gray"/>
                   </StatsGrid>
 
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -533,8 +533,8 @@ export default function ObservabilityPage() {
                                 return [fmtPercent(Number(v), 2), label];
                             return [toTrimmedPrimitiveString(v), label];
                         }}/>
-                          <Line type="monotone" dataKey="zero_hit_rate" name="zero-hit rate" stroke="hsl(var(--warning))" strokeWidth={2} dot={false}/>
-                          <Line type="monotone" dataKey="slow_rate" name="slow rate" stroke="hsl(var(--info))" strokeWidth={2} dot={false}/>
+                          <Line type="monotone" dataKey="zero_hit_rate" name="zero-hit rate" stroke="hsl(var(--foreground))" strokeDasharray="6 3" strokeWidth={2} dot={false}/>
+                          <Line type="monotone" dataKey="slow_rate" name="slow rate" stroke="hsl(var(--muted-foreground))" strokeDasharray="2 3" strokeWidth={2} dot={false}/>
                         </LineChart>
                       </SafeResponsiveChart>
                     </Panel>
@@ -551,8 +551,8 @@ export default function ObservabilityPage() {
                           <YAxis tick={{ fontSize: 10 }} allowDecimals={false}/>
                           <Tooltip />
                           <Line type="monotone" dataKey="requests" name="requests" stroke="hsl(var(--muted-foreground))" strokeWidth={2} dot={false}/>
-                          <Line type="monotone" dataKey="zero_hit" name="zero-hit" stroke="hsl(var(--warning))" strokeWidth={2} dot={false}/>
-                          <Line type="monotone" dataKey="slow" name="slow" stroke="hsl(var(--info))" strokeWidth={2} dot={false}/>
+                          <Line type="monotone" dataKey="zero_hit" name="zero-hit" stroke="hsl(var(--foreground))" strokeDasharray="6 3" strokeWidth={2} dot={false}/>
+                          <Line type="monotone" dataKey="slow" name="slow" stroke="hsl(var(--muted-foreground))" strokeDasharray="2 3" strokeWidth={2} dot={false}/>
                           <Line type="monotone" dataKey="errors" name="errors" stroke="hsl(var(--destructive))" strokeWidth={2} dot={false}/>
                         </LineChart>
                       </SafeResponsiveChart>

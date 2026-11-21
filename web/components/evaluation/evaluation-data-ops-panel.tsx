@@ -132,7 +132,7 @@ export function EvaluationDataOpsPanel() {
 
   return (
     <div className="space-y-3">
-      <section className="rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+      <section className="rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 gap-3">
             <span className="mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary ring-1 ring-primary/20">
@@ -317,7 +317,7 @@ export function EvaluationDataOpsPanel() {
 
       <details
         open
-        className="group rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+        className="group rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]"
       >
         <summary className="flex cursor-pointer list-none items-start gap-2.5 [&::-webkit-details-marker]:hidden">
           <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 -rotate-90 text-primary transition-transform group-open:rotate-0" />
@@ -479,7 +479,7 @@ function ResultCard({
   showRaw: boolean
 }>) {
   return (
-    <section className="rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+    <section className="rounded-xl border border-border/60 bg-card/95 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
       <div className="flex items-center gap-2">
         <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-primary/10 text-primary ring-1 ring-primary/20">
           <FileJson className="h-3.5 w-3.5" />

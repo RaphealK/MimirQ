@@ -478,7 +478,7 @@ export function RelatedListCard({
                 </div>
                 <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full rounded-full bg-[linear-gradient(90deg,#fb923c,#ef4444)]"
+                    className="h-full rounded-full bg-[linear-gradient(90deg,hsl(var(--muted-foreground)/0.5),hsl(var(--foreground)))]"
                     style={{
                       width: `${Math.max(4, Math.min(100, item.value * 100))}%`,
                     }}

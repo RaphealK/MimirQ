@@ -11,8 +11,9 @@ import {
 import { resolveHeatmapPoint, type SelectedHeatmapCell } from './heatmap-types'
 import { formatHeatmapValue } from './similarity-matrix-math'
 
-// Carried over from the previous heatmap implementation (plotly textfont).
-const HEATMAP_CELL_TEXT_COLOR = '#0f172a'
+// White label with a black outline stays legible on every neutral cell tone.
+const HEATMAP_CELL_TEXT_COLOR = '#ffffff'
+const HEATMAP_CELL_TEXT_BORDER = '#000000'
 const HEATMAP_CELL_TEXT_SIZE = 11
 
 type HeatmapDatum = [number, number, number]
@@ -112,6 +113,8 @@ export function EchartsHeatmap({
           label: {
             show: true,
             color: HEATMAP_CELL_TEXT_COLOR,
+            textBorderColor: HEATMAP_CELL_TEXT_BORDER,
+            textBorderWidth: 2,
             fontSize: HEATMAP_CELL_TEXT_SIZE,
             formatter: (params: unknown) => {
               const record = params as { value?: unknown }

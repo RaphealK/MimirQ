@@ -658,9 +658,9 @@ export default function DatasetPrecheckPage() {
     const s = summary?.pdf_scan
     if (!s) return []
     return [
-      { name: 'scanned', value: Number(s.scanned || 0), fill: '#fb7185' },
-      { name: 'text', value: Number(s.not_scanned || 0), fill: '#38bdf8' },
-      { name: 'unknown', value: Number(s.unknown || 0), fill: '#94a3b8' },
+      { name: 'scanned', value: Number(s.scanned || 0), fill: '#525252' },
+      { name: 'text', value: Number(s.not_scanned || 0), fill: '#8f8f8f' },
+      { name: 'unknown', value: Number(s.unknown || 0), fill: '#c4c4c4' },
     ]
   }, [summary])
 
@@ -1370,7 +1370,7 @@ export default function DatasetPrecheckPage() {
         else {
             return '-';
         }
-})()} color="orange" />
+})()} color="teal" />
             </StatsGrid>
           </Panel>
 

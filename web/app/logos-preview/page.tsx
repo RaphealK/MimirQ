@@ -8,24 +8,24 @@ import { PageScaffold } from '@/components/ui/page-scaffold'
 import { Grid3X3 } from 'lucide-react'
 
 const providers = [
-  { id: 'openai', name: 'OpenAI', color: '#10A37F' },
-  { id: 'openai-embedding', name: 'OpenAI Embedding', color: '#10A37F' },
-  { id: 'anthropic', name: 'Anthropic', color: '#CC785C' },
-  { id: 'deepseek', name: 'DeepSeek', color: '#0066FF' },
-  { id: 'zhipu', name: '智谱 AI', color: '#9333EA' },
-  { id: 'qwen', name: '通义千问', color: '#0EA5E9' },
-  { id: 'moonshot', name: 'Moonshot AI', color: '#4F46E5' },
-  { id: 'ollama', name: 'Ollama', color: '#000000' },
-  { id: 'ark', name: '火山引擎', color: '#FF6A00' },
-  { id: 'lingyiwanwu', name: '零一万物', color: '#3B82F6' },
-  { id: 'qianfan', name: '百度千帆', color: '#2563EB' },
-  { id: 'siliconflow', name: 'SiliconFlow', color: '#7C3AED' },
-  { id: 'openrouter', name: 'OpenRouter', color: '#6366F1' },
-  { id: 'together', name: 'Together AI', color: '#0EA5E9' },
-  { id: 'cohere-reranker', name: 'Cohere Reranker', color: '#0EA5E9' },
-  { id: 'jina-reranker', name: 'Jina Reranker', color: '#8B5CF6' },
-  { id: 'local-embedding', name: '本地 Embedding', color: '#10B981' },
-  { id: 'local-reranker', name: '本地 Reranker', color: '#F97316' },
+  { id: 'openai', name: 'OpenAI' },
+  { id: 'openai-embedding', name: 'OpenAI Embedding' },
+  { id: 'anthropic', name: 'Anthropic' },
+  { id: 'deepseek', name: 'DeepSeek' },
+  { id: 'zhipu', name: '智谱 AI' },
+  { id: 'qwen', name: '通义千问' },
+  { id: 'moonshot', name: 'Moonshot AI' },
+  { id: 'ollama', name: 'Ollama' },
+  { id: 'ark', name: '火山引擎' },
+  { id: 'lingyiwanwu', name: '零一万物' },
+  { id: 'qianfan', name: '百度千帆' },
+  { id: 'siliconflow', name: 'SiliconFlow' },
+  { id: 'openrouter', name: 'OpenRouter' },
+  { id: 'together', name: 'Together AI' },
+  { id: 'cohere-reranker', name: 'Cohere Reranker' },
+  { id: 'jina-reranker', name: 'Jina Reranker' },
+  { id: 'local-embedding', name: '本地 Embedding' },
+  { id: 'local-reranker', name: '本地 Reranker' },
 ]
 
 export default function LogosPreviewPage() {
@@ -56,15 +56,9 @@ export default function LogosPreviewPage() {
                     {provider.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-3">{provider.id}</p>
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-6 h-6 rounded border border-border"
-                      style={{ backgroundColor: provider.color }}
-                    />
-                    <span className="text-xs font-mono text-muted-foreground">
-                      {provider.color}
-                    </span>
-                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    中性灰阶图标
+                  </span>
                 </div>
               </CardContent>
             </Card>

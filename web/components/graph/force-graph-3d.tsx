@@ -125,7 +125,7 @@ function getGraphLabelTextColor({
   mutedFgColor: string
 }): string {
   if (isDimmed) return mutedFgColor
-  return isDark ? "#e5eefc" : "#334155"
+  return isDark ? "#f5f5f5" : "#3f3f3f"
 }
 
 function getGraphLabelBackgroundColor({
@@ -140,7 +140,7 @@ function getGraphLabelBackgroundColor({
   labelBgColor: string
 }): string {
   if (!emphasis) return labelBgColor
-  const canvasColor = isDark ? "#0f172a" : "#fffef9"
+  const canvasColor = isDark ? "#0a0a0a" : "#ffffff"
   const mixWeight = isDark ? 0.74 : 0.84
   const alpha = isDark ? 0.92 : 0.9
   return withAlpha(mixHexColors(color, canvasColor, mixWeight), alpha)
@@ -264,11 +264,12 @@ export const KnowledgeGraph3D = forwardRef<KnowledgeGraph3DRef, ForceGraph3DProp
       return set
     }, [selectedNodeId, data.links])
 
-    const dimNodeColor = isDark ? "#334155" : "#cbd5e1"
-    const dimLinkColor = isDark ? "rgba(148, 163, 184, 0.18)" : "#e2e8f0"
-    const hoverLinkColor = getCssHslColor("--primary", isDark ? "#38bdf8" : "#0284c7")
-    const labelBgColor = isDark ? "rgba(2, 6, 23, 0.84)" : "rgba(255, 254, 249, 0.92)"
-    const labelStrokeColor = isDark ? "rgba(15, 23, 42, 0.72)" : "rgba(255, 255, 255, 0.96)"
+    const dimNodeColor = isDark ? "#3f3f3f" : "#d4d4d4"
+    const dimLinkColor = isDark ? "rgba(163, 163, 163, 0.18)" : "#e5e5e5"
+    const hoverLinkColor = getCssHslColor("--primary", isDark ? "#f5f5f5" : "#171717")
+    const pathLinkColor = getCssHslColor("--foreground", isDark ? "#f5f5f5" : "#171717")
+    const labelBgColor = isDark ? "rgba(10, 10, 10, 0.84)" : "rgba(255, 255, 255, 0.92)"
+    const labelStrokeColor = isDark ? "rgba(10, 10, 10, 0.72)" : "rgba(255, 255, 255, 0.96)"
     const graphCursor = getGraphCursor({
       isCanvasPanning,
       hasHoverTarget: Boolean(hoveredNodeId || hoveredLinkId),
@@ -493,7 +494,7 @@ export const KnowledgeGraph3D = forwardRef<KnowledgeGraph3DRef, ForceGraph3DProp
     if (!mounted) return null
 
     const bgColor = "rgba(0,0,0,0)"
-    const mutedFgColor = getCssHslColor("--muted-foreground", isDark ? "#94a3b8" : "#475569")
+    const mutedFgColor = getCssHslColor("--muted-foreground", isDark ? "#a3a3a3" : "#525252")
     const linkColorBase = isDark ? "rgba(255,255,255,0.18)" : "rgba(0,0,0,0.18)"
 
     return (
@@ -515,7 +516,7 @@ export const KnowledgeGraph3D = forwardRef<KnowledgeGraph3DRef, ForceGraph3DProp
         nodeLabel="label"
         nodeColor={(node: GraphNodeDatum) => {
           const color = getNodeColor(node)
-          return mixHexColors(color, isDark ? "#dbeafe" : "#fffef9", isDark ? 0.04 : 0.18)
+          return mixHexColors(color, isDark ? "#e5e5e5" : "#ffffff", isDark ? 0.04 : 0.18)
         }}
         nodeVal="val"
         nodeRelSize={nodeRelSize}
@@ -529,7 +530,7 @@ export const KnowledgeGraph3D = forwardRef<KnowledgeGraph3DRef, ForceGraph3DProp
           const base = String(link?.color || '').trim() || EDGE_KIND_COLORS[kind] || linkColorBase
           const baseLineColor = withAlpha(base, isDark ? 0.3 : 0.24)
           const activeLineColor = withAlpha(base, isDark ? 0.68 : 0.56)
-          if (highlightedLinkIds.size > 0 && linkId && highlightedLinkIds.has(linkId)) return "#f59e0b"
+          if (highlightedLinkIds.size > 0 && linkId && highlightedLinkIds.has(linkId)) return pathLinkColor
           if (hoveredLinkId && linkId && hoveredLinkId === linkId) return hoverLinkColor
           if (highlightedNodeIds.size > 0) {
             const sourceId = String(typeof link.source === "object" ? link.source?.id ?? "" : link.source ?? "")
@@ -589,11 +590,11 @@ export const KnowledgeGraph3D = forwardRef<KnowledgeGraph3DRef, ForceGraph3DProp
                 const kind = getLinkKind(link)
                 const color = String(link?.color || '').trim() || EDGE_KIND_COLORS[kind] || hoverLinkColor
                 const sprite = new SpriteText(label)
-                sprite.color = isDark ? '#dbeafe' : '#334155'
+                sprite.color = isDark ? '#f5f5f5' : '#3f3f3f'
                 sprite.textHeight = 1.75
                 sprite.fontFace = '-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif'
                 sprite.fontWeight = '700'
-                sprite.backgroundColor = withAlpha(mixHexColors(color, isDark ? '#0f172a' : '#fffef9', isDark ? 0.72 : 0.86), isDark ? 0.8 : 0.74)
+                sprite.backgroundColor = withAlpha(mixHexColors(color, isDark ? '#0a0a0a' : '#ffffff', isDark ? 0.72 : 0.86), isDark ? 0.8 : 0.74)
                 sprite.borderColor = withAlpha(color, 0.5)
                 sprite.borderWidth = 0.55
                 sprite.borderRadius = 3

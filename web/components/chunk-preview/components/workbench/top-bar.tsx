@@ -468,11 +468,11 @@ export function TopBar() {
   return (
     <section
       aria-label={workbenchTitle}
-      className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-border/60 bg-background/95 px-3.5 py-3 shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] xl:flex-row xl:items-center xl:justify-between antialiased backdrop-blur-xl"
+      className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-border/60 bg-background/95 px-3.5 py-3 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.12)] xl:flex-row xl:items-center xl:justify-between antialiased backdrop-blur-xl"
     >
       <div className="flex min-w-0 flex-1 flex-col gap-2.5">
         <div data-current-file-summary className="flex min-w-0 items-center gap-3">
-          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/5 text-primary shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_4px_12px_-4px_rgba(var(--primary-rgb),0.2)]">
+          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/5 text-primary shadow-[0_1px_0_rgba(255,255,255,0.8)_inset,0_4px_12px_-4px_hsl(var(--primary)/0.2)]">
             <FileText className="h-5 w-5" strokeWidth={2.5} />
             <div className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full border border-background bg-primary text-[8px] font-black text-primary-foreground shadow-sm">
               {currentFileIndex + 1}
@@ -552,7 +552,7 @@ export function TopBar() {
               <span className={cn(summaryChipClass, 'border-primary/10')}>
                 <div
                   className={cn(
-                    'h-1.5 w-1.5 rounded-full shadow-[0_0_8px_rgba(var(--primary-rgb),0.4)]',
+                    'h-1.5 w-1.5 rounded-full shadow-[0_0_8px_hsl(var(--primary)/0.4)]',
                     previewData.chunks_truncated ? 'bg-warning' : 'bg-primary'
                   )}
                 />
@@ -613,7 +613,7 @@ export function TopBar() {
 
       <div className="flex flex-wrap items-center gap-2 xl:justify-end">
         {submitSuccess ? (
-          <div className="flex items-center gap-2 rounded-xl border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-success animate-in fade-in slide-in-from-right-4 motion-reduce:animate-none shadow-[0_2px_12px_-4px_rgba(16,185,129,0.2)]">
+          <div className="flex items-center gap-2 rounded-xl border border-success/30 bg-success/10 px-3 py-1.5 text-xs font-black uppercase tracking-[0.18em] text-success animate-in fade-in slide-in-from-right-4 motion-reduce:animate-none shadow-[0_2px_12px_-4px_hsl(var(--success)/0.2)]">
             <Check className="w-4 h-4" strokeWidth={3} />
             {t('topBar.submitSuccess')}
           </div>
@@ -630,7 +630,7 @@ export function TopBar() {
           <div
             role="alert"
             aria-live="polite"
-            className="flex min-w-[min(100%,18rem)] max-w-xl items-start gap-2.5 rounded-2xl border border-destructive/30 bg-destructive/5 px-3.5 py-2.5 text-destructive shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_16px_-8px_rgba(239,68,68,0.2)] backdrop-blur-md"
+            className="flex min-w-[min(100%,18rem)] max-w-xl items-start gap-2.5 rounded-2xl border border-destructive/30 bg-destructive/5 px-3.5 py-2.5 text-destructive shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_16px_-8px_hsl(var(--destructive)/0.2)] backdrop-blur-md"
           >
             <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-xl bg-destructive/10">
               <AlertCircle className="size-4" strokeWidth={2.5} />
@@ -1078,7 +1078,7 @@ export function TopBar() {
             'h-9 px-6 text-xs font-black uppercase tracking-[0.1em] rounded-xl shadow-lg transition-all duration-300 motion-reduce:transition-none antialiased hover:scale-[1.02] active:scale-[0.98]',
             submitSuccess
               ? 'bg-success text-success-foreground hover:bg-success/90 shadow-success/20'
-              : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_4px_16px_-4px_rgba(var(--primary-rgb),0.4)]'
+              : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_4px_16px_-4px_hsl(var(--primary)/0.4)]'
           )}
         >
           {isSubmitting ? (

@@ -180,7 +180,7 @@ export function SnapshotGraphCanvas({
           >
             <path
               d="M 0 0 L 10 5 L 0 10 z"
-              fill="rgb(148 163 184)"
+              fill="hsl(var(--muted-foreground))"
               opacity="0.72"
             />
           </marker>
@@ -208,7 +208,7 @@ export function SnapshotGraphCanvas({
               <path
                 d={`M ${source.x} ${source.y} C ${midX} ${midY + curve}, ${midX} ${midY - curve}, ${target.x} ${target.y}`}
                 fill="none"
-                stroke="rgb(148 163 184)"
+                stroke="hsl(var(--muted-foreground))"
                 strokeWidth={getLinkStrokeWidth(isDenseGraph, link.strength)}
                 strokeDasharray={
                   link.strength === 'weak' ? '1.1 1.1' : undefined

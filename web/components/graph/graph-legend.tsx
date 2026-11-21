@@ -69,7 +69,7 @@ export function GraphLegend({ nodes, links = [], activeTypeFilters = [], onToggl
     }
 
     for (const [type, count] of countMap.entries()) {
-      entries.push({ type, color: colorMap.get(type) || '#94a3b8', count })
+      entries.push({ type, color: colorMap.get(type) || 'hsl(var(--muted-foreground))', count })
     }
 
     return entries.sort((a, b) => b.count - a.count)
@@ -95,7 +95,7 @@ export function GraphLegend({ nodes, links = [], activeTypeFilters = [], onToggl
       entries.push({
         kind,
         label: labels[kind] || kind,
-        color: EDGE_KIND_COLORS[kind] || '#94a3b8',
+        color: EDGE_KIND_COLORS[kind] || 'hsl(var(--muted-foreground))',
         count,
       })
     }

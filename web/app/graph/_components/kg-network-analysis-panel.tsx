@@ -114,7 +114,7 @@ export function KgNetworkAnalysisPanel({
     const countMap = new Map<string, { count: number; color: string }>()
     for (const node of nodes) {
       const label = getNodeType(node)
-      const color = String(node?.color || '').trim() || '#94a3b8'
+      const color = String(node?.color || '').trim() || 'hsl(var(--muted-foreground))'
       const entry = countMap.get(label)
       countMap.set(label, {
         count: (entry?.count ?? 0) + 1,
@@ -130,7 +130,7 @@ export function KgNetworkAnalysisPanel({
     const countMap = new Map<string, { count: number; color: string }>()
     for (const link of links) {
       const label = getLinkType(link)
-      const color = String(link?.color || '').trim() || '#3b82f6'
+      const color = String(link?.color || '').trim() || 'hsl(var(--muted-foreground))'
       const entry = countMap.get(label)
       countMap.set(label, {
         count: (entry?.count ?? 0) + 1,

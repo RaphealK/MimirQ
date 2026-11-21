@@ -38,7 +38,7 @@ export function SimilarityDiagnosticsGraph({ nodes, links }: SimilarityDiagnosti
   const [selectedLinkId, setSelectedLinkId] = useState<string | null>(null)
 
   const isDark = resolvedTheme === 'dark'
-  const backgroundColor = getCssHslColor('--background', isDark ? '#020617' : '#ffffff')
+  const backgroundColor = getCssHslColor('--background', isDark ? '#000000' : '#ffffff')
 
   const graphData = useMemo(
     () => ({
@@ -127,9 +127,9 @@ export function SimilarityDiagnosticsGraph({ nodes, links }: SimilarityDiagnosti
             linkDirectionalParticleWidth={(link) => ((link as SimilarityDiagnosticLink).isMarked ? 4 : 2)}
             linkColor={(link) => {
               const current = link as SimilarityDiagnosticLink
-              if (current.isMarked) return '#f59e0b'
-              if (current.isOutlier) return '#ef4444'
-              return '#64748b'
+              if (current.isMarked) return isDark ? '#f5f5f5' : '#171717'
+              if (current.isOutlier) return isDark ? '#a3a3a3' : '#737373'
+              return isDark ? '#595959' : '#b3b3b3'
             }}
             linkWidth={(link) => {
               const current = link as SimilarityDiagnosticLink

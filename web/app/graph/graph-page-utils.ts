@@ -185,13 +185,13 @@ export function buildGraphFromTrace(trace: RagTrace): {
   const idCitations = `${rootId}:citations`
 
   nodes.push(
-    { id: rootId, label: 'RAG Trace', kind: 'trace', val: 2.5, color: '#0ea5e9' },
-    { id: idRetrieve, label: 'Retrieve', kind: 'step', val: 2, color: '#2563eb' }
+    { id: rootId, label: 'RAG Trace', kind: 'trace', val: 2.5, color: '#d4d4d4' },
+    { id: idRetrieve, label: 'Retrieve', kind: 'step', val: 2, color: '#b3b3b3' }
   )
   if (hasRerank) {
-    nodes.push({ id: idRerank, label: 'Rerank', kind: 'step', val: 2, color: '#14b8a6' })
+    nodes.push({ id: idRerank, label: 'Rerank', kind: 'step', val: 2, color: '#8f8f8f' })
   }
-  nodes.push({ id: idCitations, label: 'Citations', kind: 'step', val: 2, color: '#f97316' })
+  nodes.push({ id: idCitations, label: 'Citations', kind: 'step', val: 2, color: '#6b6b6b' })
 
   links.push({ source: rootId, target: idRetrieve, label: 'start' })
   if (hasRerank) {
@@ -219,7 +219,7 @@ export function buildGraphFromTrace(trace: RagTrace): {
       label: `#${idx + 1} ${doc}${pageText}${scoreText}`,
       kind: 'citation',
       val: 1.2,
-      color: '#64748b',
+      color: '#a1a1a1',
       meta: citation as unknown as GraphRecord,
     })
   })

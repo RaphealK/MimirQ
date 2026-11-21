@@ -228,7 +228,7 @@ export function getSeverityBarClassName(severity: QuarantineSeverity): string {
 
 export function buildConicGradient(values: number[], colors: string[]): string {
   const total = values.reduce((sum, value) => sum + value, 0)
-  if (!total) return 'conic-gradient(rgba(148,163,184,0.18) 0deg 360deg)'
+  if (!total) return 'conic-gradient(rgba(163,163,163,0.18) 0deg 360deg)'
 
   let current = 0
   const stops = values.map((value, index) => {

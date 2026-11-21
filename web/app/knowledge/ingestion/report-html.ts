@@ -195,17 +195,17 @@ export function buildReportHtml({
  <title>入库预检报告</title>
  <style>
  :root {
- --paper: #f5f8fc;
+ --paper: #f5f5f5;
  --paper-strong: #ffffff;
- --ink: #0c1730;
- --muted: #52627a;
- --line: #dfe7f2;
- --line-soft: #edf2f8;
- --blue: #1264e8;
- --cyan: #0ea5b7;
- --violet: #6d47e8;
- --orange: #f97316;
- --shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+ --ink: #171717;
+ --muted: #525252;
+ --line: #d4d4d4;
+ --line-soft: #e5e5e5;
+ --accent: #525252;
+ --accent-soft: #737373;
+ --accent-strong: #3f3f3f;
+ --accent-mid: #8f8f8f;
+ --shadow: 0 18px 44px rgba(0, 0, 0, 0.08);
  }
  * { box-sizing: border-box; }
  body {
@@ -213,8 +213,8 @@ export function buildReportHtml({
  min-height: 100vh;
  color: var(--ink);
  background:
- radial-gradient(circle at 18% 0%, rgba(18, 100, 232, 0.08), transparent 26rem),
- linear-gradient(180deg, #f8fbff 0%, var(--paper) 52%, #eef4fb 100%);
+ radial-gradient(circle at 18% 0%, rgba(0, 0, 0, 0.04), transparent 26rem),
+ linear-gradient(180deg, #fafafa 0%, var(--paper) 52%, #ededed 100%);
  font-family:"Inter","PingFang SC","Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
  padding: 36px;
  }
@@ -249,7 +249,7 @@ export function buildReportHtml({
  }
  .generated-at {
  margin-top: 8px;
- color: #718096;
+ color: #737373;
  font-size: 12px;
  }
  .toolbar {
@@ -268,11 +268,11 @@ export function buildReportHtml({
  font: inherit;
  font-weight: 700;
  padding: 0 20px;
- box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+ box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
  }
  .toolbar .primary {
- border-color: #0d5bd6;
- background: linear-gradient(135deg, #1668ee, #0d5bd6);
+ border-color: #171717;
+ background: #171717;
  color: #ffffff;
  }
  .button-icon {
@@ -315,8 +315,8 @@ export function buildReportHtml({
  height: 64px;
  flex: 0 0 auto;
  border-radius: 16px;
- background: #eef5ff;
- color: var(--blue);
+ background: #f0f0f0;
+ color: var(--accent);
  font-size: 13px;
  font-weight: 900;
  letter-spacing: -0.05em;
@@ -328,11 +328,11 @@ export function buildReportHtml({
  font-size: 12px;
  }
  .kpi-card--cyan .metric-icon,
- .basis-card--cyan .metric-icon { background: #e9fbfd; color: var(--cyan); }
+ .basis-card--cyan .metric-icon { background: #ededed; color: var(--accent-soft); }
  .kpi-card--violet .metric-icon,
- .basis-card--violet .metric-icon { background: #f0ebff; color: var(--violet); }
- .basis-card--orange .metric-icon { background: #fff2e8; color: var(--orange); }
- .kpi-card--steel .metric-icon { background: #edf2f8; color: #334155; }
+ .basis-card--violet .metric-icon { background: #e5e5e5; color: var(--accent-strong); }
+ .basis-card--orange .metric-icon { background: #e8e8e8; color: var(--accent-mid); }
+ .kpi-card--steel .metric-icon { background: #f0f0f0; color: #3f3f3f; }
  .metric-label {
  color: var(--muted);
  font-size: 14px;
@@ -386,8 +386,8 @@ export function buildReportHtml({
  vertical-align: top;
  }
  th {
- color: #475569;
- background: #f8fbff;
+ color: #525252;
+ background: #fafafa;
  font-size: 12px;
  font-weight: 800;
  }
@@ -399,18 +399,18 @@ export function buildReportHtml({
  display: inline-flex;
  align-items: center;
  min-height: 24px;
- border: 1px solid #a7c9ff;
+ border: 1px solid #d4d4d4;
  border-radius: 7px;
- background: #eaf3ff;
- color: #075bd8;
+ background: #f5f5f5;
+ color: #171717;
  font-size: 12px;
  font-weight: 700;
  padding: 2px 9px;
  }
  .action-pill {
- border-color: #9bdfb8;
- background: #e9fbf0;
- color: #067647;
+ border-color: #c4c4c4;
+ background: #f0f0f0;
+ color: #3f3f3f;
  }
  .split-grid {
  display: grid;
@@ -423,7 +423,7 @@ export function buildReportHtml({
  border-radius: 10px;
  color: var(--muted);
  padding: 18px;
- background: #f8fbff;
+ background: #fafafa;
  }
  @media (max-width: 980px) {
  body { padding: 20px; }

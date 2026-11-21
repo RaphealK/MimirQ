@@ -44,9 +44,9 @@ function getGraphLinkEpisodesLabel(episodesRaw: unknown): string {
 }
 
 function getGraphLinkConfidenceColor(confNum: number): string {
-  if (confNum >= 0.8) return '#22c55e'
-  if (confNum >= 0.5) return '#f59e0b'
-  return '#ef4444'
+  if (confNum >= 0.8) return 'hsl(var(--foreground))'
+  if (confNum >= 0.5) return 'hsl(var(--muted-foreground))'
+  return 'hsl(var(--control))'
 }
 
 export function GraphLinkDetailPanel({

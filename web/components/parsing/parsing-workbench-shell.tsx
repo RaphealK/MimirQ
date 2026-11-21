@@ -297,7 +297,7 @@ function ParsingInspectorCard({
   children: React.ReactNode
 }>) {
   return (
-    <section className="rounded-[18px] border border-border/60 bg-background/55 p-4 shadow-[0_14px_34px_-30px_rgba(15,23,42,0.24)]">
+    <section className="rounded-[18px] border border-border/60 bg-background/55 p-4 shadow-[0_14px_34px_-30px_rgba(0,0,0,0.24)]">
       <div className="mb-3 flex items-center gap-2">
         <span className="flex size-6 items-center justify-center rounded-lg bg-info/[0.08] text-info">
           <Icon className="size-3.5" />
@@ -323,7 +323,7 @@ function ParsingInspectorDisclosure({
   return (
     <details
       open={defaultOpen}
-      className="group rounded-[18px] border border-border/60 bg-background/55 shadow-[0_14px_34px_-30px_rgba(15,23,42,0.24)]"
+      className="group rounded-[18px] border border-border/60 bg-background/55 shadow-[0_14px_34px_-30px_rgba(0,0,0,0.24)]"
     >
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
         <span className="flex min-w-0 items-center gap-2">

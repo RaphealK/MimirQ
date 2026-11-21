@@ -70,14 +70,15 @@ export type MatrixButtonState = {
 
 export type ColorSchemeKey = 'viridis' | 'plasma' | 'cividis' | 'YlGnBu' | 'hot'
 
+// Diverging neutral scale: negative and positive drift stay distinguishable by lightness.
 export const DIFFERENCE_COLORSCALE: Array<[number, string]> = [
-  [0, '#2563eb'],
-  [0.5, '#f8fafc'],
-  [1, '#dc2626'],
+  [0, '#1f1f1f'],
+  [0.5, '#f5f5f5'],
+  [1, '#8f8f8f'],
 ]
 
 const DIFFERENCE_COLOR_PREVIEW =
-  'linear-gradient(90deg,#2563eb,#f8fafc,#dc2626)'
+  'linear-gradient(90deg,#1f1f1f,#f5f5f5,#8f8f8f)'
 
 export const COLOR_SCHEMES: Array<{
   key: ColorSchemeKey
@@ -87,52 +88,52 @@ export const COLOR_SCHEMES: Array<{
 }> = [
   {
     key: 'viridis',
-    label: 'Viridis',
-    preview: 'linear-gradient(90deg,#440154,#21908d,#fde725)',
+    label: '灰阶（浅→深）',
+    preview: 'linear-gradient(90deg,#ececec,#8f8f8f,#1f1f1f)',
     colorscale: [
-      [0, '#440154'],
-      [0.5, '#21908d'],
-      [1, '#fde725'],
+      [0, '#ececec'],
+      [0.5, '#8f8f8f'],
+      [1, '#1f1f1f'],
     ],
   },
   {
     key: 'plasma',
-    label: 'Plasma',
-    preview: 'linear-gradient(90deg,#0d0887,#cc4678,#f0f921)',
+    label: '灰阶（深→浅）',
+    preview: 'linear-gradient(90deg,#1f1f1f,#8f8f8f,#ececec)',
     colorscale: [
-      [0, '#0d0887'],
-      [0.5, '#cc4678'],
-      [1, '#f0f921'],
+      [0, '#1f1f1f'],
+      [0.5, '#8f8f8f'],
+      [1, '#ececec'],
     ],
   },
   {
     key: 'cividis',
-    label: 'Cividis',
-    preview: 'linear-gradient(90deg,#00204c,#5f7d7f,#fee838)',
+    label: '柔灰阶',
+    preview: 'linear-gradient(90deg,#e0e0e0,#9a9a9a,#4a4a4a)',
     colorscale: [
-      [0, '#00204c'],
-      [0.5, '#5f7d7f'],
-      [1, '#fee838'],
+      [0, '#e0e0e0'],
+      [0.5, '#9a9a9a'],
+      [1, '#4a4a4a'],
     ],
   },
   {
     key: 'YlGnBu',
-    label: 'YlGnBu',
-    preview: 'linear-gradient(90deg,#ffffcc,#1d91c0,#081d58)',
+    label: '深灰阶',
+    preview: 'linear-gradient(90deg,#d4d4d4,#6b6b6b,#0f0f0f)',
     colorscale: [
-      [0, '#ffffcc'],
-      [0.5, '#1d91c0'],
-      [1, '#081d58'],
+      [0, '#d4d4d4'],
+      [0.5, '#6b6b6b'],
+      [1, '#0f0f0f'],
     ],
   },
   {
     key: 'hot',
-    label: 'Hot',
-    preview: 'linear-gradient(90deg,#000000,#ff0000,#ffff00)',
+    label: '高对比灰阶',
+    preview: 'linear-gradient(90deg,#ffffff,#808080,#000000)',
     colorscale: [
-      [0, '#000000'],
-      [0.5, '#ff0000'],
-      [1, '#ffff00'],
+      [0, '#ffffff'],
+      [0.5, '#808080'],
+      [1, '#000000'],
     ],
   },
 ]

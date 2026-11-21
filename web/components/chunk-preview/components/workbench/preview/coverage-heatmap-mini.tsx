@@ -37,8 +37,8 @@ function getCoveragePulseTone(gapCount: number, overlapWastePct: number): string
 
 function getCoverageBarBackground(active: boolean, tone: string): string {
   if (!active) return 'hsl(var(--muted-foreground) / 0.16)'
-  if (tone === 'risk') return 'hsl(35 92% 52% / 0.78)'
-  return 'hsl(160 84% 38% / 0.72)'
+  if (tone === 'risk') return 'hsl(var(--warning) / 0.78)'
+  return 'hsl(var(--success) / 0.72)'
 }
 
 function getCoverageWarningClass(active: boolean): string {

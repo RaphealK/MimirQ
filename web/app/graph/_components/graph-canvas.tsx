@@ -37,7 +37,7 @@ const FRONTEND_TRACE_MIN_DURATION_MS = 12
 const SEMANTIC_PANEL_MIN_TOP = 16
 const SEMANTIC_PANEL_SIDE_MARGIN = 16
 const SEMANTIC_PANEL_TOP_OFFSET = 84
-const SEMANTIC_NODE_TONES = ['#89dfe6', '#b6e3ff', '#d3f3b8', '#f3dfb3', '#d7dcff', '#f8cfd8'] as const
+const SEMANTIC_NODE_TONES = ['#d4d4d4', '#b3b3b3', '#8f8f8f', '#6b6b6b', '#c4c4c4', '#a1a1a1'] as const
 
 function clampNumber(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max)

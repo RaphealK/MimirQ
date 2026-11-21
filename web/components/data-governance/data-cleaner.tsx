@@ -292,7 +292,7 @@ export function DataCleaner({
   const llmPanelClass =
     'rounded-[1rem] border border-accent/18 bg-accent/[0.045] p-2.5'
   const diffPanelClass =
-    'overflow-hidden rounded-[1rem] border border-border/45 bg-card/82 shadow-[0_8px_18px_rgba(15,23,42,0.02)]'
+    'overflow-hidden rounded-[1rem] border border-border/45 bg-card/82 shadow-[0_8px_18px_rgba(0,0,0,0.02)]'
   const emptyStateClass =
     'flex items-start gap-2 rounded-[0.95rem] border border-dashed border-border/38 bg-background/34 px-3 py-2.5 text-[11px] leading-5 text-muted-foreground/72'
   const cleanerLabelClass =

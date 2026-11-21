@@ -1104,7 +1104,7 @@ function IterationDetailsCard({
     : items
 
   return (
-    <section className="rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+    <section className="rounded-xl border border-border bg-card shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-3 py-2">
         <div className="flex items-center gap-2">
           <div className="text-[13px] font-semibold text-foreground">

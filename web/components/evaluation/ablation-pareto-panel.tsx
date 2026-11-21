@@ -138,7 +138,7 @@ export function AblationParetoPanel({
                 <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
                   <polyline
                     fill="none"
-                    stroke="hsl(var(--info) / 0.42)"
+                    stroke="hsl(var(--muted-foreground) / 0.6)"
                     strokeDasharray="5 5"
                     strokeWidth="2"
                     points={paretoPoints.map((point) => `${point.x},${point.y}`).join(' ')}

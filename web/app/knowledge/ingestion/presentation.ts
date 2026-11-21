@@ -61,11 +61,11 @@ export type BatchProfileFile = {
 }
 
 export const SALES_PANEL_CLASS =
-  'rounded-[1rem] border border-border/55 bg-background/92 shadow-[0_14px_28px_-24px_rgba(15,23,42,0.12)]'
+  'rounded-[1rem] border border-border/55 bg-background/92 shadow-[0_14px_28px_-24px_rgba(0,0,0,0.12)]'
 export const SALES_PANEL_INSET_CLASS =
   'rounded-[0.9rem] border border-border/50 bg-background/82'
 export const SALES_SUMMARY_STRIP_CLASS =
-  'overflow-hidden rounded-[1rem] border border-border/55 bg-background/72 shadow-[0_12px_28px_-24px_rgba(15,23,42,0.1)]'
+  'overflow-hidden rounded-[1rem] border border-border/55 bg-background/72 shadow-[0_12px_28px_-24px_rgba(0,0,0,0.1)]'
 
 export function resolveThroughputRowsSource(
   hasBackendRows: boolean,
@@ -207,22 +207,22 @@ export function getRiskTagPresentation(firstTag: string): RiskTagPresentation {
 
 export function getSeverityFill(severity: string, intensity: number): string {
   if (severity === 'error') {
-    return `linear-gradient(135deg, rgba(185,28,28,${0.16 + intensity * 0.32}), rgba(127,29,29,${0.24 + intensity * 0.28}))`
+    return `linear-gradient(135deg, hsl(var(--destructive) / ${0.16 + intensity * 0.32}), hsl(var(--destructive) / ${0.24 + intensity * 0.28}))`
   }
   if (severity === 'warning') {
-    return `linear-gradient(135deg, rgba(217,119,6,${0.16 + intensity * 0.32}), rgba(146,64,14,${0.24 + intensity * 0.28}))`
+    return `linear-gradient(135deg, hsl(var(--warning) / ${0.16 + intensity * 0.32}), hsl(var(--warning) / ${0.24 + intensity * 0.28}))`
   }
-  return `linear-gradient(135deg, rgba(71,85,105,${0.16 + intensity * 0.32}), rgba(51,65,85,${0.24 + intensity * 0.28}))`
+  return `linear-gradient(135deg, hsl(var(--muted-foreground) / ${0.16 + intensity * 0.32}), hsl(var(--muted-foreground) / ${0.24 + intensity * 0.28}))`
 }
 
 export function getPdfSplitColor(name: string): string {
   switch (name) {
     case 'SCAN':
-      return '#f59e0b'
+      return '#8f8f8f'
     case 'MIXED':
-      return '#94a3b8'
+      return '#b3b3b3'
     default:
-      return '#10b981'
+      return '#525252'
   }
 }
 

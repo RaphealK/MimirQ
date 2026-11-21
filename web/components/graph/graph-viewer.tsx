@@ -16,9 +16,9 @@ import { GraphMinimap } from './graph-minimap'
 import { Loader2 } from 'lucide-react'
 
 export const EDGE_KIND_COLORS: Record<string, string> = {
-  entity_relation: '#3b82f6', // blue
-  event_entity: '#a855f7', // purple
-  entity_entity: '#22d3ee', // cyan
+  entity_relation: '#9a9a9a',
+  event_entity: '#6b6b6b',
+  entity_entity: '#c4c4c4',
 }
 
 function clamp01(value: number): number {
@@ -66,6 +66,8 @@ type GraphCanvasPalette = {
   edgeLabelText: string
   labelDim: string
   labelFill: string
+  pathFill: string
+  pathText: string
 }
 
 type LinkLabelRenderState = {
@@ -474,7 +476,7 @@ function nodeStrokeStyle({
   isHovered: boolean
   isDark: boolean
 }) {
-  if (isPathNode) return '#f59e0b'
+  if (isPathNode) return isDark ? '#f5f5f5' : '#171717'
   const alpha = isSelected ? 0.88 : nodeStrokeAlpha(isHighlighted, isHovered, isDark)
   return withAlpha(color, alpha)
 }
@@ -496,10 +498,10 @@ function nodeLabelCardFill(
   isDark: boolean
 ) {
   if (!emphasis) {
-    return isDark ? 'rgba(2, 6, 23, 0.78)' : 'rgba(255, 254, 249, 0.86)'
+    return isDark ? 'rgba(10, 10, 10, 0.82)' : 'rgba(255, 255, 255, 0.9)'
   }
   return withAlpha(
-    mixHexColors(color, isDark ? '#0f172a' : '#fffef9', isDark ? 0.74 : 0.84),
+    mixHexColors(color, isDark ? '#0a0a0a' : '#ffffff', isDark ? 0.74 : 0.84),
     isDark ? 0.92 : 0.9
   )
 }
@@ -535,7 +537,7 @@ function drawNodeShell(ctx: CanvasRenderingContext2D, state: GraphNodeRenderStat
   ctx.fillStyle = withAlpha(
     mixHexColors(
       state.color,
-      state.isDark ? '#0f172a' : '#fffef9',
+      state.isDark ? '#0a0a0a' : '#ffffff',
       state.isDark ? 0.45 : 0.22
     ),
     nodeShellAlpha(state.isSelected, state.isHovered)
@@ -582,7 +584,7 @@ function drawNodeCore(ctx: CanvasRenderingContext2D, state: GraphNodeRenderState
     1,
     mixHexColors(
       state.color,
-      state.isDark ? '#020617' : '#dbeafe',
+      state.isDark ? '#050505' : '#e5e5e5',
       state.isDark ? 0.18 : 0.08
     )
   )
@@ -668,7 +670,7 @@ function drawNodeLabel({
   ctx.lineTo(leaderEndX, state.ny)
   ctx.strokeStyle = pathAwareStroke(
     state.isPathNode,
-    '#f59e0b',
+    state.isDark ? '#f5f5f5' : '#171717',
     withAlpha(state.color, state.emphasis ? 0.56 : 0.28)
   )
   ctx.lineWidth = 1 / state.globalScale
@@ -679,7 +681,7 @@ function drawNodeLabel({
   ctx.fill()
   ctx.strokeStyle = pathAwareStroke(
     state.isPathNode,
-    withAlpha('#f59e0b', 0.72),
+    withAlpha(state.isDark ? '#f5f5f5' : '#171717', 0.72),
     withAlpha(state.color, state.emphasis ? 0.42 : 0.22)
   )
   ctx.lineWidth = 1 / state.globalScale
@@ -735,10 +737,12 @@ function pathAwareStroke(
 function edgeLabelFillStyle(
   isPathLink: boolean,
   isHoveredLink: boolean,
-  fallback: string
+  fallback: string,
+  pathFill: string,
+  hoverFill: string
 ) {
-  if (isPathLink) return '#f59e0b'
-  if (isHoveredLink) return 'rgba(56, 189, 248, 0.15)'
+  if (isPathLink) return pathFill
+  if (isHoveredLink) return hoverFill
   return fallback
 }
 
@@ -746,9 +750,10 @@ function edgeLabelTextStyle(
   isPathLink: boolean,
   isHoveredLink: boolean,
   hoverText: string,
-  text: string
+  text: string,
+  pathText: string
 ) {
-  if (isPathLink) return '#ffffff'
+  if (isPathLink) return pathText
   if (isHoveredLink) return hoverText
   return text
 }
@@ -844,7 +849,9 @@ function drawLinkLabelBadge(
   ctx.fillStyle = edgeLabelFillStyle(
     state.isPathLink,
     state.isHoveredLink,
-    canvasColors.edgeLabelBg
+    canvasColors.edgeLabelBg,
+    canvasColors.pathFill,
+    withAlpha(canvasColors.labelFill, 0.15)
   )
   ctx.fill()
 
@@ -854,7 +861,8 @@ function drawLinkLabelBadge(
     state.isPathLink,
     state.isHoveredLink,
     canvasColors.edgeLabelHoverText,
-    canvasColors.edgeLabelText
+    canvasColors.edgeLabelText,
+    canvasColors.pathText
   )
   ctx.fillText(state.label, 0, 0)
 }
@@ -1016,28 +1024,30 @@ export const GraphViewer = forwardRef<GraphViewerRef, GraphViewerProps>(({
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === 'dark'
   const canvasColors = useMemo(() => {
-    const fg = getCssHslColor('--foreground', isDark ? '#e2e8f0' : '#1e293b')
-    const muted = getCssHslColor('--muted-foreground', isDark ? '#94a3b8' : '#475569')
+    const fg = getCssHslColor('--foreground', isDark ? '#f5f5f5' : '#171717')
+    const muted = getCssHslColor('--muted-foreground', isDark ? '#a3a3a3' : '#525252')
     const bgStroke = getCssHslaColor(
       '--background',
       isDark ? 0.86 : 0.94,
-      isDark ? 'rgba(2, 6, 23, 0.86)' : 'rgba(255, 255, 255, 0.94)'
+      isDark ? 'rgba(0, 0, 0, 0.86)' : 'rgba(255, 255, 255, 0.94)'
     )
     const edgeLabelBg = getCssHslaColor(
       '--background',
       isDark ? 0.82 : 0.95,
-      isDark ? 'rgba(15, 23, 42, 0.86)' : 'rgba(255, 255, 255, 0.95)'
+      isDark ? 'rgba(10, 10, 10, 0.86)' : 'rgba(255, 255, 255, 0.95)'
     )
     return {
-      nodeDim: isDark ? '#334155' : '#cbd5e1',
-      linkDim: isDark ? 'rgba(148, 163, 184, 0.18)' : '#e2e8f0',
-      linkMid: isDark ? '#64748b' : '#94a3b8',
+      nodeDim: isDark ? '#3f3f3f' : '#d4d4d4',
+      linkDim: isDark ? 'rgba(163, 163, 163, 0.18)' : '#e5e5e5',
+      linkMid: isDark ? '#737373' : '#a3a3a3',
       labelStroke: bgStroke,
       labelFill: fg,
       labelDim: muted,
       edgeLabelBg,
-      edgeLabelText: isDark ? fg : '#475569',
-      edgeLabelHoverText: isDark ? fg : '#0c4a6e',
+      edgeLabelText: isDark ? fg : '#525252',
+      edgeLabelHoverText: fg,
+      pathFill: fg,
+      pathText: isDark ? '#171717' : '#f5f5f5',
     }
   }, [isDark])
 
@@ -1456,10 +1466,10 @@ export const GraphViewer = forwardRef<GraphViewerRef, GraphViewerProps>(({
                  const baseLineColor = withAlpha(baseColor, isLargeGraph ? 0.22 : 0.32)
                  const activeLineColor = withAlpha(baseColor, isLargeGraph ? 0.44 : 0.58)
                   if (highlightedLinkIds.size > 0 && linkId && highlightedLinkIds.has(linkId)) {
-                     return '#f59e0b'
+                     return canvasColors.pathFill
                   }
                   if (hoveredLinkId && linkId && hoveredLinkId === linkId) {
-                     return '#38bdf8'
+                     return canvasColors.labelFill
                   }
                   if (highlightedNodeIds.size > 0) {
                     if (endpointsAreHighlighted(link, highlightedNodeIds)) {

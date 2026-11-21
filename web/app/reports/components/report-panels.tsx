@@ -521,7 +521,7 @@ export function CategoryChartPanel({
               contentStyle={CHART_TOOLTIP_STYLE}
               labelStyle={CHART_TOOLTIP_LABEL_STYLE}
             />
-            <Bar dataKey="value" radius={[7, 7, 0, 0]} fill="hsl(var(--info))" />
+            <Bar dataKey="value" radius={[7, 7, 0, 0]} fill="hsl(var(--foreground))" />
           </BarChart>
         </SafeResponsiveChart>
       )}

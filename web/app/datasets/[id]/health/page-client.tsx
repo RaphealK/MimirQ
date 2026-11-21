@@ -370,7 +370,7 @@ export default function DatasetHealthPage() {
                 icon={Activity}
                 label="扫描 PDF"
                 value={scannedPdfLabel}
-                color="orange"
+                color="teal"
               />
               <StatCard
                 dense

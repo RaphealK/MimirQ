@@ -106,7 +106,7 @@ export function ProviderIcon({ providerId, className = 'w-8 h-8' }: Readonly<Pro
         alt={`${providerId} logo`}
         width={32}
         height={32}
-        className={className}
+        className={`${className} grayscale`}
         priority
         unoptimized
       />
@@ -122,7 +122,7 @@ export function ProviderIcon({ providerId, className = 'w-8 h-8' }: Readonly<Pro
       alt={`${providerId} logo`}
       width={32}
       height={32}
-      className={className}
+      className={`${className} grayscale`}
       priority
       unoptimized={icon.format === 'png'}
     />

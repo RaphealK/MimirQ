@@ -384,7 +384,7 @@ function utcShortLabel(isoDayKey: string): string {
 
 function buildConicGradient(values: number[], colors: string[]): string {
   const total = values.reduce((sum, value) => sum + value, 0)
-  if (!total) return 'conic-gradient(rgba(148,163,184,0.18) 0deg 360deg)'
+  if (!total) return 'conic-gradient(rgba(163,163,163,0.18) 0deg 360deg)'
   let current = 0
   const stops = values.map((value, index) => {
     const start = current
@@ -521,7 +521,7 @@ function FeedbackSummaryCard({
   const deltaTone = DELTA_TONE_CLASSES[delta.tone]
 
   return (
-    <div className="min-h-[72px] rounded-[1.1rem] border border-border/60 bg-background/92 px-3.5 py-2.5 shadow-[0_14px_34px_-30px_rgba(15,23,42,0.25)]">
+    <div className="min-h-[72px] rounded-[1.1rem] border border-border/60 bg-background/92 px-3.5 py-2.5 shadow-[0_14px_34px_-30px_rgba(0,0,0,0.25)]">
       <div className="flex h-full items-center gap-3">
         <div
           className={cn(
@@ -702,7 +702,7 @@ function FeedbackTrendCard({
                   y1={y}
                   x2={width}
                   y2={y}
-                  stroke="rgba(148,163,184,0.18)"
+                  stroke="rgba(163,163,163,0.18)"
                 />
               )
             })}
@@ -738,7 +738,7 @@ function FeedbackTrendCard({
                   y={181}
                   textAnchor="middle"
                   fontSize="11"
-                  fill="rgba(100,116,139,0.9)"
+                  fill="rgba(115,115,115,0.9)"
                 >
                   {label}
                 </text>
@@ -888,7 +888,7 @@ function buildDemoFeedbackMetrics() {
         {
           label: '中立',
           values: [6, 13, 13, 8, 13, 9, 8],
-          color: 'hsl(var(--info))',
+          color: 'hsl(var(--muted-foreground))',
         },
       ],
     },
@@ -1076,7 +1076,7 @@ export default function FeedbackTriagePage() {
       series: [
         { label: '点赞', values: up, color: 'hsl(var(--success))' },
         { label: '点踩', values: down, color: 'hsl(var(--destructive))' },
-        { label: '中立', values: neutral, color: 'hsl(var(--info))' },
+        { label: '中立', values: neutral, color: 'hsl(var(--muted-foreground))' },
       ],
     }
   }, [demoMetrics.trend, demoMode, items])
@@ -1576,7 +1576,7 @@ export default function FeedbackTriagePage() {
                     return (
                       <article
                         key={item.id}
-                        className="overflow-hidden rounded-[1.05rem] border border-border/55 bg-background/88 shadow-[0_12px_28px_-30px_rgba(15,23,42,0.28)] transition-colors hover:border-info/20 hover:bg-background"
+                        className="overflow-hidden rounded-[1.05rem] border border-border/55 bg-background/88 shadow-[0_12px_28px_-30px_rgba(0,0,0,0.28)] transition-colors hover:border-info/20 hover:bg-background"
                       >
                         <div className="flex items-start gap-3 px-4 py-2.5">
                           <div
@@ -2035,12 +2035,12 @@ export default function FeedbackTriagePage() {
               title="主要反馈来源"
               items={sourceStats}
               colors={[
-                'hsl(var(--info))',
-                'hsl(var(--success))',
-                'hsl(var(--warning))',
-                'hsl(var(--accent))',
-                'hsl(var(--indigo))',
-                'hsl(var(--muted-foreground) / 0.5)',
+                'hsl(var(--foreground))',
+                'hsl(var(--foreground) / 0.7)',
+                'hsl(var(--muted-foreground))',
+                'hsl(var(--muted-foreground) / 0.6)',
+                'hsl(var(--control))',
+                'hsl(var(--muted-foreground) / 0.4)',
               ]}
               actionLabel={primarySourceFilter === 'all' ? undefined : '更多'}
               onAction={() => {

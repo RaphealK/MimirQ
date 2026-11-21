@@ -31,7 +31,7 @@ function DisconnectedCloudIllustration() {
   return (
     <svg
       aria-hidden="true"
-      className="h-[230px] w-[330px] drop-shadow-[0_32px_42px_rgba(105,124,166,0.18)] sm:h-[300px] sm:w-[430px]"
+      className="h-[230px] w-[330px] drop-shadow-[0_32px_42px_rgba(0,0,0,0.18)] sm:h-[300px] sm:w-[430px]"
       viewBox="0 0 430 310"
       fill="none"
     >

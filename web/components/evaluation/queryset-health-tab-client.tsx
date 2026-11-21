@@ -374,21 +374,21 @@ export function QuerysetHealthTab({
               icon={Timer}
               label="P95 延迟"
               value={fmtMs(latestMetrics.p95_latency_ms)}
-              color="amber"
+              color="teal"
             />
             <StatCard
               dense
               icon={SearchX}
               label="漏检率"
               value={fmtPercent(latestRisk.miss_rate, 1)}
-              color="rose"
+              color="teal"
             />
             <StatCard
               dense
               icon={ShieldAlert}
               label="弱命中率"
               value={fmtPercent(latestRisk.weak_hit_rate, 1)}
-              color="rose"
+              color="teal"
             />
           </StatsGrid>
 
@@ -435,21 +435,23 @@ export function QuerysetHealthTab({
                 <Line
                   type="monotone"
                   dataKey="hit_at_k"
-                  stroke="hsl(var(--primary))"
+                  stroke="hsl(var(--foreground))"
                   strokeWidth={2}
                   dot={false}
                 />
                 <Line
                   type="monotone"
                   dataKey="mrr"
-                  stroke="hsl(var(--info))"
+                  stroke="hsl(var(--muted-foreground))"
+                  strokeDasharray="6 3"
                   strokeWidth={2}
                   dot={false}
                 />
                 <Line
                   type="monotone"
                   dataKey="ndcg_at_k"
-                  stroke="hsl(var(--success))"
+                  stroke="hsl(var(--control))"
+                  strokeDasharray="2 3"
                   strokeWidth={2}
                   dot={false}
                 />
@@ -484,21 +486,23 @@ export function QuerysetHealthTab({
                 <Line
                   type="monotone"
                   dataKey="p95_latency_ms"
-                  stroke="hsl(var(--warning))"
+                  stroke="hsl(var(--foreground))"
                   strokeWidth={2}
                   dot={false}
                 />
                 <Line
                   type="monotone"
                   dataKey="miss_rate"
-                  stroke="hsl(var(--destructive))"
+                  stroke="hsl(var(--muted-foreground))"
+                  strokeDasharray="6 3"
                   strokeWidth={2}
                   dot={false}
                 />
                 <Line
                   type="monotone"
                   dataKey="weak_hit_rate"
-                  stroke="hsl(var(--info))"
+                  stroke="hsl(var(--control))"
+                  strokeDasharray="2 3"
                   strokeWidth={2}
                   dot={false}
                 />

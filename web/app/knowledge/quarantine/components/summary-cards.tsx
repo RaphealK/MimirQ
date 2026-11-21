@@ -122,10 +122,10 @@ export function DonutSummaryCard({
       <div className="mt-3.5 grid gap-3.5 md:grid-cols-[100px_minmax(0,1fr)] md:items-center">
         <div className="flex items-center justify-center">
           <div
-            className="relative h-[86px] w-[86px] rounded-full shadow-[inset_0_0_0_1px_rgba(148,163,184,0.18)]"
+            className="relative h-[86px] w-[86px] rounded-full shadow-[inset_0_0_0_1px_rgba(163,163,163,0.18)]"
             style={{ backgroundImage: gradient }}
           >
-            <div className="absolute inset-[16px] rounded-full bg-background shadow-[inset_0_0_0_1px_rgba(148,163,184,0.12)]" />
+            <div className="absolute inset-[16px] rounded-full bg-background shadow-[inset_0_0_0_1px_rgba(163,163,163,0.12)]" />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <span className="text-[1.2rem] font-semibold leading-none text-foreground">
                 {total}

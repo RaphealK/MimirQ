@@ -1379,7 +1379,7 @@ export function ParsingActiveFilePane({
  </div>
 
  {activeFile.status === 'parsed' && activeMarkdown ? (
- <div className="relative z-10 border-t border-border/60 bg-card px-6 py-4 shadow-[0_-10px_24px_-18px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-card dark:shadow-[0_-12px_28px_-18px_rgba(0,0,0,0.42)]">
+ <div className="relative z-10 border-t border-border/60 bg-card px-6 py-4 shadow-[0_-10px_24px_-18px_rgba(0,0,0,0.22)] backdrop-blur-xl dark:bg-card dark:shadow-[0_-12px_28px_-18px_rgba(0,0,0,0.42)]">
  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
  <div className="text-[11px] leading-5 text-muted-foreground/72 dark:text-muted-foreground/70">
  {isEditing ? '编辑完成后点击"保存修改"，然后提交到数据治理' : '确认解析内容无误后，提交到数据治理工作台'}

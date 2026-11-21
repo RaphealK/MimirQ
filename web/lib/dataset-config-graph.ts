@@ -35,7 +35,7 @@ function makeNode(id: string, label: string, configured: boolean, json: unknown,
   return {
     id,
     label,
-    color: color ?? (configured ? '#3b82f6' : '#cbd5e1'),
+    color: color ?? (configured ? '#8f8f8f' : '#c4c4c4'),
     meta: {
       kind: 'group',
       configured,
@@ -61,7 +61,7 @@ export function buildDatasetConfigGraph(config: object): GraphData {
     {
       id: 'bundle',
       label: 'Dataset Config',
-      color: '#0ea5e9',
+      color: '#b3b3b3',
       meta: { kind: 'bundle', configured: true, json: cfg } satisfies NodeMeta,
     },
   ]
@@ -76,7 +76,7 @@ export function buildDatasetConfigGraph(config: object): GraphData {
     nodes.push({
       id,
       label,
-      color: configured ? '#10b981' : '#cbd5e1',
+      color: configured ? '#6b6b6b' : '#c4c4c4',
       meta: { kind: 'subgroup', configured, json, summary } satisfies NodeMeta,
     })
     links.push(makeLink('pipeline', id))

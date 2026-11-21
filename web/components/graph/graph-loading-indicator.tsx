@@ -8,17 +8,17 @@ const ORB_SPECS = [
   {
     left: '14%',
     delay: '0s',
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(204,254,255,0.98) 70%, rgba(170,233,242,0.98) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(229,229,229,0.98) 70%, rgba(196,196,196,0.98) 100%)',
   },
   {
     left: '41%',
     delay: '0.14s',
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(226,255,212,0.96) 72%, rgba(208,242,214,0.98) 100%)',
+    background: 'linear-gradient(180deg, rgba(245,245,245,0.98) 0%, rgba(212,212,212,0.96) 72%, rgba(179,179,179,0.98) 100%)',
   },
   {
     left: '68%',
     delay: '0.28s',
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(236,243,255,0.98) 74%, rgba(212,226,255,0.98) 100%)',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(236,236,236,0.98) 74%, rgba(207,207,207,0.98) 100%)',
   },
 ] as const
 
@@ -69,7 +69,7 @@ export function GraphLoadingIndicator({
 
       <style jsx>{`
         .graph-loader-stage {
-          filter: drop-shadow(0 14px 22px rgba(98, 118, 122, 0.08));
+          filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.08));
         }
 
         .graph-loader-orb {
@@ -80,9 +80,9 @@ export function GraphLoadingIndicator({
           border-radius: 999px;
           transform-origin: 50% 100%;
           box-shadow:
-            0 8px 18px rgba(135, 168, 173, 0.2),
+            0 8px 18px rgba(0, 0, 0, 0.2),
             inset 0 1px 0 rgba(255, 255, 255, 0.9),
-            inset 0 -2px 6px rgba(125, 186, 191, 0.15);
+            inset 0 -2px 6px rgba(0, 0, 0, 0.15);
           will-change: transform, border-radius;
           animation: graph-loader-orb 0.72s infinite alternate cubic-bezier(0.34, 0, 0.2, 1);
         }
@@ -105,7 +105,7 @@ export function GraphLoadingIndicator({
           width: 18px;
           height: 5px;
           border-radius: 999px;
-          background: radial-gradient(circle at center, rgba(105, 117, 120, 0.22) 0%, rgba(105, 117, 120, 0.08) 62%, rgba(105, 117, 120, 0) 100%);
+          background: radial-gradient(circle at center, rgba(0, 0, 0, 0.22) 0%, rgba(0, 0, 0, 0.08) 62%, rgba(0, 0, 0, 0) 100%);
           filter: blur(1.4px);
           will-change: transform, opacity;
           animation: graph-loader-shadow 0.72s infinite alternate cubic-bezier(0.34, 0, 0.2, 1);

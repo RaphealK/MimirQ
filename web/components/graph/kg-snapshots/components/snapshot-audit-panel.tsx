@@ -201,22 +201,22 @@ export function SnapshotAuditPanel({
                 <CartesianGrid
                   strokeDasharray="3 3"
                   vertical={false}
-                  stroke="#e2e8f0"
+                  stroke="hsl(var(--border))"
                 />
                 <XAxis
                   dataKey="key"
-                  tick={{ fontSize: 11, fill: '#64748b' }}
+                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
                   axisLine={false}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fontSize: 11, fill: '#64748b' }}
+                  tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
                   axisLine={false}
                   tickLine={false}
                   allowDecimals={false}
                 />
                 <Tooltip
-                  cursor={{ fill: 'rgba(148, 163, 184, 0.08)' }}
+                  cursor={{ fill: 'hsl(var(--muted-foreground) / 0.08)' }}
                   content={<SnapshotChartTooltip />}
                 />
                 <Bar dataKey="delta" radius={[6, 6, 0, 0]} />

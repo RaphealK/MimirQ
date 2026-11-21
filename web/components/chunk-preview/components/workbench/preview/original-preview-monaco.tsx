@@ -228,14 +228,14 @@ export function OriginalPreviewMonaco(props: Readonly<{
 
       const color = (() => {
     if (disabled) {
-        return 'rgba(148,163,184,0.35)';
+        return 'rgba(163,163,163,0.35)';
     }
     else if (isChild) {
-            return 'rgba(59,130,246,0.65)' // child highlight
+            return 'rgba(115,115,115,0.65)' // child highlight
             ;
         }
         else {
-            return 'rgba(148,163,184,0.45)' // parent/others
+            return 'rgba(163,163,163,0.45)' // parent/others
             ;
         }
 })() // parent/others
@@ -433,17 +433,17 @@ export function OriginalPreviewMonaco(props: Readonly<{
 
       <style jsx global>{`
         .mimirq-monaco-parent-highlight {
-          background: rgba(59, 130, 246, 0.08);
+          background: hsl(var(--foreground) / 0.08);
         }
         .mimirq-monaco-active-highlight {
-          background: rgba(59, 130, 246, 0.18);
+          background: hsl(var(--foreground) / 0.18);
           border-radius: 2px;
-          box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.25);
+          box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.25);
         }
         .mimirq-monaco-citation-highlight {
-          background: rgba(245, 158, 11, 0.22);
+          background: hsl(var(--foreground) / 0.14);
           border-radius: 2px;
-          box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.35);
+          box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.45);
         }
       `}</style>
     </div>

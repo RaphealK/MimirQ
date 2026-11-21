@@ -342,7 +342,7 @@ export function buildSimilarityDiagnostics({
         isOutlier,
         isMarked,
         isDisabled,
-        color: isDisabled ? '#94a3b8' : isMarked ? '#f59e0b' : isOutlier ? '#f97316' : '#38bdf8',
+        color: isDisabled ? '#c4c4c4' : isMarked ? '#525252' : isOutlier ? '#737373' : '#9a9a9a',
       }
     }),
     ...yItems.slice(0, safeRowCount).map((item, index) => {
@@ -366,7 +366,7 @@ export function buildSimilarityDiagnostics({
         isOutlier,
         isMarked,
         isDisabled,
-        color: isDisabled ? '#94a3b8' : isMarked ? '#f59e0b' : isOutlier ? '#f97316' : '#34d399',
+        color: isDisabled ? '#c4c4c4' : isMarked ? '#525252' : isOutlier ? '#737373' : '#8f8f8f',
       }
     }),
   ]

@@ -1225,7 +1225,7 @@ export function RagvizSimilarityWorkbench() {
           className={cn(
             'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-r border-border/34 backdrop-blur-xl transition-[width,opacity] duration-200 ease-out',
             isCompactLeftSidebar
-              ? 'absolute inset-y-0 left-12 z-20 bg-card/95 shadow-[18px_0_42px_-24px_rgba(15,23,42,0.35)]'
+              ? 'absolute inset-y-0 left-12 z-20 bg-card/95 shadow-[18px_0_42px_-24px_rgba(0,0,0,0.35)]'
               : 'relative bg-card/42',
             isLeftSidebarOpen
               ? 'opacity-100'
@@ -1750,7 +1750,7 @@ export function RagvizSimilarityWorkbench() {
           className={cn(
             'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-l border-border/34 backdrop-blur-xl transition-[width,opacity] duration-200 ease-out',
             isCompactRightSidebar
-              ? 'absolute inset-y-0 right-12 z-20 bg-card/95 shadow-[-18px_0_42px_-24px_rgba(15,23,42,0.35)]'
+              ? 'absolute inset-y-0 right-12 z-20 bg-card/95 shadow-[-18px_0_42px_-24px_rgba(0,0,0,0.35)]'
               : 'relative bg-card/42',
             isRightSidebarOpen
               ? 'opacity-100'

@@ -116,7 +116,7 @@ export function AblationComparisonMatrix({
                   <div
                     key={`${run.id}-${metric}`}
                     className="px-3 py-2 text-right font-mono"
-                    style={{ backgroundColor: `hsl(var(--info) / ${heat})` }}
+                    style={{ backgroundColor: `hsl(var(--foreground) / ${heat})` }}
                   >
                     <span className="text-foreground">{value === null ? '-' : value.toFixed(4)}</span>
                     <span className={cn('ml-1 text-[10px]', delta && delta > 0 ? 'text-success' : delta && delta < 0 ? 'text-destructive' : 'text-muted-foreground')}>

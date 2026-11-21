@@ -602,12 +602,12 @@ export default function KnowledgeIngestionPageClient() {
 
   const executionFileTypeDistributionRows = useMemo(() => {
     const palette = [
-      { color: '#2563eb', tone: 'bg-info' },
-      { color: '#16a34a', tone: 'bg-success' },
-      { color: '#d97706', tone: 'bg-warning' },
-      { color: '#e11d48', tone: 'bg-rose' },
-      { color: '#7c3aed', tone: 'bg-accent' },
-      { color: '#0f766e', tone: 'bg-teal' },
+      { color: '#525252', tone: 'bg-foreground/70' },
+      { color: '#8f8f8f', tone: 'bg-foreground/45' },
+      { color: '#737373', tone: 'bg-foreground/60' },
+      { color: '#b3b3b3', tone: 'bg-foreground/25' },
+      { color: '#6b6b6b', tone: 'bg-foreground/80' },
+      { color: '#9a9a9a', tone: 'bg-foreground/55' },
     ]
 
     return buildFileTypeDistribution(executionDocuments).map((item, index) => {
@@ -635,7 +635,7 @@ export default function KnowledgeIngestionPageClient() {
           appendTo: 'body',
           confine: true,
           extraCssText:
-            'border-radius:10px;padding:6px 8px;box-shadow:0 12px 28px rgba(15,23,42,.14);',
+            'border-radius:10px;padding:6px 8px;box-shadow:0 12px 28px rgba(0,0,0,.14);',
           formatter: (params: unknown) => {
             const item = Array.isArray(params) ? params[0] : params
             const payload =
@@ -690,13 +690,13 @@ export default function KnowledgeIngestionPageClient() {
                 }))
               : [
                   {
-                    itemStyle: { color: 'rgba(148,163,184,0.35)' },
+                    itemStyle: { color: 'rgba(163,163,163,0.35)' },
                     name: '暂无数据',
                     value: 1,
                   },
                 ],
             itemStyle: {
-              borderColor: '#ffffff',
+              borderColor: 'transparent',
               borderRadius: 4,
               borderWidth: 2,
             },
@@ -1104,23 +1104,23 @@ export default function KnowledgeIngestionPageClient() {
         ? {
             type: 'time',
             axisLabel: {
-              color: '#64748b',
+              color: '#737373',
               formatter: (value: number) =>
                 throughputRowsSource === 'documents'
                   ? formatMonthDayLabel(Number(value))
                   : formatClockLabel(Number(value)),
             },
             axisLine: {
-              lineStyle: { color: 'rgba(100,116,139,0.35)' },
+              lineStyle: { color: 'rgba(128,128,128,0.35)' },
             },
           }
         : {
             type: 'category',
             boundaryGap: false,
             data: ['-60m', '-45m', '-30m', '-15m', '现在'],
-            axisLabel: { color: '#64748b', fontSize: 9 },
+            axisLabel: { color: '#737373', fontSize: 9 },
             axisLine: {
-              lineStyle: { color: 'rgba(100,116,139,0.35)' },
+              lineStyle: { color: 'rgba(128,128,128,0.35)' },
             },
             axisTick: { show: false },
           },
@@ -1129,9 +1129,9 @@ export default function KnowledgeIngestionPageClient() {
         min: 0,
         max: hasActualSeries ? undefined : 4,
         interval: hasActualSeries ? undefined : 1,
-        axisLabel: { color: '#64748b' },
+        axisLabel: { color: '#737373' },
         splitLine: {
-          lineStyle: { color: 'rgba(148,163,184,0.18)' },
+          lineStyle: { color: 'rgba(163,163,163,0.18)' },
         },
       },
       series: [
@@ -1145,14 +1145,14 @@ export default function KnowledgeIngestionPageClient() {
           showSymbol: !hasActualSeries,
           symbolSize: hasActualSeries ? 0 : 4,
           lineStyle: {
-            color: '#0284c7',
+            color: '#525252',
             opacity: hasActualSeries ? 1 : 0.42,
             width: hasActualSeries ? 2.5 : 1.5,
           },
           areaStyle: {
             color: hasActualSeries
-              ? 'rgba(2,132,199,0.14)'
-              : 'rgba(2,132,199,0.035)',
+              ? 'rgba(82,82,82,0.14)'
+              : 'rgba(82,82,82,0.035)',
           },
           data: hasActualSeries ? actualSeries : [0, 0, 0, 0, 0],
         },
@@ -1161,9 +1161,9 @@ export default function KnowledgeIngestionPageClient() {
           type: 'line',
           smooth: true,
           showSymbol: false,
-          lineStyle: { color: '#b45309', width: 2, type: 'dashed' },
+          lineStyle: { color: '#8f8f8f', width: 2, type: 'dashed' },
           areaStyle: {
-            color: 'rgba(180,83,9,0.08)',
+            color: 'rgba(143,143,143,0.08)',
           },
           data: forecastSeries,
         },
@@ -1241,11 +1241,11 @@ export default function KnowledgeIngestionPageClient() {
           radius: '56%',
           center: ['50%', '54%'],
           splitNumber: 4,
-          axisName: { color: '#475569', fontSize: 9 },
-          splitLine: { lineStyle: { color: 'rgba(148,163,184,0.22)' } },
+          axisName: { color: '#525252', fontSize: 9 },
+          splitLine: { lineStyle: { color: 'rgba(163,163,163,0.22)' } },
           splitArea: {
             areaStyle: {
-              color: ['rgba(148,163,184,0.08)', 'rgba(148,163,184,0.025)'],
+              color: ['rgba(163,163,163,0.08)', 'rgba(163,163,163,0.025)'],
             },
           },
           indicator: [
@@ -1264,9 +1264,9 @@ export default function KnowledgeIngestionPageClient() {
             data: [
               {
                 value: costRadarValues,
-                areaStyle: { color: 'hsl(var(--primary) / 0.12)' },
-                lineStyle: { color: 'hsl(var(--primary))', width: 2 },
-                itemStyle: { color: 'hsl(var(--primary))' },
+                areaStyle: { color: 'rgba(82,82,82,0.12)' },
+                lineStyle: { color: '#525252', width: 2 },
+                itemStyle: { color: '#525252' },
               },
             ],
           },
@@ -1392,21 +1392,21 @@ export default function KnowledgeIngestionPageClient() {
       pricingMode: salesAuditProfile?.pricingMode ?? (fallbackComplexity === '高' ? 'POC优先' : '阶梯报价'),
       distributionBars: [
         {
-          color: '#2563eb',
+          color: '#525252',
           detail: totalFiles ? `${pdfTotal.toLocaleString()} / ${totalFiles.toLocaleString()} 个` : '等待文件进入监控',
           label: 'PDF 占比',
           score: clampScore(pdfRatio * 100),
           value: totalFiles ? `${Math.round(pdfRatio * 100)}%` : '待统计',
         },
         {
-          color: '#0f766e',
+          color: '#6b6b6b',
           detail: '按 PDF 样本 text_characters 均值',
           label: 'PDF 平均字数',
           score: clampScore((avgPdfChars / 50_000) * 100),
           value: avgPdfChars ? `${Math.round(avgPdfChars).toLocaleString()} chars` : '待统计',
         },
         {
-          color: '#f97316',
+          color: '#8f8f8f',
           detail: '优先使用后端 page_count，缺失时才按字数/体量估算',
           label: 'PDF 平均页数',
           score: clampScore((avgPdfPages / 80) * 100),
@@ -1417,7 +1417,7 @@ export default function KnowledgeIngestionPageClient() {
           }),
         },
         {
-          color: '#64748b',
+          color: '#b3b3b3',
           detail: avgPdfImages
             ? '来自后端 image_count / elements 图片引用'
             : '后端未检测到图片引用',
@@ -1426,7 +1426,7 @@ export default function KnowledgeIngestionPageClient() {
           value: hasPdfProfiles ? `${Math.round(avgPdfImages)} 个` : '无 PDF',
         },
         {
-          color: '#7c3aed',
+          color: '#9a9a9a',
           detail: avgPdfTables
             ? '来自后端 table_count / elements 表格引用'
             : `结构块均值 ${Math.round(avgPdfBlocks).toLocaleString()} 个`,
@@ -1439,14 +1439,14 @@ export default function KnowledgeIngestionPageClient() {
           }),
         },
         {
-          color: '#0891b2',
+          color: '#737373',
           detail: '按当前批次文件均值',
           label: '平均体积',
           score: clampScore((avgSizeMb / 20) * 100),
           value: avgSizeMb ? `${avgSizeMb.toFixed(1)} MB` : '待统计',
         },
         {
-          color: '#dc2626',
+          color: '#353535',
           detail: `失败或隔离 ${statusCounts.failed + statusCounts.quarantined} 个`,
           label: '失败重试率',
           score: clampScore(executionRetryRate),
@@ -1483,11 +1483,11 @@ export default function KnowledgeIngestionPageClient() {
         xAxis: {
           max: 100,
           min: 0,
-          splitLine: { lineStyle: { color: 'rgba(148,163,184,0.14)' } },
+          splitLine: { lineStyle: { color: 'rgba(163,163,163,0.14)' } },
           type: 'value',
         },
         yAxis: {
-          axisLabel: { color: '#475569', fontSize: 10 },
+          axisLabel: { color: '#525252', fontSize: 10 },
           axisLine: { show: false },
           axisTick: { show: false },
           data: executionBatchAnalysis.distributionBars.map((item) => item.label),
@@ -1502,7 +1502,7 @@ export default function KnowledgeIngestionPageClient() {
               value: item.score,
             })),
             label: {
-              color: '#64748b',
+              color: '#737373',
               fontSize: 10,
               formatter: (params: { dataIndex: number }) =>
                 executionBatchAnalysis.distributionBars[params.dataIndex]?.value ?? '',
@@ -1702,7 +1702,7 @@ export default function KnowledgeIngestionPageClient() {
         {
           type: 'pie',
           radius: ['46%', '72%'],
-          label: { color: '#475569' },
+          label: { color: '#525252' },
           data: rows.map((row) => ({
             ...row,
             itemStyle: {
@@ -1724,22 +1724,22 @@ export default function KnowledgeIngestionPageClient() {
       xAxis: {
         type: 'category',
         data: histogram.map((item) => item.label),
-        axisLabel: { color: '#64748b' },
+        axisLabel: { color: '#737373' },
       },
       yAxis: {
         type: 'value',
-        axisLabel: { color: '#64748b' },
-        splitLine: { lineStyle: { color: 'rgba(148,163,184,0.18)' } },
+        axisLabel: { color: '#737373' },
+        splitLine: { lineStyle: { color: 'rgba(163,163,163,0.18)' } },
       },
       series: [
         {
           type: 'bar',
           data: histogram.map((item) => Number(item.count || 0)),
-          itemStyle: { color: '#475569', borderRadius: [8, 8, 0, 0] },
+          itemStyle: { color: '#525252', borderRadius: [8, 8, 0, 0] },
           markLine: {
             symbol: 'none',
-            label: { color: '#64748b' },
-            lineStyle: { type: 'dashed', color: '#94a3b8' },
+            label: { color: '#737373' },
+            lineStyle: { type: 'dashed', color: '#a3a3a3' },
             data: [
               {
                 name: 'P50',
@@ -1835,11 +1835,11 @@ export default function KnowledgeIngestionPageClient() {
           { name: '敏感信息密度', max: 100 },
           { name: '解析成功率', max: 100 },
         ],
-        axisName: { color: '#475569', fontSize: 9 },
-        splitLine: { lineStyle: { color: 'rgba(148,163,184,0.22)' } },
+        axisName: { color: '#525252', fontSize: 9 },
+        splitLine: { lineStyle: { color: 'rgba(163,163,163,0.22)' } },
         splitArea: {
           areaStyle: {
-            color: ['rgba(148,163,184,0.08)', 'rgba(148,163,184,0.025)'],
+            color: ['rgba(163,163,163,0.08)', 'rgba(163,163,163,0.025)'],
           },
         },
       },
@@ -1855,9 +1855,9 @@ export default function KnowledgeIngestionPageClient() {
                 Math.round(sensitiveRatio * 100),
                 Math.round(successRatio * 100),
               ],
-              itemStyle: { color: '#0f766e' },
-              lineStyle: { color: '#0f766e', width: 2 },
-              areaStyle: { color: 'rgba(15,118,110,0.12)' },
+              itemStyle: { color: '#737373' },
+              lineStyle: { color: '#737373', width: 2 },
+              areaStyle: { color: 'rgba(82,82,82,0.12)' },
             },
           ],
         },
