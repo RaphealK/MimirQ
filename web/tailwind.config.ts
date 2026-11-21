@@ -55,6 +55,11 @@ const config = {
         /* Legacy alias kept for backward compat — prefer semantic names above */
         detail: ["0.6875rem", { lineHeight: "1rem", letterSpacing: "0.04em" }],
       },
+      /* Text colour namespace: `text-accent` is the engineering blue link
+         colour, while `bg-accent` remains the selected surface tint. */
+      textColor: {
+        accent: "hsl(var(--primary))",
+      },
       spacing: {
         "page-x": "var(--space-page-x)",
         "section-y": "var(--space-section-y)",
