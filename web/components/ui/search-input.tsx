@@ -58,7 +58,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
           placeholder={resolvedPlaceholder}
-          className={cn("pl-9 pr-10", inputClassName)}
+          className={cn("pl-9 pr-10 pointer-coarse:pr-12", inputClassName)}
           {...props}
         />
         {value ? (
@@ -66,7 +66,7 @@ export const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
             label={t("searchInput.clearLabel")}
             type="button"
             variant="ghost"
-            className="absolute right-1.5 top-1/2 size-7 -translate-y-1/2 text-muted-foreground hover:text-foreground hover:bg-muted/60"
+            className="absolute right-1.5 top-1/2 size-7 -translate-y-1/2 text-muted-foreground hover:text-foreground hover:bg-muted/60 pointer-coarse:size-11"
             onClick={() => {
               onValueChange("");
               onClear?.();

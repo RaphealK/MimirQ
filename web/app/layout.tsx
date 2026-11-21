@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { cookies, headers } from "next/headers";
 import { connection } from "next/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -20,6 +20,12 @@ import {
   normalizeSurfaceTheme,
   SURFACE_THEME_COOKIE_KEY,
 } from "@/lib/theme-surface";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "MimirQ - 可检查、可回归的 RAG 知识库",

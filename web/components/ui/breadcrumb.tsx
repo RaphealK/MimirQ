@@ -64,7 +64,7 @@ export function Breadcrumb({ items, className }: Readonly<BreadcrumbProps>) {
             ) : (
               <Link
                 href={item.href}
-                className="truncate text-muted-foreground transition-colors hover:text-foreground"
+                className="truncate text-muted-foreground transition-colors hover:text-foreground pointer-coarse:inline-flex pointer-coarse:min-h-11 pointer-coarse:min-w-11 pointer-coarse:items-center"
               >
                 {item.label}
               </Link>

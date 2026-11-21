@@ -234,6 +234,31 @@ describe("useNavbarSidebar", () => {
     view.unmount();
   });
 
+  it("locks body scrolling only while the mobile drawer is open and releases it across breakpoints", () => {
+    const view = renderSidebar(390);
+
+    expect(document.body.dataset.navbarDrawerOpen).toBeUndefined();
+
+    act(() => {
+      controller.toggle();
+    });
+
+    expect(document.body.dataset.navbarDrawerOpen).toBe("true");
+    expect(document.body.style.overflow).toBe("hidden");
+    expect(document.body.style.overscrollBehavior).toBe("contain");
+
+    // Rotating to the 768–1023px rail must not leave the document locked.
+    act(() => setViewport(900));
+
+    expect(controller.isOverlay).toBe(false);
+    expect(controller.isDrawerOpen).toBe(false);
+    expect(document.body.dataset.navbarDrawerOpen).toBeUndefined();
+    expect(document.body.style.overflow).toBe("");
+    expect(document.body.style.overscrollBehavior).toBe("");
+
+    view.unmount();
+  });
+
   it("reapplies breakpoint defaults when crossing breakpoints", () => {
     const view = renderSidebar(1440);
 

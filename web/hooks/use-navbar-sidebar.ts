@@ -101,6 +101,10 @@ export function useNavbarSidebar(enabled = true): NavbarSidebarController {
       return;
     }
 
+    // Rotating out of the drawer breakpoint must drop the modal state so the
+    // body scroll lock is released with it.
+    setIsDrawerOpen(false);
+
     if (resolvedBreakpoint === "desktop") {
       setIsExpanded(readBreakpointPreference("desktop") ?? true);
       return;
@@ -132,6 +136,28 @@ export function useNavbarSidebar(enabled = true): NavbarSidebarController {
   }, []);
 
   const isOverlay = breakpoint === "mobile";
+
+  // Lock the document only while the modal drawer is open. The app already
+  // scrolls inside panels, so this only stops accidental page-level scrolling
+  // and is released on close, unmount, or an orientation/breakpoint change.
+  useEffect(() => {
+    if (!enabled || !isOverlay || !isDrawerOpen) return;
+    if (globalThis.document === undefined) return;
+
+    const body = globalThis.document.body;
+    const previousOverflow = body.style.overflow;
+    const previousOverscrollBehavior = body.style.overscrollBehavior;
+    body.dataset.navbarDrawerOpen = "true";
+    body.style.overflow = "hidden";
+    body.style.overscrollBehavior = "contain";
+
+    return () => {
+      delete body.dataset.navbarDrawerOpen;
+      body.style.overflow = previousOverflow;
+      body.style.overscrollBehavior = previousOverscrollBehavior;
+    };
+  }, [enabled, isDrawerOpen, isOverlay]);
+
   const isVisible = !isOverlay || isDrawerOpen;
 
   return {

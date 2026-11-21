@@ -12,7 +12,9 @@ export function PageHeaderBar({
   return (
     <div
       className={cn(
-        "sticky top-0 z-20 border-b border-border bg-surface supports-[padding:env(safe-area-inset-top)]:pt-[env(safe-area-inset-top)]",
+        // The AppFrame shell already offsets the top safe area once; adding the
+        // inset here as well would double-pad every page toolbar.
+        "sticky top-0 z-20 border-b border-border bg-surface",
         className,
       )}
     >

@@ -214,6 +214,25 @@ const DEFAULT_OPEN_SECTIONS = new Set<SectionId>([
   "analysis",
 ]);
 const OPEN_SECTIONS_STORAGE_KEY = "mimirq_navbar_open_sections_v2";
+const DRAWER_FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
+function getDrawerFocusableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(DRAWER_FOCUSABLE_SELECTOR),
+  ).filter(
+    (element) =>
+      element.getAttribute("tabindex") !== "-1" &&
+      !element.closest('[hidden], [inert], [aria-hidden="true"]'),
+  );
+}
+
 const NAVIGATION_PARENT_ROUTES: Record<string, string> = {
   "/knowledge/similarity": "/evaluations",
 };
@@ -410,24 +429,58 @@ export function Navbar({
     }));
   }, []);
 
-  // Accessibility: 遮罩抽屉打开时 Esc 关闭，并把焦点交还给顶栏开关。
+  // Accessibility: while the overlay drawer is open, Escape closes it and
+  // returns focus to the topbar toggle; Tab is trapped inside the drawer.
   useEffect(() => {
     if (!isOverlay || !isDrawerOpen) return;
     if (globalThis.window === undefined) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented) return;
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      closeDrawer();
-      toggleButtonRef?.current?.focus();
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeDrawer();
+        toggleButtonRef?.current?.focus();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const nav = navRef.current;
+      if (!nav) return;
+      const focusable = getDrawerFocusableElements(nav);
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      const focusIsInsideNav = active instanceof Node && nav.contains(active);
+
+      if (event.shiftKey) {
+        if (!focusIsInsideNav || active === first) {
+          event.preventDefault();
+          last.focus();
+        }
+        return;
+      }
+
+      if (!focusIsInsideNav || active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     globalThis.window.addEventListener("keydown", onKeyDown);
     return () => globalThis.window.removeEventListener("keydown", onKeyDown);
   }, [closeDrawer, isDrawerOpen, isOverlay, toggleButtonRef]);
 
-  // Accessibility: 抽屉打开时焦点进入导航；关闭时若焦点仍在导航内则回到开关。
+  // Accessibility: 抽屉打开时焦点进入导航；关闭后把焦点交还顶栏开关。
+  // The shell removes inert from the topbar during the closing commit, so the
+  // restore is deferred one frame rather than attempted while still inert.
   useEffect(() => {
     if (globalThis.window === undefined) return;
     const wasOpen = previousDrawerOpenRef.current;
@@ -442,15 +495,16 @@ export function Navbar({
       return;
     }
 
-    const active = document.activeElement;
-    const focusIsInsideNav = Boolean(
-      navRef.current &&
-      active instanceof Node &&
-      navRef.current.contains(active),
-    );
-    if (!active || active === document.body || focusIsInsideNav) {
-      toggleButton?.focus();
+    if (!toggleButton) return;
+    // The app shell marks the topbar inert while the drawer is open. Wait for
+    // the closing commit to remove that attribute before restoring focus.
+    const focusToggle = () => toggleButton.focus();
+    if (typeof globalThis.requestAnimationFrame === "function") {
+      const frame = globalThis.requestAnimationFrame(focusToggle);
+      return () => globalThis.cancelAnimationFrame(frame);
     }
+    const timer = globalThis.setTimeout(focusToggle, 0);
+    return () => globalThis.clearTimeout(timer);
   }, [isDrawerOpen, isOverlay, toggleButtonRef]);
 
   useEffect(() => {
@@ -577,6 +631,7 @@ export function Navbar({
       {isOverlay && isDrawerOpen ? (
         <button
           type="button"
+          tabIndex={-1}
           aria-label={t("toolbar.sidebarClose")}
           data-navbar-backdrop="true"
           className="fixed inset-0 z-40 border-0 bg-foreground/30 p-0 transition-opacity duration-180 focus:outline-none md:hidden"
@@ -607,6 +662,7 @@ export function Navbar({
           "z-50 flex shrink-0 flex-col border-r border-border bg-background text-foreground",
           "fixed inset-y-0 left-0 w-56 md:relative md:inset-auto",
           "transition-[width,opacity] duration-180 ease-out",
+          isOverlay ? "safe-area-pt safe-area-pb safe-area-px" : "",
           isVisible ? "opacity-100" : "pointer-events-none opacity-0",
           isCollapsed ? "md:w-16" : "md:w-56",
         )}
@@ -624,7 +680,7 @@ export function Navbar({
             title={isCollapsed ? "MimirQ" : undefined}
             onClick={handleNavigate}
             className={cn(
-              "flex min-w-0 items-center gap-2 rounded-md focus-ring",
+              "flex min-w-0 items-center gap-2 rounded-md focus-ring pointer-coarse:min-h-11 pointer-coarse:min-w-11",
               isCollapsed ? "justify-center" : "",
             )}
           >

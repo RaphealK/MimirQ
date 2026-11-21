@@ -503,6 +503,79 @@ describe("Navbar behavior", () => {
     view.unmount();
   });
 
+  it("traps Tab inside the open drawer and returns focus on backdrop click", () => {
+    const closeDrawer = vi.fn();
+    const toggleButton = document.createElement("button");
+    document.body.appendChild(toggleButton);
+    const toggleButtonRef = { current: toggleButton };
+    const view = renderComponent(
+      React.createElement(Navbar, {
+        sidebar: createSidebar({
+          breakpoint: "mobile",
+          isOverlay: true,
+          isDrawerOpen: true,
+          isVisible: true,
+          closeDrawer,
+        }),
+        toggleButtonRef,
+      }),
+    );
+
+    const nav = view.container.querySelector(
+      "#mimirq-sidebar",
+    ) as HTMLElement | null;
+    expect(nav).not.toBeNull();
+    const focusable = Array.from(
+      nav?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ) ?? [],
+    ).filter(
+      (element) =>
+        element.getAttribute("tabindex") !== "-1" &&
+        !element.closest('[hidden], [inert], [aria-hidden="true"]'),
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    act(() => {
+      first.focus();
+      window.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Tab",
+          shiftKey: true,
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    expect(document.activeElement).toBe(last);
+
+    act(() => {
+      window.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          key: "Tab",
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+    });
+    expect(document.activeElement).toBe(first);
+
+    const backdrop = view.container.querySelector(
+      "[data-navbar-backdrop]",
+    ) as HTMLButtonElement | null;
+    expect(backdrop?.getAttribute("tabindex")).toBe("-1");
+    act(() => {
+      backdrop?.click();
+    });
+
+    expect(closeDrawer).toHaveBeenCalledTimes(1);
+    expect(document.activeElement).toBe(toggleButton);
+
+    view.unmount();
+    toggleButton.remove();
+  });
+
   it("hides a closed overlay from focus and closes it with Escape", () => {
     const closeDrawer = vi.fn();
     const toggleButton = document.createElement("button");

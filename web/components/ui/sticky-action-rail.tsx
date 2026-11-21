@@ -12,7 +12,7 @@ export function StickyActionRail({
   return (
     <div
       className={cn(
-        "sticky bottom-0 z-20 mt-4 border-t border-border bg-surface px-3 py-2",
+        "sticky bottom-0 z-20 mt-4 border-t border-border bg-surface px-3 pt-2 safe-area-pb-rail",
         className,
       )}
     >

@@ -74,14 +74,16 @@ export function AppFrame({
   return (
     <div
       className={cn(
-        "relative h-dvh overflow-hidden bg-background text-foreground",
+        // The shell owns the top safe area exactly once; page toolbars below it
+        // must not add their own inset (see page-header-bar.tsx).
+        "relative h-dvh overflow-hidden bg-background text-foreground safe-area-pt safe-area-px",
         className,
       )}
     >
       <a
         ref={skipLinkRef}
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:rounded-md focus:border focus:border-border focus:bg-background focus:px-3 focus:py-2 focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-[calc(env(safe-area-inset-top)+0.75rem)] focus:left-[calc(env(safe-area-inset-left)+0.75rem)] focus:z-60 focus:rounded-md focus:border focus:border-border focus:bg-background focus:px-3 focus:py-2 focus:text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
       >
         {t("skipToMainContent")}
       </a>

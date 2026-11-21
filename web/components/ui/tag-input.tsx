@@ -115,7 +115,7 @@ export function TagInput({
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="size-6 rounded-full hover:bg-muted"
+                className="relative size-6 rounded-full hover:bg-muted pointer-coarse:before:absolute pointer-coarse:before:-inset-2.5 pointer-coarse:before:content-['']"
                 onClick={() => removeTag(tag)}
                 disabled={disabled}
                 aria-label={t("tagInput.removeLabel", { tag })}
@@ -147,12 +147,12 @@ export function TagInput({
           }}
           placeholder={resolvedPlaceholder}
           disabled={disabled}
-          className={cn("h-10 rounded-md", inputClassName)}
+          className={cn("h-11 rounded-md pointer-fine:sm:h-10", inputClassName)}
         />
         <Button
           type="button"
           variant="outline"
-          className="h-10 rounded-md"
+          className="h-11 rounded-md pointer-fine:sm:h-10"
           onClick={commitDraft}
           disabled={disabled || !draft.trim()}
         >
