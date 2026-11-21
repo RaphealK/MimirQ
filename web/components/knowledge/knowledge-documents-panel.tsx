@@ -1092,24 +1092,13 @@ export function KnowledgeDocumentsPanel({
                         if (isInteractiveTarget(event.target)) return;
                         onOpenDetail(doc, event.currentTarget);
                       }}
-                      onKeyDownCapture={(event) => {
-                        if (event.target !== event.currentTarget) {
-                          event.stopPropagation();
-                        }
+                      ref={(row) => {
+                        if (row) rowElementsRef.current.set(doc.id, row);
+                        else rowElementsRef.current.delete(doc.id);
+                        docsTableVirtualizer.measureElement(row);
                       }}
                     >
-                      <td
-                        ref={(node) => {
-                          rowElementsRef.current.set(
-                            doc.id,
-                            node?.parentElement ?? null,
-                          );
-                          docsTableVirtualizer.measureElement(
-                            node?.parentElement ?? null,
-                          );
-                        }}
-                        className="w-10"
-                      >
+                      <td className="w-10">
                         <span className="flex size-10 items-center justify-center">
                           <input
                             type="checkbox"
