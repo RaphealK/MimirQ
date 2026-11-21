@@ -214,9 +214,11 @@ export function KnowledgeScopePanel({
                     className="size-3.5 shrink-0 cursor-pointer accent-[hsl(var(--primary))]"
                   />
                   <span className="min-w-0 flex-1 truncate">{item.label}</span>
-                  <span className="font-mono text-micro tabular-nums text-muted-foreground">
-                    {item.count}
-                  </span>
+                  {item.key === "all" ? null : (
+                    <span className="font-mono text-micro tabular-nums text-muted-foreground">
+                      {item.count}
+                    </span>
+                  )}
                 </label>
               ))}
             </div>

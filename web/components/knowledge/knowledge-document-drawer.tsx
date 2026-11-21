@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-
 import { KnowledgeInspector } from "@/components/knowledge/knowledge-inspector";
 import {
   Sheet,
@@ -31,16 +29,8 @@ export function KnowledgeDocumentDrawer({
   onOpenOriginal,
   onAfterClose,
 }: Readonly<KnowledgeDocumentDrawerProps>) {
-  const lastDocRef = useRef<Document | null>(doc);
-
-  useEffect(() => {
-    if (doc) lastDocRef.current = doc;
-  }, [doc]);
-
-  const resolvedDoc = doc ?? lastDocRef.current;
-
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open && Boolean(doc)} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
         overlayClassName="bg-transparent"
@@ -59,7 +49,7 @@ export function KnowledgeDocumentDrawer({
         <div className="min-h-0 flex-1 overflow-hidden">
           <KnowledgeInspector
             embedded
-            selectedDocs={resolvedDoc ? [resolvedDoc] : []}
+            selectedDocs={doc ? [doc] : []}
             onOpenOriginal={onOpenOriginal}
           />
         </div>

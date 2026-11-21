@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
+  Activity,
   Filter,
   History,
   LayoutGrid,
@@ -41,6 +42,13 @@ import { KnowledgeWorkbenchActions } from "@/components/knowledge/knowledge-work
 import { RetrievePreviewPanel } from "@/components/rag/retrieve-preview-panel";
 import { Button } from "@/components/ui/button";
 import { IconButton } from "@/components/ui/icon-button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import {
   WorkbenchPanelDialog,
   WorkbenchScaffold,
@@ -101,8 +109,8 @@ export default function KnowledgePage() {
   >(initialQueryState.connectorRunId);
   const [peekingDocId, setPeekingDocId] = useState<string | null>(null);
   const [showConnectorRunsPanel, setShowConnectorRunsPanel] = useState(false);
+  const [showRetrievalAuditPanel, setShowRetrievalAuditPanel] = useState(false);
   const [mobileScopeOpen, setMobileScopeOpen] = useState(false);
-  const [mobileRunsOpen, setMobileRunsOpen] = useState(false);
   const detailTriggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -336,7 +344,7 @@ export default function KnowledgePage() {
       setSelectedDocIds([]);
       setPeekingDocId(null);
       setShowConnectorRunsPanel(false);
-      setMobileRunsOpen(false);
+      setShowRetrievalAuditPanel(false);
     }
   }, [activeTab]);
 
@@ -436,12 +444,19 @@ export default function KnowledgePage() {
           archive: documentApi.batchArchive,
           unarchive: documentApi.batchUnarchive,
         }[action];
-        await lifecycleAction(selectedDocIds);
+        const result = await lifecycleAction(selectedDocIds);
         toast.success(
           t(`toasts.batchLifecycle.${action}`, {
-            count: selectedDocIds.length,
+            count: result.updated,
           }),
         );
+        const rejected =
+          (result.denied?.length ?? 0) +
+          (result.not_found?.length ?? 0) +
+          (result.conflicts?.length ?? 0);
+        if (rejected > 0) {
+          toast.warning(`${rejected} 份文档未处理（拒绝、未找到或冲突）`);
+        }
         await loadDocuments();
       } catch (err) {
         toast.error(formatApiError(err, t("toasts.batchLifecycleFailed")));
@@ -525,7 +540,7 @@ export default function KnowledgePage() {
         null;
       setPeekingDocId(doc.id);
       setShowConnectorRunsPanel(false);
-      setMobileRunsOpen(false);
+      setShowRetrievalAuditPanel(false);
     },
     [],
   );
@@ -534,7 +549,7 @@ export default function KnowledgePage() {
     (doc: Document) => {
       setPeekingDocId(null);
       setShowConnectorRunsPanel(false);
-      setMobileRunsOpen(false);
+      setShowRetrievalAuditPanel(false);
       openDocument(doc.id, undefined, undefined, { activeTab: "preview" });
     },
     [openDocument],
@@ -558,7 +573,7 @@ export default function KnowledgePage() {
       openDocument(id, undefined, undefined, { activeTab: "chunks" });
       setPeekingDocId(null);
       setShowConnectorRunsPanel(false);
-      setMobileRunsOpen(false);
+      setShowRetrievalAuditPanel(false);
     },
     [openDocument],
   );
@@ -596,14 +611,14 @@ export default function KnowledgePage() {
         <WorkbenchScaffold
           className="relative z-10"
           title={t("header.title")}
-          headerClassName="px-0"
+          headerClassName="mx-auto w-full max-w-page px-0"
           header={
             <header
               data-testid="knowledge-page-toolbar"
               className="flex flex-col gap-2 border-b border-foreground/15 pb-3 sm:flex-row sm:items-end sm:justify-between"
             >
               <div className="min-w-0">
-                <h1 className="text-title-sm font-semibold text-foreground">
+                <h1 className="text-title font-semibold text-foreground">
                   {t("header.title")}
                 </h1>
                 <p className="mt-0.5 truncate text-caption text-muted-foreground">
@@ -614,32 +629,34 @@ export default function KnowledgePage() {
           }
           size="full"
           toolbar={
-            <div className="flex flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
-              <div
-                role="tablist"
-                aria-label={t("header.title")}
-                className="flex items-center gap-1"
-              >
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.key}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeTab === tab.key}
-                    onClick={() => {
-                      setActiveTab(tab.key);
-                      setPeekingDocId(null);
-                    }}
-                    className={cn(
-                      "min-h-11 border-b-2 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8",
-                      activeTab === tab.key
-                        ? "border-primary font-medium text-foreground"
-                        : "border-transparent text-muted-foreground hover:text-foreground",
-                    )}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
+            <div className="mx-auto flex w-full max-w-page flex-col gap-2 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex items-center gap-1">
+                <div
+                  role="tablist"
+                  aria-label={t("header.title")}
+                  className="flex items-center gap-1"
+                >
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab.key}
+                      type="button"
+                      role="tab"
+                      aria-selected={activeTab === tab.key}
+                      onClick={() => {
+                        setActiveTab(tab.key);
+                        setPeekingDocId(null);
+                      }}
+                      className={cn(
+                        "min-h-11 border-b-2 px-2 pb-1.5 pt-1 text-compact transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 sm:min-h-8",
+                        activeTab === tab.key
+                          ? "border-primary font-medium text-foreground"
+                          : "border-transparent text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
                 <span aria-hidden="true" className="mx-1 h-4 w-px bg-border" />
                 <Link
                   href={
@@ -681,19 +698,6 @@ export default function KnowledgePage() {
                   筛选
                 </Button>
 
-                {activeTab === "documents" ? (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="xl:hidden"
-                    onClick={() => setMobileRunsOpen(true)}
-                  >
-                    <History className="size-3.5" aria-hidden="true" />
-                    任务
-                  </Button>
-                ) : null}
-
                 <Button
                   type="button"
                   variant="ghost"
@@ -716,6 +720,22 @@ export default function KnowledgePage() {
                     : t("actions.hideScope")}
                 </Button>
 
+                {activeTab === "retrieval" ? (
+                  <Button
+                    type="button"
+                    variant={showRetrievalAuditPanel ? "secondary" : "outline"}
+                    size="sm"
+                    onClick={() => {
+                      setShowConnectorRunsPanel(false);
+                      setPeekingDocId(null);
+                      setShowRetrievalAuditPanel((prev) => !prev);
+                    }}
+                  >
+                    <Activity className="size-3.5" aria-hidden="true" />
+                    索引审计
+                  </Button>
+                ) : null}
+
                 {activeTab === "documents" ? (
                   <>
                     <Button
@@ -726,8 +746,8 @@ export default function KnowledgePage() {
                           : "ghost"
                       }
                       size="sm"
-                      className="hidden xl:inline-flex"
                       onClick={() => {
+                        setShowRetrievalAuditPanel(false);
                         setShowConnectorRunsPanel((prev) => {
                           const next = !prev;
                           if (next) setPeekingDocId(null);
@@ -792,8 +812,12 @@ export default function KnowledgePage() {
                       variant={showConnectorRunsPanel ? "secondary" : "ghost"}
                       size="sm"
                       onClick={() => {
-                        setShowConnectorRunsPanel((prev) => !prev);
-                        setPeekingDocId(null);
+                        setShowRetrievalAuditPanel(false);
+                        setShowConnectorRunsPanel((prev) => {
+                          const next = !prev;
+                          if (next) setPeekingDocId(null);
+                          return next;
+                        });
                       }}
                     >
                       <History className="size-3.5" aria-hidden="true" />
@@ -826,12 +850,12 @@ export default function KnowledgePage() {
           toolbarClassName="px-0 py-2"
           bodyClassName="min-h-0 pb-4"
           paneGroupClassName="gap-0 overflow-hidden"
-          mainPaneClassName="!rounded-none !border-0 !bg-transparent !shadow-none"
+          mainPaneClassName="rounded-none! border-0! bg-transparent! shadow-none!"
           mainPaneBodyClassName={cn(
             "bg-transparent",
             activeTab === "retrieval"
               ? "overflow-y-auto p-4"
-              : "!overflow-hidden !p-0",
+              : "overflow-hidden! p-0!",
           )}
         >
           <div
@@ -840,7 +864,7 @@ export default function KnowledgePage() {
             aria-hidden="true"
           />
 
-          <div className="flex h-full min-h-0">
+          <div className="mx-auto flex h-full min-h-0 w-full max-w-page">
             {!desktopScopeCollapsed && activeTab !== "settings" ? (
               <aside className="hidden w-[200px] shrink-0 flex-col overflow-hidden border-r border-border lg:flex">
                 {scopePanel}
@@ -854,6 +878,7 @@ export default function KnowledgePage() {
                   isLoading={isLoading}
                   documents={scopedDocuments}
                   filteredDocuments={paginatedDocuments}
+                  filteredDocumentsAll={filteredDocuments}
                   totalDocumentsCount={filteredDocuments.length}
                   datasets={datasets}
                   selectedDatasetId={selectedDatasetId}
@@ -953,28 +978,62 @@ export default function KnowledgePage() {
               </div>
             </WorkbenchPanelDialog>
           </div>
-
-          {activeTab === "documents" ? (
-            <WorkbenchPanelDialog
-              open={mobileRunsOpen}
-              onOpenChange={setMobileRunsOpen}
-              title="任务历史"
-              className="xl:hidden"
-            >
-              <div className="flex h-full min-h-0 flex-col overflow-hidden">
-                <KnowledgeConnectorRunsPanel
-                  selectedDatasetId={selectedDatasetId}
-                  connectorRuns={connectorRuns}
-                  connectorRunsLoading={connectorRunsLoading}
-                  onCancelConnectorRun={cancelConnectorRun}
-                  onResumeConnectorRun={resumeConnectorRun}
-                  onRetryFailedConnectorRun={retryFailedConnectorRun}
-                  onLoadConnectorRuns={loadConnectorRuns}
-                />
-              </div>
-            </WorkbenchPanelDialog>
-          ) : null}
         </WorkbenchScaffold>
+
+        <Sheet
+          open={showConnectorRunsPanel}
+          onOpenChange={setShowConnectorRunsPanel}
+        >
+          <SheetContent
+            side="right"
+            overlayClassName="bg-transparent"
+            className="flex w-[min(480px,100vw)] flex-col gap-0 border-l border-border bg-background p-0 shadow-none sm:max-w-[480px]"
+          >
+            <SheetHeader className="border-b border-border px-4 py-3 text-left">
+              <SheetTitle className="text-title-sm">任务历史</SheetTitle>
+              <SheetDescription className="text-caption text-muted-foreground">
+                查看连接器任务的进度，并取消、恢复或重试失败任务。
+              </SheetDescription>
+            </SheetHeader>
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <KnowledgeConnectorRunsPanel
+                selectedDatasetId={selectedDatasetId}
+                connectorRuns={connectorRuns}
+                connectorRunsLoading={connectorRunsLoading}
+                onCancelConnectorRun={cancelConnectorRun}
+                onResumeConnectorRun={resumeConnectorRun}
+                onRetryFailedConnectorRun={retryFailedConnectorRun}
+                onLoadConnectorRuns={loadConnectorRuns}
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
+
+        <Sheet
+          open={showRetrievalAuditPanel}
+          onOpenChange={setShowRetrievalAuditPanel}
+        >
+          <SheetContent
+            side="right"
+            overlayClassName="bg-transparent"
+            className="flex w-[min(420px,100vw)] flex-col gap-0 border-l border-border bg-background p-0 shadow-none sm:max-w-[420px]"
+          >
+            <SheetHeader className="border-b border-border px-4 py-3 text-left">
+              <SheetTitle className="text-title-sm">索引审计</SheetTitle>
+              <SheetDescription className="text-caption text-muted-foreground">
+                当前数据集的索引一致性检查（Postgres ↔ 向量库）。
+              </SheetDescription>
+            </SheetHeader>
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+              <KnowledgeRetrievalPanel
+                selectedDatasetId={selectedDatasetId}
+                aggregateDocuments={totalDocs}
+                aggregateChunks={totalChunksValue}
+                compact
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
 
         <KnowledgeDocumentDrawer
           doc={peekingDoc}

@@ -4,11 +4,10 @@ import type { Dataset, Document } from "@/types";
 import {
   Activity,
   Database,
+  Download,
   Filter,
-  Layers,
   Loader2,
   MoreVertical,
-  Plus,
   RefreshCw,
   RotateCcw,
   Trash2,
@@ -65,6 +64,7 @@ import { Link } from "@/i18n/navigation";
 import { formatApiError } from "@/lib/api-errors";
 import { buildChunkPreviewDocumentHref } from "@/lib/chunk-preview-links";
 import { reportClientError } from "@/lib/client-logging";
+import { toTrimmedPrimitiveString } from "@/lib/primitive-text";
 import { detachPromise, formatDate, formatFileSize, cn } from "@/lib/utils";
 
 type ViewMode = "grid" | "list";
@@ -91,6 +91,7 @@ type KnowledgeDocumentsPanelProps = {
   isLoading: boolean;
   documents: Document[];
   filteredDocuments: Document[];
+  filteredDocumentsAll: Document[];
   totalDocumentsCount: number;
   datasets?: Dataset[];
   embedded?: boolean;
@@ -223,6 +224,7 @@ export function KnowledgeDocumentsPanel({
   isLoading,
   documents,
   filteredDocuments,
+  filteredDocumentsAll,
   totalDocumentsCount,
   embedded = false,
   datasets,
@@ -304,6 +306,8 @@ export function KnowledgeDocumentsPanel({
     let totalBytes = 0;
     let latestUpload = 0;
     let hasCharacters = documents.length > 0;
+    let hasChunks = documents.length > 0;
+    let hasFileSizes = documents.length > 0;
 
     for (const doc of documents) {
       if (
@@ -311,6 +315,8 @@ export function KnowledgeDocumentsPanel({
         Number.isFinite(doc.chunk_count)
       ) {
         totalChunks += doc.chunk_count;
+      } else {
+        hasChunks = false;
       }
       if (
         typeof doc.total_characters === "number" &&
@@ -322,6 +328,8 @@ export function KnowledgeDocumentsPanel({
       }
       if (typeof doc.file_size === "number" && Number.isFinite(doc.file_size)) {
         totalBytes += doc.file_size;
+      } else {
+        hasFileSizes = false;
       }
       const uploaded = new Date(doc.created_at).getTime();
       if (Number.isFinite(uploaded) && uploaded > latestUpload) {
@@ -339,6 +347,8 @@ export function KnowledgeDocumentsPanel({
       totalBytes,
       latestUpload,
       averageChunkCharacters,
+      hasChunks,
+      hasFileSizes,
     };
   }, [documents]);
 
@@ -346,7 +356,9 @@ export function KnowledgeDocumentsPanel({
     {
       id: "chunks",
       label: "总分块",
-      value: `${aggregates.totalChunks.toLocaleString("zh-CN")}`,
+      value: aggregates.hasChunks
+        ? `${aggregates.totalChunks.toLocaleString("zh-CN")}`
+        : emptyValue,
       detail: "当前加载范围",
       mono: true,
     },
@@ -363,7 +375,9 @@ export function KnowledgeDocumentsPanel({
     {
       id: "size",
       label: "文档体积",
-      value: formatFileSize(aggregates.totalBytes),
+      value: aggregates.hasFileSizes
+        ? formatFileSize(aggregates.totalBytes)
+        : emptyValue,
       detail: "文件字节",
       mono: true,
     },
@@ -421,6 +435,60 @@ export function KnowledgeDocumentsPanel({
     },
     [onOpenDetail],
   );
+
+  const exportFilteredCsv = useCallback(() => {
+    const rows = filteredDocumentsAll;
+    if (!rows.length) return;
+    const header = [
+      "filename",
+      "id",
+      "dataset_id",
+      "status",
+      "chunk_count",
+      "file_size",
+      "created_at",
+      "lifecycle",
+      "source_path",
+    ];
+    const escape = (value: string | number) => {
+      const raw = String(value);
+      // Spreadsheet editors must treat filenames and paths as text.
+      const cell =
+        typeof value === "string" &&
+        (/^[=+@-]/.test(raw.trimStart()) || /^[\t\r\n]/.test(raw))
+          ? `'${raw}`
+          : raw;
+      return `"${cell.replaceAll('"', '""')}"`;
+    };
+    const lines = rows.map((doc) =>
+      [
+        doc.filename,
+        doc.id,
+        doc.dataset_id ?? "",
+        doc.status,
+        doc.chunk_count ?? "",
+        doc.file_size ?? "",
+        doc.created_at,
+        doc.archived_at ? "archived" : doc.disabled_at ? "disabled" : "active",
+        toTrimmedPrimitiveString(doc.metadata?.source_path),
+      ]
+        .map(escape)
+        .join(","),
+    );
+    const csv = [header.map(escape).join(","), ...lines].join("\r\n");
+    const blob = new Blob(["\uFEFF", csv], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = globalThis.document.createElement("a");
+    anchor.href = url;
+    anchor.download = `knowledge-documents-${new Date()
+      .toISOString()
+      .slice(0, 10)}.csv`;
+    anchor.click();
+    globalThis.window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    toast.success(`已导出 ${rows.length} 条当前筛选记录`);
+  }, [filteredDocumentsAll]);
 
   const renderRowMenu = (doc: Document) => (
     <DropdownMenu>
@@ -523,10 +591,8 @@ export function KnowledgeDocumentsPanel({
           }
         }}
         className={cn(
-          "group flex h-full min-h-28 flex-col border bg-background p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
-          selectedSet.has(doc.id)
-            ? "border-primary bg-selected"
-            : "border-border hover:bg-muted/50",
+          "group flex h-full min-h-28 flex-col border-r border-b border-border bg-background p-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
+          selectedSet.has(doc.id) ? "bg-selected" : "hover:bg-muted/50",
         )}
       >
         <div className="flex items-start justify-between gap-2">
@@ -549,14 +615,20 @@ export function KnowledgeDocumentsPanel({
             </span>
           </span>
           <span className="flex shrink-0 items-center gap-1">
-            <input
-              type="checkbox"
-              checked={selectedSet.has(doc.id)}
-              onChange={() => toggleDocSelection(doc.id)}
+            <label
+              className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11"
               onClick={(event) => event.stopPropagation()}
-              aria-label={t("table.selectDocument", { filename: doc.filename })}
-              className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
-            />
+            >
+              <input
+                type="checkbox"
+                checked={selectedSet.has(doc.id)}
+                onChange={() => toggleDocSelection(doc.id)}
+                aria-label={t("table.selectDocument", {
+                  filename: doc.filename,
+                })}
+                className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
+              />
+            </label>
             {renderRowMenu(doc)}
           </span>
         </div>
@@ -596,6 +668,40 @@ export function KnowledgeDocumentsPanel({
       (docsTableVirtualRows.at(-1)?.end ?? 0)
     : 0;
 
+  const paginationFooter = (
+    <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border bg-background px-3 py-2">
+      <span className="text-caption text-muted-foreground">
+        显示 {pageStart}-{pageEnd} / 共 {visibleDocumentsCount} 条
+      </span>
+      <span className="inline-flex h-8 items-center border border-border px-2 text-caption text-muted-foreground">
+        {pageSize} 条/页
+      </span>
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
+          disabled={page <= 1}
+          aria-label="上一页"
+          onClick={() => onPageChange(page - 1)}
+        >
+          ‹
+        </button>
+        <span className="inline-flex h-8 min-w-[5rem] items-center justify-center border border-border px-2 font-mono text-caption tabular-nums text-foreground">
+          {page} / {pageCount}
+        </span>
+        <button
+          type="button"
+          className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
+          disabled={page >= pageCount}
+          aria-label="下一页"
+          onClick={() => onPageChange(page + 1)}
+        >
+          ›
+        </button>
+      </div>
+    </div>
+  );
+
   const inventoryToolbar = (
     <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
       <SearchInput
@@ -605,7 +711,7 @@ export function KnowledgeDocumentsPanel({
         inputClassName="text-caption"
         placeholder={
           showDatasetColumn
-            ? "搜索文件名 / 文档 ID / 数据集"
+            ? "搜索文件名 / 文档 ID / 数据集 ID"
             : "搜索文件名 / 文档 ID"
         }
       />
@@ -658,6 +764,17 @@ export function KnowledgeDocumentsPanel({
         >
           <Activity className="size-3.5" aria-hidden="true" />
           运维工具
+        </Button>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          disabled={!filteredDocumentsAll.length}
+          onClick={exportFilteredCsv}
+        >
+          <Download className="size-3.5" aria-hidden="true" />
+          导出清单
         </Button>
       </div>
     </div>
@@ -960,51 +1077,58 @@ export function KnowledgeDocumentsPanel({
             </div>
           </div>
         ) : showEmptyState ? (
-          emptyContent
+          <>
+            {emptyContent}
+            {paginationFooter}
+          </>
         ) : viewMode === "grid" ? (
-          <div className="p-3">
-            <div
-              aria-label={t("grid.ariaLabel")}
-              style={{
-                height: `${docsGridVirtualizer.getTotalSize()}px`,
-                width: "100%",
-                position: "relative",
-              }}
-            >
-              {docsGridVirtualRows.map((virtualRow) => {
-                const cols = Math.max(1, docGridColumns);
-                const startIndex = virtualRow.index * cols;
-                const rowDocs = filteredDocuments.slice(
-                  startIndex,
-                  startIndex + cols,
-                );
-                return (
-                  <div
-                    key={virtualRow.key}
-                    data-index={virtualRow.index}
-                    ref={docsGridVirtualizer.measureElement}
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      transform: `translateY(${virtualRow.start}px)`,
-                    }}
-                    className="pb-2"
-                  >
+          <>
+            <div className="border-t border-l border-border p-0">
+              <div
+                aria-label={t("grid.ariaLabel")}
+                className="relative border-border"
+                style={{
+                  height: `${docsGridVirtualizer.getTotalSize()}px`,
+                  width: "100%",
+                  position: "relative",
+                }}
+              >
+                {docsGridVirtualRows.map((virtualRow) => {
+                  const cols = Math.max(1, docGridColumns);
+                  const startIndex = virtualRow.index * cols;
+                  const rowDocs = filteredDocuments.slice(
+                    startIndex,
+                    startIndex + cols,
+                  );
+                  return (
                     <div
-                      className={cn(
-                        "grid items-stretch gap-2",
-                        docsGridColsClassName,
-                      )}
+                      key={virtualRow.key}
+                      data-index={virtualRow.index}
+                      ref={docsGridVirtualizer.measureElement}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        transform: `translateY(${virtualRow.start}px)`,
+                      }}
+                      className="border-b border-border"
                     >
-                      {rowDocs.map(renderGridDocCard)}
+                      <div
+                        className={cn(
+                          "grid items-stretch",
+                          docsGridColsClassName,
+                        )}
+                      >
+                        {rowDocs.map(renderGridDocCard)}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+            {paginationFooter}
+          </>
         ) : (
           <>
             <DataTable className="min-w-[880px] table-fixed">
@@ -1021,14 +1145,15 @@ export function KnowledgeDocumentsPanel({
               <thead>
                 <tr>
                   <DataTableHeadCell className="sticky top-0 z-10 bg-background">
-                    <input
-                      type="checkbox"
-                      className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
-                      checked={allVisibleSelected}
-                      onChange={toggleSelectAllVisible}
-                      onClick={(event) => event.stopPropagation()}
-                      aria-label={t("table.selectAllVisible")}
-                    />
+                    <label className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11">
+                      <input
+                        type="checkbox"
+                        className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
+                        checked={allVisibleSelected}
+                        onChange={toggleSelectAllVisible}
+                        aria-label={t("table.selectAllVisible")}
+                      />
+                    </label>
                   </DataTableHeadCell>
                   <DataTableHeadCell className="sticky top-0 z-10 bg-background">
                     {t("table.columns.name")}
@@ -1099,18 +1224,20 @@ export function KnowledgeDocumentsPanel({
                       }}
                     >
                       <td className="w-10">
-                        <span className="flex size-10 items-center justify-center">
+                        <label
+                          className="flex size-8 cursor-pointer items-center justify-center [@media(hover:none)]:size-11"
+                          onClick={(event) => event.stopPropagation()}
+                        >
                           <input
                             type="checkbox"
                             className="size-4 cursor-pointer accent-[hsl(var(--primary))]"
                             checked={selectedSet.has(doc.id)}
                             onChange={() => toggleDocSelection(doc.id)}
-                            onClick={(event) => event.stopPropagation()}
                             aria-label={t("table.selectDocument", {
                               filename: doc.filename,
                             })}
                           />
-                        </span>
+                        </label>
                       </td>
                       <DataTableCell name>
                         <span className="flex min-w-0 items-center gap-2">
@@ -1171,37 +1298,7 @@ export function KnowledgeDocumentsPanel({
               </tbody>
             </DataTable>
 
-            <div className="flex flex-wrap items-center justify-end gap-2 border-t border-border px-3 py-2">
-              <span className="text-caption text-muted-foreground">
-                显示 {pageStart}-{pageEnd} / 共 {visibleDocumentsCount} 条
-              </span>
-              <span className="inline-flex h-8 items-center border border-border px-2 text-caption text-muted-foreground">
-                {pageSize} 条/页
-              </span>
-              <div className="flex items-center gap-1">
-                <button
-                  type="button"
-                  className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
-                  disabled={page <= 1}
-                  aria-label="上一页"
-                  onClick={() => onPageChange(page - 1)}
-                >
-                  ‹
-                </button>
-                <span className="inline-flex h-8 min-w-[5rem] items-center justify-center border border-border px-2 font-mono text-caption tabular-nums text-foreground">
-                  {page} / {pageCount}
-                </span>
-                <button
-                  type="button"
-                  className="inline-flex size-11 items-center justify-center border border-border text-muted-foreground transition-colors hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40 sm:size-8"
-                  disabled={page >= pageCount}
-                  aria-label="下一页"
-                  onClick={() => onPageChange(page + 1)}
-                >
-                  ›
-                </button>
-              </div>
-            </div>
+            {paginationFooter}
           </>
         )}
       </div>

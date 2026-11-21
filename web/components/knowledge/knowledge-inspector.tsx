@@ -2,18 +2,20 @@
 
 import Link from "next/link";
 import {
-  CalendarClock,
+  Copy,
   Database,
   ExternalLink,
-  FileSearch,
   FolderTree,
-  Hash,
   Layers,
   Route,
 } from "lucide-react";
+import { useCallback } from "react";
+import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 
 import { DocumentTags } from "@/components/documents/document-tags";
 import { Button } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { Panel } from "@/components/ui/panel";
 import { getFileTypeMeta } from "@/components/knowledge/file-type";
 import { buildChunkPreviewDocumentHref } from "@/lib/chunk-preview-links";
@@ -32,10 +34,8 @@ type KnowledgeInspectorProps = {
 
 const EMPTY_VALUE = "—";
 
-function formatShortId(value: string) {
-  const text = String(value || "").trim();
-  if (!text) return EMPTY_VALUE;
-  return text.length > 24 ? `${text.slice(0, 12)}…${text.slice(-8)}` : text;
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
 function getStatusLabel(status: unknown) {
@@ -55,6 +55,34 @@ function getLifecycleLabel(doc: Document) {
   return "启用中";
 }
 
+function getSourceTypeLabel(doc: Document) {
+  const metadata = isRecord(doc.metadata) ? doc.metadata : {};
+  const source =
+    typeof metadata.source === "string" ? metadata.source.toLowerCase() : "";
+  const sourcePath =
+    typeof metadata.source_path === "string" ? metadata.source_path.trim() : "";
+  if (
+    source.includes("connector") ||
+    source.includes("crawl") ||
+    source.includes("jira")
+  ) {
+    return "连接器";
+  }
+  if (source.includes("url")) return "URL 导入";
+  if (sourcePath) return "目录上传";
+  return "手动导入";
+}
+
+function getParseQualityPercent(doc: Document): number | null {
+  const metadata = isRecord(doc.metadata) ? doc.metadata : {};
+  const quality = isRecord(metadata.parse_quality)
+    ? metadata.parse_quality
+    : null;
+  const rawScore = quality?.score;
+  if (typeof rawScore !== "number" || !Number.isFinite(rawScore)) return null;
+  return Math.round(rawScore * 100);
+}
+
 function buildSourceTrail(sourcePath: string) {
   return sourcePath
     .split("/")
@@ -66,7 +94,13 @@ function MetaRow({
   label,
   value,
   mono = false,
-}: Readonly<{ label: string; value: React.ReactNode; mono?: boolean }>) {
+  wrap = false,
+}: Readonly<{
+  label: string;
+  value: React.ReactNode;
+  mono?: boolean;
+  wrap?: boolean;
+}>) {
   return (
     <div className="flex min-w-0 items-baseline gap-2 border-b border-border py-1.5 last:border-b-0">
       <span className="w-16 shrink-0 text-micro text-muted-foreground">
@@ -74,7 +108,8 @@ function MetaRow({
       </span>
       <span
         className={cn(
-          "min-w-0 flex-1 truncate text-caption text-foreground",
+          "min-w-0 flex-1 text-caption text-foreground",
+          wrap ? "break-all whitespace-normal" : "truncate",
           mono && "font-mono tabular-nums",
         )}
         title={typeof value === "string" ? value : undefined}
@@ -92,6 +127,7 @@ export function KnowledgeInspector({
   embedded = false,
   onOpenOriginal,
 }: Readonly<KnowledgeInspectorProps>) {
+  const t = useTranslations("KnowledgeDocumentsPanel");
   const selected = selectedDocs.length === 1 ? selectedDocs[0] : null;
   const fileType = selected ? getFileTypeMeta(selected) : null;
   const TypeIcon = fileType?.icon;
@@ -104,19 +140,19 @@ export function KnowledgeInspector({
     ? toTrimmedPrimitiveString(metadata?.parser_backend) || "自动"
     : EMPTY_VALUE;
   const userTags = selected ? getUserTagsFromDocument(selected) : [];
+  const qualityPercent = selected ? getParseQualityPercent(selected) : null;
+  const sourceTypeLabel = selected ? getSourceTypeLabel(selected) : EMPTY_VALUE;
 
-  const header = (
-    <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
-      <div className="min-w-0">
-        <div className="text-compact font-medium text-foreground">文档详情</div>
-        <div className="mt-0.5 text-micro text-muted-foreground">
-          元数据、来源与切片入口
-        </div>
-      </div>
-      <span className="font-mono text-micro tabular-nums text-muted-foreground">
-        {selectedDocs.length}
-      </span>
-    </div>
+  const copySourcePath = useCallback(
+    async (path: string) => {
+      try {
+        await globalThis.navigator.clipboard.writeText(path);
+        toast.success(t("toasts.copySourcePath"));
+      } catch {
+        toast.error(t("toasts.copyFailed"));
+      }
+    },
+    [t],
   );
 
   const summary = (() => {
@@ -155,7 +191,12 @@ export function KnowledgeInspector({
           </div>
 
           <div className="border-t border-border">
-            <MetaRow label="文档 ID" value={formatShortId(selected.id)} mono />
+            <MetaRow
+              label="文档 ID"
+              value={selected.id || EMPTY_VALUE}
+              mono
+              wrap
+            />
             <MetaRow
               label="数据集"
               value={
@@ -172,11 +213,13 @@ export function KnowledgeInspector({
                 )
               }
             />
+            <MetaRow label="来源" value={sourceTypeLabel} />
             <MetaRow
               label="大小"
               value={
-                Number.isFinite(Number(selected.file_size))
-                  ? formatFileSize(Number(selected.file_size))
+                typeof selected.file_size === "number" &&
+                Number.isFinite(selected.file_size)
+                  ? formatFileSize(selected.file_size)
                   : EMPTY_VALUE
               }
               mono
@@ -187,7 +230,17 @@ export function KnowledgeInspector({
                 selected.status === "processing" ||
                 selected.status === "pending"
                   ? EMPTY_VALUE
-                  : (selected.chunk_count ?? EMPTY_VALUE)
+                  : typeof selected.chunk_count === "number" &&
+                      Number.isFinite(selected.chunk_count)
+                    ? selected.chunk_count
+                    : EMPTY_VALUE
+              }
+              mono
+            />
+            <MetaRow
+              label="质量"
+              value={
+                qualityPercent === null ? EMPTY_VALUE : `${qualityPercent}%`
               }
               mono
             />
@@ -212,20 +265,35 @@ export function KnowledgeInspector({
             <MetaRow label="解析器" value={parserLabel} />
           </div>
 
+          {qualityPercent !== null && qualityPercent < 60 ? (
+            <p className="border border-warning/40 bg-warning/10 px-2 py-1.5 text-micro text-warning">
+              {t("row.parseQualityLow", { score: qualityPercent })}
+            </p>
+          ) : null}
+
           {userTags.length ? (
             <div>
               <div className="mb-1 text-micro font-medium uppercase tracking-[0.04em] text-muted-foreground">
                 标签
               </div>
-              <DocumentTags tags={userTags} max={6} dense />
+              <DocumentTags tags={userTags} max={0} dense />
             </div>
           ) : null}
 
           {sourcePath ? (
             <div>
-              <div className="mb-1 flex items-center gap-1.5 text-micro font-medium uppercase tracking-[0.04em] text-muted-foreground">
-                <FolderTree className="size-3.5" aria-hidden="true" />
-                来源路径
+              <div className="mb-1 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 text-micro font-medium uppercase tracking-[0.04em] text-muted-foreground">
+                  <FolderTree className="size-3.5" aria-hidden="true" />
+                  来源路径
+                </div>
+                <IconButton
+                  label={t("actions.copySourcePath")}
+                  variant="ghost"
+                  onClick={() => void copySourcePath(sourcePath)}
+                >
+                  <Copy className="size-3.5" />
+                </IconButton>
               </div>
               {sourceTrail.length > 1 ? (
                 <div className="mb-1 break-words text-caption text-muted-foreground">
@@ -269,23 +337,6 @@ export function KnowledgeInspector({
             ) : null}
           </div>
 
-          <div className="grid grid-cols-3 border-y border-border py-2 text-micro text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <FileSearch className="size-3.5" aria-hidden="true" />
-              来源
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Hash className="size-3.5" aria-hidden="true" />
-              {selected.chunk_count ?? EMPTY_VALUE} 分块
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarClock className="size-3.5" aria-hidden="true" />
-              {selected.processed_at
-                ? formatDate(selected.processed_at)
-                : EMPTY_VALUE}
-            </span>
-          </div>
-
           {children}
         </div>
       );
@@ -313,7 +364,6 @@ export function KnowledgeInspector({
       <div
         className={cn("flex min-h-0 flex-1 flex-col bg-background", className)}
       >
-        {header}
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain custom-scrollbar">
           {content}
         </div>
@@ -326,7 +376,6 @@ export function KnowledgeInspector({
       padding="none"
       className={cn("flex min-h-0 flex-col overflow-hidden", className)}
     >
-      {header}
       <div
         data-page-scroll-container="true"
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain custom-scrollbar"

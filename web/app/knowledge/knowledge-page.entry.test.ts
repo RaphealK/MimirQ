@@ -1,182 +1,205 @@
 // Source contract check only; this is not behavior coverage.
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from "node:fs";
+import path from "node:path";
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from "vitest";
 
-describe('knowledge route entry', () => {
-  it('keeps app/knowledge/page.tsx as a thin wrapper (module boundary)', () => {
-    const src = fs.readFileSync(path.resolve(__dirname, 'page.tsx'), 'utf8')
-    expect(src).toContain("@/components/knowledge/knowledge-page")
-  })
+const KNOWLEDGE_DIR = path.resolve(__dirname, "../../components/knowledge");
 
-  it('preserves knowledge header context while its presentation is unified', () => {
-    const src = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-page.tsx'),
-      'utf8'
-    )
+function readKnowledgeFile(name: string): string {
+  return fs.readFileSync(path.join(KNOWLEDGE_DIR, name), "utf8");
+}
 
-    expect(src).toContain('data-knowledge-title-mark="true"')
-    expect(src).toContain('src="/brand/mimirq-knowledge-mark.png"')
-    expect(src).toContain('loading="eager"')
-    expect(src).toContain('className="size-6 scale-110 object-contain"')
-    expect(src).not.toContain('PageTitleIcon')
-    expect(src).not.toContain('LibraryBig')
+function countOccurrences(source: string, needle: string): number {
+  return source.split(needle).length - 1;
+}
+
+describe("knowledge route entry", () => {
+  it("keeps app/knowledge/page.tsx as a thin wrapper (module boundary)", () => {
+    const src = fs.readFileSync(path.resolve(__dirname, "page.tsx"), "utf8");
+    expect(src).toContain("@/components/knowledge/knowledge-page");
+  });
+
+  it("keeps real URL state, flat shell and a single detail drawer host", () => {
+    const pageSrc = readKnowledgeFile("knowledge-page.tsx");
+    const drawerSrc = readKnowledgeFile("knowledge-document-drawer.tsx");
+    const documentsSrc = readKnowledgeFile("knowledge-documents-panel.tsx");
+
+    expect(pageSrc).toContain("parseKnowledgeQueryState");
+    expect(pageSrc).toContain("serializeKnowledgeQueryState");
+    expect(pageSrc).toContain("router.replace");
+    expect(pageSrc).toContain('window.addEventListener("keydown"');
+    expect(pageSrc).toContain(
+      'withDocumentViewerPadding={activeTab !== "retrieval"}',
+    );
+
+    expect(pageSrc).toContain('data-testid="knowledge-page-toolbar"');
+    expect(pageSrc).toContain('{t("header.title")}');
+    expect(pageSrc).toContain('{t("header.description")}');
+    expect(pageSrc).toContain("text-title font-semibold");
+    expect(pageSrc).toContain("max-w-page");
+    expect(pageSrc).toContain("w-[200px]");
+    expect(pageSrc).toContain('paneGroupClassName="gap-0 overflow-hidden"');
+    expect(pageSrc).not.toContain("backdrop-blur-none");
+    expect(pageSrc).not.toContain("KNOWLEDGE_GLASS_CARD_CLASS");
+    expect(pageSrc).not.toContain("bg-[linear-gradient");
+    expect(pageSrc).not.toContain("shadow-soft");
+    expect(pageSrc).not.toContain("documentScopeSummary");
+
+    expect(countOccurrences(pageSrc, "<KnowledgeDocumentDrawer")).toBe(1);
+    expect(countOccurrences(pageSrc, "<KnowledgeInspector")).toBe(0);
+    expect(countOccurrences(drawerSrc, "<KnowledgeInspector")).toBe(1);
+    expect(countOccurrences(documentsSrc, "KnowledgeInspector")).toBe(0);
+    expect(drawerSrc).not.toContain("lastDocRef");
+  });
+
+  it("keeps the three query tabs plus real branch links without duplicated counts", () => {
+    const pageSrc = readKnowledgeFile("knowledge-page.tsx");
+
+    expect(pageSrc).toContain(
+      '{ key: "documents", label: t("tabs.documents.label") }',
+    );
+    expect(pageSrc).toContain(
+      '{ key: "retrieval", label: t("tabs.retrieval.label") }',
+    );
+    expect(pageSrc).toContain(
+      '{ key: "settings", label: t("tabs.settings.label") }',
+    );
+    expect(pageSrc).toContain("setActiveTab(tab.key)");
+    expect(pageSrc).toContain("/knowledge/quarantine");
+    expect(pageSrc).toContain("/chunk-preview");
+    expect(pageSrc).toContain("/knowledge/feedback");
+    expect(pageSrc).toContain("selectedDatasetId");
+    expect(pageSrc).not.toContain("Scope Navigator");
+
+    expect(pageSrc).toContain("setDesktopScopeCollapsed((prev) => !prev)");
+    expect(pageSrc).toContain("<KnowledgeWorkbenchActions");
+    expect(pageSrc).toContain("onClick={() => detachPromise(loadDocuments())}");
+    expect(pageSrc).toContain("showConnectorRunsPanel");
+    expect(pageSrc).toContain("showRetrievalAuditPanel");
+    expect(pageSrc).toContain("<KnowledgeConnectorRunsPanel");
+    expect(pageSrc).toContain("<KnowledgeRetrievalPanel");
+    expect(pageSrc).toContain("onCancelConnectorRun={cancelConnectorRun}");
+    expect(pageSrc).toContain("onResumeConnectorRun={resumeConnectorRun}");
+    expect(pageSrc).toContain(
+      "onRetryFailedConnectorRun={retryFailedConnectorRun}",
+    );
+  });
+
+  it("keeps the 40px virtual table, six sorts, stat strip and unique row actions", () => {
+    const pageSrc = readKnowledgeFile("knowledge-page.tsx");
+    const documentsSrc = readKnowledgeFile("knowledge-documents-panel.tsx");
+
+    expect(pageSrc).toContain("estimateSize: () => 40");
+    expect(documentsSrc).toContain("measureElement");
+    expect(pageSrc).toContain("paginatedDocuments");
+    expect(documentsSrc).toContain("StatStrip");
+    expect(documentsSrc).toContain("DataTable");
+    expect(documentsSrc).toContain("DataTableRow");
+    expect(documentsSrc).toContain("DataTableActions");
+    expect(documentsSrc).toContain("data-index={virtualRow.index}");
+    expect(documentsSrc).toContain("docsTableVirtualizer.measureElement");
+
+    for (const key of [
+      "createdDesc",
+      "createdAsc",
+      "filenameAsc",
+      "filenameDesc",
+      "fileSizeDesc",
+      "fileSizeAsc",
+    ]) {
+      expect(documentsSrc).toContain(`sort.${key}`);
+    }
+
+    expect(documentsSrc).toContain("table.emptyValue");
+    expect(documentsSrc).toContain("formatChunkCount");
+    expect(documentsSrc).toContain("formatDocumentSize");
+    expect(documentsSrc).toContain("actions.moreActions");
+    expect(documentsSrc).toContain("actions.openInspector");
+    expect(documentsSrc).toContain("actions.previewContent");
+    expect(documentsSrc).toContain("actions.healthCard");
+    expect(documentsSrc).toContain("actions.deleteDocument");
+    expect(documentsSrc).toContain("isInteractiveTarget");
+    expect(documentsSrc).toContain(
+      "onClick={(event) => event.stopPropagation()}",
+    );
+    expect(documentsSrc).toContain("filteredDocumentsAll");
+    expect(documentsSrc).toContain("exportFilteredCsv");
     expect(
-      fs.existsSync(
-        path.resolve(__dirname, '../../public/brand/mimirq-knowledge-mark.png')
-      )
-    ).toBe(true)
-    expect(src).toContain("{t('header.title')}")
-    expect(src).toContain("{t('header.description')}")
-    expect(src).toContain("{selectedDatasetLabel || scopeT('dataset.all')}")
-    expect(src).toContain('{activeTasksCount}')
-    expect(src).toContain('采集')
-    expect(src).toContain('资产')
-    expect(src).toContain('验证')
-    expect(src).toContain('data-testid="knowledge-page-toolbar"')
-    expect(src).toContain('headerClassName="-mx-1 -mt-1 md:-mx-3 md:-mt-2"')
-    expect(src).toContain('className="relative flex min-h-14 flex-col gap-2 border-b border-foreground/15 px-1 py-2 sm:flex-row sm:items-center sm:justify-between"')
-    expect(src).toContain("const KNOWLEDGE_GLASS_CARD_CLASS =")
-    expect(src).toContain('border-foreground/10 bg-background shadow-none backdrop-blur-none')
-    expect(src).not.toContain('shadow-soft')
-    expect(src).not.toContain('shadow-subtle')
-    expect(src).not.toContain('Knowledge Ops')
-    expect(src).not.toContain('文档资产治理中枢')
-    expect(src).not.toContain('KNOWLEDGE_OPS_HERO_PANEL_CLASS')
-    expect(src).not.toContain('KNOWLEDGE_OPS_SUMMARY_PANEL_CLASS')
-  })
+      countOccurrences(documentsSrc, "paginationFooter"),
+    ).toBeGreaterThanOrEqual(4);
+    expect(documentsSrc).not.toContain("DataTableEmpty");
+    expect(documentsSrc).not.toContain("onKeyDownCapture");
+  });
 
-  it('keeps document metrics in actionable panels when duplicate summaries are removed', () => {
-    const src = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-page.tsx'),
-      'utf8'
-    )
+  it("keeps filter dimensions while only per-status counts remain in scope", () => {
+    const scopeSrc = readKnowledgeFile("knowledge-scope-panel.tsx");
 
-    expect(src).toContain('totalDocs={totalDocs}')
-    expect(src).toContain('completedDocsValue={completedDocsValue}')
-    expect(src).toContain('processingDocsValue={processingDocsValue}')
-    expect(src).toContain('failedDocsValue={failedDocsValue}')
-    expect(src).toContain('quarantinedDocsValue={quarantinedDocsValue}')
-    expect(src).toContain('aggregateDocuments={totalDocs}')
-    expect(src).toContain('aggregateChunks={totalChunksValue}')
-    expect(src).not.toContain('const settingsSummaryCards = useMemo(')
-    expect(src).not.toContain('const summaryCards = useMemo(')
-    expect(src).not.toContain('top={')
-  })
+    expect(scopeSrc).toContain("data-knowledge-scope-panel");
+    expect(scopeSrc).toContain("datasetScope");
+    expect(scopeSrc).toContain("statusFilter");
+    expect(scopeSrc).toContain("lifecycleFilter");
+    expect(scopeSrc).toContain("folderPath");
+    expect(scopeSrc).toContain("DatasetFolderTree");
+    expect(scopeSrc).toContain('item.key === "all" ? null');
+  });
 
-  it('preserves scope and empty-shelf behavior while the workbench surface is unified', () => {
-    const pageSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-page.tsx'),
-      'utf8'
-    )
-    const documentsSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-documents-panel.tsx'),
-      'utf8'
-    )
-    const scaffoldSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/workbench/workbench-scaffold.tsx'),
-      'utf8'
-    )
+  it("keeps document detail fields, source/quality and copy path in the inspector", () => {
+    const inspectorSrc = readKnowledgeFile("knowledge-inspector.tsx");
 
-    expect(pageSrc).toContain('<KnowledgeScopePanel')
-    expect(pageSrc).toContain('<KnowledgeDocumentsPanel')
-    expect(documentsSrc).toContain('data-knowledge-empty-shelf="true"')
-    expect(documentsSrc).toContain('data-knowledge-empty-shelf-dock="integrated-canvas"')
-    expect(documentsSrc).toContain('data-knowledge-empty-shelf-mark="true"')
-    expect(documentsSrc).toContain('aria-label="查看入库指引"')
-    expect(documentsSrc).toContain('知识货架待入库')
-    expect(documentsSrc).toContain('使用右上角「导入/新增」上传文档或创建连接器后')
-    expect(documentsSrc).toContain('onClearFilters')
-    expect(documentsSrc).toContain('onSwitchToAllDatasets')
-    expect(pageSrc).toContain('paneGroupClassName={cn(')
-    expect(documentsSrc).toContain('className="flex h-full min-h-0 flex-1"')
-    expect(documentsSrc).toContain('className="relative flex h-full min-h-[360px] w-full flex-1 overflow-hidden')
-    expect(documentsSrc).not.toContain('compactEmptyInventory')
-    expect(documentsSrc).not.toContain('min-h-[clamp(220px,30vh,320px)]')
-    expect(documentsSrc).toContain('导入文档')
-    expect(documentsSrc).toContain('自动解析')
-    expect(documentsSrc).toContain('建立索引')
-    expect(documentsSrc).toContain('h-0.5 bg-border/80')
-    expect(scaffoldSrc).toContain('paneGroupClassName?: string')
-    expect(scaffoldSrc).toContain('data-workbench-pane-group="true"')
-    expect(scaffoldSrc).toContain("className={cn('flex h-full min-h-0 gap-4', paneGroupClassName)}")
-    expect(pageSrc).toContain("'gap-0 overflow-hidden rounded-lg border border-foreground/10 bg-background shadow-none dark:border-foreground/10 dark:bg-background'")
-    expect(pageSrc).toContain("'flex h-full flex-col overflow-hidden rounded-none border-r border-y-0 border-l-0'")
-    expect(pageSrc).toContain("'flex h-full flex-col overflow-hidden rounded-none border-l border-y-0 border-r-0'")
-    expect(pageSrc).toContain("withDocumentViewerPadding={activeTab !== 'retrieval'}")
-    expect(pageSrc).not.toContain('border-border/45 bg-background shadow-none')
-  })
+    expect(inspectorSrc).toContain("selected.id || EMPTY_VALUE");
+    expect(inspectorSrc).not.toContain("formatShortId");
+    expect(inspectorSrc).toContain("getSourceTypeLabel");
+    expect(inspectorSrc).toContain("getParseQualityPercent");
+    expect(inspectorSrc).toContain("row.parseQualityLow");
+    expect(inspectorSrc).toContain("toasts.copySourcePath");
+    expect(inspectorSrc).toContain("actions.copySourcePath");
+    expect(inspectorSrc).toContain("max={0}");
+    expect(inspectorSrc).toContain("break-all whitespace-normal");
+    expect(inspectorSrc).not.toContain(">文档详情<");
+    expect(countOccurrences(inspectorSrc, 'label="分块"')).toBe(1);
+  });
 
-  it('preserves workbench actions while routine controls are visually flattened', () => {
-    const pageSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-page.tsx'),
-      'utf8'
-    )
+  it("keeps the knowledge surface free of legacy glass/marker scaffolding", () => {
+    for (const file of [
+      "knowledge-page.tsx",
+      "knowledge-documents-panel.tsx",
+      "knowledge-scope-panel.tsx",
+      "knowledge-inspector.tsx",
+      "knowledge-document-drawer.tsx",
+    ]) {
+      const src = readKnowledgeFile(file);
+      expect(src).not.toContain("Source markers retained");
+      expect(src).not.toContain("legacy source tests");
+      expect(src).not.toContain("data-knowledge-empty-shelf");
+      expect(src).not.toContain("radial-gradient");
+      expect(src).not.toContain("backdrop-blur");
+    }
+  });
 
-    expect(pageSrc).toContain("{ key: 'documents', label: t('tabs.documents.label'), icon: FileStack }")
-    expect(pageSrc).toContain("{ key: 'retrieval', label: t('tabs.retrieval.label'), icon: Activity }")
-    expect(pageSrc).toContain("{ key: 'settings', label: t('tabs.settings.label'), icon: Database }")
-    expect(pageSrc).toContain('setActiveTab(tab.key)')
-    expect(pageSrc).toContain('setDesktopScopeCollapsed((prev) => !prev)')
-    expect(pageSrc).toContain('<KnowledgeWorkbenchActions')
-    expect(pageSrc).toContain('onClick={() => detachPromise(loadDocuments())}')
-    expect(pageSrc).toContain('documentScopeSummary')
-    expect(pageSrc).toContain('toolbarClassName="px-3 py-2 md:px-3 md:py-2"')
-    expect(pageSrc).toContain("'bg-foreground text-background shadow-none'")
-    expect(pageSrc).toContain("'bg-background/35 px-3 pt-3 dark:bg-background/20 md:px-3'")
-    expect(pageSrc).toContain('rounded-lg border border-foreground/10 bg-background/70')
-    expect(pageSrc).toContain('border-foreground/10 bg-background shadow-none')
-    expect(pageSrc).not.toContain('hover:shadow-md')
-    expect(pageSrc).not.toContain('hover:bg-[linear-gradient(90deg')
-
-    const documentsSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-documents-panel.tsx'),
-      'utf8'
-    )
-    expect(documentsSrc).toContain('bg-[size:48px_48px] opacity-60')
-    expect(documentsSrc).toContain('className="mb-4 flex size-12 items-center justify-center rounded-xl')
-    expect(documentsSrc).not.toContain('radial-gradient(circle_at_50%_0%')
-    expect(documentsSrc).not.toContain('文档货架\n')
-    expect(documentsSrc).not.toContain('size-52 rounded-full bg-info/10 blur-3xl')
-  })
-
-  it('preserves settings scope, model selection, save and verification behavior', () => {
+  it("preserves settings scope, model selection, save and verification behavior", () => {
     const settingsSrc = fs.readFileSync(
-      path.resolve(__dirname, '../../components/knowledge/knowledge-settings-panel.tsx'),
-      'utf8'
-    )
+      path.join(KNOWLEDGE_DIR, "knowledge-settings-panel.tsx"),
+      "utf8",
+    );
 
-    expect(settingsSrc).toContain('value={selectedScopeValue}')
-    expect(settingsSrc).toContain('onValueChange={onDatasetScopeChange}')
-    expect(settingsSrc).toContain('EMBEDDING_PRESETS.map((preset) =>')
-    expect(settingsSrc).toContain('await datasetApi.update(selectedDatasetId')
-    expect(settingsSrc).toContain('await settingsApi.update(draftConfig)')
-    expect(settingsSrc).toContain('await retrievalApi.configHash(hashRequest)')
-    expect(settingsSrc).toContain('queryKeys.datasets.exhaustive()')
-    expect(settingsSrc).toContain('onClick={handleSaveDraft}')
-    expect(settingsSrc).toContain('onClick={handleApplyRecommendedConfig}')
-    expect(settingsSrc).toContain('onGoToRetrievalTest?.()')
-    expect(settingsSrc).toContain('setGuideExpanded')
-    expect(settingsSrc).toContain('setCurrentConfigOpen')
-    expect(settingsSrc).toContain("'rounded-xl border border-border/55 bg-background shadow-none backdrop-blur-none")
-    expect(settingsSrc).toContain("'rounded-none border-0 border-b border-border/50 bg-transparent shadow-none backdrop-blur-none")
-    expect(settingsSrc).toContain("'grid min-h-0 gap-0 lg:h-full'")
-    expect(settingsSrc).toContain("'lg:grid-cols-[206px_minmax(0,1fr)]'")
-    expect(settingsSrc).toContain('配置范围')
-    expect(settingsSrc).toContain('当前自定义模型')
-    expect(settingsSrc).toContain('hasCustomEmbeddingModel')
-    expect(settingsSrc).toContain('useState(false)')
-    expect(settingsSrc).toContain('className="grid gap-2 md:grid-cols-2"')
-    expect(settingsSrc).toContain('xl:grid-cols-2')
-    expect(settingsSrc).toContain('xl:col-span-2')
-    expect(settingsSrc).toContain('shrink-0 whitespace-nowrap rounded-full')
-    expect(settingsSrc).not.toContain('comparisonMetrics')
-    expect(settingsSrc).not.toContain('当前配置预估效果')
-    expect(settingsSrc).not.toContain('系统建议')
-    expect(settingsSrc).not.toContain('bg-[linear-gradient(180deg')
-    expect(settingsSrc).not.toContain('2xl:grid-cols-4')
-    expect(settingsSrc).not.toContain('xl:grid-cols-[1fr_1fr_0.95fr]')
-    expect(settingsSrc).not.toContain('>Navigation<')
-  })
-})
+    expect(settingsSrc).toContain("value={selectedScopeValue}");
+    expect(settingsSrc).toContain("onValueChange={onDatasetScopeChange}");
+    expect(settingsSrc).toContain("EMBEDDING_PRESETS.map((preset) =>");
+    expect(settingsSrc).toContain("await datasetApi.update(selectedDatasetId");
+    expect(settingsSrc).toContain("await settingsApi.update(draftConfig)");
+    expect(settingsSrc).toContain("await retrievalApi.configHash(hashRequest)");
+    expect(settingsSrc).toContain("queryKeys.datasets.exhaustive()");
+    expect(settingsSrc).toContain("onClick={handleSaveDraft}");
+    expect(settingsSrc).toContain("onClick={handleApplyRecommendedConfig}");
+    expect(settingsSrc).toContain("onGoToRetrievalTest?.()");
+    expect(settingsSrc).toContain("setGuideExpanded");
+    expect(settingsSrc).toContain("setCurrentConfigOpen");
+    expect(settingsSrc).toContain("配置范围");
+    expect(settingsSrc).toContain("当前自定义模型");
+    expect(settingsSrc).toContain("hasCustomEmbeddingModel");
+    expect(settingsSrc).not.toContain("comparisonMetrics");
+    expect(settingsSrc).not.toContain("当前配置预估效果");
+    expect(settingsSrc).not.toContain("系统建议");
+  });
+});
