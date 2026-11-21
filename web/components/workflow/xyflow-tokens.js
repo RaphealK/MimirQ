@@ -16,12 +16,22 @@ const overrides = new Map([
   ["--xy-background-pattern-dots-color-default", border],
 ]);
 
+const fs = require("node:fs");
+const vendor = "@xyflow/react/dist/style.css";
+
 module.exports = () => ({
   postcssPlugin: "mimirq-xyflow-tokens",
-  Once(root) {
-    root.walkDecls(/^--xy-/, (declaration) => {
-      const value = overrides.get(declaration.prop);
-      if (value) declaration.value = value;
+  Once(root, { postcss, result }) {
+    root.walkAtRules("import", rule => {
+      if (rule.params !== `"${vendor}"` && rule.params !== `'${vendor}'`) return;
+      const file = require.resolve(vendor);
+      const css = postcss.parse(fs.readFileSync(file, "utf8"), { from: file });
+      css.walkDecls(/^--xy-/, declaration => {
+        const value = overrides.get(declaration.prop);
+        if (value) declaration.value = value;
+      });
+      result.messages.push({ type: "dependency", plugin: "mimirq-xyflow-tokens", file, parent: root.source?.input.file });
+      rule.replaceWith(...css.nodes);
     });
   },
 });

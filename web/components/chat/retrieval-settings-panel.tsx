@@ -223,7 +223,7 @@ export function RetrievalSettingsPanel({
           </div>
         ) : (
           <Select
-            value={selectedDatasetId || undefined}
+            value={selectedDatasetId}
             onValueChange={onSelectDataset}
             disabled={datasetsLoading || datasets.length === 0}
           >

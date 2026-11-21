@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useMemo } from 'react'
-import '@xyflow/react/dist/style.css'
+import './workflow.css'
 import {
   addEdge,
   applyEdgeChanges,

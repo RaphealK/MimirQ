@@ -1,0 +1,2 @@
+/* Import the vendor layout through the local theme transform. */
+@import "@xyflow/react/dist/style.css";
