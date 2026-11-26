@@ -122,3 +122,8 @@ work/
 /docs/superpowers/
 /docs/waves/
 /web/docs/
+
+# 本地密钥与备份产物（不得入库）
+.admin-password
+*.admin-password
+web/public/brand/*.bak-orig

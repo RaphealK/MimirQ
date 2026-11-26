@@ -1,0 +1,90 @@
+# 本地部署 overlay：在 docker-compose.lite.yml 之上补齐 Next.js 前端。
+#
+#   docker compose --project-name mimirq --env-file .env \
+#     -f docker/docker-compose.lite.yml \
+#     -f docker/docker-compose.local-web.yml \
+#     up -d --build
+#
+# 与官方 docker-compose.web.yml 的差异：
+# - 前端加入项目默认网络（lite 没有 mimirq-proxy 固定网段），同源 /api/v1 rewrite 交给 Next.js 服务端代理。
+# - api/worker 增加 host.docker.internal 映射，用于访问宿主机上的 Magpie 模型网关。
+
+services:
+  mimirq-api:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      HTTP_PROXY: http://172.24.0.1:7890
+      http_proxy: http://172.24.0.1:7890
+      HTTPS_PROXY: http://172.24.0.1:7890
+      https_proxy: http://172.24.0.1:7890
+      NO_PROXY: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,mimirq-redis,postgres,redis
+      no_proxy: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,mimirq-redis,postgres,redis
+
+  mimirq-worker:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      HTTP_PROXY: http://172.24.0.1:7890
+      http_proxy: http://172.24.0.1:7890
+      HTTPS_PROXY: http://172.24.0.1:7890
+      https_proxy: http://172.24.0.1:7890
+      NO_PROXY: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,mimirq-redis,postgres,redis
+      no_proxy: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,mimirq-redis,postgres,redis
+
+  web:
+    build:
+      context: ../web
+      dockerfile: Dockerfile.prod
+      network: ${DOCKER_BUILD_NETWORK:-default}
+      args:
+        PNPM_REGISTRY: ${PNPM_REGISTRY:-https://registry.npmmirror.com}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL_DOCKER:-/}
+        NEXT_PUBLIC_ADMIN_CONTACT_URL: ${NEXT_PUBLIC_ADMIN_CONTACT_URL:-https://github.com/skygazer42/MimirQ/issues}
+        API_INTERNAL_URL: ${API_INTERNAL_URL_DOCKER:-http://mimirq-api:8000}
+        NEXT_PUBLIC_API_TIMEOUT_MS: ${NEXT_PUBLIC_API_TIMEOUT_MS:-60000}
+        NEXT_PUBLIC_API_LONG_TIMEOUT_MS: ${NEXT_PUBLIC_API_LONG_TIMEOUT_MS:-600000}
+        NEXT_PUBLIC_USER_ID: ${NEXT_PUBLIC_USER_ID:-demo}
+        NEXT_PUBLIC_TENANT_ID: ${NEXT_PUBLIC_TENANT_ID:-00000000-0000-0000-0000-000000000000}
+        MIMIRQ_BUILD_SHA: ${MIMIRQ_BUILD_SHA:-}
+        MIMIRQ_BUILD_TIME: ${MIMIRQ_BUILD_TIME:-}
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "${DOCKER_LOG_MAX_SIZE:-10m}"
+        max-file: "${DOCKER_LOG_MAX_FILE:-3}"
+    ports:
+      - "${WEB_PORT:-3100}:3000"
+    healthcheck:
+      test: ["CMD", "wget", "-Y", "off", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL_DOCKER:-/}
+      NEXT_PUBLIC_ADMIN_CONTACT_URL: ${NEXT_PUBLIC_ADMIN_CONTACT_URL:-https://github.com/skygazer42/MimirQ/issues}
+      NEXT_PUBLIC_API_TIMEOUT_MS: ${NEXT_PUBLIC_API_TIMEOUT_MS:-60000}
+      NEXT_PUBLIC_API_LONG_TIMEOUT_MS: ${NEXT_PUBLIC_API_LONG_TIMEOUT_MS:-600000}
+      NEXT_PUBLIC_USER_ID: ${NEXT_PUBLIC_USER_ID:-demo}
+      NEXT_PUBLIC_TENANT_ID: ${NEXT_PUBLIC_TENANT_ID:-00000000-0000-0000-0000-000000000000}
+      API_INTERNAL_URL: ${API_INTERNAL_URL_DOCKER:-http://mimirq-api:8000}
+      MARKDOWN_IMAGE_PROXY_SECRET: ${MARKDOWN_IMAGE_PROXY_SECRET:-}
+      MIMIRQ_BUILD_SHA: ${MIMIRQ_BUILD_SHA:-}
+      MIMIRQ_BUILD_TIME: ${MIMIRQ_BUILD_TIME:-}
+      HTTP_PROXY: http://172.24.0.1:7890
+      http_proxy: http://172.24.0.1:7890
+      HTTPS_PROXY: http://172.24.0.1:7890
+      https_proxy: http://172.24.0.1:7890
+      NO_PROXY: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,postgres,redis
+      no_proxy: localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,postgres,redis
+    depends_on:
+      mimirq-api:
+        condition: service_healthy
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16

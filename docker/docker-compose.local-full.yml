@@ -1,0 +1,34 @@
+# Local full-stack overrides. Use alongside docker-compose.yml and
+# docker-compose.local-web.yml, with the MimirQ full-stack credential env file.
+
+x-full-no-proxy: &full-no-proxy localhost,127.0.0.1,::1,172.24.0.1,mimirq-api,mimirq-postgres,mimirq-redis,mimirq-minio,mimirq-milvus,mimirq-etcd,postgres,redis
+
+services:
+  mimirq-minio:
+    image: cgr.dev/chainguard/minio@sha256:dc5e098902c102b848a72b96671c235f1f8464ccad60a62d1f205f8c221ce12b
+    command: ["server", "/minio_data", "--console-address", ":9001"]
+    volumes:
+      - /usr/bin/busybox:/usr/local/bin/busybox:ro
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/busybox", "wget", "-Y", "off", "-q", "-T", "3", "-O", "/dev/null", "http://127.0.0.1:9000/minio/health/ready"]
+      interval: 5s
+      timeout: 4s
+      start_period: 30s
+      retries: 8
+
+  mimirq-milvus:
+    environment:
+      MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_DOCKER:?Set MINIO_ACCESS_KEY_DOCKER in the full-stack env file}
+      MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_KEY_DOCKER:?Set MINIO_SECRET_KEY_DOCKER in the full-stack env file}
+
+  mimirq-api:
+    environment:
+      VECTOR_BACKEND: milvus
+      NO_PROXY: *full-no-proxy
+      no_proxy: *full-no-proxy
+
+  mimirq-worker:
+    environment:
+      VECTOR_BACKEND: milvus
+      NO_PROXY: *full-no-proxy
+      no_proxy: *full-no-proxy
