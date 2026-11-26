@@ -78,13 +78,13 @@ describe('chunk preview sidebar controls', () => {
       'className="text-[10px] font-medium tracking-[0.08em] text-muted-foreground"'
     )
     expect(sidebar).toContain(
-      'text-[10px] font-medium text-muted-foreground/75'
+      'text-[10px] font-medium text-muted-foreground'
     )
     expect(sidebar).toContain('bg-info/20 accent-info')
     expect(sidebar).not.toContain('border-success/25 bg-success/5')
     expect(sidebar).not.toContain('bg-success/15 accent-primary')
     expect(sidebar).not.toContain(
-      'text-[8px] font-medium uppercase tracking-[0.14em] text-muted-foreground/65'
+      'text-[8px] font-medium uppercase tracking-[0.14em] text-subtle-foreground'
     )
   })
 

@@ -163,7 +163,7 @@ function Field({
       </Label>
       {children}
       {helper ? (
-        <p className="text-[11px] leading-4 text-muted-foreground/86">
+        <p className="text-[11px] leading-4 text-muted-foreground">
           {helper}
         </p>
       ) : null}

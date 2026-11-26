@@ -41,20 +41,22 @@ const DialogContent = React.forwardRef<
 >(({ className, children, overlayClassName, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay className={overlayClassName} />
-    <DialogPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-popover text-popover-foreground px-6 py-5 shadow-strong will-change-[opacity,transform] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-[0.97] data-[state=open]:zoom-in-[0.97] data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] duration-220 ease-spring motion-reduce:animate-none motion-reduce:transition-none sm:rounded-lg",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-      <DialogPrimitive.Close className="absolute right-2 top-2 inline-flex size-11 items-center justify-center rounded-md opacity-60 pointer-fine:sm:right-4 pointer-fine:sm:top-4 pointer-fine:sm:size-8 ring-offset-background transition-colors duration-120 ease-spring hover:opacity-100 hover:bg-raised p-1 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-raised data-[state=open]:text-foreground">
-        <X className="h-4 w-4" />
-        <span className="sr-only">关闭</span>
-      </DialogPrimitive.Close>
-    </DialogPrimitive.Content>
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4">
+      <DialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          "relative grid w-full max-w-lg gap-4 border border-border bg-popover text-popover-foreground px-6 py-5 shadow-strong data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-[0.97] data-[state=open]:zoom-in-[0.97] data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] duration-220 ease-spring motion-reduce:animate-none motion-reduce:transition-none sm:rounded-lg",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className="absolute right-2 top-2 inline-flex size-11 items-center justify-center rounded-md opacity-60 pointer-fine:sm:right-4 pointer-fine:sm:top-4 pointer-fine:sm:size-8 ring-offset-background transition-colors duration-120 ease-spring hover:opacity-100 hover:bg-raised p-1 motion-reduce:transition-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-raised data-[state=open]:text-foreground">
+          <X className="h-4 w-4" />
+          <span className="sr-only">关闭</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </div>
   </DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;

@@ -279,14 +279,14 @@ export function ReportsControlPanel({
                   icon={Download}
                 />
                 <span>导出报告</span>
-                <ChevronDown className="size-3.5 text-muted-foreground/70" />
+                <ChevronDown className="size-3.5 text-subtle-foreground" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
               className="w-64 rounded-xl border-info/15 bg-popover/95 p-1.5 shadow-none"
             >
-              <DropdownMenuLabel className="px-2.5 pb-1 pt-2 text-[11px] font-semibold tracking-[0.08em] text-muted-foreground/70">
+              <DropdownMenuLabel className="px-2.5 pb-1 pt-2 text-[11px] font-semibold tracking-[0.08em] text-subtle-foreground">
                 基础与完整数据
               </DropdownMenuLabel>
               <DropdownMenuGroup>
@@ -319,7 +319,7 @@ export function ReportsControlPanel({
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator className="my-1.5" />
-              <DropdownMenuLabel className="px-2.5 pb-1 pt-1 text-[11px] font-semibold tracking-[0.08em] text-muted-foreground/70">
+              <DropdownMenuLabel className="px-2.5 pb-1 pt-1 text-[11px] font-semibold tracking-[0.08em] text-subtle-foreground">
                 审计与交付物
               </DropdownMenuLabel>
               <DropdownMenuGroup>

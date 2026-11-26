@@ -209,7 +209,7 @@ const WORKBENCH_PANEL =
 const DENSE_FIELD =
   'h-9 rounded-lg border-border bg-card text-[13px] font-medium text-foreground shadow-none focus-visible:ring-primary/20'
 const DENSE_BUTTON =
-  'h-8 rounded-lg border-border bg-card px-2.5 text-[12px] font-semibold text-foreground/85 hover:bg-primary/10 hover:text-primary'
+  'h-8 rounded-lg border-border bg-card px-2.5 text-[12px] font-semibold text-foreground hover:bg-primary/10 hover:text-primary'
 
 export function IndustryRulesWorkbench() {
   const [selectedRuleset, setSelectedRuleset] = useState('')
@@ -548,7 +548,7 @@ export function IndustryRulesWorkbench() {
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_1px_minmax(360px,0.82fr)]">
               <div className="grid gap-3 md:grid-cols-2">
                 <div className="space-y-1.5">
-                  <Label htmlFor="industry-rules-ruleset" className="text-[12px] font-semibold text-foreground/85">
+                  <Label htmlFor="industry-rules-ruleset" className="text-[12px] font-semibold text-foreground">
                     规则集
                   </Label>
                   <Select
@@ -576,7 +576,7 @@ export function IndustryRulesWorkbench() {
                   </Select>
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="industry-rules-dataset" className="text-[12px] font-semibold text-foreground/85">
+                  <Label htmlFor="industry-rules-dataset" className="text-[12px] font-semibold text-foreground">
                     候选来源数据集
                   </Label>
                   <Select
@@ -1029,7 +1029,7 @@ export function IndustryRulesWorkbench() {
               使用已保存规则测试问题改写；未保存的本地编辑不会参与预览。
             </p>
             <div className="mt-3 space-y-2">
-              <Label htmlFor="industry-rules-preview-query" className="text-[12px] font-semibold text-foreground/85">
+              <Label htmlFor="industry-rules-preview-query" className="text-[12px] font-semibold text-foreground">
                 输入问题
               </Label>
               <Input

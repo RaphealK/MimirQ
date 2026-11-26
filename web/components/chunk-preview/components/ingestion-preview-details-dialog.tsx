@@ -146,7 +146,7 @@ export function IngestionPreviewDetailsDialog({
             </Button>
           </DialogTitle>
           <DialogDescription className="space-y-1">
-            <div className="text-xs text-foreground/90">
+            <div className="text-xs text-foreground">
               {ruleTitle || '—'}
               {preview?.rule?.parser_backend ? (
                 <span className="text-muted-foreground">
@@ -243,7 +243,7 @@ export function IngestionPreviewDetailsDialog({
                             return (
                             <div key={id} className="rounded-lg border border-border/60 bg-background p-2">
                                 <div className="flex items-center justify-between gap-2">
-                                  <div className="text-[11px] font-mono text-foreground/90">{id}</div>
+                                  <div className="text-[11px] font-mono text-foreground">{id}</div>
                                   <div className="flex items-center gap-1.5">
                                     <span
                                       className={cn(
@@ -467,7 +467,7 @@ export function IngestionPreviewDetailsDialog({
                 )}
               </div>
               {preview?.clean?.diff_unified ? (
-                <pre className="mt-2 max-h-[420px] overflow-auto rounded-lg border border-border/60 bg-background p-3 text-[11px] font-mono text-foreground/80">
+                <pre className="mt-2 max-h-[420px] overflow-auto rounded-lg border border-border/60 bg-background p-3 text-[11px] font-mono text-muted-foreground">
                   {String(preview.clean.diff_unified)}
                 </pre>
               ) : null}
@@ -535,7 +535,7 @@ export function IngestionPreviewDetailsDialog({
                                   {t("ingestionPreview.issues.labels.count")}: <span className="font-mono">{count}</span>
                                 </span>
                               </div>
-                              <div className="mt-1 text-[12px] text-foreground/90">{message}</div>
+                              <div className="mt-1 text-[12px] text-foreground">{message}</div>
                             </div>
 
                             {patch && patchKeys.length ? (
@@ -636,7 +636,7 @@ export function IngestionPreviewDetailsDialog({
                    {t("ingestionPreview.explain.payloadLabel")}
                  </div>
                  <ScrollArea className="h-[420px]">
-                   <pre className="p-3 text-xs font-mono whitespace-pre-wrap break-words text-foreground/80">
+                   <pre className="p-3 text-xs font-mono whitespace-pre-wrap break-words text-muted-foreground">
                      {JSON.stringify(preview?.explain ?? null, null, 2)}
                    </pre>
                 </ScrollArea>

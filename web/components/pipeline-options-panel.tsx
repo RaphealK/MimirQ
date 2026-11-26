@@ -667,7 +667,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
     compact ? "flex min-h-9 items-center justify-between gap-2 rounded-[0.9rem] border border-border/24 bg-muted/[0.11] px-2 py-1.5" : "flex min-h-8 items-center justify-end gap-1.5 rounded-[0.9rem] border border-border/28 bg-card/50 px-2 py-1"
   )
   const jsonButtonClass =
-    'h-6 rounded-full border-border/34 bg-background/32 px-2 text-[10.5px] font-medium text-muted-foreground/76 shadow-none hover:border-border/48 hover:bg-background/58 hover:text-foreground'
+    'h-6 rounded-full border-border/34 bg-background/32 px-2 text-[10.5px] font-medium text-muted-foreground shadow-none hover:border-border/48 hover:bg-background/58 hover:text-foreground'
   const numberFieldLabelClass =
     'flex items-center justify-between gap-2 text-[11px] font-medium leading-4 text-muted-foreground'
   const numberFieldLabelTextClass =
@@ -678,10 +678,10 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
       {!props.hideEnabledToggle && (
         <div className={toggleCardClass}>
           <div>
-            <div className={cn("font-semibold tracking-[-0.01em] text-foreground/85", titleClasses)}>
+            <div className={cn("font-semibold tracking-[-0.01em] text-foreground", titleClasses)}>
               自定义管线
             </div>
-            <p className={cn("mt-0.5 text-muted-foreground/80", descClasses)}>
+            <p className={cn("mt-0.5 text-muted-foreground", descClasses)}>
               开启后可配置详细的处理流程
             </p>
           </div>
@@ -697,8 +697,8 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
         <div className={indexPresetCardClass}>
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <div className={cn("font-semibold tracking-[-0.01em] text-foreground/85", titleClasses)}>索引模式（成本/质量）</div>
-              <p className={cn("mt-0.5 text-muted-foreground/80", descClasses)}>
+              <div className={cn("font-semibold tracking-[-0.01em] text-foreground", titleClasses)}>索引模式（成本/质量）</div>
+              <p className={cn("mt-0.5 text-muted-foreground", descClasses)}>
                 {compact ? 'Economical / High-quality presets' : '先预览改动再应用；你仍可继续逐项微调'}
               </p>
             </div>
@@ -717,7 +717,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                 setIndexPresetDraft(next)
               }}
             >
-              <SelectTrigger className={cn("h-7 rounded-full border-border/40 bg-background/44 px-3 text-[11px] text-foreground/80 shadow-none", compact ? "w-44" : "w-52")}>
+              <SelectTrigger className={cn("h-7 rounded-full border-border/40 bg-background/44 px-3 text-[11px] text-muted-foreground shadow-none", compact ? "w-44" : "w-52")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -732,10 +732,10 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
             <div className={cn("mt-2.5 rounded-lg border border-border/50 bg-background/55", compact ? "p-2.5" : "p-3")}>
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <div className={cn("font-medium text-foreground/80", compact ? "text-xs" : "text-sm")}>
+                  <div className={cn("font-medium text-muted-foreground", compact ? "text-xs" : "text-sm")}>
                     将应用：{PIPELINE_INDEX_PRESETS[pendingIndexPreset].label}
                   </div>
-                  <div className={cn("text-muted-foreground/80", compact ? "text-[11px]" : "text-xs")}>
+                  <div className={cn("text-muted-foreground", compact ? "text-[11px]" : "text-xs")}>
                     {PIPELINE_INDEX_PRESETS[pendingIndexPreset].description} · 预计修改 {pendingPresetDiff.length} 项
                   </div>
                 </div>
@@ -777,7 +777,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                     return (
                       <div key={String(d.key)} className="flex items-center justify-between gap-3 text-[11px]">
                         <span className="text-muted-foreground truncate">{label}</span>
-                        <span className="font-mono text-foreground/80 shrink-0">
+                        <span className="font-mono text-muted-foreground shrink-0">
                           {formatPipelineOptionValue(d.from)} → {formatPipelineOptionValue(d.to)}
                         </span>
                       </div>
@@ -794,8 +794,8 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
         <div className={jsonToolbarClass}>
           {compact ? (
             <div className="min-w-0 leading-none">
-              <span className="block text-[10.5px] font-medium text-muted-foreground/72">高级配置</span>
-              <span className="mt-0.5 block text-[9.5px] text-muted-foreground/48">JSON 导入导出</span>
+              <span className="block text-[10.5px] font-medium text-subtle-foreground">高级配置</span>
+              <span className="mt-0.5 block text-[9.5px] text-subtle-foreground">JSON 导入导出</span>
             </div>
           ) : null}
           <div className="flex shrink-0 items-center gap-1">
@@ -873,7 +873,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                 <div className={cn("grid shrink-0 place-items-center rounded-md", compact ? "size-6" : "size-7", group.bgColor)}>
                   <Icon className={cn(compact ? "size-3.5" : "size-4", group.color)} />
                 </div>
-                <span className={cn("font-medium text-foreground/75", titleClasses)}>{group.title}</span>
+                <span className={cn("font-medium text-muted-foreground", titleClasses)}>{group.title}</span>
               </div>
 
               <div className={cn("space-y-2.5", compact ? "p-2.5" : "p-3")}>
@@ -884,10 +884,10 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                   return (
                     <div key={item.key} className="flex items-center justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <div className={cn("font-medium text-foreground/75 truncate", titleClasses)}>
+                        <div className={cn("font-medium text-muted-foreground truncate", titleClasses)}>
                           {item.label}
                         </div>
-                        <p className={cn("text-muted-foreground/80 truncate", descClasses)}>
+                        <p className={cn("text-muted-foreground truncate", descClasses)}>
                           {item.hint}
                         </p>
                       </div>
@@ -906,13 +906,13 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
               {group.title === '数据治理' && (
                 <div className="border-t border-border/50">
                   <details className="group/details">
-                    <summary className={cn("flex items-center justify-between cursor-pointer select-none px-3 py-2 text-muted-foreground/80 hover:text-foreground/75 hover:bg-muted/20 transition-colors", descClasses)}>
+                    <summary className={cn("flex items-center justify-between cursor-pointer select-none px-3 py-2 text-muted-foreground hover:text-muted-foreground hover:bg-muted/20 transition-colors", descClasses)}>
                       <span>高级治理参数</span>
                       <ChevronDown className="size-3 transition-transform group-open/details:rotate-180" />
                     </summary>
                     <div className="space-y-4 bg-muted/16 p-3 pt-0">
                       <div className="space-y-2 pt-2">
-                        <div className={cn("text-xs font-medium text-foreground/70", compact && "text-[11px]")}>
+                        <div className={cn("text-xs font-medium text-muted-foreground", compact && "text-[11px]")}>
                           治理清洗
                         </div>
                         <div className="space-y-3">
@@ -923,10 +923,10 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                             return (
                               <div key={item.key} className="flex items-center justify-between gap-3">
                                 <div className="flex-1 min-w-0">
-                                  <div className={cn("font-medium text-foreground/75 truncate", titleClasses)}>
+                                  <div className={cn("font-medium text-muted-foreground truncate", titleClasses)}>
                                     {item.label}
                                   </div>
-                                  <p className={cn("text-muted-foreground/80 truncate", descClasses)}>
+                                  <p className={cn("text-muted-foreground truncate", descClasses)}>
                                     {item.hint}
                                   </p>
                                 </div>
@@ -966,7 +966,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                       {!governanceDisabled && options.governance_normalize_urls && (
                         <div className="flex items-center justify-between gap-3">
                           <div className="flex-1 min-w-0">
-                            <div className={cn("font-medium text-foreground/80 truncate", titleClasses)}>
+                            <div className={cn("font-medium text-muted-foreground truncate", titleClasses)}>
                               去追踪参数
                             </div>
                             <p className={cn("text-muted-foreground truncate", descClasses)}>
@@ -1134,7 +1134,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                       </div>
 
                       <div className="pt-2 border-t border-border/60 space-y-2">
-                        <div className={cn("text-xs font-semibold text-foreground/70", compact && "text-[11px]")}>
+                        <div className={cn("text-xs font-semibold text-muted-foreground", compact && "text-[11px]")}>
                           解析与去重
                         </div>
                         <div className="space-y-3">
@@ -1143,7 +1143,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                             return (
                               <div key={item.key} className="flex items-center justify-between gap-3">
                                 <div className="flex-1 min-w-0">
-                                  <div className={cn("font-medium text-foreground/80 truncate", titleClasses)}>
+                                  <div className={cn("font-medium text-muted-foreground truncate", titleClasses)}>
                                     {item.label}
                                   </div>
                                   <p className={cn("text-muted-foreground truncate", descClasses)}>
@@ -1190,7 +1190,7 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
                         </div>
 
                         <div className="pt-2 border-t border-border/60 space-y-2">
-                          <div className={cn("text-xs font-semibold text-foreground/70", compact && "text-[11px]")}>
+                          <div className={cn("text-xs font-semibold text-muted-foreground", compact && "text-[11px]")}>
                             切块策略参数（高级）
                           </div>
                           <Textarea
@@ -1226,11 +1226,11 @@ export function PipelineOptionsPanel(props: Readonly<PipelineOptionsPanelProps>)
               {group.title === '知识图谱' && !kgEnabled && (
                 <div
                   className={cn(
-                    "flex items-center gap-1.5 border-t border-border/50 bg-muted/35 px-3 py-1.5 text-[11px] leading-snug text-muted-foreground/75",
+                    "flex items-center gap-1.5 border-t border-border/50 bg-muted/35 px-3 py-1.5 text-[11px] leading-snug text-muted-foreground",
                     compact && "px-2.5 py-1.5 text-[10px]"
                   )}
                 >
-                  <Sparkles className="size-3 text-muted-foreground/60" />
+                  <Sparkles className="size-3 text-subtle-foreground" />
                   需先开启 KG 抽取才能配置索引
                 </div>
               )}

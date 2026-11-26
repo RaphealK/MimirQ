@@ -33,8 +33,8 @@ const PARSING_LAYOUT_META: Record<ParsingLayoutKind, ParsingLayoutMeta> = {
     label: '正文',
     shortLabel: '正文',
     chipClassName:
-      'border-border/60 bg-muted/50 text-foreground/85 dark:border-slate-800/70 dark:bg-slate-900/40 dark:text-slate-200',
-    dotClassName: 'bg-muted-foreground/50 dark:bg-slate-300',
+      'border-border/60 bg-muted/50 text-muted-foreground dark:border-border/70 dark:bg-muted/40 dark:text-foreground',
+    dotClassName: 'bg-muted-foreground/50 dark:bg-muted-foreground',
     overlayClassName: 'border-border bg-muted-foreground/10',
   },
   list: {
@@ -49,32 +49,32 @@ const PARSING_LAYOUT_META: Record<ParsingLayoutKind, ParsingLayoutMeta> = {
     label: '表格',
     shortLabel: '表格',
     chipClassName:
-      'border-success/30 bg-success/10 text-success dark:border-emerald-900/60 dark:bg-emerald-950/35 dark:text-emerald-200',
-    dotClassName: 'bg-success dark:bg-emerald-300',
+      'border-success/30 bg-success/10 text-success dark:border-success/40 dark:bg-success/15 dark:text-success',
+    dotClassName: 'bg-success dark:bg-success',
     overlayClassName: 'border-success/75 bg-success/10',
   },
   image: {
     label: '图片',
     shortLabel: '图片',
     chipClassName:
-      'border-warning/30 bg-warning/10 text-warning dark:border-amber-900/60 dark:bg-amber-950/35 dark:text-amber-200',
-    dotClassName: 'bg-warning dark:bg-amber-300',
+      'border-warning/30 bg-warning/10 text-warning dark:border-warning/40 dark:bg-warning/15 dark:text-warning',
+    dotClassName: 'bg-warning dark:bg-warning',
     overlayClassName: 'border-warning/75 bg-warning/10',
   },
   equation: {
     label: '公式',
     shortLabel: '公式',
     chipClassName:
-      'border-accent/30 bg-accent/10 text-accent dark:border-violet-900/60 dark:bg-violet-950/35 dark:text-violet-200',
-    dotClassName: 'bg-accent dark:bg-violet-300',
+      'border-accent/30 bg-accent/10 text-accent dark:border-accent/40 dark:bg-accent/15 dark:text-accent',
+    dotClassName: 'bg-accent dark:bg-accent',
     overlayClassName: 'border-accent/75 bg-accent/10',
   },
   seal: {
     label: '印章',
     shortLabel: '印章',
     chipClassName:
-      'border-destructive/30 bg-destructive/10 text-destructive dark:border-rose-900/60 dark:bg-rose-950/35 dark:text-rose-200',
-    dotClassName: 'bg-destructive dark:bg-rose-300',
+      'border-destructive/30 bg-destructive/10 text-destructive dark:border-destructive/40 dark:bg-destructive/15 dark:text-destructive',
+    dotClassName: 'bg-destructive dark:bg-destructive',
     overlayClassName: 'border-destructive/75 bg-destructive/10',
   },
 }

@@ -816,7 +816,7 @@ export default function DatasetIngestionPolicyPage() {
   const ingestionToolbarPrimaryButtonClass = 'h-8 min-w-[104px] gap-1.5 rounded-md border border-primary/20 bg-primary px-3.5 text-[12px] font-semibold text-primary-foreground shadow-none hover:bg-primary/90 dark:border-primary/30 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90 [&_svg]:size-3.5'
   const ingestionPanelClass = 'border border-border/60 bg-card shadow-none dark:border-border/70 dark:bg-card'
   const ingestionPanelHeaderClass = 'shrink-0 border-b border-border/60 bg-card px-5 py-4 dark:border-border/70 dark:bg-card'
-  const ingestionIconPillClass = 'flex size-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/20 text-foreground/85 shadow-none dark:border-border/70 dark:bg-muted/30 dark:text-foreground'
+  const ingestionIconPillClass = 'flex size-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/20 text-foreground shadow-none dark:border-border/70 dark:bg-muted/30 dark:text-foreground'
   const ingestionActionButtonClass = 'h-9 rounded-md px-3 text-[12px] font-semibold shadow-none [&_svg]:size-4'
   const ingestionMetricCardClass = 'group relative overflow-hidden rounded-lg border border-border/60 bg-card px-4 py-3 shadow-none transition-colors hover:border-border dark:border-border/70 dark:bg-card'
   const activeRuleCount = rules.filter((rule) => rule.enabled !== false).length
@@ -856,22 +856,22 @@ export default function DatasetIngestionPolicyPage() {
                   </div>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-medium leading-none text-muted-foreground dark:text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
-                      <Database className="size-3.5 text-muted-foreground/80" />
+                      <Database className="size-3.5 text-muted-foreground" />
                       <span>规则</span>
                       <span className="font-mono font-semibold text-foreground">{rules.length}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <ShieldCheck className="size-3.5 text-muted-foreground/80" />
+                      <ShieldCheck className="size-3.5 text-muted-foreground" />
                       <span>启用</span>
                       <span className="font-mono font-semibold text-foreground">{activeRuleCount}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Cloud className="size-3.5 text-muted-foreground/80" />
+                      <Cloud className="size-3.5 text-muted-foreground" />
                       <span>解析后端</span>
                       <span className="font-mono font-semibold text-foreground">{parserBackendCount || '--'}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <FileSearch className="size-3.5 text-muted-foreground/80" />
+                      <FileSearch className="size-3.5 text-muted-foreground" />
                       <span>预览</span>
                       <span className="font-semibold text-foreground">样例文件链路验证</span>
                     </span>
@@ -994,7 +994,7 @@ export default function DatasetIngestionPolicyPage() {
                 <div key={item.label} className={ingestionMetricCardClass}>
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground/70 dark:text-muted-foreground">{item.label}</div>
+                      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-subtle-foreground dark:text-muted-foreground">{item.label}</div>
                       <div className="mt-1 truncate font-mono text-[17px] font-black leading-none tracking-[-0.02em] text-foreground tabular-nums dark:text-foreground">
                         {item.value}
                       </div>
@@ -1103,20 +1103,20 @@ export default function DatasetIngestionPolicyPage() {
 
                       <div className="grid grid-cols-1 gap-2 text-[11px] md:grid-cols-3">
                         <div className="rounded-xl border border-border/60 bg-muted/40 px-3 py-2">
-                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/70">match</div>
-                          <div className="mt-1 truncate font-semibold text-foreground/85">
+                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-subtle-foreground">match</div>
+                          <div className="mt-1 truncate font-semibold text-foreground">
                             {(r.match?.extensions || []).join(', ') || 'any file'}
                           </div>
                         </div>
                         <div className="rounded-xl border border-border/60 bg-muted/40 px-3 py-2">
-                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/70">parse</div>
-                          <div className="mt-1 truncate font-semibold text-foreground/85">
+                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-subtle-foreground">parse</div>
+                          <div className="mt-1 truncate font-semibold text-foreground">
                             {r.parser_backend || 'default'} · pre {r.preprocess?.enabled ? (r.preprocess?.steps || []).length : 0}
                           </div>
                         </div>
                         <div className="rounded-xl border border-border/60 bg-muted/40 px-3 py-2">
-                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-muted-foreground/70">chunk</div>
-                          <div className="mt-1 truncate font-semibold text-foreground/85">
+                          <div className="font-mono text-[9px] font-black uppercase tracking-[0.15em] text-subtle-foreground">chunk</div>
+                          <div className="mt-1 truncate font-semibold text-foreground">
                             {r.chunk_strategy || r.governance_profile_ref || 'dataset default'}
                           </div>
                         </div>
@@ -1155,7 +1155,7 @@ export default function DatasetIngestionPolicyPage() {
               </div>
               <div className="rounded-lg border border-info/20 bg-card p-3 shadow-none dark:border-border/70 dark:bg-card">
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground/70 dark:text-muted-foreground">sample file</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-subtle-foreground dark:text-muted-foreground">sample file</span>
                   {previewFile ? <span className="truncate font-mono text-[11px] text-muted-foreground dark:text-muted-foreground">{previewFile.name}</span> : null}
                 </div>
                 <div className="flex flex-col gap-2">
@@ -1190,7 +1190,7 @@ export default function DatasetIngestionPolicyPage() {
                     <div className="mb-2 text-sm font-bold text-foreground dark:text-foreground">后端检测到的问题（issues）</div>
                     <div className="space-y-2">
                       {preview.clean.issues.slice(0, 8).map((it) => (
-                        <div key={`${it.code}-${it.message}`} className="text-xs leading-5 text-foreground/85 dark:text-muted-foreground">
+                        <div key={`${it.code}-${it.message}`} className="text-xs leading-5 text-foreground dark:text-muted-foreground">
                           <span className="font-mono text-muted-foreground">{it.severity}</span>{' '}
                           <span className="font-mono">{it.code}</span> · {it.message}
                           {it.count ? <span className="text-muted-foreground"> ×{it.count}</span> : null}
@@ -1219,7 +1219,7 @@ export default function DatasetIngestionPolicyPage() {
                 </div>
 
                 {preview.clean?.diff_unified ? (
-                  <Panel variant="muted" className="overflow-hidden rounded-2xl border-border/60 bg-foreground p-0 text-muted-foreground/30 shadow-none dark:border-border/60">
+                  <Panel variant="muted" className="overflow-hidden rounded-2xl border-border/60 bg-foreground p-0 text-subtle-foreground shadow-none dark:border-border/60">
                     <div className="border-b border-border/20 px-4 py-3 text-sm font-bold">Unified Diff（后端）</div>
                     <pre className="max-h-[320px] overflow-y-auto whitespace-pre p-4 font-mono text-xs leading-relaxed no-scrollbar">
                       {preview.clean.diff_unified}

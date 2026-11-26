@@ -156,9 +156,9 @@ function rtbfModeButtonClass(isActive: boolean, tone: 'info' | 'destructive') {
     return 'border-destructive/35 bg-destructive/10 text-destructive shadow-[0_8px_22px_hsl(var(--destructive)/0.08)]'
   }
   if (tone === 'info') {
-    return 'border-info/15 bg-info/[0.025] text-muted-foreground hover:border-info/25 hover:bg-info/[0.055] hover:text-foreground/78'
+    return 'border-info/15 bg-info/[0.025] text-muted-foreground hover:border-info/25 hover:bg-info/[0.055] hover:text-muted-foreground'
   }
-  return 'border-info/15 bg-info/[0.025] text-muted-foreground hover:border-destructive/25 hover:bg-destructive/5 hover:text-foreground/78'
+  return 'border-info/15 bg-info/[0.025] text-muted-foreground hover:border-destructive/25 hover:bg-destructive/5 hover:text-muted-foreground'
 }
 
 function buildRtbfResultView(value: unknown): RtbfResultView {
@@ -253,7 +253,7 @@ function RtbfResultSummary({ value }: Readonly<{ value: unknown }>) {
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/75">个人数据操作结果</div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">个人数据操作结果</div>
           <div className="mt-1 text-[12px] font-medium tracking-[-0.005em] text-foreground">{result.title}</div>
           <p className="mt-1 max-w-3xl text-[11px] leading-[1.55] text-muted-foreground">{result.description}</p>
         </div>
@@ -266,10 +266,10 @@ function RtbfResultSummary({ value }: Readonly<{ value: unknown }>) {
         {result.metrics.map((metric) => (
           <div key={metric.label} className="rounded-lg border border-border/50 bg-muted/10 px-2.5 py-2">
             <div className="flex items-center justify-between gap-2">
-              <div className="truncate text-[10px] font-medium text-muted-foreground/85">{metric.label}</div>
-              <div className="rounded-full bg-info/[0.06] px-1.5 py-0.5 text-[10px] font-medium text-foreground/78">{metric.value}</div>
+              <div className="truncate text-[10px] font-medium text-muted-foreground">{metric.label}</div>
+              <div className="rounded-full bg-info/[0.06] px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">{metric.value}</div>
             </div>
-            {metric.hint ? <div className="mt-1.5 truncate text-[10px] leading-3 text-muted-foreground/72">{metric.hint}</div> : null}
+            {metric.hint ? <div className="mt-1.5 truncate text-[10px] leading-3 text-subtle-foreground">{metric.hint}</div> : null}
           </div>
         ))}
       </div>
@@ -538,7 +538,7 @@ export function GovernanceSection({
                   </SelectContent>
                 </Select>
                 <div className={cn('rounded-lg border border-border/60 bg-muted/10 px-2.5 py-2', settingsTextTokens.microText)}>
-                  将提交：<span className="font-mono text-foreground/78">{rtbfAccountId.trim() || '等待自动绑定'}</span>
+                  将提交：<span className="font-mono text-muted-foreground">{rtbfAccountId.trim() || '等待自动绑定'}</span>
                   {membersQuery.isError ? '成员列表加载失败时仍可使用手动输入' : '下拉会优先使用当前账号，也可切换到其他租户成员'}
                 </div>
               </div>

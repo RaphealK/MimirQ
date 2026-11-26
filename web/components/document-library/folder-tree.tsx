@@ -223,8 +223,8 @@ function getFolderIconElement(depth: number, isOpen: boolean) {
   const className = "w-4 h-4 flex-shrink-0"
 
   return isOpen
-    ? <FolderOpen className={cn(className, "text-muted-foreground/90")} />
-    : <Folder className={cn(className, "text-muted-foreground/80")} />
+    ? <FolderOpen className={cn(className, "text-muted-foreground")} />
+    : <Folder className={cn(className, "text-muted-foreground")} />
 }
 
 function getGovernanceStatusLabel(
@@ -249,7 +249,7 @@ function getFileRowShellClass(isActive: boolean, isError: boolean): string {
     return 'bg-info/[0.085] text-foreground shadow-[inset_0_0_0_1px_hsl(var(--info)/0.10)] before:bg-info/70'
   }
   if (isError) return 'bg-destructive/7 text-destructive/90 hover:bg-destructive/8'
-  return 'text-foreground/72 hover:bg-muted/36 hover:text-foreground/88'
+  return 'text-muted-foreground hover:bg-muted/36 hover:text-foreground'
 }
 
 function getSelectableFileClass(isSelected: boolean): string {
@@ -669,7 +669,7 @@ export function DocumentFolderTree({
           runAction = (
             <button
               type="button"
-              className="flex h-5 w-5 items-center justify-center rounded-md text-muted-foreground/80 hover:bg-muted/40 hover:text-foreground focus-ring"
+              className="flex h-5 w-5 items-center justify-center rounded-md text-muted-foreground hover:bg-muted/40 hover:text-foreground focus-ring"
               title={actionLabel}
               aria-label={actionLabel}
               onClick={(event) => {
@@ -695,7 +695,7 @@ export function DocumentFolderTree({
             >
               <button
                 type="button"
-                className="flex h-5 w-5 items-center justify-center rounded-md text-muted-foreground/65 hover:bg-destructive/10 hover:text-destructive focus-ring"
+                className="flex h-5 w-5 items-center justify-center rounded-md text-subtle-foreground hover:bg-destructive/10 hover:text-destructive focus-ring"
                 title="删除"
                 aria-label="删除"
                 onClick={(event) => {
@@ -709,7 +709,7 @@ export function DocumentFolderTree({
         }
 
         inlineActions = (
-          <div className="pointer-events-none absolute right-1 top-1 flex items-center gap-0.5 rounded-lg bg-card/70 p-0.5 opacity-0 shadow-sm ring-1 ring-border/40 backdrop-blur transition-opacity duration-150 group-hover/file:pointer-events-auto group-hover/file:opacity-100 group-focus-within/file:pointer-events-auto group-focus-within/file:opacity-100">
+          <div className="pointer-events-none absolute right-1 top-1 flex items-center gap-0.5 rounded-lg bg-card p-0.5 opacity-0 shadow-sm ring-1 ring-border/40 transition-opacity duration-150 group-hover/file:pointer-events-auto group-hover/file:opacity-100 group-focus-within/file:pointer-events-auto group-focus-within/file:opacity-100">
             {runAction}
             {removeAction}
           </div>
@@ -884,7 +884,7 @@ export function DocumentFolderTree({
               'group relative flex items-center gap-1 rounded-xl py-1.5 transition-colors before:absolute before:bottom-1.5 before:left-0 before:top-1.5 before:w-0.5 before:rounded-full before:bg-primary/0 before:transition-colors',
               isActive
                 ? 'text-foreground before:bg-muted-foreground/35'
-                : 'text-foreground/72 hover:bg-muted/36 hover:text-foreground/88',
+                : 'text-muted-foreground hover:bg-muted/36 hover:text-foreground',
               dragOverId === folder.id && 'bg-info/[0.08] before:bg-info/50'
             )}
             style={{
@@ -944,7 +944,7 @@ export function DocumentFolderTree({
             {showFiles === 'expanded' && hasContent && (
               <button
                 type="button"
-                className="flex h-5 w-5 items-center justify-center rounded text-muted-foreground/75 hover:bg-muted/40 hover:text-foreground focus-ring"
+                className="flex h-5 w-5 items-center justify-center rounded text-muted-foreground hover:bg-muted/40 hover:text-foreground focus-ring"
                 onClick={(e) => {
                   e.stopPropagation()
                   toggleFileList(folder.id)
@@ -1123,7 +1123,7 @@ export function DocumentFolderTree({
             'group relative flex items-center gap-1 rounded-xl py-1.5 transition-colors before:absolute before:bottom-1.5 before:left-0 before:top-1.5 before:w-0.5 before:rounded-full before:bg-primary/0 before:transition-colors',
             activeFolderId === ROOT_FOLDER_ID
               ? 'text-foreground before:bg-muted-foreground/35'
-              : 'text-foreground/72 hover:bg-muted/36 hover:text-foreground/88',
+              : 'text-muted-foreground hover:bg-muted/36 hover:text-foreground',
             dragOverId === ROOT_FOLDER_ID && 'bg-info/[0.08] before:bg-info/50'
           )}
           style={{ paddingLeft: `${TREE_ROW_BASE_PADDING}px`, paddingRight: '0.5rem' }}
@@ -1167,7 +1167,7 @@ export function DocumentFolderTree({
           {showFiles === 'expanded' && rootHasContent && (
             <button
               type="button"
-              className="flex h-5 w-5 items-center justify-center rounded text-muted-foreground/75 hover:bg-muted/40 hover:text-foreground focus-ring"
+              className="flex h-5 w-5 items-center justify-center rounded text-muted-foreground hover:bg-muted/40 hover:text-foreground focus-ring"
               onClick={(e) => {
                 e.stopPropagation()
                 toggleFileList(ROOT_FOLDER_ID)

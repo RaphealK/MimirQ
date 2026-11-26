@@ -136,7 +136,7 @@ export function ParsingElementsPanel({
  </span>
  </div>
  {isCollapsed ? null : (
- <div className="mt-1 text-[12px] leading-5 text-muted-foreground/80">
+ <div className="mt-1 text-[12px] leading-5 text-muted-foreground">
  直接筛选并审阅印章、公式、表格、图片等结构元素。
  </div>
  )}
@@ -155,7 +155,7 @@ export function ParsingElementsPanel({
  'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
  filterKind === kind
  ? 'border-primary/40 bg-primary/10 text-foreground'
- : 'border-border/60 bg-card text-muted-foreground hover:text-foreground/80'
+ : 'border-border/60 bg-card text-muted-foreground hover:text-muted-foreground'
  )}
  >
  {kind === 'all' ? '全部' : kindLabel(kind)}
@@ -165,7 +165,7 @@ export function ParsingElementsPanel({
  <button
  type="button"
  onClick={() => setIsCollapsed((current) => !current)}
- className="rounded-full border border-border/60 bg-card px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:text-foreground/80"
+ className="rounded-full border border-border/60 bg-card px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:text-muted-foreground"
  >
  {isCollapsed ? '展开' : '收起'}
  </button>
@@ -183,7 +183,7 @@ export function ParsingElementsPanel({
  'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
  filterVisualKind === visualKind
  ? 'border-primary/40 bg-primary/10 text-foreground'
- : 'border-border/60 bg-card text-muted-foreground hover:text-foreground/80'
+ : 'border-border/60 bg-card text-muted-foreground hover:text-muted-foreground'
  )}
  >
  {visualKind === 'all' ? '全部图片子类' : visualKind}
@@ -247,7 +247,7 @@ export function ParsingElementsPanel({
  </span>
  ) : null}
  </div>
- {element.text ? <div className="mt-1 truncate text-sm text-foreground/85">{element.text}</div> : null}
+ {element.text ? <div className="mt-1 truncate text-sm text-foreground">{element.text}</div> : null}
  {element.bbox ? (
  <div className="mt-1 font-mono text-[11px] text-muted-foreground">bbox {formatBbox(element.bbox)}</div>
  ) : null}

@@ -415,8 +415,9 @@ describe("Navbar behavior", () => {
 
     const active = view.container.querySelector('a[aria-current="page"]');
     expect(active?.getAttribute("data-navbar-item")).toBe("/evaluations");
-    expect(active?.className).toContain("bg-raised");
-    expect(active?.className).toContain("before:bg-foreground");
+    // Active item: blue-tinted selected surface + Signal Blue indicator bar + solid foreground.
+    expect(active?.className).toContain("bg-selected");
+    expect(active?.className).toContain("before:bg-primary");
     expect(active?.className).toContain("text-foreground");
 
     for (const href of [

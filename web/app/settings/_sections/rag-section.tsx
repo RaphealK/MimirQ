@@ -77,7 +77,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 召回 Top K
@@ -108,7 +108,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 相似度阈值
@@ -219,7 +219,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               />
             </div>
             <div className="mt-3 flex items-center gap-2">
-              <span className={cn(systemPageTokens.microLabel, 'shrink-0 text-foreground/75')}>
+              <span className={cn(systemPageTokens.microLabel, 'shrink-0 text-muted-foreground')}>
                 最多附图
               </span>
               <Input
@@ -246,7 +246,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 重排服务
@@ -283,7 +283,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 重排数量
@@ -320,7 +320,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 分块大小
@@ -352,7 +352,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 分块重叠
@@ -387,7 +387,7 @@ export function RagSection({ rag, updateRag }: Readonly<RagSectionProps>) {
               <div
                 className={cn(
                   systemPageTokens.microLabel,
-                  'text-foreground/80'
+                  'text-muted-foreground'
                 )}
               >
                 最小分块长度

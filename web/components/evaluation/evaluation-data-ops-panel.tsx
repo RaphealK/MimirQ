@@ -149,7 +149,7 @@ export function EvaluationDataOpsPanel() {
             </div>
           </div>
           {busy ? (
-            <Loader2 className="h-4 w-4 shrink-0 animate-spin text-muted-foreground/70 motion-reduce:animate-none" />
+            <Loader2 className="h-4 w-4 shrink-0 animate-spin text-subtle-foreground motion-reduce:animate-none" />
           ) : null}
         </div>
 
@@ -195,7 +195,7 @@ export function EvaluationDataOpsPanel() {
           <div className="flex flex-wrap gap-2">
             <Button
               variant="outline"
-              className="h-9 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground/85 shadow-sm hover:bg-muted/50"
+              className="h-9 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground shadow-sm hover:bg-muted/50"
               disabled={Boolean(busy) || !dataset}
               onClick={() =>
                 detachPromise(
@@ -355,7 +355,7 @@ export function EvaluationDataOpsPanel() {
           <Field label="导入数据（JSON）">
             <div className="overflow-hidden rounded-lg border border-border bg-card shadow-inner">
               <div className="flex">
-                <div className="w-12 shrink-0 border-r border-border bg-muted/50 px-3 py-2 text-right font-mono text-[12px] leading-5 text-muted-foreground/70">
+                <div className="w-12 shrink-0 border-r border-border bg-muted/50 px-3 py-2 text-right font-mono text-[12px] leading-5 text-subtle-foreground">
                   1
                 </div>
                 <Textarea
@@ -451,7 +451,7 @@ function ActionButton({
     <Button
       variant="outline"
       className={cn(
-        'h-9 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground/85 shadow-sm hover:bg-muted/50',
+        'h-9 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground shadow-sm hover:bg-muted/50',
         className
       )}
       disabled={disabled}
@@ -506,7 +506,7 @@ function ResultCard({
           </div>
         ) : (
           <div className="flex items-center gap-3">
-            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-card text-muted-foreground/70 shadow-sm ring-1 ring-border">
+            <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-card text-subtle-foreground shadow-sm ring-1 ring-border">
               <FileJson className="h-4 w-4" />
             </span>
             <p className="text-[12px] leading-5 text-muted-foreground">
@@ -519,7 +519,7 @@ function ResultCard({
       <div className="mt-3 flex justify-end gap-2">
         <Button
           variant="outline"
-          className="h-8 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground/85 shadow-sm hover:bg-muted/50"
+          className="h-8 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground shadow-sm hover:bg-muted/50"
           disabled={!result}
           onClick={onToggleRaw}
         >
@@ -528,7 +528,7 @@ function ResultCard({
         </Button>
         <Button
           variant="outline"
-          className="h-8 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground/85 shadow-sm hover:bg-muted/50"
+          className="h-8 gap-1.5 rounded-lg border-border bg-card px-3 text-[12px] font-medium text-foreground shadow-sm hover:bg-muted/50"
           disabled={!result}
           onClick={onClear}
         >
@@ -538,7 +538,7 @@ function ResultCard({
       </div>
 
       {result && showRaw ? (
-        <pre className="mt-3 max-h-72 overflow-auto rounded-lg border border-border bg-foreground p-3 text-[11px] leading-5 text-muted-foreground/30">
+        <pre className="mt-3 max-h-72 overflow-auto rounded-lg border border-border bg-foreground p-3 text-[11px] leading-5 text-subtle-foreground">
           {prettyJson(result.payload)}
         </pre>
       ) : null}

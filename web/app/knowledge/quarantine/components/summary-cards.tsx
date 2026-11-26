@@ -34,7 +34,7 @@ export function SummaryStatCard({
     >
       <div className="relative flex items-start justify-between gap-4">
         <div className="space-y-1">
-          <div className="text-[10px] font-medium uppercase tracking-[0.14em] leading-none text-muted-foreground/80">
+          <div className="text-[10px] font-medium uppercase tracking-[0.14em] leading-none text-muted-foreground">
             {label}
           </div>
           <div className="text-[1.55rem] font-semibold leading-none text-foreground">
@@ -130,7 +130,7 @@ export function DonutSummaryCard({
               <span className="text-[1.2rem] font-semibold leading-none text-foreground">
                 {total}
               </span>
-              <span className="mt-1 text-[10px] font-medium text-muted-foreground/85">
+              <span className="mt-1 text-[10px] font-medium text-muted-foreground">
                 总量
               </span>
             </div>

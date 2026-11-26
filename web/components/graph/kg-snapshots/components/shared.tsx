@@ -91,7 +91,7 @@ export function WorkspaceSection({
           {label}
         </div>
         {hint ? (
-          <span className="text-[10px] text-muted-foreground/70">{hint}</span>
+          <span className="text-[10px] text-subtle-foreground">{hint}</span>
         ) : null}
       </div>
       {children}

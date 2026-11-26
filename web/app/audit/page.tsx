@@ -251,7 +251,7 @@ const HUD_TONE_CLASSES = {
 } as const
 
 const HUD_VALUE_TONE_CLASSES = {
-  slate: 'text-foreground/80',
+  slate: 'text-muted-foreground',
   green: 'text-success',
   blue: 'text-info',
   purple: 'text-info',
@@ -998,7 +998,7 @@ function AuditLogsPageContent() {
             <div className="flex flex-col gap-3 border-t border-border/60 bg-info/[0.025] px-6 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-2 text-[12px] font-medium text-muted-foreground">
                 <span>共 {total} 条</span>
-                <span className="text-muted-foreground/45">/</span>
+                <span className="text-subtle-foreground">/</span>
                 <span>每页</span>
                 <Select
                   value={String(limit)}
@@ -1030,7 +1030,7 @@ function AuditLogsPageContent() {
                 >
                   <ChevronLeft className="size-3.5" /> 上一页
                 </Button>
-                <span className="min-w-[88px] rounded-full border border-border/60 bg-background/70 px-3 py-1.5 text-center text-[12px] font-medium text-foreground/85">
+                <span className="min-w-[88px] rounded-full border border-border/60 bg-background/70 px-3 py-1.5 text-center text-[12px] font-medium text-foreground">
                   第 {displayPage} / {totalPages} 页
                 </span>
                 <Button

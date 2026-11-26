@@ -71,7 +71,7 @@ const OUTLINE_BUTTON =
 const PRIMARY_BUTTON =
   'h-9 rounded-full bg-info px-3.5 text-[12px] font-semibold text-info-foreground shadow-none hover:bg-info/90'
 const INPUT_CLASS =
-  'h-10 rounded-xl border-border/70 bg-muted/60 text-[13px] shadow-none placeholder:text-muted-foreground/60 focus-visible:border-info/35 focus-visible:ring-2 focus-visible:ring-info/10'
+  'h-10 rounded-xl border-border/70 bg-muted/60 text-[13px] shadow-none placeholder:text-subtle-foreground focus-visible:border-info/35 focus-visible:ring-2 focus-visible:ring-info/10'
 const CARD_CLASS =
   'rounded-xl border border-info/20 bg-background/72 shadow-none'
 const ICON_BUTTON =
@@ -102,7 +102,7 @@ const SUMMARY_VALUE_TONE_CLASS: Record<SummaryTone, string> = {
   primary: 'text-info',
   info: 'text-info',
   success: 'text-success',
-  muted: 'text-foreground/80',
+  muted: 'text-muted-foreground',
 }
 
 function getCreateStatusLabel(creating: boolean, createOpen: boolean): string {
@@ -478,7 +478,7 @@ function SettingsGroupsPageContent() {
 
             <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
               <div className="relative w-full max-w-[560px]">
-                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/70" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-subtle-foreground" />
                 <Input
                   className={cn(INPUT_CLASS, 'pl-10')}
                   value={query}

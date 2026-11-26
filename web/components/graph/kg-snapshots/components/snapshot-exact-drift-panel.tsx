@@ -32,7 +32,7 @@ export function DriftCounterCluster({
           <div className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             {groupLabel}
           </div>
-          <div className="mt-0.5 text-[10px] text-muted-foreground/80">
+          <div className="mt-0.5 text-[10px] text-muted-foreground">
             {total > 0 ? `共 ${total} 条变更` : '暂无变更'}
           </div>
         </div>

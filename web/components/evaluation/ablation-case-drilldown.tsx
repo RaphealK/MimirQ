@@ -171,18 +171,18 @@ export function AblationCaseDrilldown({
               <div className={cn('text-right font-mono', row.delta && row.delta > 0 ? 'text-success' : row.delta && row.delta < 0 ? 'text-destructive' : 'text-muted-foreground')}>
                 {row.delta === null ? '-' : row.delta >= 0 ? `+${row.delta.toFixed(3)}` : row.delta.toFixed(3)}
               </div>
-              <div className="text-right text-foreground/85">{row.label}</div>
+              <div className="text-right text-foreground">{row.label}</div>
             </div>
             {expandedCaseId === row.case_id ? (
               <div className="grid gap-2 border-t border-border/50 bg-muted/50 px-3 py-3 text-xs md:grid-cols-2">
                 <div>
-                  <div className="mb-1 font-medium text-foreground/85">Base answer</div>
+                  <div className="mb-1 font-medium text-foreground">Base answer</div>
                   <div className="line-clamp-5 rounded-lg bg-background p-2 text-muted-foreground">
                     {row.base_response || (row.metric_diffs.length ? row.metric_diffs.map((item) => `${item.key}: ${primitiveText(item.before)} -> ${primitiveText(item.after)}`).join(' / ') : '-')}
                   </div>
                 </div>
                 <div>
-                  <div className="mb-1 font-medium text-foreground/85">Target answer</div>
+                  <div className="mb-1 font-medium text-foreground">Target answer</div>
                   <div className="line-clamp-5 rounded-lg bg-background p-2 text-muted-foreground">{row.target_response || '-'}</div>
                 </div>
               </div>

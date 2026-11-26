@@ -121,7 +121,7 @@ export function DocumentChunkCard({
           </div>
         </div>
       </div>
-      <p className="font-mono text-compact leading-relaxed text-foreground/90 whitespace-pre-wrap">
+      <p className="font-mono text-compact leading-relaxed text-foreground whitespace-pre-wrap">
         <HighlightLayer content={chunk.content} query={query} />
       </p>
     </div>

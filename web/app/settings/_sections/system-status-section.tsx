@@ -25,7 +25,7 @@ function StatusCard({
       )}
     >
       <div className="mb-1.5 flex items-center justify-between">
-        <span className={cn(systemPageTokens.microLabel, 'text-foreground/80')}>{label}</span>
+        <span className={cn(systemPageTokens.microLabel, 'text-muted-foreground')}>{label}</span>
         {connected ? (
           <CheckCircle2 className="h-4 w-4 text-success" />
         ) : (
@@ -100,7 +100,7 @@ export function SystemStatusSection({
         <div className="rounded-lg border border-info/15 bg-info/[0.025] p-3.5 shadow-none">
           <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className={cn(systemPageTokens.microLabel, 'flex items-center gap-1.5 text-foreground/80')}>
+              <div className={cn(systemPageTokens.microLabel, 'flex items-center gap-1.5 text-muted-foreground')}>
                 <Server className="h-3.5 w-3.5 text-info" />
                 运行能力
               </div>

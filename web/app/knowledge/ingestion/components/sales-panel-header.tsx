@@ -16,7 +16,7 @@ export type SalesPanelHeaderProps = {
 export function SalesPanelHeader({
   actionLabel,
   icon: Icon,
-  iconTone = 'text-muted-foreground/65',
+  iconTone = 'text-subtle-foreground',
   onAction,
   subtitle,
   title,

@@ -543,7 +543,7 @@ function FeedbackSummaryCard({
           >
             {value}
           </div>
-          <div className="mt-1 text-[9px] font-medium text-foreground/85 dark:text-muted-foreground">
+          <div className="mt-1 text-[9px] font-medium text-foreground dark:text-muted-foreground">
             较昨日{' '}
             <span className={cn('font-semibold', deltaTone)} title={delta.title}>
               {delta.label}
@@ -1314,7 +1314,7 @@ export default function FeedbackTriagePage() {
                     <h1 className="text-[19px] font-semibold leading-6 tracking-[-0.02em] text-foreground">
                       反馈分析中心
                     </h1>
-                    <p className="text-[12px] leading-5 text-muted-foreground/85">
+                    <p className="text-[12px] leading-5 text-muted-foreground">
                       汇总反馈与低分原因，定位待回归问题。
                     </p>
                   </div>
@@ -1326,12 +1326,12 @@ export default function FeedbackTriagePage() {
                       <MessageSquare className="size-3 text-info" />
                       收集
                     </span>
-                    <ArrowUpRight className="size-3 shrink-0 text-muted-foreground/45" />
+                    <ArrowUpRight className="size-3 shrink-0 text-subtle-foreground" />
                     <span className="inline-flex items-center gap-1.5">
                       <Star className="size-3 text-info" />
                       归因
                     </span>
-                    <ArrowUpRight className="size-3 shrink-0 text-muted-foreground/45" />
+                    <ArrowUpRight className="size-3 shrink-0 text-subtle-foreground" />
                     <span className="inline-flex items-center gap-1.5">
                       <CheckCheck className="size-3 text-info" />
                       回归验证
@@ -1466,7 +1466,7 @@ export default function FeedbackTriagePage() {
                     >
                       <SelectTrigger
                         title={filterType === 'all' ? '按类型筛选（当前：全部）' : filterType === 'thumbs_up' ? '按类型筛选：点赞反馈' : '按类型筛选：点踩反馈'}
-                        className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-muted-foreground/65"
+                        className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-subtle-foreground"
                       >
                         <span className="truncate pr-2 text-[12px] font-medium text-foreground">
                           {filterType === 'all' ? '类型' : filterType === 'thumbs_up' ? '类型 · 点赞' : '类型 · 点踩'}
@@ -1489,7 +1489,7 @@ export default function FeedbackTriagePage() {
                             ? '按星级筛选（当前：全部）'
                             : `按星级筛选：${ratingFilter} 星反馈`
                         }
-                        className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-muted-foreground/65"
+                        className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-subtle-foreground"
                       >
                         <span className="truncate pr-2 text-[12px] font-medium text-foreground">
                           {ratingFilter === 'all'
@@ -1533,7 +1533,7 @@ export default function FeedbackTriagePage() {
                         setTimeRange(v as FeedbackTimeRange)
                       }
                     >
-                      <SelectTrigger className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-muted-foreground/65">
+                      <SelectTrigger className="h-9 w-full rounded-xl border-border/60 bg-background/75 px-3 shadow-none [&>svg]:text-subtle-foreground">
                         <span className="truncate pr-2 text-[12px] font-medium text-foreground">
                           {TIME_RANGE_SHORT_LABELS[timeRange]}
                         </span>
@@ -1591,7 +1591,7 @@ export default function FeedbackTriagePage() {
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-col gap-1.5 xl:flex-row xl:items-start xl:justify-between">
                               <div className="min-w-0">
-                                <div className="truncate text-[0.9rem] font-medium text-foreground/88">
+                                <div className="truncate text-[0.9rem] font-medium text-foreground">
                                   {title}
                                 </div>
                                 <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-[10px] text-muted-foreground">
@@ -1600,7 +1600,7 @@ export default function FeedbackTriagePage() {
                                     {FEEDBACK_KIND_LABELS[kind]}
                                     ）
                                   </span>
-                                  <span className="text-muted-foreground/35">
+                                  <span className="text-subtle-foreground">
                                     ·
                                   </span>
                                   <div className="flex items-center gap-0.5 text-warning">
@@ -1618,7 +1618,7 @@ export default function FeedbackTriagePage() {
                                       )
                                     )}
                                   </div>
-                                  <span className="font-normal text-foreground/70">
+                                  <span className="font-normal text-muted-foreground">
                                     {ratingValue}/5
                                   </span>
                                 </div>
@@ -1647,15 +1647,15 @@ export default function FeedbackTriagePage() {
 
                             <div className="mt-2.5 grid gap-2.5 xl:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)]">
                               <div className="rounded-lg border border-border/50 bg-muted/25 p-2.5">
-                                <div className="text-[10px] font-medium text-foreground/82">
+                                <div className="text-[10px] font-medium text-foreground">
                                   用户反馈原因
                                 </div>
-                                <p className="mt-1 line-clamp-2 text-[11px] leading-4.5 text-foreground/78">
+                                <p className="mt-1 line-clamp-2 text-[11px] leading-4.5 text-muted-foreground">
                                   {item.reason || '用户未填写反馈原因。'}
                                 </p>
                               </div>
                               <div className="rounded-lg border border-border/50 bg-muted/25 p-2.5">
-                                <div className="text-[10px] font-medium text-foreground/82">
+                                <div className="text-[10px] font-medium text-foreground">
                                   模型回答摘要
                                 </div>
                                 <p className="mt-1 line-clamp-2 text-[11px] leading-4.5 text-muted-foreground">
@@ -1766,14 +1766,14 @@ export default function FeedbackTriagePage() {
                 <div className="flex min-h-[360px] flex-1 flex-col items-center justify-center px-6 py-20 text-center">
                   <div className="mb-5 flex size-24 items-center justify-center rounded-full bg-muted/50">
                     <Search
-                      className="size-9 text-muted-foreground/55"
+                      className="size-9 text-subtle-foreground"
                       aria-hidden="true"
                     />
                   </div>
                   <p className="text-[15px] font-semibold text-foreground">
                     没有找到相关的反馈记录
                   </p>
-                  <p className="mt-2 max-w-lg text-[13px] leading-6 text-muted-foreground/85">
+                  <p className="mt-2 max-w-lg text-[13px] leading-6 text-muted-foreground">
                     {hasExtendedFilters
                       ? '可以清除当前筛选条件，查看完整反馈流。'
                       : '当前没有可分析的反馈数据，可使用右上角刷新获取最新结果。'}
@@ -1913,7 +1913,7 @@ export default function FeedbackTriagePage() {
                         </div>
                         <span className="font-mono tabular-nums text-muted-foreground">
                           {item.value}{' '}
-                          <span className="text-muted-foreground/65">
+                          <span className="text-subtle-foreground">
                             (
                             {stats.total > 0
                               ? ((item.value / stats.total) * 100).toFixed(1)

@@ -238,5 +238,5 @@ export function tokenClassName(kind: JsonTokenKind) {
   if (kind === 'boolean') return 'text-accent'
   if (kind === 'null') return 'text-destructive'
   if (kind === 'punctuation') return 'text-muted-foreground'
-  return 'text-foreground/90'
+  return 'text-foreground'
 }

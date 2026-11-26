@@ -283,7 +283,7 @@ export function SnapshotAuditPanel({
             ) : (
               <div className="flex h-full items-center justify-center px-4 py-12">
                 <div className="flex max-w-[320px] flex-col items-center text-center">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-card text-muted-foreground/70 shadow-sm">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-border/60 bg-card text-subtle-foreground shadow-sm">
                     <Layers className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-[13px] font-semibold text-foreground">

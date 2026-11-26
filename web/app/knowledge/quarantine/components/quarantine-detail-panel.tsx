@@ -32,10 +32,10 @@ export function QuarantineDetailPanel({
             { label: '切片数量', value: String(selected.chunk_count ?? 0) },
           ].map((item) => (
             <div key={item.label} className="space-y-1">
-              <div className="text-[10px] font-medium uppercase text-muted-foreground/60">
+              <div className="text-[10px] font-medium uppercase text-subtle-foreground">
                 {item.label}
               </div>
-              <div className="break-words text-xs font-mono font-medium text-foreground/90">
+              <div className="break-words text-xs font-mono font-medium text-foreground">
                 {item.value}
               </div>
             </div>
@@ -60,7 +60,7 @@ export function QuarantineDetailPanel({
           {buildReviewAdvice(selected).map((tip) => (
             <div
               key={tip}
-              className="flex items-start gap-3 text-[13px] font-medium text-foreground/80 leading-relaxed"
+              className="flex items-start gap-3 text-[13px] font-medium text-muted-foreground leading-relaxed"
             >
               <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-sm bg-warning" />
               <div>{tip}</div>
@@ -71,7 +71,7 @@ export function QuarantineDetailPanel({
 
       {getDropReasons(selected).length > 0 ? (
         <div className="rounded-lg border border-foreground/10 bg-muted/30 p-4">
-          <div className="text-[10px] font-medium uppercase text-muted-foreground/60">
+          <div className="text-[10px] font-medium uppercase text-subtle-foreground">
             命中规则 / RULES
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5">

@@ -285,7 +285,7 @@ function getQualitySectionClass(hasDivider: boolean): string {
 function getToggleButtonClass(active: boolean): string {
  return active
  ? 'bg-card text-foreground shadow-sm dark:bg-background dark:text-foreground dark:shadow-none'
- : 'text-muted-foreground hover:text-foreground/80 dark:text-muted-foreground dark:hover:text-muted-foreground'
+ : 'text-muted-foreground hover:text-muted-foreground dark:text-muted-foreground dark:hover:text-muted-foreground'
 }
 
 function buildExtractEvidencePosition(
@@ -795,7 +795,7 @@ export function ParsingActiveFilePane({
  {qualityEvidenceItems.map((item) => (
  <span
  key={item}
- className="rounded-full border border-border/60 bg-card px-2 py-0.5 font-mono text-[11px] text-muted-foreground/90"
+ className="rounded-full border border-border/60 bg-card px-2 py-0.5 font-mono text-[11px] text-muted-foreground"
  >
  {item}
  </span>
@@ -809,7 +809,7 @@ export function ParsingActiveFilePane({
  getQualitySectionClass(Boolean(activeQualityGate))
  )}
  >
- <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground/75">
+ <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
  结构元素
  </span>
  {activeElementSummaryItems.map((item) => (
@@ -835,18 +835,18 @@ export function ParsingActiveFilePane({
  key={item.key}
  className="inline-flex max-w-full items-center gap-2 rounded-lg border border-border/60 bg-card px-2.5 py-1 text-[11px] text-muted-foreground"
  >
- <span className="font-semibold uppercase tracking-[0.1em] text-foreground/78">{item.label}</span>
+ <span className="font-semibold uppercase tracking-[0.1em] text-muted-foreground">{item.label}</span>
  <span className="max-w-[280px] truncate font-medium text-foreground">{item.value}</span>
- {item.meta ? <span className="font-mono text-muted-foreground/85">{item.meta}</span> : null}
+ {item.meta ? <span className="font-mono text-muted-foreground">{item.meta}</span> : null}
  </div>
  ))}
  </div>
  ) : null}
  {selectedExtractEvidence ? (
  <div className="mt-2 border-t border-border/60 pt-2">
- <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground/75">证据定位</div>
+ <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">证据定位</div>
  <div className="mt-1.5 flex flex-wrap items-center gap-2 rounded-lg border border-border/60 bg-card px-2.5 py-1.5 text-[11px] text-muted-foreground">
- <span className="font-semibold text-foreground/80">{selectedExtractEvidence.fieldName}</span>
+ <span className="font-semibold text-muted-foreground">{selectedExtractEvidence.fieldName}</span>
  <span>{selectedExtractElement?.kind || selectedExtractEvidence.evidence.kind || 'unknown'}</span>
  {selectedExtractEvidence.evidence.visual_kind ? <span>{selectedExtractEvidence.evidence.visual_kind}</span> : null}
  {selectedExtractElement?.id || selectedExtractEvidence.evidence.element_id ? (
@@ -892,7 +892,7 @@ export function ParsingActiveFilePane({
  <select
  value={activeRun?.id || ''}
  onChange={(event) => onSelectRun(event.target.value)}
- className="h-7 max-w-[12rem] shrink-0 rounded-md border border-border/60 bg-background px-2 text-[11px] text-foreground/80 outline-none focus:border-info/50 dark:border-border dark:bg-muted dark:text-muted-foreground"
+ className="h-7 max-w-[12rem] shrink-0 rounded-md border border-border/60 bg-background px-2 text-[11px] text-muted-foreground outline-none focus:border-info/50 dark:border-border dark:bg-muted dark:text-muted-foreground"
  >
  {activeFile.runs.map((run) => (
  <option key={run.id} value={run.id}>
@@ -1023,7 +1023,7 @@ export function ParsingActiveFilePane({
  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-info/15 dark:bg-info/30">
  <Sparkles className="h-8 w-8 text-info dark:text-info" />
  </div>
- <p className="mb-2 text-foreground/80 dark:text-muted-foreground">准备就绪</p>
+ <p className="mb-2 text-muted-foreground dark:text-muted-foreground">准备就绪</p>
  <p className="text-sm text-muted-foreground dark:text-muted-foreground">
  上传只登记到解析工作区；点击下方“用当前解析器开始解析”才会运行（当前：{activeFile.parserLabel}）
  </p>
@@ -1064,7 +1064,7 @@ export function ParsingActiveFilePane({
  </span>
  </div>
  </div>
- <p className="mt-4 text-foreground/80 dark:text-muted-foreground">正在解析...</p>
+ <p className="mt-4 text-muted-foreground dark:text-muted-foreground">正在解析...</p>
  <p className="mt-1 text-sm text-muted-foreground dark:text-muted-foreground">{activeFile.parserLabel}</p>
  </div>
  </div>
@@ -1122,7 +1122,7 @@ export function ParsingActiveFilePane({
  页 {sample.page} · {sample.text_chars} 字符
  </div>
  {sample.excerpt ? (
- <div className="mt-1 whitespace-pre-wrap text-xs text-foreground/80 dark:text-muted-foreground">
+ <div className="mt-1 whitespace-pre-wrap text-xs text-muted-foreground dark:text-muted-foreground">
  {sample.excerpt}
  </div>
  ) : (
@@ -1146,7 +1146,7 @@ export function ParsingActiveFilePane({
  ref={editorRef}
  value={editedContent}
  onChange={(event) => onEditedContentChange(event.target.value)}
- className="min-h-[500px] w-full resize-none rounded-xl border border-border bg-muted p-4 font-mono text-sm leading-relaxed text-foreground/80 whitespace-pre-wrap focus:border-transparent focus:outline-none focus:ring-2 focus:ring-info dark:border-border dark:bg-background dark:text-muted-foreground"
+ className="min-h-[500px] w-full resize-none rounded-xl border border-border bg-muted p-4 font-mono text-sm leading-relaxed text-muted-foreground whitespace-pre-wrap focus:border-transparent focus:outline-none focus:ring-2 focus:ring-info dark:border-border dark:bg-background dark:text-muted-foreground"
  placeholder="在此编辑内容..."
  autoFocus
  />
@@ -1177,10 +1177,10 @@ export function ParsingActiveFilePane({
  <div className="border-b border-border/60 bg-[linear-gradient(180deg,hsl(var(--background)/0.92),hsl(var(--muted)/0.36))] px-4 py-3 dark:bg-background/72">
  <div className="flex flex-wrap items-center justify-between gap-2">
  <div className="min-w-0">
- <div className="text-[11px] font-medium tracking-[0.06em] text-foreground/78">
+ <div className="text-[11px] font-medium tracking-[0.06em] text-muted-foreground">
  解析定位块
  </div>
- <div className="mt-0.5 text-[11px] leading-5 text-muted-foreground/78">
+ <div className="mt-0.5 text-[11px] leading-5 text-muted-foreground">
  点击左侧 PDF 框选可跳到这里，点击定位块也会高亮原页
  </div>
  </div>
@@ -1246,7 +1246,7 @@ export function ParsingActiveFilePane({
  {element.bbox ? '可定位' : '无坐标'}
  </span>
  </div>
- <div className="truncate text-sm font-medium text-foreground/82">
+ <div className="truncate text-sm font-medium text-foreground">
  {String(element.text || element.id || `图片 ${reviewEntry.imageIndex + 1}`)}
  </div>
  <div className="mt-1 text-[11px] leading-5 text-muted-foreground">
@@ -1319,7 +1319,7 @@ export function ParsingActiveFilePane({
  isActive ? 'bg-primary/55' : 'bg-border/45 group-hover:bg-border/70'
  )}
  />
- <div className="prose prose-slate prose-sm max-w-none prose-headings:mb-1 prose-headings:mt-0 prose-headings:text-foreground prose-p:my-0 prose-p:text-foreground/82 prose-a:text-info prose-code:rounded prose-code:bg-info/10 prose-code:px-1 prose-code:py-0.5 prose-code:text-info prose-pre:my-1 prose-pre:bg-foreground prose-table:my-1 prose-table:border-collapse prose-td:border prose-td:border-info/30 prose-td:p-2 prose-th:border prose-th:border-info/30 prose-th:bg-info/10 prose-th:p-2 dark:prose-invert dark:prose-headings:text-foreground dark:prose-p:text-muted-foreground dark:prose-a:text-info dark:prose-code:bg-muted dark:prose-code:text-info dark:prose-th:border-info/30 dark:prose-th:bg-info/20 dark:prose-td:border-info/30">
+ <div className="prose prose-slate prose-sm max-w-none prose-headings:mb-1 prose-headings:mt-0 prose-headings:text-foreground prose-p:my-0 prose-p:text-foreground prose-a:text-info prose-code:rounded prose-code:bg-info/10 prose-code:px-1 prose-code:py-0.5 prose-code:text-info prose-pre:my-1 prose-pre:bg-foreground prose-table:my-1 prose-table:border-collapse prose-td:border prose-td:border-info/30 prose-td:p-2 prose-th:border prose-th:border-info/30 prose-th:bg-info/10 prose-th:p-2 dark:prose-invert dark:prose-headings:text-foreground dark:prose-p:text-muted-foreground dark:prose-a:text-info dark:prose-code:bg-muted dark:prose-code:text-info dark:prose-th:border-info/30 dark:prose-th:bg-info/20 dark:prose-td:border-info/30">
  <MarkdownRenderer markdown={entry.text} />
  </div>
  </div>
@@ -1338,7 +1338,7 @@ export function ParsingActiveFilePane({
  >
  {previewMode === 'rendered' ? (
  <div className="flex gap-8">
- <div className="prose prose-slate prose-sm min-w-0 max-w-none flex-1 prose-headings:text-foreground prose-h1:mb-5 prose-h1:text-[26px] prose-h1:font-semibold prose-h1:leading-[1.22] prose-h1:tracking-[-0.02em] prose-h2:mb-3 prose-h2:mt-8 prose-h2:text-[21px] prose-h2:leading-[1.3] prose-h3:text-[17px] prose-p:my-4 prose-p:text-[15px] prose-p:leading-7 prose-p:text-foreground/80 prose-li:text-[15px] prose-li:leading-7 prose-a:text-info prose-code:rounded prose-code:bg-info/10 prose-code:px-1 prose-code:py-0.5 prose-code:text-info prose-pre:bg-foreground prose-table:border-collapse prose-td:border prose-td:border-info/30 prose-td:p-2 prose-th:border prose-th:border-info/30 prose-th:bg-info/10 prose-th:p-2 dark:prose-invert dark:prose-headings:text-foreground dark:prose-p:text-muted-foreground dark:prose-a:text-info dark:prose-code:bg-muted dark:prose-code:text-info dark:prose-th:border-info/30 dark:prose-th:bg-info/20 dark:prose-td:border-info/30">
+ <div className="prose prose-slate prose-sm min-w-0 max-w-none flex-1 prose-headings:text-foreground prose-h1:mb-5 prose-h1:text-[26px] prose-h1:font-semibold prose-h1:leading-[1.22] prose-h1:tracking-[-0.02em] prose-h2:mb-3 prose-h2:mt-8 prose-h2:text-[21px] prose-h2:leading-[1.3] prose-h3:text-[17px] prose-p:my-4 prose-p:text-[15px] prose-p:leading-7 prose-p:text-muted-foreground prose-li:text-[15px] prose-li:leading-7 prose-a:text-info prose-code:rounded prose-code:bg-info/10 prose-code:px-1 prose-code:py-0.5 prose-code:text-info prose-pre:bg-foreground prose-table:border-collapse prose-td:border prose-td:border-info/30 prose-td:p-2 prose-th:border prose-th:border-info/30 prose-th:bg-info/10 prose-th:p-2 dark:prose-invert dark:prose-headings:text-foreground dark:prose-p:text-muted-foreground dark:prose-a:text-info dark:prose-code:bg-muted dark:prose-code:text-info dark:prose-th:border-info/30 dark:prose-th:bg-info/20 dark:prose-td:border-info/30">
  <MarkdownRenderer
  markdown={activeMarkdown}
  autoScrollToHash
@@ -1354,7 +1354,7 @@ export function ParsingActiveFilePane({
  ) : null}
  </div>
  ) : (
- <pre className="whitespace-pre-wrap rounded-xl border border-border bg-muted/60 p-6 font-mono text-sm leading-relaxed text-foreground/80 dark:border-border dark:bg-background/40 dark:text-muted-foreground">
+ <pre className="whitespace-pre-wrap rounded-xl border border-border bg-muted/60 p-6 font-mono text-sm leading-relaxed text-muted-foreground dark:border-border dark:bg-background/40 dark:text-muted-foreground">
  {activeMarkdown}
  </pre>
  )}
@@ -1379,9 +1379,9 @@ export function ParsingActiveFilePane({
  </div>
 
  {activeFile.status === 'parsed' && activeMarkdown ? (
- <div className="relative z-10 border-t border-border/60 bg-card px-6 py-4 shadow-[0_-10px_24px_-18px_rgba(0,0,0,0.22)] backdrop-blur-xl dark:bg-card dark:shadow-[0_-12px_28px_-18px_rgba(0,0,0,0.42)]">
+ <div className="relative z-10 border-t border-border/60 bg-card px-6 py-4 shadow-[0_-10px_24px_-18px_rgba(0,0,0,0.22)] dark:bg-card dark:shadow-[0_-12px_28px_-18px_rgba(0,0,0,0.42)]">
  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
- <div className="text-[11px] leading-5 text-muted-foreground/72 dark:text-muted-foreground/70">
+ <div className="text-[11px] leading-5 text-subtle-foreground dark:text-subtle-foreground">
  {isEditing ? '编辑完成后点击"保存修改"，然后提交到数据治理' : '确认解析内容无误后，提交到数据治理工作台'}
  </div>
  <div className="flex items-center gap-3">

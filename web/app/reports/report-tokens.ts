@@ -24,7 +24,7 @@ export const CHART_TOOLTIP_LABEL_STYLE = {
 export const CHART_TOOLTIP_CURSOR = { fill: 'hsl(var(--muted-foreground) / 0.08)' }
 export const DEFAULT_PIPELINE_VERSION_VALUE = '__mimirq_default_pipeline_version__'
 export const REPORT_LABEL_CLASS =
-  'text-[0.6875rem] font-medium tracking-[0.02em] text-muted-foreground/90'
+  'text-[0.6875rem] font-medium tracking-[0.02em] text-muted-foreground'
 export const REPORT_VALUE_CLASS =
   'truncate text-[0.8125rem] font-semibold leading-4 tracking-[-0.01em] text-foreground'
 export const REPORT_SUBTEXT_CLASS = 'text-[0.6875rem] leading-4 text-muted-foreground'
@@ -34,7 +34,7 @@ export const REPORT_PANEL_TITLE_CLASS =
   'text-[0.875rem] font-semibold leading-5 tracking-[-0.015em] text-foreground'
 export const REPORT_TABLE_HEADER_CLASS =
   'text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-muted-foreground'
-export const REPORT_TABLE_ROW_CLASS = 'text-[0.8125rem] leading-5 text-foreground/85'
+export const REPORT_TABLE_ROW_CLASS = 'text-[0.8125rem] leading-5 text-foreground'
 export const REPORT_PANEL_CLASS =
   'rounded-2xl border border-info/15 bg-background/72 p-3 shadow-none'
 export const REPORT_SECONDARY_ACTION_CLASS =
@@ -44,8 +44,8 @@ export const REPORT_PRIMARY_ACTION_CLASS =
 export const REPORT_FILTER_LABEL_CLASS =
   'text-xs font-medium tracking-[0.02em] text-muted-foreground'
 export const REPORT_SELECT_TRIGGER_CLASS =
-  'h-8 w-full rounded-lg border-info/15 bg-info/[0.025] text-[11px] font-medium text-foreground/85 shadow-none hover:border-info/30'
+  'h-8 w-full rounded-lg border-info/15 bg-info/[0.025] text-[11px] font-medium text-foreground shadow-none hover:border-info/30'
 export const REPORT_SELECT_ITEM_CLASS =
-  'py-2 text-xs font-medium text-foreground/85'
+  'py-2 text-xs font-medium text-foreground'
 export const REPORT_METRIC_LEDGER_CLASS =
   'grid overflow-hidden rounded-2xl border border-info/15 bg-info/15 shadow-none md:grid-cols-3 2xl:grid-cols-6'

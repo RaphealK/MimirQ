@@ -214,7 +214,7 @@ export function ParsingSidebarPane({
           <span className="truncate text-[13px] font-semibold text-foreground">
             {t('sidebar.documentList')}
           </span>
-          <span className="shrink-0 text-[10px] tabular-nums text-muted-foreground/70">
+          <span className="shrink-0 text-[10px] tabular-nums text-subtle-foreground">
             {currentFolderFileCount}
           </span>
         </button>
@@ -424,7 +424,7 @@ export function ParsingSidebarPane({
                       />
                       <span className="truncate">{dataset.name}</span>
                       {typeof dataset.count === 'number' ? (
-                        <span className="ml-auto pl-2 text-[10px] tabular-nums text-muted-foreground/70">
+                        <span className="ml-auto pl-2 text-[10px] tabular-nums text-subtle-foreground">
                           {dataset.count}
                         </span>
                       ) : null}
@@ -493,14 +493,14 @@ export function ParsingSidebarPane({
       />
 
       {currentFolderFileCount > 0 ? (
-        <div className="border-t border-border/60 bg-[linear-gradient(180deg,hsl(var(--background)/0.82),hsl(var(--muted)/0.28))] px-3.5 py-3 backdrop-blur-sm">
+        <div className="border-t border-border/60 bg-[linear-gradient(180deg,hsl(var(--background)/0.82),hsl(var(--muted)/0.28))] px-3.5 py-3">
           <div className="grid grid-cols-4 gap-1.5 text-[11px] tabular-nums">
             {fileTypeSummary.map(({ icon: Icon, label, value }) => (
               <span
                 key={label}
-                className="inline-flex items-center justify-center gap-1 rounded-md border border-border/60 bg-card/70 px-1.5 py-1 text-muted-foreground/80 transition-colors"
+                className="inline-flex items-center justify-center gap-1 rounded-md border border-border/60 bg-card/70 px-1.5 py-1 text-muted-foreground transition-colors"
               >
-                <Icon className="size-3 text-muted-foreground/70" />
+                <Icon className="size-3 text-subtle-foreground" />
                 <span>{label}</span>
                 <span className="font-semibold text-foreground">{value}</span>
               </span>

@@ -32,7 +32,7 @@ const healthHeroCard = 'relative overflow-hidden border-b border-border/60 bg-tr
 const healthPanelClass = 'overflow-hidden border border-border/60 bg-card p-4 shadow-none dark:border-border/70 dark:bg-card'
 const healthToolbarGroupClass = 'inline-flex flex-wrap items-center gap-1 rounded-lg border border-border/60 bg-card p-1 shadow-none dark:border-border/70 dark:bg-card'
 const healthToolbarButtonClass = 'h-8 gap-1.5 rounded-xl px-2.5 text-[12px] font-medium text-muted-foreground shadow-none hover:bg-card/95 hover:text-foreground hover:shadow-sm dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
-const healthToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground/85 shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
+const healthToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
 const healthToolbarPrimaryButtonClass = 'h-8 gap-1.5 rounded-md border border-primary/20 bg-primary px-3 text-[12px] font-semibold text-primary-foreground shadow-none hover:bg-primary/90 dark:border-primary/30 [&_svg]:size-3.5'
 
 function asDatasetId(raw: unknown): string {
@@ -188,7 +188,7 @@ export default function DatasetHealthPage() {
                   </div>
                   <p className="max-w-4xl text-[12px] leading-5 text-muted-foreground">
                     数据集：<span className="font-semibold text-foreground dark:text-foreground">{dataset?.name || datasetId || '未选择'}</span>
-                    <span className="mx-2 text-muted-foreground/60">·</span>
+                    <span className="mx-2 text-subtle-foreground">·</span>
                     汇总数据画像、入库状态和下一步处理建议
                   </p>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] leading-none text-muted-foreground">
@@ -462,7 +462,7 @@ export default function DatasetHealthPage() {
             <div className="mb-3 flex items-start justify-between gap-4">
               <div>
                 <div className="text-sm font-semibold">后端健康字段</div>
-                <div className="mt-0.5 text-[11px] leading-4 text-muted-foreground/60">
+                <div className="mt-0.5 text-[11px] leading-4 text-subtle-foreground">
                   仅展示后端真实返回的状态计数与画像发现；不再在前端推导“健康良好”或自动建议。
                 </div>
               </div>
@@ -474,7 +474,7 @@ export default function DatasetHealthPage() {
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_360px]">
               <div className="rounded-xl border border-border/50 bg-card/45 p-3 dark:bg-card/40">
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <div className="text-[13px] font-semibold text-foreground/85">入库状态计数</div>
+                  <div className="text-[13px] font-semibold text-foreground">入库状态计数</div>
                   <Badge variant={statusChartData.length ? 'soft' : 'outline'} className="h-5 px-1.5 text-[10px] font-mono">
                     {statusChartData.length}
                   </Badge>
@@ -483,13 +483,13 @@ export default function DatasetHealthPage() {
                   <div className="divide-y divide-border/45 overflow-hidden rounded-lg border border-border/45">
                     {statusChartData.map((item) => (
                       <div key={item.name} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-2.5 py-2">
-                        <div className="truncate text-[12px] font-semibold text-foreground/85">{item.name}</div>
+                        <div className="truncate text-[12px] font-semibold text-foreground">{item.name}</div>
                         <div className="font-mono text-[11px] text-muted-foreground">{item.value}</div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-2.5 py-2 text-[11px] leading-4 text-muted-foreground/65">
+                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-2.5 py-2 text-[11px] leading-4 text-subtle-foreground">
                     后端未返回可展示的状态分布。
                   </div>
                 )}
@@ -498,8 +498,8 @@ export default function DatasetHealthPage() {
               <div className="rounded-xl border border-border/50 bg-card/45 p-3 dark:bg-card/40">
                 <div className="mb-2.5 flex items-center justify-between gap-2">
                   <div>
-                    <div className="text-[13px] font-semibold text-foreground/85">画像发现</div>
-                    <div className="mt-0.5 text-[10px] leading-none text-muted-foreground/55">按影响度排序的可处理问题</div>
+                    <div className="text-[13px] font-semibold text-foreground">画像发现</div>
+                    <div className="mt-0.5 text-[10px] leading-none text-subtle-foreground">按影响度排序的可处理问题</div>
                   </div>
                   <Badge variant={topFindings.length ? 'soft' : 'outline'} className="h-5 px-1.5 text-[10px] font-mono">
                     {topFindings.length}
@@ -533,13 +533,13 @@ export default function DatasetHealthPage() {
                         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 pl-2">
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5">
-                              <div className="truncate text-[12px] font-semibold text-foreground/85">{f.label}</div>
+                              <div className="truncate text-[12px] font-semibold text-foreground">{f.label}</div>
                               <span className="shrink-0 rounded-full bg-muted px-1.5 py-0.5 font-mono text-[10px] leading-none text-muted-foreground dark:bg-muted/50">
                                 ×{Number(f.count || 0)}
                               </span>
                             </div>
                             {f.description ? (
-                              <div className="mt-1 line-clamp-2 text-[11px] leading-4 text-muted-foreground/62">{f.description}</div>
+                              <div className="mt-1 line-clamp-2 text-[11px] leading-4 text-subtle-foreground">{f.description}</div>
                             ) : null}
                           </div>
                           <Badge variant={suggestionBadgeVariant(f.severity)} className="h-5 shrink-0 px-1.5 text-[10px] font-mono uppercase">
@@ -550,7 +550,7 @@ export default function DatasetHealthPage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-2.5 py-2 text-[11px] leading-4 text-muted-foreground/65 dark:bg-muted/20">
+                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-2.5 py-2 text-[11px] leading-4 text-subtle-foreground dark:bg-muted/20">
                     当前没有 profile findings。
                   </div>
                 )}

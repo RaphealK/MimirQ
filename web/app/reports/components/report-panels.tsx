@@ -288,7 +288,7 @@ export function RetrievalAuditPanel({
 
       <div className="mt-2 overflow-hidden rounded-lg border border-border/50">
         <div className="flex items-center justify-between gap-2 border-b border-border/50 bg-muted/45 px-2.5 py-1.5">
-          <div className="text-[0.75rem] font-semibold tracking-[-0.01em] text-foreground/85">
+          <div className="text-[0.75rem] font-semibold tracking-[-0.01em] text-foreground">
             门禁指标
           </div>
           <div className="text-[0.6875rem] text-muted-foreground">
@@ -416,10 +416,10 @@ export function TopDocumentPanel({
                 REPORT_TABLE_ROW_CLASS
               )}
             >
-              <div className="truncate font-medium text-foreground/85" title={row.name}>
+              <div className="truncate font-medium text-foreground" title={row.name}>
                 {row.name}
               </div>
-              <div className="tabular-nums text-foreground/85">{row.value}</div>
+              <div className="tabular-nums text-foreground">{row.value}</div>
               <div className="h-1.5 rounded-full bg-muted">
                 <div
                   className="h-full rounded-full bg-info/100"

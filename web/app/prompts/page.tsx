@@ -616,7 +616,7 @@ function PromptsPageContent() {
                           抽取 · 召回 · 关系治理
                         </span>
                       </span>
-                      <ChevronDown className="ml-2 size-4 shrink-0 text-muted-foreground/70 transition-transform group-data-[state=open]:rotate-180 group-data-[state=open]:text-info" />
+                      <ChevronDown className="ml-2 size-4 shrink-0 text-subtle-foreground transition-transform group-data-[state=open]:rotate-180 group-data-[state=open]:text-info" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent
@@ -667,7 +667,7 @@ function PromptsPageContent() {
                   <Button
                     size="sm"
                     variant="outline"
-                    className="h-7 rounded-md border-info/15 bg-background/70 px-2.5 text-[11px] text-foreground/85 hover:bg-info/[0.05]"
+                    className="h-7 rounded-md border-info/15 bg-background/70 px-2.5 text-[11px] text-foreground hover:bg-info/[0.05]"
                     onClick={() => handleBatchActivate(false)}
                   >
                     批量停用
@@ -816,19 +816,19 @@ function PromptsPageContent() {
                                       <Badge
                                         key={variable}
                                         variant="secondary"
-                                        className="h-6 rounded-md bg-info/[0.05] px-2 font-mono text-[11px] font-medium text-foreground/85"
+                                        className="h-6 rounded-md bg-info/[0.05] px-2 font-mono text-[11px] font-medium text-foreground"
                                       >
                                         {`{${variable}}`}
                                       </Badge>
                                     ))}
                                   {template.variables.length > 2 ? (
-                                    <span className="text-[11px] text-muted-foreground/70">
+                                    <span className="text-[11px] text-subtle-foreground">
                                       +{template.variables.length - 2}
                                     </span>
                                   ) : null}
                                 </>
                               ) : (
-                                <span className="text-muted-foreground/70">-</span>
+                                <span className="text-subtle-foreground">-</span>
                               )}
                             </div>
                             <div className="tabular-nums text-muted-foreground">

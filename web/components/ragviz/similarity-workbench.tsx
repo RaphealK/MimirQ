@@ -1175,7 +1175,7 @@ export function RagvizSimilarityWorkbench() {
       {hasCompactOverlay ? (
         <button
           type="button"
-          className="absolute inset-0 z-10 cursor-default bg-foreground/[0.04] backdrop-blur-[1px]"
+          className="absolute inset-0 z-10 cursor-default bg-foreground/[0.04]"
           aria-label="关闭侧栏"
           onClick={() => setCompactSidebar(null)}
         />
@@ -1183,7 +1183,7 @@ export function RagvizSimilarityWorkbench() {
 
       {/* Left section */}
       <div className="relative z-20 flex h-full shrink-0">
-        <div className="relative z-30 flex w-12 flex-col items-center border-r border-border/34 bg-card/46 py-2 shadow-[8px_0_24px_-28px_hsl(var(--foreground)/0.22)] backdrop-blur-xl">
+        <div className="relative z-30 flex w-12 flex-col items-center border-r border-border/34 bg-card py-2 shadow-[8px_0_24px_-28px_hsl(var(--foreground)/0.22)] ">
           <div className="flex flex-col gap-1">
             <IconBtn
               active={isLeftSidebarOpen && leftTopPanel === 'dataSource'}
@@ -1223,10 +1223,10 @@ export function RagvizSimilarityWorkbench() {
         <div
           ref={leftSidebarRef}
           className={cn(
-            'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-r border-border/34 backdrop-blur-xl transition-[width,opacity] duration-200 ease-out',
+            'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-r border-border/34  transition-[width,opacity] duration-200 ease-out',
             isCompactLeftSidebar
-              ? 'absolute inset-y-0 left-12 z-20 bg-card/95 shadow-[18px_0_42px_-24px_rgba(0,0,0,0.35)]'
-              : 'relative bg-card/42',
+              ? 'absolute inset-y-0 left-12 z-20 bg-card shadow-[18px_0_42px_-24px_rgba(0,0,0,0.35)]'
+              : 'relative bg-card',
             isLeftSidebarOpen
               ? 'opacity-100'
               : 'pointer-events-none opacity-0'
@@ -1286,10 +1286,10 @@ export function RagvizSimilarityWorkbench() {
                           <Grid3X3 className="size-4" />
                         </div>
                         <div className="min-w-0">
-                          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/58">
+                          <div className="text-[10px] font-semibold uppercase tracking-[0.16em] text-subtle-foreground">
                             Matrix Setup
                           </div>
-                          <div className="mt-0.5 text-[14px] font-semibold leading-4 text-foreground/88">
+                          <div className="mt-0.5 text-[14px] font-semibold leading-4 text-foreground">
                             矩阵设置
                           </div>
                         </div>
@@ -1372,7 +1372,7 @@ export function RagvizSimilarityWorkbench() {
                     </p>
 
                     <div className="space-y-2">
-                      <div className="text-xs font-medium text-foreground/80">
+                      <div className="text-xs font-medium text-muted-foreground">
                         选择要导出的图表
                       </div>
                       <select
@@ -1452,10 +1452,10 @@ export function RagvizSimilarityWorkbench() {
               <Panel title="图表选择与控制">
                 {results.length === 0 ? (
                   <div className="rounded-[1.25rem] border border-border/34 bg-card/58 p-3.5 text-center shadow-[inset_0_1px_0_hsl(var(--card)/0.55)]">
-                    <div className="text-[13px] font-semibold text-foreground/84">
+                    <div className="text-[13px] font-semibold text-foreground">
                       等待矩阵结果
                     </div>
-                    <p className="mt-1 text-[11px] leading-4 text-muted-foreground/64">
+                    <p className="mt-1 text-[11px] leading-4 text-subtle-foreground">
                       先在上方选择两个
                       collections，再生成热力图并在这里切换主图、筛选器和独占模式。
                     </p>
@@ -1710,7 +1710,7 @@ export function RagvizSimilarityWorkbench() {
 
       {/* Right section */}
       <div className="relative z-20 flex h-full shrink-0">
-        <div className="relative z-30 flex w-12 flex-col items-center border-l border-border/34 bg-card/46 py-2 shadow-[-8px_0_24px_-28px_hsl(var(--foreground)/0.22)] backdrop-blur-xl">
+        <div className="relative z-30 flex w-12 flex-col items-center border-l border-border/34 bg-card py-2 shadow-[-8px_0_24px_-28px_hsl(var(--foreground)/0.22)] ">
           <div className="flex flex-col gap-1">
             <IconBtn
               active={
@@ -1748,10 +1748,10 @@ export function RagvizSimilarityWorkbench() {
         <div
           ref={rightSidebarRef}
           className={cn(
-            'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-l border-border/34 backdrop-blur-xl transition-[width,opacity] duration-200 ease-out',
+            'flex h-full max-w-[calc(100vw-7rem)] flex-col overflow-hidden border-l border-border/34  transition-[width,opacity] duration-200 ease-out',
             isCompactRightSidebar
               ? 'absolute inset-y-0 right-12 z-20 bg-card/95 shadow-[-18px_0_42px_-24px_rgba(0,0,0,0.35)]'
-              : 'relative bg-card/42',
+              : 'relative bg-card',
             isRightSidebarOpen
               ? 'opacity-100'
               : 'pointer-events-none opacity-0'
@@ -1975,7 +1975,7 @@ export function RagvizSimilarityWorkbench() {
                           ) : null}
                         </div>
                       ) : (
-                        <div className="rounded-[1.1rem] border border-dashed border-border/36 bg-card/54 p-4 text-xs leading-5 text-muted-foreground/70">
+                        <div className="rounded-[1.1rem] border border-dashed border-border/36 bg-card/54 p-4 text-xs leading-5 text-subtle-foreground">
                           点击热力图任意单元后，在这里查看坐标、相似度和 Top
                           相关项。
                         </div>
@@ -2001,7 +2001,7 @@ export function RagvizSimilarityWorkbench() {
                   {primaryEntry ? (
                     <div className="space-y-5">
                       <div className="space-y-2">
-                        <div className="text-xs font-medium text-foreground/80">
+                        <div className="text-xs font-medium text-muted-foreground">
                           横坐标显示字段
                         </div>
                         <select
@@ -2023,7 +2023,7 @@ export function RagvizSimilarityWorkbench() {
                       </div>
 
                       <div className="space-y-2">
-                        <div className="text-xs font-medium text-foreground/80">
+                        <div className="text-xs font-medium text-muted-foreground">
                           纵坐标显示字段
                         </div>
                         <select
@@ -2045,7 +2045,7 @@ export function RagvizSimilarityWorkbench() {
                       </div>
 
                       <div className="space-y-2">
-                        <div className="text-xs font-medium text-foreground/80">
+                        <div className="text-xs font-medium text-muted-foreground">
                           相似度阈值范围
                         </div>
                         <div className="space-y-2">
@@ -2113,7 +2113,7 @@ export function RagvizSimilarityWorkbench() {
                       </div>
 
                       <div className="space-y-2">
-                        <div className="text-xs font-medium text-foreground/80">
+                        <div className="text-xs font-medium text-muted-foreground">
                           Top-K 筛选
                         </div>
                         <div className="flex items-center gap-2">

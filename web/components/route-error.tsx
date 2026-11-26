@@ -198,7 +198,7 @@ function RouteErrorScene({
           </Button>
           <Button
             variant="outline"
-            className="h-14 min-w-44 rounded-full border-border/70 bg-card/35 px-11 text-base font-semibold text-muted-foreground shadow-none backdrop-blur-sm transition-colors duration-200 hover:border-primary/45 hover:bg-card/60 hover:text-foreground"
+            className="h-14 min-w-44 rounded-full border-border/70 bg-card px-11 text-base font-semibold text-muted-foreground shadow-none  transition-colors duration-200 hover:border-primary/45 hover:bg-card/60 hover:text-foreground"
             asChild
           >
             <Link href={href}>{resolvedHrefLabel}</Link>

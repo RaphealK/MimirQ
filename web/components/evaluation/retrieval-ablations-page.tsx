@@ -511,7 +511,7 @@ function AblationInfoTooltip({
           <button
             type="button"
             aria-label={label}
-            className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-muted-foreground/70 transition-colors hover:bg-info/10 hover:text-info focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info/40"
+            className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-subtle-foreground transition-colors hover:bg-info/10 hover:text-info focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-info/40"
           >
             <Info className="h-3.5 w-3.5" aria-hidden="true" />
           </button>

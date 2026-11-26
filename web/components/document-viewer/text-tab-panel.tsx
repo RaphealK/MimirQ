@@ -115,7 +115,7 @@ export function TextTabPanel({
                   </div>
                   <div className="text-micro text-muted-foreground">{hasChunk ? "点击定位" : "无 chunk_id"}</div>
                 </div>
-                <div className="mt-1 line-clamp-3 whitespace-pre-wrap font-mono text-caption leading-relaxed text-foreground/90">
+                <div className="mt-1 line-clamp-3 whitespace-pre-wrap font-mono text-caption leading-relaxed text-foreground">
                   {citation.chunk_content || ""}
                 </div>
               </button>

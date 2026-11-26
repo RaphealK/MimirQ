@@ -461,7 +461,7 @@ export function QuarantineAuditCanvas({
                           <span className="block truncate text-caption font-medium text-foreground transition-colors group-hover:text-foreground">
                             {doc.filename}
                           </span>
-                          <span className="mt-0.5 block font-mono text-micro text-muted-foreground/70">
+                          <span className="mt-0.5 block font-mono text-micro text-subtle-foreground">
                             {doc.id.slice(0, 8)}
                           </span>
                         </div>
@@ -515,10 +515,10 @@ export function QuarantineAuditCanvas({
                         </span>
                       </div>
                     </td>
-                    <td className="px-4 py-2.5 text-right font-mono text-micro tabular-nums text-muted-foreground/85">
+                    <td className="px-4 py-2.5 text-right font-mono text-micro tabular-nums text-muted-foreground">
                       {formatFileSize(doc.file_size)}
                     </td>
-                    <td className="px-4 py-2.5 text-right font-mono text-micro text-muted-foreground/70">
+                    <td className="px-4 py-2.5 text-right font-mono text-micro text-subtle-foreground">
                       {formatDate(doc.updated_at)}
                     </td>
                     <td className="px-4 py-2.5">

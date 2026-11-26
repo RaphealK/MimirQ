@@ -148,7 +148,7 @@ export function SimilarityDiagnosticsGraph({ nodes, links }: SimilarityDiagnosti
           />
         ) : null}
 
-        <div className="pointer-events-none absolute left-3 top-3 rounded-xl border border-border/70 bg-background/85 px-3 py-2 shadow-sm backdrop-blur">
+        <div className="pointer-events-none absolute left-3 top-3 rounded-xl border border-border/70 bg-background px-3 py-2 shadow-sm">
           <div className="text-xs font-medium text-foreground">{t('previewLabel')}</div>
           <div className="mt-1 text-[11px] text-muted-foreground">{t('previewHint')}</div>
         </div>

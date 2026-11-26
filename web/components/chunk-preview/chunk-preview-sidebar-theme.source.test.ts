@@ -11,10 +11,10 @@ const sidebar = fs.readFileSync(
 describe('chunk preview sidebar theme', () => {
   it('uses Ocean surfaces instead of gray gradients and inset highlights', () => {
     expect(sidebar).toContain(
-      "panel: 'border-foreground/10 bg-background/72 antialiased shadow-none'"
+      "panel: 'border-foreground/10 bg-background/72 shadow-none'"
     )
     expect(sidebar).toContain(
-      "panel: 'border-info/20 bg-info/[0.045] antialiased shadow-none'"
+      "panel: 'border-info/20 bg-info/[0.045] shadow-none'"
     )
     expect(sidebar).toContain(
       "'rounded-2xl border px-3 py-3 shadow-none'"
@@ -30,10 +30,10 @@ describe('chunk preview sidebar theme', () => {
   it('keeps a continuous tinted sidebar without decorative glow meshes', () => {
     expect(sidebar).toContain("'bg-info/[0.035] p-4'")
     expect(sidebar).toContain(
-      "chip: 'border-foreground/10 bg-background/82 text-muted-foreground antialiased shadow-none'"
+      "chip: 'border-foreground/10 bg-background/82 text-muted-foreground shadow-none'"
     )
     expect(sidebar).toContain(
-      "note: 'border-info/10 bg-background/55 text-muted-foreground antialiased'"
+      "note: 'border-info/10 bg-background/55 text-muted-foreground'"
     )
     expect(sidebar).not.toContain('absolute -right-8 -top-8 size-24')
   })

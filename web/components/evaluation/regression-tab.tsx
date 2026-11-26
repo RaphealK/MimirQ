@@ -472,7 +472,7 @@ function RegressionMetricOption({
             </TooltipTrigger>
             <TooltipContent
               align="start"
-              className="max-w-[320px] rounded-xl border border-border bg-card px-3 py-2 text-left text-foreground/85 shadow-strong"
+              className="max-w-[320px] rounded-xl border border-border bg-card px-3 py-2 text-left text-foreground shadow-strong"
               side="right"
               sideOffset={8}
             >
@@ -947,7 +947,7 @@ export function RegressionTestTab({
                           )
                         }}
                       />
-                      <span className="text-foreground/80">{m.label}</span>
+                      <span className="text-muted-foreground">{m.label}</span>
                     </label>
                   ))}
                   {retrievalOnly && (
@@ -1597,7 +1597,7 @@ export function RegressionTestTab({
                             </div>
                             {missingKeys.length ? (
                               <div className="mt-2 text-[11px] leading-5 text-muted-foreground">
-                                <span className="font-medium text-foreground/80">
+                                <span className="font-medium text-muted-foreground">
                                   缺失字段:
                                 </span>{' '}
                                 {missingKeys.slice(0, 8).join(', ')}
@@ -1621,7 +1621,7 @@ export function RegressionTestTab({
                             <div className="mt-2 space-y-1 text-[11px] text-muted-foreground">
                               {entries.map(([k, v]) => (
                                 <div key={k} className="flex gap-2">
-                                  <span className="font-medium text-foreground/80">
+                                  <span className="font-medium text-muted-foreground">
                                     {k}:
                                   </span>
                                   <span className="break-words">
@@ -1672,7 +1672,7 @@ export function RegressionTestTab({
                                     className="rounded-md border border-border/60 bg-muted/30 p-2"
                                   >
                                     <div className="flex items-center justify-between gap-2">
-                                      <span className="font-medium text-foreground/80">
+                                      <span className="font-medium text-muted-foreground">
                                         {key}
                                       </span>
                                       <span className="tabular-nums">

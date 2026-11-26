@@ -78,7 +78,7 @@ export function SnapshotDiffView({
           ) : (
             <span className="inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
               <Layers
-                className="h-3.5 w-3.5 text-muted-foreground/60"
+                className="h-3.5 w-3.5 text-subtle-foreground"
                 aria-hidden="true"
               />
               Type Drift · 暂无
@@ -116,7 +116,7 @@ export function SnapshotDiffView({
           emptyState
         ) : (
           <div className="min-w-[980px]">
-            <div className="sticky top-0 z-10 grid grid-cols-[52px_minmax(0,1fr)_52px_minmax(0,1fr)] border-b border-border/70 bg-[linear-gradient(180deg,hsl(var(--background)),hsl(var(--muted)/0.10))] text-[12px] backdrop-blur">
+            <div className="sticky top-0 z-10 grid grid-cols-[52px_minmax(0,1fr)_52px_minmax(0,1fr)] border-b border-border/70 bg-[linear-gradient(180deg,hsl(var(--background)),hsl(var(--muted)/0.10))] text-[12px]">
               <div className="border-r border-border/70 px-3 py-2 text-right font-mono text-muted-foreground">
                 #
               </div>

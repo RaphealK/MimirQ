@@ -391,7 +391,7 @@ export function EvidenceWorkbench() {
                     <div
                       key={`${String(c.document_id || '')}:${String(c.chunk_id || '')}:${String(c.page_number ?? '')}`}
                       className={cn(
-                        'rounded-xl border border-sidebar-border/70 bg-sidebar/55 px-3 py-3 shadow-soft backdrop-blur-sm',
+                        'rounded-xl border border-sidebar-border/70 bg-sidebar px-3 py-3 shadow-soft',
                         'hover:border-primary/25 hover:bg-sidebar/70 transition-colors'
                       )}
                     >
@@ -430,7 +430,7 @@ export function EvidenceWorkbench() {
                       </div>
 
                       {content ? (
-                        <pre className="mt-2 text-xs leading-relaxed whitespace-pre-wrap font-mono text-foreground/90 max-h-[180px] overflow-auto">
+                        <pre className="mt-2 text-xs leading-relaxed whitespace-pre-wrap font-mono text-foreground max-h-[180px] overflow-auto">
                           {content}
                         </pre>
                       ) : (

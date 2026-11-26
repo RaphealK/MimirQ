@@ -144,7 +144,7 @@ export function Sidebar({ variant = "app" }: SidebarProps = {}) {
               value={term}
               onChange={(e) => setTerm(e.target.value)}
               placeholder="快速搜索文档..."
-              className="h-8 w-full rounded-[4px] border border-border bg-background/35 pl-9 pr-3 text-caption outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-foreground/40 focus:bg-background/55 focus-ring"
+              className="h-8 w-full rounded-[4px] border border-border bg-background/35 pl-9 pr-3 text-caption outline-none transition-colors placeholder:text-subtle-foreground focus:border-foreground/40 focus:bg-background/55 focus-ring"
             />
             {term && (
               <button
@@ -350,7 +350,7 @@ function DocumentCard({
               <span className="rounded-[4px] bg-muted px-1.5 py-0.5 text-micro font-medium tabular-nums text-muted-foreground">
                 {formatFileSize(document.file_size)}
               </span>
-              <span className="text-micro text-muted-foreground/60">
+              <span className="text-micro text-subtle-foreground">
                 {formatDate(document.created_at)}
               </span>
             </div>

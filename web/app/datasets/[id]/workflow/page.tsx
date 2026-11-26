@@ -425,7 +425,7 @@ export default function DatasetWorkflowPage() {
               <div className="min-h-0 flex-1 space-y-3 overflow-y-auto overscroll-contain p-3 no-scrollbar">
                 {selectedSummary.length > 0 ? (
                   <div className="space-y-2">
-                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">摘要</div>
+                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle-foreground">摘要</div>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedSummary.slice(0, 20).map((s) => (
                         <Badge key={String(s)} variant="outline" className="rounded-lg border-border/60 bg-card/70 font-mono text-[11px] dark:border-border/60 dark:bg-muted/30">
@@ -437,7 +437,7 @@ export default function DatasetWorkflowPage() {
                 ) : null}
 
                 <div className="space-y-2">
-                  <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/70">JSON</div>
+                  <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-subtle-foreground">JSON</div>
                   <Textarea
                     value={selectedJsonText || ''}
                     readOnly

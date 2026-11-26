@@ -566,7 +566,7 @@ export function KGSnapshotsPage() {
   return (
     <AppFrame showBackground={false}>
       <div className="flex h-full min-h-0 flex-col bg-[radial-gradient(1200px_460px_at_12%_-18%,hsl(var(--primary)/0.08),transparent_58%),radial-gradient(960px_420px_at_88%_-24%,hsl(var(--info)/0.06),transparent_56%)] bg-background">
-        <header className="shrink-0 border-b border-border/70 bg-background/80 backdrop-blur">
+        <header className="shrink-0 border-b border-border/70 bg-background">
           <div className="px-4 py-3 md:px-6">
             <PageHeader
               title="图谱快照"
@@ -910,13 +910,13 @@ export function KGSnapshotsPage() {
                 </div>
               </div>
 
-              <div className="shrink-0 border-t border-border/44 bg-background/92 px-3 py-3 backdrop-blur">
+              <div className="shrink-0 border-t border-border/44 bg-background px-3 py-3">
                 <div className="rounded-[1.15rem] border border-border/36 bg-card/62 p-2.5 shadow-[0_16px_38px_-34px_hsl(var(--foreground)/0.35),inset_0_1px_0_hsl(var(--card)/0.7)]">
                   <div className="mb-2 flex items-center justify-between gap-2 px-1">
-                    <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/62">
+                    <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-subtle-foreground">
                       快照操作
                     </div>
-                    <span className="rounded-full border border-border/32 bg-background/44 px-2 py-0.5 text-[10px] font-medium text-muted-foreground/64">
+                    <span className="rounded-full border border-border/32 bg-background/44 px-2 py-0.5 text-[10px] font-medium text-subtle-foreground">
                       bounded diff
                     </span>
                   </div>
@@ -968,7 +968,7 @@ export function KGSnapshotsPage() {
                   </div>
                 </div>
 
-                <p className="mt-2.5 px-1 text-[10.5px] leading-4 text-muted-foreground/72">
+                <p className="mt-2.5 px-1 text-[10.5px] leading-4 text-subtle-foreground">
                   节点、边、属性 hash 参与 diff；完整溯源可结合 KG diagnostics 或 traces 排查。
                 </p>
               </div>

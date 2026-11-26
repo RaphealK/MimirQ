@@ -610,14 +610,14 @@ export function Navbar({
           "before:pointer-events-none before:absolute before:inset-y-1 before:left-0 before:w-0.5 before:rounded-full before:transition-colors",
           isCollapsed ? "w-full justify-center px-0" : "w-full gap-2.5 px-2",
           isActive
-            ? "bg-raised font-semibold text-foreground before:bg-foreground"
+            ? "bg-selected font-semibold text-foreground before:bg-primary"
             : "text-muted-foreground before:bg-transparent hover:bg-surface hover:text-foreground",
         )}
       >
         <Icon
           className={cn(
             "size-4 shrink-0",
-            isActive ? "text-foreground" : "text-muted-foreground",
+            isActive ? "text-primary" : "text-muted-foreground",
           )}
         />
         {!isCollapsed ? <span className="truncate">{label}</span> : null}

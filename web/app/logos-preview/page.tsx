@@ -79,7 +79,7 @@ export default function LogosPreviewPage() {
               { size: 'w-16 h-16', label: '特大 (64px)', px: '64px' },
             ].map((sizeConfig) => (
               <div key={sizeConfig.size}>
-                <h3 className="text-sm font-medium text-foreground/80 mb-3">
+                <h3 className="text-sm font-medium text-muted-foreground mb-3">
                   {sizeConfig.label}
                 </h3>
                 <div className="flex items-center gap-4 flex-wrap">
@@ -115,7 +115,7 @@ export default function LogosPreviewPage() {
           <div className="grid grid-cols-3 gap-6">
             {/* 白色背景 */}
             <div>
-              <h3 className="text-sm font-medium text-foreground/80 mb-3">
+              <h3 className="text-sm font-medium text-muted-foreground mb-3">
                 白色背景
               </h3>
               <div className="bg-background p-4 rounded-lg border border-border">
@@ -133,7 +133,7 @@ export default function LogosPreviewPage() {
 
             {/* 灰色背景 */}
             <div>
-              <h3 className="text-sm font-medium text-foreground/80 mb-3">
+              <h3 className="text-sm font-medium text-muted-foreground mb-3">
                 灰色背景
               </h3>
               <div className="bg-muted/60 p-4 rounded-lg border border-border/60">
@@ -151,7 +151,7 @@ export default function LogosPreviewPage() {
 
             {/* 深色背景 */}
             <div>
-              <h3 className="text-sm font-medium text-foreground/80 mb-3">
+              <h3 className="text-sm font-medium text-muted-foreground mb-3">
                 深色背景
               </h3>
               <div className="bg-foreground p-4 rounded-lg border border-border/60">

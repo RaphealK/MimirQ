@@ -356,7 +356,7 @@ export function QualityChecker({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ScanLine className="size-4 text-info" />
-            <h3 className="text-[14px] font-medium tracking-[-0.01em] text-foreground/85">{t("header.title")}</h3>
+            <h3 className="text-[14px] font-medium tracking-[-0.01em] text-foreground">{t("header.title")}</h3>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -387,7 +387,7 @@ export function QualityChecker({
           <div className={scoreCardClass}>
             <div className="flex items-center justify-between">
               <div>
-                <div className="mb-1 text-[11px] font-medium text-muted-foreground/80">{t('score.title')}</div>
+                <div className="mb-1 text-[11px] font-medium text-muted-foreground">{t('score.title')}</div>
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-[28px] font-semibold leading-none text-foreground">{score}</span>
                   <span className="text-[12px] text-muted-foreground">{t('score.outOf')}</span>
@@ -439,7 +439,7 @@ export function QualityChecker({
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted">
                     <Icon className="size-4 text-muted-foreground" />
                   </div>
-                  <span className="text-sm font-medium text-foreground/80">{item.label}</span>
+                  <span className="text-sm font-medium text-muted-foreground">{item.label}</span>
                   {item.id === 'issues' && issueCount > 0 && (
                     <span className="rounded-full bg-destructive/10 px-1.5 py-0.5 text-xs text-destructive">
                       {issueCount}

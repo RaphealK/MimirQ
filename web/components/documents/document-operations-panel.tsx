@@ -129,7 +129,7 @@ export function DocumentOperationsPanel({
       <div className="grid gap-2 px-3 py-2.5 lg:grid-cols-[minmax(0,1fr)_minmax(250px,0.58fr)]">
         <div className="rounded-[15px] border border-border/48 bg-card/66 p-2.5 shadow-[inset_0_1px_0_hsl(var(--card)/0.78)] dark:border-border/60 dark:bg-background/35">
           <div className="mb-2 flex items-center justify-between gap-2">
-            <div className="text-[11px] font-semibold leading-none text-foreground/84">当前作用域</div>
+            <div className="text-[11px] font-semibold leading-none text-foreground">当前作用域</div>
             <div className="rounded-full bg-muted/45 px-2 py-0.5 text-[10px] text-muted-foreground">
               无需手填 ID
             </div>
@@ -172,7 +172,7 @@ export function DocumentOperationsPanel({
       <div className="px-3 pb-2.5">
         <div className="rounded-[15px] border border-border/48 bg-muted/[0.14] p-2.5 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)] dark:border-border/60 dark:bg-muted/10">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            <div className="text-[11px] font-semibold leading-none text-foreground/84">操作区</div>
+            <div className="text-[11px] font-semibold leading-none text-foreground">操作区</div>
             <div className="text-[10px] text-muted-foreground">按当前作用域自动带入参数</div>
           </div>
           <div className="grid gap-2 xl:grid-cols-[minmax(0,1fr)_minmax(260px,0.52fr)]">
@@ -229,7 +229,7 @@ export function DocumentOperationsPanel({
 function Field({ label, children }: Readonly<{ label: string; children: ReactNode }>) {
   return (
     <div className="space-y-1">
-      <Label className="text-[11px] font-semibold leading-none text-foreground/74 dark:text-muted-foreground">{label}</Label>
+      <Label className="text-[11px] font-semibold leading-none text-muted-foreground dark:text-muted-foreground">{label}</Label>
       {children}
     </div>
   )
@@ -246,11 +246,11 @@ function ContextItem({
 }>) {
   return (
     <div className="min-w-0 rounded-xl border border-border/45 bg-background/70 px-2.5 py-2 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)] dark:border-border/60 dark:bg-background/45">
-      <div className="text-[10px] font-medium leading-none text-muted-foreground/62">{label}</div>
-      <div className="mt-1.5 truncate text-[12px] font-semibold leading-none text-foreground/90" title={value}>
+      <div className="text-[10px] font-medium leading-none text-subtle-foreground">{label}</div>
+      <div className="mt-1.5 truncate text-[12px] font-semibold leading-none text-foreground" title={value}>
         {value}
       </div>
-      <div className="mt-1 truncate text-[10px] leading-none text-muted-foreground/72" title={subValue}>
+      <div className="mt-1 truncate text-[10px] leading-none text-subtle-foreground" title={subValue}>
         {subValue}
       </div>
     </div>
@@ -275,7 +275,7 @@ function ActionGroup({
           <Icon className="size-3.5" />
         </div>
         <div className="min-w-0">
-          <div className="text-[12px] font-semibold leading-none text-foreground/90">{title}</div>
+          <div className="text-[12px] font-semibold leading-none text-foreground">{title}</div>
           <div className="mt-1 text-[10px] leading-[14px] text-muted-foreground">{description}</div>
         </div>
       </div>
@@ -298,7 +298,7 @@ function ActionButton({
   onClick: () => Promise<void>
 }>) {
   return (
-    <Button size="sm" variant="ghost" className="h-8 justify-start gap-1.5 rounded-xl border border-border/50 bg-background/74 px-2.5 text-[12px] font-medium text-foreground/78 shadow-[inset_0_1px_0_hsl(var(--card)/0.74)] hover:border-info/24 hover:bg-card/92 hover:text-foreground hover:shadow-sm disabled:border-border/35 disabled:bg-muted/25 disabled:text-muted-foreground/45 disabled:opacity-100 dark:border-border/60 dark:bg-background/45 dark:text-muted-foreground dark:hover:bg-muted/45 dark:hover:text-foreground" disabled={disabled} onClick={() => detachPromise(onClick())}>
+    <Button size="sm" variant="ghost" className="h-8 justify-start gap-1.5 rounded-xl border border-border/50 bg-background/74 px-2.5 text-[12px] font-medium text-muted-foreground shadow-[inset_0_1px_0_hsl(var(--card)/0.74)] hover:border-info/24 hover:bg-card/92 hover:text-foreground hover:shadow-sm disabled:border-border/35 disabled:bg-muted/25 disabled:text-subtle-foreground disabled:opacity-100 dark:border-border/60 dark:bg-background/45 dark:text-muted-foreground dark:hover:bg-muted/45 dark:hover:text-foreground" disabled={disabled} onClick={() => detachPromise(onClick())}>
       {busy ? <Loader2 className="size-3.5 animate-spin text-info motion-reduce:animate-none" /> : <Icon className="size-3.5" />}
       {label}
     </Button>

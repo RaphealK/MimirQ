@@ -63,7 +63,7 @@ export function ObservabilitySection({
           {isToolCallLogEnabled ? (
             <div className="grid grid-cols-1 gap-3 pt-1 md:grid-cols-3">
               <div className="flex items-center justify-between gap-3 rounded-md border border-info/15 bg-info/[0.035] px-2.5 py-2">
-                <span className="text-[11px] font-semibold text-foreground/78">记录结果摘要</span>
+                <span className="text-[11px] font-semibold text-muted-foreground">记录结果摘要</span>
                 <SettingsSwitch
                   checked={observability.tool_call_log_include_preview ?? false}
                   onCheckedChange={(checked) =>
@@ -121,7 +121,7 @@ export function ObservabilitySection({
           {isAgentLogEnabled ? (
             <div className="grid grid-cols-1 gap-3 pt-1 md:grid-cols-3">
               <div className="flex items-center justify-between gap-3 rounded-md border border-info/15 bg-info/[0.035] px-2.5 py-2">
-                <span className="text-[11px] font-semibold text-foreground/78">记录步骤路径</span>
+                <span className="text-[11px] font-semibold text-muted-foreground">记录步骤路径</span>
                 <SettingsSwitch
                   checked={observability.agent_log_include_execution_path ?? false}
                   onCheckedChange={(checked) =>
@@ -179,7 +179,7 @@ export function ObservabilitySection({
           {isMetricsLogEnabled ? (
             <div className="grid grid-cols-1 gap-3 pt-1 md:grid-cols-3">
               <div className="flex items-center justify-between gap-3 rounded-md border border-info/15 bg-info/[0.035] px-2.5 py-2">
-                <span className="text-[11px] font-semibold text-foreground/78">写入问题与答案原文</span>
+                <span className="text-[11px] font-semibold text-muted-foreground">写入问题与答案原文</span>
                 <SettingsSwitch
                   checked={observability.metrics_log_include_text ?? false}
                   onCheckedChange={(checked) => updateObservability({ metrics_log_include_text: checked })}

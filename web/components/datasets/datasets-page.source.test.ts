@@ -50,7 +50,7 @@ describe('datasets-page header action contract', () => {
     expect(src).toContain('data-dataset-title-mark="true"')
     expect(src).toContain('<PageTitleIcon name="dataset"')
     expect(src).toContain('<h1 className="text-[19px] font-semibold leading-6 tracking-[-0.02em] text-foreground">数据集</h1>')
-    expect(src).toContain('<p className="truncate text-[12px] leading-5 text-muted-foreground/80">管理知识库集合与访问权限</p>')
+    expect(src).toContain('<p className="truncate text-[12px] leading-5 text-muted-foreground">管理知识库集合与访问权限</p>')
     expect(src).toContain('DialogContent className="max-w-xl p-0 sm:rounded-xl"')
     expect(src).not.toContain('rounded-xl border border-border/60 bg-background/88')
     expect(src).not.toContain('Dataset Ops')

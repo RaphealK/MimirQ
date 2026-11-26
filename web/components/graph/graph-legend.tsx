@@ -106,7 +106,7 @@ export function GraphLegend({ nodes, links = [], activeTypeFilters = [], onToggl
 
   return (
     <div className="absolute bottom-4 left-4 z-10 md:bottom-8 md:left-8">
-      <div className="max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-border/60 bg-card/95 shadow-md backdrop-blur-sm md:max-w-[340px]">
+      <div className="max-w-[calc(100vw-2rem)] overflow-hidden rounded-xl border border-border/60 bg-card shadow-md md:max-w-[340px]">
           <button
             type="button"
             onClick={() => setCollapsed(prev => !prev)}
@@ -143,7 +143,7 @@ export function GraphLegend({ nodes, links = [], activeTypeFilters = [], onToggl
                           className="w-2.5 h-2.5 rounded-full flex-shrink-0 ring-1 ring-black/5"
                           style={{ backgroundColor: color }}
                         />
-                        <span className="text-foreground/80 whitespace-nowrap">{type}</span>
+                        <span className="text-muted-foreground whitespace-nowrap">{type}</span>
                         <span className="text-muted-foreground text-[11px]">{count}</span>
                       </button>
                     )
@@ -158,7 +158,7 @@ export function GraphLegend({ nodes, links = [], activeTypeFilters = [], onToggl
                   {edgeKinds.map(({ kind, label, color, count }) => (
                     <div key={kind} className="flex items-center gap-1.5 text-xs" title={`${kind} (${count})`}>
                       <span className="w-2.5 h-2.5 rounded-full flex-shrink-0 ring-1 ring-black/5" style={{ backgroundColor: color }} />
-                      <span className="text-foreground/80 whitespace-nowrap">{label}</span>
+                      <span className="text-muted-foreground whitespace-nowrap">{label}</span>
                       <span className="text-muted-foreground text-[11px]">{count}</span>
                     </div>
                   ))}

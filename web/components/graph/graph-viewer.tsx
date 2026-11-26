@@ -1578,7 +1578,7 @@ export const GraphViewer = forwardRef<GraphViewerRef, GraphViewerProps>(({
               }}
             />
             {isLargeGraph && viewportLod ? (
-              <div className="pointer-events-none absolute left-5 top-5 z-10 rounded-full border border-border/70 bg-card/82 px-3 py-1 text-[11px] font-medium text-muted-foreground shadow-soft backdrop-blur-md">
+              <div className="pointer-events-none absolute left-5 top-5 z-10 rounded-full border border-border/70 bg-card px-3 py-1 text-[11px] font-medium text-muted-foreground shadow-soft">
                 LOD {viewportLod.tier} · 隐藏 {viewportLod.hiddenNodeCount} 节点 / {viewportLod.hiddenLinkCount} 连线
               </div>
             ) : null}

@@ -89,7 +89,7 @@ export function GovernanceOpsPanel() {
 
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <ActionButton icon={FileClock} busy={busy === 'stale'} disabled={Boolean(busy) || !datasetId.trim()} label="查询待复核文档" onClick={() => runAction('stale', '待复核文档', () => governanceApi.listStaleDocumentsByDataset(datasetId.trim(), { mode, due_within_days: dueWithinDays, limit: 50 }))} />
-        <div className="text-[11px] leading-4 text-muted-foreground/85">
+        <div className="text-[11px] leading-4 text-muted-foreground">
           当前接口：<span className="font-mono">/governance/datasets/{'{dataset_id}'}/stale-documents</span>
         </div>
       </div>

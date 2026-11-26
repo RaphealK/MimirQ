@@ -971,14 +971,14 @@ export function DocumentDetailDialog({ document: initialDocument, trigger }: Rea
                   <FileType className="h-3.5 w-3.5" />
                   {displayDoc.file_type}
                 </span>
-                <span className="text-muted-foreground/40">|</span>
+                <span className="text-subtle-foreground">|</span>
                 <span>{formatFileSize(displayDoc.file_size)}</span>
-                <span className="text-muted-foreground/40">|</span>
+                <span className="text-subtle-foreground">|</span>
                 <span className="inline-flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
                   {formatDate(displayDoc.created_at)}
                 </span>
-                <span className="text-muted-foreground/40">|</span>
+                <span className="text-subtle-foreground">|</span>
                 <span className="inline-flex items-center gap-1">
                   <Hash className="h-3.5 w-3.5" />
                   {t('header.chunkCount', { count: chunks.length })}

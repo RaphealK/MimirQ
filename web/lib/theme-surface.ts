@@ -1,16 +1,17 @@
 import { getClientStorage } from "./client-storage";
 
 /**
- * Monochrome appearance.
+ * Graphite appearance.
  *
- * The product ships exactly one surface palette: black/white/grey with
- * success/warning/danger reserved for status meaning. Named surface themes
- * and arbitrary accent colours exist only as migration inputs from older
- * releases; they are removed, never translated back into colour tokens.
+ * The product ships exactly one surface palette: Graphite neutrals with
+ * Signal Blue for actions, Violet for second semantics and real status hues.
+ * Named surface themes and arbitrary accent colours exist only as migration
+ * inputs from older releases; they are removed, never translated back into
+ * colour tokens.
  */
-export type SurfaceThemeKey = "mono";
+export type SurfaceThemeKey = "graphite";
 
-export const DEFAULT_SURFACE_THEME: SurfaceThemeKey = "mono";
+export const DEFAULT_SURFACE_THEME: SurfaceThemeKey = "graphite";
 
 export const SURFACE_THEME_STORAGE_KEY = "mimirq.surfaceTheme";
 export const THEME_COLOR_STORAGE_KEY = "mimirq.themeColor";
@@ -20,7 +21,7 @@ export const THEME_APPEARANCE_CHANGED_EVENT = "mimirq:theme-appearance-changed";
 
 /**
  * Inline tokens older releases could write on `<html>`. They are cleared so a
- * stored blue accent can never override the monochrome palette.
+ * stored blue accent can never override the design-token palette.
  */
 const LEGACY_INLINE_TOKEN_NAMES = [
   "--primary",
@@ -48,7 +49,7 @@ type StorageWriter = Pick<Storage, "setItem" | "removeItem">;
 type ThemeCookieTarget = { cookie: string };
 
 /**
- * Every historic surface name resolves to the single monochrome appearance,
+ * Every historic surface name resolves to the single graphite appearance,
  * including the old "ocean" default. The stored value is never applied as a
  * palette selector.
  */
@@ -68,7 +69,7 @@ export function clearLegacyInlineTokens(root?: HTMLElement | null) {
 }
 
 /**
- * Drops all pre-monochrome appearance preferences: named surface themes,
+ * Drops all pre-graphite appearance preferences: named surface themes,
  * arbitrary accent colours and any inline token they left on the root.
  * Light/dark/system mode is owned by next-themes and is left untouched.
  */

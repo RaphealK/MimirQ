@@ -97,7 +97,7 @@ function EvidenceHighlightsPanel(props: Readonly<{
               <span>{t('compareDialog.evidence.itemLabel', { index: item.index })}</span>
               <span className="font-mono">{t('compareDialog.evidence.countLabel', { count: item.count })}</span>
             </div>
-            <div className="mt-2 whitespace-pre-wrap text-sm leading-6 text-foreground/90">
+            <div className="mt-2 whitespace-pre-wrap text-sm leading-6 text-foreground">
               {item.segments.map((segment, index) => {
                 if (!segment.emphasis) {
                   return <span key={`${tone}:${item.index}:${index}`}>{segment.text}</span>
@@ -220,7 +220,7 @@ export function ChunkCompareDialog(props: Readonly<{
               {t('compareDialog.cards.chunkCount')}
             </div>
             <div className="mt-2 flex items-end justify-between">
-              <div className="text-sm font-mono text-foreground/90">{diff.bCount}</div>
+              <div className="text-sm font-mono text-foreground">{diff.bCount}</div>
               <div
                 className={cn(
                   'text-xs font-mono',
@@ -243,19 +243,19 @@ export function ChunkCompareDialog(props: Readonly<{
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.p10')}
                 <br />
-                <span className="font-mono text-foreground/90">{diff.bP10 ?? '-'}</span>
+                <span className="font-mono text-foreground">{diff.bP10 ?? '-'}</span>
                 <span className="ml-1 text-muted-foreground">({formatDelta((diff.bP10 ?? 0) - (diff.aP10 ?? 0))})</span>
               </div>
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.avg')}
                 <br />
-                <span className="font-mono text-foreground/90">{diff.bAvg ?? '-'}</span>
+                <span className="font-mono text-foreground">{diff.bAvg ?? '-'}</span>
                 <span className="ml-1 text-muted-foreground">({formatDelta((diff.bAvg ?? 0) - (diff.aAvg ?? 0))})</span>
               </div>
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.p95')}
                 <br />
-                <span className="font-mono text-foreground/90">{diff.bP95 ?? '-'}</span>
+                <span className="font-mono text-foreground">{diff.bP95 ?? '-'}</span>
                 <span className="ml-1 text-muted-foreground">({formatDelta((diff.bP95 ?? 0) - (diff.aP95 ?? 0))})</span>
               </div>
             </div>
@@ -266,7 +266,7 @@ export function ChunkCompareDialog(props: Readonly<{
               {t('compareDialog.cards.contentOverlap')}
             </div>
             <div className="mt-2 flex items-end justify-between">
-              <div className="text-sm font-mono text-foreground/90">{Math.round((diff.overlap || 0) * 100)}%</div>
+              <div className="text-sm font-mono text-foreground">{Math.round((diff.overlap || 0) * 100)}%</div>
               <div className="text-[11px] text-muted-foreground">
                 {t('compareDialog.cards.addedRemoved', { added: diff.added, removed: diff.removed })}
               </div>
@@ -284,19 +284,19 @@ export function ChunkCompareDialog(props: Readonly<{
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.coverage')}
                 <br />
-                <span className="font-mono text-foreground/90">{formatPct(diff.bCoverage)}</span>
+                <span className="font-mono text-foreground">{formatPct(diff.bCoverage)}</span>
                 <span className="ml-1 text-muted-foreground">({formatDeltaPct(diff.deltaCoverage)})</span>
               </div>
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.waste')}
                 <br />
-                <span className="font-mono text-foreground/90">{formatPct(diff.bWaste)}</span>
+                <span className="font-mono text-foreground">{formatPct(diff.bWaste)}</span>
                 <span className="ml-1 text-muted-foreground">({formatDeltaPct(diff.deltaWaste)})</span>
               </div>
               <div className="text-muted-foreground">
                 {t('compareDialog.cards.metrics.gaps')}
                 <br />
-                <span className="font-mono text-foreground/90">{diff.bGapCount ?? '-'}</span>
+                <span className="font-mono text-foreground">{diff.bGapCount ?? '-'}</span>
                 <span className="ml-1 text-muted-foreground">({formatDelta((diff.bGapCount ?? 0) - (diff.aGapCount ?? 0))})</span>
               </div>
             </div>

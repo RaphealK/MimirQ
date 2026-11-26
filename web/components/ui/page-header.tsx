@@ -149,7 +149,7 @@ export function PageHeader({
             {description ? (
               <div
                 className={cn(
-                  "max-w-[72ch] text-pretty text-muted-foreground/85",
+                  "max-w-[72ch] text-pretty text-muted-foreground",
                   getPageHeaderDescriptionClass(compact),
                 )}
               >

@@ -227,7 +227,7 @@ export default function DatasetTablesPage() {
   const tableToolbarGroupClass = 'inline-flex flex-wrap items-center gap-1 rounded-lg border border-border/60 bg-card p-1 shadow-none dark:border-border/70 dark:bg-card'
   const tableToolbarButtonClass = 'h-8 gap-1.5 rounded-xl px-2.5 text-[12px] font-semibold text-muted-foreground shadow-none hover:bg-card hover:text-foreground hover:shadow-sm dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
   const tableMetricCardClass = 'relative overflow-hidden rounded-lg border border-border/60 bg-card px-4 py-3 shadow-none transition-colors hover:border-border dark:border-border/70 dark:bg-card'
-  const tableIconPillClass = 'flex size-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/20 text-foreground/85 shadow-none dark:border-border/70 dark:bg-muted/30 dark:text-foreground'
+  const tableIconPillClass = 'flex size-9 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/20 text-foreground shadow-none dark:border-border/70 dark:bg-muted/30 dark:text-foreground'
   const totalRows = items.reduce((sum, item) => sum + (Number(item.row_count) || 0), 0)
   const totalColumns = items.reduce((sum, item) => sum + (Number(item.col_count) || 0), 0)
 
@@ -265,22 +265,22 @@ export default function DatasetTablesPage() {
                   </div>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] font-medium leading-none text-muted-foreground dark:text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
-                      <Database className="size-3.5 text-muted-foreground/80" />
+                      <Database className="size-3.5 text-muted-foreground" />
                       <span>表格</span>
                       <span className="font-mono font-semibold text-foreground">{items.length}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <BarChart3 className="size-3.5 text-muted-foreground/80" />
+                      <BarChart3 className="size-3.5 text-muted-foreground" />
                       <span>总行数</span>
                       <span className="font-mono font-semibold text-foreground">{totalRows}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Cloud className="size-3.5 text-muted-foreground/80" />
+                      <Cloud className="size-3.5 text-muted-foreground" />
                       <span>总列数</span>
                       <span className="font-mono font-semibold text-foreground">{totalColumns}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <FileSearch className="size-3.5 text-muted-foreground/80" />
+                      <FileSearch className="size-3.5 text-muted-foreground" />
                       <span>当前表</span>
                       <span className="max-w-[220px] truncate font-mono font-semibold text-foreground">{selected?.table_id || '--'}</span>
                     </span>
@@ -342,7 +342,7 @@ export default function DatasetTablesPage() {
               <div key={item.label} className={tableMetricCardClass}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground/70 dark:text-muted-foreground">{item.label}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-subtle-foreground dark:text-muted-foreground">{item.label}</div>
                     <div className="mt-1 truncate font-mono text-[17px] font-black leading-none tracking-[-0.02em] text-foreground tabular-nums dark:text-foreground">
                       {item.value}
                     </div>
@@ -421,7 +421,7 @@ export default function DatasetTablesPage() {
                           {t.sheet_name || t.table_id}
                         </div>
                         {t.sheet_name ? (
-                          <div className="mt-0.5 truncate font-mono text-[10px] text-muted-foreground/60">{t.table_id}</div>
+                          <div className="mt-0.5 truncate font-mono text-[10px] text-subtle-foreground">{t.table_id}</div>
                         ) : null}
                       </div>
                       <span className={cn('size-2 shrink-0 rounded-full', active ? 'bg-info' : 'bg-border group-hover:bg-info/30')} />
@@ -431,7 +431,7 @@ export default function DatasetTablesPage() {
                       <span className="rounded-md bg-muted/60 px-1.5 py-0.5 dark:bg-muted/30">cols {t.col_count}</span>
                     </div>
                     {t.document_filename ? (
-                      <div className="mt-1.5 truncate text-[10px] text-muted-foreground/60" title={t.document_filename}>
+                      <div className="mt-1.5 truncate text-[10px] text-subtle-foreground" title={t.document_filename}>
                         {t.document_filename}
                       </div>
                     ) : null}
@@ -481,10 +481,10 @@ export default function DatasetTablesPage() {
 
                   <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(220px,0.45fr)_minmax(0,0.55fr)]">
                     <div>
-                      <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/60">Columns</div>
+                      <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-subtle-foreground">Columns</div>
                       <div className="max-h-[180px] overflow-auto rounded-xl border border-border/50 bg-card/45 p-2 dark:bg-card/35">
                         {(selected.columns || []).length === 0 ? (
-                          <div className="text-[11px] text-muted-foreground/60">未加载列信息</div>
+                          <div className="text-[11px] text-subtle-foreground">未加载列信息</div>
                         ) : (
                           <div className="divide-y divide-border/40">
                             {(selected.columns || []).map((c) => (
@@ -499,12 +499,12 @@ export default function DatasetTablesPage() {
                     </div>
 
                     <div>
-                      <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/60">Sample Rows</div>
+                      <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-subtle-foreground">Sample Rows</div>
                       <div className="max-h-[180px] overflow-auto rounded-xl border border-border/50 bg-foreground/[0.025] p-2 dark:bg-muted/20">
                         {(selected.sample_rows || []).length === 0 ? (
-                          <div className="text-[11px] text-muted-foreground/60">未加载样例，或已关闭 sample_rows</div>
+                          <div className="text-[11px] text-subtle-foreground">未加载样例，或已关闭 sample_rows</div>
                         ) : (
-                          <pre className="text-[11px] font-mono leading-4 whitespace-pre-wrap break-words text-foreground/85 dark:text-muted-foreground">{JSON.stringify(selected.sample_rows || [], null, 2)}</pre>
+                          <pre className="text-[11px] font-mono leading-4 whitespace-pre-wrap break-words text-foreground dark:text-muted-foreground">{JSON.stringify(selected.sample_rows || [], null, 2)}</pre>
                         )}
                       </div>
                     </div>
@@ -579,10 +579,10 @@ export default function DatasetTablesPage() {
                       <div className="mt-3 space-y-2">
                         <Input value={question} onChange={(e) => setQuestion(e.target.value)} className="h-9 text-[12px]" placeholder="例如：按地区汇总销售额 TOP 10？" />
                         <div className="min-h-[38px] rounded-xl border border-border/55 bg-card/45 p-2.5 text-[12px] leading-5 dark:bg-card/35">
-                          {askRes?.answer ? askRes.answer : <span className="text-[11px] text-muted-foreground/60">需要开启 TABLE_NL2SQL_ENABLED</span>}
+                          {askRes?.answer ? askRes.answer : <span className="text-[11px] text-subtle-foreground">需要开启 TABLE_NL2SQL_ENABLED</span>}
                         </div>
                         {askRes?.sql ? (
-                          <pre className="max-h-[140px] overflow-auto rounded-xl border border-border/55 bg-foreground/[0.025] p-2 text-[11px] font-mono leading-4 whitespace-pre-wrap break-words text-foreground/85 dark:bg-muted/20 dark:text-muted-foreground">{askRes.sql}</pre>
+                          <pre className="max-h-[140px] overflow-auto rounded-xl border border-border/55 bg-foreground/[0.025] p-2 text-[11px] font-mono leading-4 whitespace-pre-wrap break-words text-foreground dark:bg-muted/20 dark:text-muted-foreground">{askRes.sql}</pre>
                         ) : null}
                       </div>
                     </Panel>

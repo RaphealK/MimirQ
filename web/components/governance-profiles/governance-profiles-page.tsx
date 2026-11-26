@@ -200,7 +200,7 @@ export function GovernanceProfilesPage() {
                 此操作不可恢复。
                 {deleteTarget ? (
                   <div className="mt-3 rounded-lg border border-border/60 bg-muted/20 px-3 py-2">
-                    <div className="truncate text-sm font-medium text-foreground/85">
+                    <div className="truncate text-sm font-medium text-foreground">
                       {deleteTarget.name || deleteTarget.key}
                     </div>
                     <div className="mt-1 truncate font-mono text-[11px] text-muted-foreground">
@@ -365,15 +365,15 @@ export function GovernanceProfilesPage() {
         >
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             <div className="relative overflow-hidden rounded-xl border border-border/50 from-muted/40 via-muted/15 to-transparent px-3 py-2.5">
-              <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/75">
-                <Layers className="size-3 text-muted-foreground/60" />
+              <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                <Layers className="size-3 text-subtle-foreground" />
                 总数
               </div>
               <div className="mt-1.5 flex items-baseline gap-1.5">
                 <span className="text-[20px] font-semibold tracking-[-0.02em] tabular-nums text-foreground">
                   {items.length}
                 </span>
-                <span className="text-[11px] text-muted-foreground/65">
+                <span className="text-[11px] text-subtle-foreground">
                   profiles
                 </span>
               </div>
@@ -391,7 +391,7 @@ export function GovernanceProfilesPage() {
                 <span className="text-[20px] font-semibold tracking-[-0.02em] tabular-nums text-foreground">
                   {builtinCount}
                 </span>
-                <span className="text-[11px] text-muted-foreground/65">
+                <span className="text-[11px] text-subtle-foreground">
                   系统基线
                 </span>
               </div>
@@ -409,7 +409,7 @@ export function GovernanceProfilesPage() {
                 <span className="text-[20px] font-semibold tracking-[-0.02em] tabular-nums text-foreground">
                   {customCount}
                 </span>
-                <span className="text-[11px] text-muted-foreground/65">
+                <span className="text-[11px] text-subtle-foreground">
                   团队沉淀
                 </span>
               </div>
@@ -423,7 +423,7 @@ export function GovernanceProfilesPage() {
         >
           <div className="flex flex-col gap-2 md:flex-row md:items-center">
             <div className="relative md:flex-1">
-              <Search className="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/60" />
+              <Search className="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 text-subtle-foreground" />
               <Input
                 placeholder="搜索名称、说明或 key"
                 value={query}
@@ -532,7 +532,7 @@ export function GovernanceProfilesPage() {
                       <div className="mt-1.5 inline-flex max-w-full items-center rounded-md border border-border/50 bg-muted/40 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground">
                         <span className="truncate">{p.key}</span>
                       </div>
-                      <div className="mt-2 min-h-[2.6rem] text-[12px] leading-5 text-muted-foreground/85 line-clamp-3">
+                      <div className="mt-2 min-h-[2.6rem] text-[12px] leading-5 text-muted-foreground line-clamp-3">
                         {p.description ||
                           (p.is_system
                             ? '适合作为治理基线模板，可直接查看并克隆为团队自定义配置。'
@@ -638,7 +638,7 @@ export function GovernanceProfilesPage() {
                   </div>
 
                   <div className="relative mt-3 flex items-center justify-between border-t border-border/50 pt-2.5 pl-2">
-                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/85">
+                    <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
                       <span
                         aria-hidden
                         className={cn('size-1.5 rounded-full', toneDotClass)}
@@ -647,7 +647,7 @@ export function GovernanceProfilesPage() {
                         {p.is_system ? '系统基线模板' : '团队自定义模板'}
                       </span>
                     </div>
-                    <div className="text-[11px] text-muted-foreground/70">
+                    <div className="text-[11px] text-subtle-foreground">
                       {p.is_system ? '支持克隆' : '支持编辑与导出'}
                     </div>
                   </div>

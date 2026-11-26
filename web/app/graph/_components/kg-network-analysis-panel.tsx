@@ -656,7 +656,7 @@ function MetricRow({
           className="h-2.5 w-2.5 flex-none rounded-full ring-2 ring-white/80"
           style={{ backgroundColor: color }}
         />
-        <span className="truncate text-foreground/80" title={label}>
+        <span className="truncate text-muted-foreground" title={label}>
           {label}
         </span>
       </div>

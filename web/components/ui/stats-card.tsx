@@ -144,7 +144,7 @@ export function StatCard({
           className={cn(
             "relative flex size-6 shrink-0 items-center justify-center rounded-md transition-colors duration-200",
             isDimmed
-              ? "border border-border bg-raised text-muted-foreground/70"
+              ? "border border-border bg-raised text-subtle-foreground"
               : active
                 ? "border border-border bg-raised text-foreground"
                 : iconBgStyles[color] || iconBgStyles.sky,
@@ -191,7 +191,7 @@ export function StatCard({
 
   const silentColorStyle = "border-border bg-raised text-muted-foreground";
   const silentIconStyle =
-    "border border-border bg-raised text-muted-foreground/70";
+    "border border-border bg-raised text-subtle-foreground";
 
   if (dense) {
     return (

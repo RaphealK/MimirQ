@@ -117,7 +117,7 @@ export function ConversationOpsPanel({ conversationId }: Readonly<{ conversation
           <span className="min-w-0">
             <span className="flex flex-wrap items-center gap-2">
               <span className="text-sm font-semibold tracking-[-0.01em] text-foreground">对话运维工具箱</span>
-              <span className="rounded-md border border-foreground/10 bg-background/70 px-2 py-0.5 text-[10px] font-semibold text-foreground/80">
+              <span className="rounded-md border border-foreground/10 bg-background/70 px-2 py-0.5 text-[10px] font-semibold text-muted-foreground">
                 导出 · 检查点
               </span>
             </span>

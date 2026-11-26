@@ -389,7 +389,7 @@ export function KgPredicateOntologySettings() {
             </div>
 
             <div className="overflow-hidden rounded-lg border border-border/60">
-              <div className="grid grid-cols-[1fr_auto] gap-2 bg-muted/40 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">
+              <div className="grid grid-cols-[1fr_auto] gap-2 bg-muted/40 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.12em] text-subtle-foreground">
                 <div>谓词</div>
                 <div>状态</div>
               </div>

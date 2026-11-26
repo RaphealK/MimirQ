@@ -44,7 +44,7 @@ describe('usage page visual boundary contract', () => {
 
     expectSourceToContain(src, "blue: 'text-info'")
     expectSourceToContain(src, "green: 'text-success'")
-    expectSourceToContain(src, "slate: 'text-foreground/80'")
+    expectSourceToContain(src, "slate: 'text-muted-foreground'")
     expectSourceToContain(src, "info: 'border-border/65 bg-background/62 text-info'")
     expectSourceToContain(src, 'font-semibold text-info/90')
     expectSourceToContain(src, 'font-semibold text-info')

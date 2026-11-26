@@ -61,10 +61,7 @@ const config = {
         /* Legacy alias kept for backward compat — prefer semantic names above */
         detail: ["0.6875rem", { lineHeight: "1rem", letterSpacing: "0.04em" }],
       },
-      /* Links stay monochrome: `text-accent` resolves to foreground. */
-      textColor: {
-        accent: "hsl(var(--foreground))",
-      },
+      /* Semantic colours only: raw Tailwind palettes are no longer remapped. */
       spacing: {
         "page-x": "var(--space-page-x)",
         "section-y": "var(--space-section-y)",
@@ -114,20 +111,22 @@ const config = {
           5: "hsl(var(--surface-5))",
         },
         raised: "hsl(var(--raised))",
+        sunken: "hsl(var(--sunken))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
           pressed: "hsl(var(--primary-pressed))",
-          50: "hsl(var(--mono-50))",
-          100: "hsl(var(--mono-100))",
-          200: "hsl(var(--mono-200))",
-          300: "hsl(var(--mono-300))",
-          400: "hsl(var(--mono-400))",
-          500: "hsl(var(--mono-500))",
-          600: "hsl(var(--mono-600))",
-          700: "hsl(var(--mono-700))",
-          800: "hsl(var(--mono-800))",
-          900: "hsl(var(--mono-900))",
+          50: "hsl(var(--primary-50))",
+          100: "hsl(var(--primary-100))",
+          200: "hsl(var(--primary-200))",
+          300: "hsl(var(--primary-300))",
+          400: "hsl(var(--primary-400))",
+          500: "hsl(var(--primary-500))",
+          600: "hsl(var(--primary-600))",
+          700: "hsl(var(--primary-700))",
+          800: "hsl(var(--primary-800))",
+          900: "hsl(var(--primary-900))",
         },
         ink: {
           DEFAULT: "hsl(var(--ink))",
@@ -186,6 +185,7 @@ const config = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          soft: "hsl(var(--accent-soft))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

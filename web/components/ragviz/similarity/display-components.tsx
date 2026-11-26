@@ -55,7 +55,7 @@ export function EmptyControlTile({
   return (
     <div className="flex min-h-[74px] flex-col items-center justify-center rounded-[1rem] border border-border/32 bg-background/42 text-muted-foreground">
       <div className="text-primary/58">{icon}</div>
-      <div className="mt-2 text-[11px] font-medium text-foreground/76">
+      <div className="mt-2 text-[11px] font-medium text-muted-foreground">
         {label}
       </div>
     </div>
@@ -74,7 +74,7 @@ export function RightEmptyInfoCard({
   return (
     <section className="rounded-[1.25rem] border border-border/34 bg-card/58 p-3.5 shadow-[inset_0_1px_0_hsl(var(--card)/0.55)]">
       {title ? (
-        <div className="mb-3 text-[14px] font-semibold text-foreground/86">
+        <div className="mb-3 text-[14px] font-semibold text-foreground">
           {title}
         </div>
       ) : null}
@@ -87,7 +87,7 @@ export function RightEmptyInfoCard({
         <div className="flex size-11 items-center justify-center rounded-full border border-primary/14 bg-primary/[0.055] text-primary/58">
           {icon}
         </div>
-        <p className="mt-4 text-[12px] leading-5 text-muted-foreground/68">
+        <p className="mt-4 text-[12px] leading-5 text-subtle-foreground">
           {description}
         </p>
       </div>
@@ -173,7 +173,7 @@ export function SimilarityEmptyState() {
         </div>
       </div>
 
-      <div className="mt-5 flex w-full max-w-[780px] items-center justify-between rounded-full border border-border/34 bg-background/52 px-5 py-3 text-[12px] text-muted-foreground/74 shadow-subtle">
+      <div className="mt-5 flex w-full max-w-[780px] items-center justify-between rounded-full border border-border/34 bg-background/52 px-5 py-3 text-[12px] text-subtle-foreground shadow-subtle">
         <div className="flex items-center gap-2">
           <span className="flex size-5 items-center justify-center rounded-full border border-primary/20 text-primary">
             i
@@ -204,10 +204,10 @@ function EmptyStep({
       <div className="flex size-7 items-center justify-center rounded-full bg-primary/[0.11] text-[12px] font-semibold text-primary ring-1 ring-primary/14">
         {index}
       </div>
-      <div className="mt-2 text-[12px] font-semibold text-foreground/84">
+      <div className="mt-2 text-[12px] font-semibold text-foreground">
         {title}
       </div>
-      <div className="mt-0.5 text-[11px] leading-4 text-muted-foreground/64">
+      <div className="mt-0.5 text-[11px] leading-4 text-subtle-foreground">
         {description}
       </div>
     </div>
@@ -235,11 +235,11 @@ export function Panel({
     <div className="h-full flex flex-col">
       <div className="relative mb-2.5 min-h-8 pr-9">
         <div>
-          <div className="text-[14px] font-semibold leading-5 tracking-[-0.012em] text-foreground/88">
+          <div className="text-[14px] font-semibold leading-5 tracking-[-0.012em] text-foreground">
             {title}
           </div>
           {subtitle ? (
-            <div className="mt-0.5 text-[11px] leading-4 text-muted-foreground/64">
+            <div className="mt-0.5 text-[11px] leading-4 text-subtle-foreground">
               {subtitle}
             </div>
           ) : null}

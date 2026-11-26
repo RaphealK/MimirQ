@@ -66,7 +66,7 @@ function getFileQueueSelectionLabel(isSelected: boolean): string {
 
 function getFileQueueSelectionClass(isSelected: boolean): string {
   if (isSelected) return 'border-primary bg-primary text-primary-foreground'
-  return 'border-border bg-surface text-transparent hover:border-border-strong hover:text-foreground/40'
+  return 'border-border bg-surface text-transparent hover:border-border-strong hover:text-subtle-foreground'
 }
 
 export type FileStatus = 'pending' | 'parsing' | 'parsed' | 'error'

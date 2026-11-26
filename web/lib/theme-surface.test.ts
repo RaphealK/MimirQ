@@ -25,23 +25,25 @@ function createStorage(values: Record<string, string>) {
   };
 }
 
-describe("monochrome theme surface", () => {
+describe("graphite theme surface", () => {
   const css = fs.readFileSync(
     path.resolve(__dirname, "../app/globals.css"),
     "utf8",
   );
 
-  it("pins the light monochrome palette and the two radii", () => {
-    expect(css).toContain("--background: 0 0% 100%");
-    expect(css).toContain("--surface: 220 20% 98.5%");
+  it("pins the light graphite palette and the two radii", () => {
+    expect(css).toContain("--background: 220 18% 95.5%");
+    expect(css).toContain("--surface: 0 0% 100%");
     expect(css).toContain("--raised: 0 0% 100%");
-    expect(css).toContain("--border: 220 15% 89%");
-    expect(css).toContain("--border-strong: 220 13% 78%");
-    expect(css).toContain("--foreground: 222 24% 11%");
-    expect(css).toContain("--muted-foreground: 220 9% 40%");
-    expect(css).toContain("--subtle-foreground: 220 8% 48%");
-    expect(css).toContain("--primary: 222 24% 11%");
+    expect(css).toContain("--border: 220 14% 84%");
+    expect(css).toContain("--border-strong: 220 12% 68%");
+    expect(css).toContain("--foreground: 222 32% 11%");
+    expect(css).toContain("--muted-foreground: 220 12% 34%");
+    expect(css).toContain("--subtle-foreground: 220 10% 44%");
+    expect(css).toContain("--primary: 221 84% 45%");
     expect(css).toContain("--primary-foreground: 0 0% 100%");
+    expect(css).toContain("--accent: 262 68% 50%");
+    expect(css).toContain("--chart-1: 221 84% 42%");
     expect(css).toContain("--radius-control: 4px");
     expect(css).toContain("--radius-panel: 6px");
     expect(css).toContain("--app-background-base: hsl(var(--background))");
@@ -50,34 +52,36 @@ describe("monochrome theme surface", () => {
     expect(css).toContain("background-image: none");
   });
 
-  it("pins the dark monochrome palette used as the default appearance", () => {
-    expect(css).toContain("--background: 220 13% 6.5%");
-    expect(css).toContain("--surface: 220 12% 9%");
-    expect(css).toContain("--raised: 220 11% 12.5%");
-    expect(css).toContain("--border: 220 10% 17%");
-    expect(css).toContain("--border-strong: 220 9% 26%");
-    expect(css).toContain("--foreground: 220 16% 96%");
-    expect(css).toContain("--muted-foreground: 220 9% 64%");
-    expect(css).toContain("--subtle-foreground: 220 8% 52%");
-    expect(css).toContain("--primary: 220 16% 96%");
-    expect(css).toContain("--primary-foreground: 220 13% 7%");
+  it("pins the dark graphite palette used as the default appearance", () => {
+    expect(css).toContain("--background: 222 30% 7%");
+    expect(css).toContain("--surface: 222 22% 12.5%");
+    expect(css).toContain("--raised: 222 20% 16%");
+    expect(css).toContain("--border: 220 14% 23%");
+    expect(css).toContain("--border-strong: 220 12% 36%");
+    expect(css).toContain("--foreground: 220 24% 97%");
+    expect(css).toContain("--muted-foreground: 220 14% 70%");
+    expect(css).toContain("--subtle-foreground: 220 12% 58%");
+    expect(css).toContain("--primary: 219 92% 64%");
+    expect(css).toContain("--primary-foreground: 222 45% 9%");
+    expect(css).toContain("--accent: 262 85% 72%");
+    expect(css).toContain("--chart-1: 215 92% 66%");
   });
 
-  it("keeps status hues limited to success, warning and danger", () => {
-    expect(css).toContain("--success: 152 58% 32%");
-    expect(css).toContain("--warning: 32 95% 44%");
-    expect(css).toContain("--danger: 0 68% 45%");
-    expect(css).toContain("--success: 152 58% 38%");
-    expect(css).toContain("--warning: 38 92% 50%");
-    expect(css).toContain("--danger: 0 72% 51%");
-    expect(css).toContain("--info: 222 24% 11%");
-    expect(css).toContain("--info: 220 16% 96%");
+  it("uses real status hues and a signal-blue info tone", () => {
+    expect(css).toContain("--success: 158 78% 26%");
+    expect(css).toContain("--warning: 32 92% 44%");
+    expect(css).toContain("--danger: 0 72% 44%");
+    expect(css).toContain("--success: 158 68% 46%");
+    expect(css).toContain("--warning: 38 95% 58%");
+    expect(css).toContain("--danger: 0 80% 62%");
+    expect(css).toContain("--info: 221 84% 45%");
+    expect(css).toContain("--info: 219 92% 64%");
     expect(css).not.toContain("--engineering-");
     expect(css).not.toContain("202.7 59%");
     expect(css).not.toContain("203.1 24.5%");
   });
 
-  it("maps historical Tailwind palette slots onto the grey ramp", () => {
+  it("no longer remaps raw Tailwind palettes onto a grey ramp", () => {
     for (const family of [
       "red",
       "orange",
@@ -96,18 +100,24 @@ describe("monochrome theme surface", () => {
       "fuchsia",
       "pink",
       "rose",
+      "slate",
+      "gray",
+      "zinc",
+      "neutral",
+      "stone",
     ]) {
-      expect(css).toContain(`--color-${family}-500: hsl(var(--mono-500))`);
+      expect(css).not.toContain(`--color-${family}-`);
+      expect(css).not.toContain(`--mono-`);
     }
   });
 
-  it("keeps legacy named surfaces resolving to the single monochrome skin", () => {
-    expect(DEFAULT_SURFACE_THEME).toBe("mono");
-    expect(normalizeSurfaceTheme("ocean")).toBe("mono");
-    expect(normalizeSurfaceTheme("neutral")).toBe("mono");
-    expect(normalizeSurfaceTheme("deepsea")).toBe("mono");
-    expect(normalizeSurfaceTheme("earth")).toBe("mono");
-    expect(normalizeSurfaceTheme(undefined)).toBe("mono");
+  it("keeps legacy named surfaces resolving to the single graphite skin", () => {
+    expect(DEFAULT_SURFACE_THEME).toBe("graphite");
+    expect(normalizeSurfaceTheme("ocean")).toBe("graphite");
+    expect(normalizeSurfaceTheme("neutral")).toBe("graphite");
+    expect(normalizeSurfaceTheme("deepsea")).toBe("graphite");
+    expect(normalizeSurfaceTheme("earth")).toBe("graphite");
+    expect(normalizeSurfaceTheme(undefined)).toBe("graphite");
   });
 
   it("clears legacy inline tokens without writing colours back", () => {

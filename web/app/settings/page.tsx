@@ -135,7 +135,7 @@ function getSaveStatusValueClassName(
   if (saveMessageType === 'error') return 'text-destructive'
   if (saving) return 'text-warning'
   if (saveMessageType === 'success') return 'text-success'
-  return 'text-foreground/80'
+  return 'text-muted-foreground'
 }
 
 function SettingsMetricStrip({
@@ -197,7 +197,7 @@ function SettingsSaveFeedback({
         <XCircle className="size-4" />
         <div>
           <AlertTitle>保存失败</AlertTitle>
-          <AlertDescription className="text-foreground/80">
+          <AlertDescription className="text-muted-foreground">
             {message.text}
           </AlertDescription>
         </div>
@@ -534,7 +534,7 @@ function SettingsPageContent() {
                 <XCircle className="size-4" />
                 <div>
                   <AlertTitle>加载失败</AlertTitle>
-                  <AlertDescription className="text-foreground/80">
+                  <AlertDescription className="text-muted-foreground">
                     {state.loadError}
                   </AlertDescription>
                 </div>
@@ -660,7 +660,7 @@ function SettingsContent({
                   'text-[12px] font-semibold leading-[18px]',
                   activeId === sec.id
                     ? 'border-info/25 bg-info/[0.08] text-info'
-                    : 'text-foreground/78 hover:bg-info/[0.05] hover:text-info'
+                    : 'text-muted-foreground hover:bg-info/[0.05] hover:text-info'
                 )}
               >
                 {sec.label}

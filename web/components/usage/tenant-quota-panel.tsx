@@ -153,7 +153,7 @@ function QuotaCard({
             <Icon className="size-3.5" />
           </div>
           <div className="min-w-0">
-            <p className="truncate text-[12px] font-semibold text-foreground/90">
+            <p className="truncate text-[12px] font-semibold text-foreground">
               {title}
             </p>
             <p className="mt-0.5 truncate text-[10px] text-muted-foreground">
@@ -185,7 +185,7 @@ function QuotaCard({
             等待后端开启
           </p>
         )}
-        <p className="text-[9px] font-medium uppercase tracking-[0.12em] text-muted-foreground/55">
+        <p className="text-[9px] font-medium uppercase tracking-[0.12em] text-subtle-foreground">
           租户
         </p>
       </div>

@@ -310,13 +310,13 @@ export function TopBar() {
       .replaceAll(BACKTICK, SHELL_BACKSLASH + BACKTICK)
 
   const summaryChipClass =
-    'inline-flex h-7 items-center gap-1.5 rounded-lg border border-border/55 bg-muted/20 px-2.5 text-[10.5px] font-bold uppercase tracking-[-0.01em] text-muted-foreground/90 antialiased shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]'
+    'inline-flex h-7 items-center gap-1.5 rounded-lg border border-border/55 bg-muted/20 px-2.5 text-[10.5px] font-bold uppercase tracking-[-0.01em] text-muted-foreground shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]'
   const fileMetaChipClass =
-    'inline-flex h-5 min-w-0 items-center gap-1 rounded-md border border-border/45 bg-background/60 px-1.5 text-[9px] font-bold tracking-[-0.01em] text-muted-foreground/80 antialiased'
+    'inline-flex h-5 min-w-0 items-center gap-1 rounded-md border border-border/45 bg-background/60 px-1.5 text-[9px] font-bold tracking-[-0.01em] text-muted-foreground'
   const stateChipClass =
-    'inline-flex h-7 items-center gap-1.5 rounded-lg border px-2.5 text-[10.5px] font-bold uppercase tracking-[-0.01em] antialiased shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]'
+    'inline-flex h-7 items-center gap-1.5 rounded-lg border px-2.5 text-[10.5px] font-bold uppercase tracking-[-0.01em] shadow-[0_1px_0_rgba(255,255,255,0.7)_inset]'
   const actionButtonClass =
-    'h-8 rounded-lg px-2.5 text-[11px] font-bold uppercase tracking-[-0.01em] text-muted-foreground/90 hover:bg-primary/8 hover:text-primary transition-all antialiased'
+    'h-8 rounded-lg px-2.5 text-[11px] font-bold uppercase tracking-[-0.01em] text-muted-foreground hover:bg-primary/8 hover:text-primary transition-all'
   const visibleFileName =
     currentFileItem.displayName || previewData?.filename || currentFile.name
   const visibleFileType =
@@ -468,7 +468,7 @@ export function TopBar() {
   return (
     <section
       aria-label={workbenchTitle}
-      className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-border/60 bg-background/95 px-3.5 py-3 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.12)] xl:flex-row xl:items-center xl:justify-between antialiased backdrop-blur-xl"
+      className="relative flex min-w-0 flex-col gap-3 rounded-2xl border border-border/60 bg-background px-3.5 py-3 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.12)] xl:flex-row xl:items-center xl:justify-between"
     >
       <div className="flex min-w-0 flex-1 flex-col gap-2.5">
         <div data-current-file-summary className="flex min-w-0 items-center gap-3">
@@ -556,7 +556,7 @@ export function TopBar() {
                     previewData.chunks_truncated ? 'bg-warning' : 'bg-primary'
                   )}
                 />
-                <span className="font-black tabular-nums text-foreground/90">
+                <span className="font-black tabular-nums text-foreground">
                   {(() => {
                     const shown = Number(previewData.total_chunks || 0)
                     const full = Number(previewData.total_chunks_full ?? shown)
@@ -630,7 +630,7 @@ export function TopBar() {
           <div
             role="alert"
             aria-live="polite"
-            className="flex min-w-[min(100%,18rem)] max-w-xl items-start gap-2.5 rounded-2xl border border-destructive/30 bg-destructive/5 px-3.5 py-2.5 text-destructive shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_16px_-8px_hsl(var(--destructive)/0.2)] backdrop-blur-md"
+            className="flex min-w-[min(100%,18rem)] max-w-xl items-start gap-2.5 rounded-2xl border border-destructive/30 bg-card px-3.5 py-2.5 text-destructive shadow-[inset_0_1px_0_rgba(255,255,255,0.6),0_4px_16px_-8px_hsl(var(--destructive)/0.2)] "
           >
             <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-xl bg-destructive/10">
               <AlertCircle className="size-4" strokeWidth={2.5} />
@@ -641,13 +641,13 @@ export function TopBar() {
                   {topBarError.title}
                 </span>
                 {topBarError.badge ? (
-                  <span className="rounded-full border border-destructive/30 bg-background/80 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] leading-none text-destructive/90 antialiased">
+                  <span className="rounded-full border border-destructive/30 bg-background/80 px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.18em] leading-none text-destructive/90">
                     {topBarError.badge}
                   </span>
                 ) : null}
               </div>
               {topBarError.detail ? (
-                <p className="mt-1.5 max-w-[42rem] break-words text-[11px] font-bold leading-relaxed text-destructive/80 antialiased">
+                <p className="mt-1.5 max-w-[42rem] break-words text-[11px] font-bold leading-relaxed text-destructive/80">
                   {topBarError.detail}
                 </p>
               ) : null}
@@ -655,14 +655,14 @@ export function TopBar() {
           </div>
         ) : null}
 
-        <div className="flex items-center gap-1.5 rounded-2xl border border-border/60 bg-muted/20 p-1 shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)] backdrop-blur-sm">
+        <div className="flex items-center gap-1.5 rounded-2xl border border-border/60 bg-muted p-1 shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)]">
           <Button
             variant="ghost"
             size="sm"
             onClick={reset}
             className={cn(actionButtonClass, "hover:bg-background hover:shadow-sm")}
           >
-            <RotateCcw className="w-3.5 h-3.5 mr-1.5 text-muted-foreground/60" strokeWidth={2.5} />
+            <RotateCcw className="w-3.5 h-3.5 mr-1.5 text-subtle-foreground" strokeWidth={2.5} />
             {t('topBar.actions.reset')}
           </Button>
 
@@ -703,7 +703,7 @@ export function TopBar() {
                 : t('topBar.actions.showOriginalPanel')
             }
           >
-            <FileText className={cn("w-3.5 h-3.5 mr-1.5", showOriginalPanel ? "text-primary" : "text-muted-foreground/60")} strokeWidth={2.5} />
+            <FileText className={cn("w-3.5 h-3.5 mr-1.5", showOriginalPanel ? "text-primary" : "text-subtle-foreground")} strokeWidth={2.5} />
             {showOriginalPanel
               ? t('topBar.actions.hideOriginal')
               : t('topBar.actions.showOriginal')}
@@ -718,7 +718,7 @@ export function TopBar() {
             aria-label={t('topBar.actions.helpTitle')}
             title={t('topBar.actions.helpTitle')}
           >
-            <HelpCircle className="w-3.5 h-3.5 mr-1.5 text-muted-foreground/60" strokeWidth={2.5} />
+            <HelpCircle className="w-3.5 h-3.5 mr-1.5 text-subtle-foreground" strokeWidth={2.5} />
             <span className="hidden md:inline">{t('topBar.actions.help')}</span>
           </Button>
 
@@ -728,14 +728,14 @@ export function TopBar() {
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="h-8 w-8 rounded-lg p-0 text-muted-foreground/60 hover:bg-background hover:text-foreground hover:shadow-sm transition-all"
+                className="h-8 w-8 rounded-lg p-0 text-subtle-foreground hover:bg-background hover:text-foreground hover:shadow-sm transition-all"
                 aria-label={t('topBar.actions.moreActions')}
                 title={t('topBar.actions.moreActions')}
               >
                 <MoreVertical className="w-4 h-4" strokeWidth={2.5} />
               </Button>
             </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-60 rounded-2xl border-border/80 bg-popover/98 backdrop-blur-2xl shadow-strong p-1.5 ring-1 ring-black/5 animate-in fade-in zoom-in-95">
+          <DropdownMenuContent align="end" className="w-60 rounded-2xl border-border/80 bg-popover shadow-strong p-1.5 ring-1 ring-black/5 animate-in fade-in zoom-in-95">
             <input
               ref={importConfigInputRef}
               type="file"
@@ -1063,7 +1063,7 @@ export function TopBar() {
             variant="ghost"
             size="sm"
             onClick={onClose}
-            className="text-muted-foreground/60 hover:text-foreground/90 h-9 w-9 p-0 rounded-full hover:bg-muted/50 transition-colors"
+            className="text-subtle-foreground hover:text-foreground h-9 w-9 p-0 rounded-full hover:bg-muted/50 transition-colors"
             aria-label={t('topBar.actions.close')}
             title={t('topBar.actions.close')}
           >
@@ -1075,7 +1075,7 @@ export function TopBar() {
           onClick={submitChunks}
           disabled={!previewData || isSubmitting || submitSuccess}
           className={cn(
-            'h-9 px-6 text-xs font-black uppercase tracking-[0.1em] rounded-xl shadow-lg transition-all duration-300 motion-reduce:transition-none antialiased hover:scale-[1.02] active:scale-[0.98]',
+            'h-9 px-6 text-xs font-black uppercase tracking-[0.1em] rounded-xl shadow-lg transition-all duration-300 motion-reduce:transition-none hover:scale-[1.02] active:scale-[0.98]',
             submitSuccess
               ? 'bg-success text-success-foreground hover:bg-success/90 shadow-success/20'
               : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_4px_16px_-4px_hsl(var(--primary)/0.4)]'

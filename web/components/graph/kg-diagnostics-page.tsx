@@ -61,17 +61,17 @@ import type { JsonObject } from '@/types'
 
 const KG_EXTRACT_MODE_VALUES = ['auto', 'on', 'off'] as const
 const DIAGNOSTICS_SECTION_TITLE_CLASS =
-  'text-[14px] font-medium leading-5 text-foreground/85'
+  'text-[14px] font-medium leading-5 text-foreground'
 const DIAGNOSTICS_SECTION_DESCRIPTION_CLASS =
   'text-[12px] font-normal leading-5 text-muted-foreground'
 const DIAGNOSTICS_FIELD_LABEL_CLASS =
   'text-[12px] font-normal leading-5 text-muted-foreground'
 const DIAGNOSTICS_FIELD_VALUE_CLASS =
-  'text-[14px] font-normal text-foreground/90'
+  'text-[14px] font-normal text-foreground'
 const DIAGNOSTICS_HEADER_ACTION_DOCK_CLASS =
   'flex min-w-0 flex-wrap items-center justify-end gap-1.5 rounded-full border border-border/44 bg-card/54 p-1 shadow-[inset_0_1px_0_hsl(var(--card)/0.72)]'
 const DIAGNOSTICS_HEADER_ACTION_BUTTON_CLASS =
-  'h-8 gap-1.5 rounded-full border-border/36 bg-background/58 px-3 text-[11.5px] font-medium text-foreground/82 shadow-none hover:border-primary/28 hover:bg-background/76 hover:text-foreground'
+  'h-8 gap-1.5 rounded-full border-border/36 bg-background/58 px-3 text-[11.5px] font-medium text-foreground shadow-none hover:border-primary/28 hover:bg-background/76 hover:text-foreground'
 const DIAGNOSTICS_ACTION_CARD_CLASS =
   'rounded-[1.15rem] border border-border/36 bg-card/62 p-2.5 shadow-[0_16px_38px_-34px_hsl(var(--foreground)/0.35),inset_0_1px_0_hsl(var(--card)/0.7)]'
 const DIAGNOSTICS_PRIMARY_ACTION_BUTTON_CLASS =
@@ -619,7 +619,7 @@ function DiagnosticsStepper({
       >
         <Minus className="h-4 w-4" aria-hidden="true" />
       </Button>
-      <div className="flex flex-1 items-center justify-center border-x border-border/70 text-[15px] font-medium tabular-nums text-foreground/90">
+      <div className="flex flex-1 items-center justify-center border-x border-border/70 text-[15px] font-medium tabular-nums text-foreground">
         {value}
       </div>
       <Button
@@ -786,7 +786,7 @@ function DiagnosticsToggleCard({
                 />
                 <span>{badge}</span>
               </div>
-              <div className="mt-0.5 text-[13px] font-medium leading-4 text-foreground/90">
+              <div className="mt-0.5 text-[13px] font-medium leading-4 text-foreground">
                 {title}
               </div>
             </div>
@@ -1794,13 +1794,13 @@ export function KGDiagnosticsPage() {
                     </div>
                   </div>
 
-                  <div className="shrink-0 border-t border-border/44 bg-background/92 px-3 py-3 backdrop-blur">
+                  <div className="shrink-0 border-t border-border/44 bg-background px-3 py-3">
                     <div className={DIAGNOSTICS_ACTION_CARD_CLASS}>
                       <div className="mb-2 flex items-center justify-between gap-2 px-1">
-                        <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground/62">
+                        <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-subtle-foreground">
                           运行操作
                         </div>
-                        <span className="rounded-full border border-border/32 bg-background/44 px-2 py-0.5 text-[10px] font-medium text-muted-foreground/64">
+                        <span className="rounded-full border border-border/32 bg-background/44 px-2 py-0.5 text-[10px] font-medium text-subtle-foreground">
                           KG Eval
                         </span>
                       </div>

@@ -780,7 +780,7 @@ export default function QuarantineQueuePage() {
                   <h1 className="text-[19px] font-semibold leading-6 tracking-[-0.02em] text-foreground">
                     隔离审核中心
                   </h1>
-                  <p className="text-[12px] leading-5 text-muted-foreground/85">
+                  <p className="text-[12px] leading-5 text-muted-foreground">
                     集中复核隔离样本，支持原文预览、规则调参与回放。
                   </p>
                 </div>
@@ -809,12 +809,12 @@ export default function QuarantineQueuePage() {
                       <LayoutList className="size-3 text-info" />
                       发现
                     </span>
-                    <ArrowRight className="size-3 shrink-0 text-muted-foreground/45" />
+                    <ArrowRight className="size-3 shrink-0 text-subtle-foreground" />
                     <span className="inline-flex items-center gap-1.5">
                       <Eye className="size-3 text-info" />
                       复核
                     </span>
-                    <ArrowRight className="size-3 shrink-0 text-muted-foreground/45" />
+                    <ArrowRight className="size-3 shrink-0 text-subtle-foreground" />
                     <span className="inline-flex items-center gap-1.5">
                       <RotateCcw className="size-3 text-info" />
                       回放

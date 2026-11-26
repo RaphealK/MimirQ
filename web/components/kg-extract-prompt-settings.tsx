@@ -230,13 +230,13 @@ export function KgExtractPromptSettings({
 
         <button
           type="button"
-          className="flex w-full items-center justify-between rounded-lg border border-dashed border-border bg-card px-3 py-2 text-left text-[12px] font-semibold text-foreground/85 transition-colors hover:bg-muted/50"
+          className="flex w-full items-center justify-between rounded-lg border border-dashed border-border bg-card px-3 py-2 text-left text-[12px] font-semibold text-foreground transition-colors hover:bg-muted/50"
           onClick={() => setShowAdvanced((value) => !value)}
         >
           <span>高级参数</span>
           <ChevronDown
             className={cn(
-              'size-3.5 text-muted-foreground/70 transition-transform',
+              'size-3.5 text-subtle-foreground transition-transform',
               showAdvanced && 'rotate-180'
             )}
           />

@@ -136,7 +136,7 @@ export function ParsingLibraryPreviewPane({
  />
  ) : (
  <span className="text-xs text-muted-foreground">
- {t('libraryPreview.parserLabel')}：<span className="font-medium text-foreground/80 dark:text-muted-foreground">{file.parser || getParserLabel(parserValue)}</span>
+ {t('libraryPreview.parserLabel')}：<span className="font-medium text-muted-foreground dark:text-muted-foreground">{file.parser || getParserLabel(parserValue)}</span>
  </span>
  )}
 

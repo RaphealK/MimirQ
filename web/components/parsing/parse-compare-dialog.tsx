@@ -124,7 +124,7 @@ export function ParseCompareDialog({ open, onOpenChange, runs, defaultBaseRunId,
         <div className="space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Base</div>
+              <div className="text-sm font-medium text-muted-foreground">Base</div>
               <select
                 value={baseId}
                 onChange={(e) => setBaseId(e.target.value)}
@@ -138,7 +138,7 @@ export function ParseCompareDialog({ open, onOpenChange, runs, defaultBaseRunId,
               </select>
             </div>
             <div className="space-y-2">
-              <div className="text-sm font-medium text-foreground/80">Compare</div>
+              <div className="text-sm font-medium text-muted-foreground">Compare</div>
               <select
                 value={compareId}
                 onChange={(e) => setCompareId(e.target.value)}
@@ -162,7 +162,7 @@ export function ParseCompareDialog({ open, onOpenChange, runs, defaultBaseRunId,
 	                  'px-3 py-1.5 text-xs rounded-md flex items-center gap-1 focus-ring transition-colors duration-200 motion-reduce:transition-none',
 	                  mode === 'cleaned'
 	                    ? 'bg-card text-foreground shadow-sm'
-	                    : 'text-muted-foreground hover:text-foreground/80'
+	                    : 'text-muted-foreground hover:text-muted-foreground'
 	                )}
               >
                 <FileText className="w-3.5 h-3.5" />
@@ -175,7 +175,7 @@ export function ParseCompareDialog({ open, onOpenChange, runs, defaultBaseRunId,
 	                  'px-3 py-1.5 text-xs rounded-md flex items-center gap-1 focus-ring transition-colors duration-200 motion-reduce:transition-none',
 	                  mode === 'raw'
 	                    ? 'bg-card text-foreground shadow-sm'
-	                    : 'text-muted-foreground hover:text-foreground/80'
+	                    : 'text-muted-foreground hover:text-muted-foreground'
 	                )}
               >
                 <FileText className="w-3.5 h-3.5" />

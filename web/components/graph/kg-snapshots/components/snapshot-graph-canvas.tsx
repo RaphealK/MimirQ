@@ -120,7 +120,7 @@ export function SnapshotGraphCanvas({
         aria-hidden
       />
 
-      <div className="absolute left-7 top-7 z-20 rounded-2xl border border-border/70 bg-card/90 p-3 shadow-lg backdrop-blur">
+      <div className="absolute left-7 top-7 z-20 rounded-2xl border border-border/70 bg-card p-3 shadow-lg">
         <div className="grid grid-cols-[auto_auto] gap-x-4 gap-y-1 text-[12px]">
           <span className="text-muted-foreground">节点</span>
           <span className="font-mono font-semibold tabular-nums text-foreground">
@@ -268,7 +268,7 @@ export function SnapshotGraphCanvas({
             {showNodeLabel ? (
               <span
                 className={cn(
-                  'max-w-[132px] rounded-full bg-background/82 px-2 py-0.5 font-semibold text-foreground shadow-sm backdrop-blur',
+                  'max-w-[132px] rounded-full bg-background px-2 py-0.5 font-semibold text-foreground shadow-sm',
                   isDenseGraph ? 'text-[10px]' : 'text-[12px]'
                 )}
               >
@@ -279,7 +279,7 @@ export function SnapshotGraphCanvas({
         )
       })}
 
-      <div className="absolute bottom-5 left-7 z-20 flex max-w-[calc(100%-3.5rem)] flex-wrap items-center gap-3 rounded-2xl border border-border/70 bg-card/92 px-4 py-2.5 text-[12px] text-muted-foreground shadow-lg backdrop-blur">
+      <div className="absolute bottom-5 left-7 z-20 flex max-w-[calc(100%-3.5rem)] flex-wrap items-center gap-3 rounded-2xl border border-border/70 bg-card px-4 py-2.5 text-[12px] text-muted-foreground shadow-lg">
         <span className="font-medium text-foreground">图例:</span>
         {legendRows.length ? (
           legendRows.map(([label, color]) => (

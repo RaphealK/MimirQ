@@ -1532,7 +1532,7 @@ export function ParsingWorkbenchShell({
                         <UploadCloud className="size-4" />
                         {t('sidebar.uploadFile')}
                       </span>
-                      <div className="mt-3 text-[12px] text-muted-foreground/75">
+                      <div className="mt-3 text-[12px] text-muted-foreground">
                         或将文件拖拽到此区域
                       </div>
                     </div>

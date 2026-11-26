@@ -561,7 +561,7 @@ function EvaluationResultsStage({
                   确定性证据校验
                 </span>
               </div>
-              <p className="mt-1 text-foreground/80">
+              <p className="mt-1 text-muted-foreground">
                 {deterministicDescription}
               </p>
             </div>
@@ -770,7 +770,7 @@ function EvaluationHeroCard({
               </span>
             </div>
             <p
-              className="truncate text-[12px] leading-5 text-muted-foreground/85"
+              className="truncate text-[12px] leading-5 text-muted-foreground"
               title={description}
             >
               {description}
@@ -780,7 +780,7 @@ function EvaluationHeroCard({
 
         <div className="grid min-w-0 gap-2 sm:grid-cols-[minmax(0,1fr)_auto] xl:min-w-[520px]">
           <div className={cn(KNOWLEDGE_OPS_SUMMARY_PANEL_CLASS, 'gap-2 text-[11px]')}>
-            <span className="inline-flex items-center gap-2 font-medium text-foreground/85">
+            <span className="inline-flex items-center gap-2 font-medium text-foreground">
               <span
                 className="size-1.5 rounded-full bg-info shadow-sm shadow-info/20"
                 aria-hidden="true"
@@ -808,11 +808,11 @@ function EvaluationHeroCard({
                 <Button
                   type="button"
                   variant="outline"
-                  className="h-10 flex-1 rounded-xl border-info/30 bg-card px-4 text-[13px] font-bold text-foreground/85 shadow-none hover:bg-info/[0.08] hover:text-info sm:flex-none"
+                  className="h-10 flex-1 rounded-xl border-info/30 bg-card px-4 text-[13px] font-bold text-foreground shadow-none hover:bg-info/[0.08] hover:text-info sm:flex-none"
                 >
                   <SlidersHorizontal className="mr-2 h-4 w-4" />
                   高级诊断
-                  <ChevronDown className="ml-2 h-3.5 w-3.5 text-muted-foreground/70" />
+                  <ChevronDown className="ml-2 h-3.5 w-3.5 text-subtle-foreground" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -1041,7 +1041,7 @@ function ScoreDetailsCard({
       {rows.length ? (
         <div className="overflow-auto">
           <table className="w-full text-left text-[12.5px]">
-            <thead className="bg-info/5 text-foreground/85">
+            <thead className="bg-info/5 text-foreground">
               <tr>
                 <th className="px-4 py-2.5 font-bold">指标</th>
                 <th className="px-4 py-2.5 font-bold">平均分</th>
@@ -1110,7 +1110,7 @@ function IterationDetailsCard({
           <div className="text-[13px] font-semibold text-foreground">
             逐轮明细
           </div>
-          <Info className="h-3.5 w-3.5 text-muted-foreground/70" aria-hidden="true" />
+          <Info className="h-3.5 w-3.5 text-subtle-foreground" aria-hidden="true" />
         </div>
         <div className="flex items-center gap-2">
           <label className="inline-flex items-center gap-2 text-[12px] text-muted-foreground">
@@ -1176,7 +1176,7 @@ function IterationDetailsCard({
                       return (
                         <td
                           key={metricKey}
-                          className="px-3 py-1.5 tabular-nums text-foreground/85"
+                          className="px-3 py-1.5 tabular-nums text-foreground"
                         >
                           {isNum ? value.toFixed(3) : '-'}
                         </td>
@@ -2026,7 +2026,7 @@ function EvaluationsPageContent() {
                       </span>
                       <ChevronDown
                         className={cn(
-                          'h-4 w-4 text-muted-foreground/70 transition-transform duration-200',
+                          'h-4 w-4 text-subtle-foreground transition-transform duration-200',
                           isRunRecordsCollapsed && '-rotate-90'
                         )}
                         aria-hidden="true"

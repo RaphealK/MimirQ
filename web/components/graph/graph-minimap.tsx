@@ -214,7 +214,7 @@ export function GraphMinimap({
   return (
     <div
       className={cn(
-        'rounded-xl border border-border/50 bg-card/60 shadow-sm backdrop-blur-sm',
+        'rounded-xl border border-border/50 bg-card shadow-sm',
         className
       )}
     >

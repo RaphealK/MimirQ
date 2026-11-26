@@ -666,7 +666,7 @@ function TopHUDTile({
           tone={valueTone}
           className="mt-1 h-6 max-w-full"
         />
-        <p className="mt-1 truncate text-[10px] font-medium text-muted-foreground/80">
+        <p className="mt-1 truncate text-[10px] font-medium text-muted-foreground">
           {detail}
         </p>
       </div>
@@ -698,7 +698,7 @@ function DimensionMatrixItem({
     green: 'bg-success/10 text-success border-success/20',
     amber: 'bg-warning/10 text-warning border-warning/20',
     red: 'bg-destructive/10 text-destructive border-destructive/20',
-    slate: 'bg-muted/50 text-muted-foreground/80 border-border/50',
+    slate: 'bg-muted/50 text-muted-foreground border-border/50',
     purple: 'bg-accent/10 text-accent border-accent/20',
   }
 
@@ -729,7 +729,7 @@ function DimensionMatrixItem({
             <p className="truncate text-[12px] font-semibold leading-tight text-foreground group-hover:text-foreground">
               {title}
             </p>
-            <p className="mt-0.5 truncate text-[10px] font-medium text-muted-foreground/80 group-hover:text-muted-foreground">
+            <p className="mt-0.5 truncate text-[10px] font-medium text-muted-foreground group-hover:text-muted-foreground">
               {subtitle}
             </p>
           </div>
@@ -738,7 +738,7 @@ function DimensionMatrixItem({
               'shrink-0 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold',
               selected
                 ? 'border-info/25 bg-background/80 text-info'
-                : 'border-border/50 bg-muted/50 text-muted-foreground/80'
+                : 'border-border/50 bg-muted/50 text-muted-foreground'
             )}
           >
             {selected ? '已选' : '未选'}
@@ -750,7 +750,7 @@ function DimensionMatrixItem({
             tone={isPendingMetricLabel(value) ? 'slate' : tone}
             className="h-5 max-w-[96px] px-1.5 text-[10px]"
           />
-          <span className="truncate rounded-full bg-muted/55 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">
+          <span className="truncate rounded-full bg-muted/55 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.12em] text-subtle-foreground">
             {source}
           </span>
         </div>
@@ -777,11 +777,11 @@ function MainMetricCard({
   const isWait = isPendingMetricLabel(value)
   const toneClass =
     {
-      slate: 'bg-muted/50 text-muted-foreground/80 border-border/50',
+      slate: 'bg-muted/50 text-muted-foreground border-border/50',
       green: 'bg-success/10 text-success border-success/20',
       amber: 'bg-warning/10 text-warning border-warning/20',
       red: 'bg-destructive/10 text-destructive border-destructive/20',
-    }[tone] || 'bg-muted/50 text-muted-foreground/80 border-border/50'
+    }[tone] || 'bg-muted/50 text-muted-foreground border-border/50'
 
   return (
     <div className="group flex min-h-[48px] items-center gap-2 rounded-xl border border-border/70 bg-background/68 px-2 py-1.5 shadow-none transition-colors hover:border-info/25 hover:bg-info/[0.04]">
@@ -1545,7 +1545,7 @@ export default function DiagnosticsPage() {
                             <span className="truncate text-[13px] font-medium">
                               {datasetLabel(dataset)}
                             </span>
-                            <span className="truncate text-[10px] text-muted-foreground/80">
+                            <span className="truncate text-[10px] text-muted-foreground">
                               {shortId(dataset.id, 12)}
                             </span>
                           </span>
@@ -1596,7 +1596,7 @@ export default function DiagnosticsPage() {
                                 <span className="truncate text-[13px] font-medium">
                                   {documentLabel(document)}
                                 </span>
-                                <span className="truncate text-[10px] text-muted-foreground/80">
+                                <span className="truncate text-[10px] text-muted-foreground">
                                   {shortId(document.id, 12)}
                                 </span>
                               </span>
@@ -1617,13 +1617,13 @@ export default function DiagnosticsPage() {
                         </span>
                       ))}
                       {selectedDocuments.length > 3 ? (
-                        <span className="rounded-full border border-border/50 bg-muted/50 px-2 py-0.5 text-[10px] font-medium text-muted-foreground/80">
+                        <span className="rounded-full border border-border/50 bg-muted/50 px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
                           +{selectedDocuments.length - 3}
                         </span>
                       ) : null}
                     </div>
                   ) : (
-                    <p className="mt-1 text-[10px] font-medium text-muted-foreground/80">
+                    <p className="mt-1 text-[10px] font-medium text-muted-foreground">
                       不选择文档时，诊断当前数据集的全部可检索内容。
                     </p>
                   )}
@@ -1786,7 +1786,7 @@ export default function DiagnosticsPage() {
                   预览、漂移检查、性能门禁是三个独立探针，分别点击后只更新自己负责的指标。
                 </MetricInfoTooltip>
               </h3>
-              <p className="text-[11px] font-medium text-muted-foreground/80">
+              <p className="text-[11px] font-medium text-muted-foreground">
                 先跑左侧按钮，再看对应指标
               </p>
             </div>
@@ -1844,7 +1844,7 @@ export default function DiagnosticsPage() {
                 <h3 className="m-0 flex items-center gap-2 text-[14px] font-semibold text-foreground">
                   <Search className="size-4 text-primary" /> 主预览
                 </h3>
-                <p className="mt-1 text-[11px] text-muted-foreground/80">
+                <p className="mt-1 text-[11px] text-muted-foreground">
                   这里基于真实后端返回值显示 prompt-preview、retrieval explain 与 config hash。
                 </p>
               </div>
@@ -2059,14 +2059,14 @@ export default function DiagnosticsPage() {
               ) : (
                 <div className="flex min-h-[170px] flex-col items-center justify-center">
                   <div className="mb-4 flex size-14 items-center justify-center rounded-full border border-dashed border-border bg-muted/50">
-                    <Activity className="size-6 text-muted-foreground/40" />
+                    <Activity className="size-6 text-subtle-foreground" />
                   </div>
                   <DiagnosticStatusPill
                     value="待生成建议"
                     tone="slate"
                     className="h-6 px-2.5"
                   />
-                  <p className="mt-2 text-[11px] text-muted-foreground/80">
+                  <p className="mt-2 text-[11px] text-muted-foreground">
                     运行 RAG 预览、漂移检查或性能门禁后生成建议
                   </p>
                 </div>
@@ -2085,7 +2085,7 @@ function ConclusionItem({ label, status }: Readonly<{ label: string; status: str
     <div className="flex items-center justify-between gap-3 rounded-lg border border-border/60 bg-muted/35 px-2.5 py-2">
       <div className="flex items-center gap-3">
         <div className="size-5 rounded bg-muted/50 border border-border/50 flex items-center justify-center">
-          <LayoutGrid className="size-3 text-muted-foreground/80" />
+          <LayoutGrid className="size-3 text-muted-foreground" />
         </div>
         <span className="text-[12px] font-medium text-muted-foreground">{label}</span>
       </div>
@@ -2143,7 +2143,7 @@ function DiagnosticsSummaryItem({
         <p className="truncate text-[11px] font-medium text-muted-foreground">
           {label}
         </p>
-        <p className="mt-0.5 truncate text-[10px] text-muted-foreground/80">{detail}</p>
+        <p className="mt-0.5 truncate text-[10px] text-muted-foreground">{detail}</p>
       </div>
       <span
         className={cn(
@@ -2171,11 +2171,11 @@ function RawDiagnosticsDetails({
           <FileJson className="size-3.5 text-primary" />
           查看原始响应
         </span>
-        <ChevronDown className="size-3.5 text-muted-foreground/80 transition-transform group-open:rotate-180" />
+        <ChevronDown className="size-3.5 text-muted-foreground transition-transform group-open:rotate-180" />
       </summary>
       <div className="border-t border-border/50 p-3">
         <div className="mb-2 flex items-center justify-between gap-3">
-          <p className="text-[11px] font-medium text-muted-foreground/80">
+          <p className="text-[11px] font-medium text-muted-foreground">
             仅用于排障复制，不默认占用诊断主视图。
           </p>
           <Button
@@ -2207,7 +2207,7 @@ function PreviewInfoCard({
 }>) {
   return (
     <div className="rounded-xl border border-border/60 bg-muted/35 px-3 py-2.5">
-      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground/80">
+      <div className="text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </div>
       <div
@@ -2242,17 +2242,17 @@ function PreviewListCard({
               key={`${title}-${item.label}-${item.value}`}
               className="rounded-lg border border-border/60 bg-background/65 px-2.5 py-2"
             >
-              <div className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground/75">
+              <div className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground">
                 {item.label}
               </div>
-              <div className="mt-1 break-words font-mono text-[11px] text-foreground/90">
+              <div className="mt-1 break-words font-mono text-[11px] text-foreground">
                 {item.value}
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <div className="mt-2 text-[11px] text-muted-foreground/75">
+        <div className="mt-2 text-[11px] text-muted-foreground">
           {emptyLabel}
         </div>
       )}
@@ -2290,7 +2290,7 @@ function PreviewMessageCard({
         {items.map((item) => (
           <div
             key={`${title}-${item}`}
-            className="rounded-lg bg-background/75 px-2.5 py-2 font-mono text-[11px] text-foreground/90"
+            className="rounded-lg bg-background/75 px-2.5 py-2 font-mono text-[11px] text-foreground"
           >
             {item}
           </div>

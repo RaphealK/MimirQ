@@ -259,8 +259,8 @@ export function ChunkPresetPanel({ className }: Readonly<{ className?: string }>
             <Bookmark className="size-3.5 shrink-0" />
           </span>
           <div className="min-w-0">
-            <div className="truncate text-[11px] font-semibold text-foreground/84">{t('chunkPresetPanel.title')}</div>
-            <div className="truncate text-[9.5px] text-muted-foreground/72">
+            <div className="truncate text-[11px] font-semibold text-foreground">{t('chunkPresetPanel.title')}</div>
+            <div className="truncate text-[9.5px] text-subtle-foreground">
               {selectedPreset ? t('chunkPresetPanel.statusActive', { name: selectedPreset.name }) : t('chunkPresetPanel.statusIdle')}
             </div>
           </div>

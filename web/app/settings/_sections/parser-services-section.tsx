@@ -124,7 +124,7 @@ export function ParserServicesSection({
                 open={mineruBackend === 'vlm-http-client'}
                 className="group rounded-[14px] border border-dashed border-border/70 bg-muted/35 px-3 py-2"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-foreground/78">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-muted-foreground">
                   <span>VLM HTTP 后端</span>
                   <span className="text-[11px] font-medium text-muted-foreground">
                     {mineruBackend === 'vlm-http-client'
@@ -273,7 +273,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 强制 OCR
               </div>
               <div className={FIELD_HINT}>扫描件/图片型 PDF 建议开启</div>
@@ -287,7 +287,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 提取图片
               </div>
               <div className={FIELD_HINT}>输出图片引用用于预览/入库</div>
@@ -303,7 +303,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 公式识别
               </div>
               <div className={FIELD_HINT}>尽量保留公式/LaTeX 输出</div>
@@ -319,7 +319,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 过滤页眉页脚
               </div>
               <div className={FIELD_HINT}>减少检索噪音（若服务支持）</div>
@@ -409,7 +409,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">启用 OCR</div>
+              <div className="text-[12px] font-medium text-muted-foreground">启用 OCR</div>
               <div className={FIELD_HINT}>扫描件建议开启；数字原生文档可关闭以降低耗时</div>
             </div>
             <TogglePill
@@ -421,7 +421,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">继承系统代理</div>
+              <div className="text-[12px] font-medium text-muted-foreground">继承系统代理</div>
               <div className={FIELD_HINT}>内网容器保持关闭；只有远程服务必须走代理时才开启</div>
             </div>
             <TogglePill
@@ -649,7 +649,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 应用文档树
               </div>
               <div className={FIELD_HINT}>尽量保留标题层级 / 文档结构</div>
@@ -667,7 +667,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 Markdown 细节增强
               </div>
               <div className={FIELD_HINT}>返回更丰富的 Markdown 结构</div>
@@ -766,7 +766,7 @@ export function ParserServicesSection({
 
           <div className="flex items-center justify-between border-t border-border/70 pt-3">
             <div>
-              <div className="text-[12px] font-medium text-foreground/80">
+              <div className="text-[12px] font-medium text-muted-foreground">
                 保留解析产物
               </div>
               <div className={FIELD_HINT}>

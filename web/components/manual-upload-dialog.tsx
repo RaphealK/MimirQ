@@ -102,11 +102,11 @@ function renderPreviewState(preview: DocumentPreview | null, chunkPreview: Manua
             <span className="text-[11px] text-muted-foreground">P.{chunk.page_number}</span>
           )}
         </div>
-        <span className="text-[11px] font-mono text-muted-foreground/60 group-hover:text-primary">
+        <span className="text-[11px] font-mono text-subtle-foreground group-hover:text-primary">
           {chunk.content.length} chars
         </span>
       </div>
-      <div className="rounded-lg border border-border/60 bg-muted/20 p-2 text-xs leading-relaxed text-foreground/90 whitespace-pre-wrap break-all font-mono">
+      <div className="rounded-lg border border-border/60 bg-muted/20 p-2 text-xs leading-relaxed text-foreground whitespace-pre-wrap break-all font-mono">
         {chunk.content}
       </div>
     </div>

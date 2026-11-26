@@ -44,7 +44,7 @@ function CinematicMarkdownParagraph({ children }: MarkdownChildrenProps) {
 
 function CinematicMarkdownList({ children }: MarkdownChildrenProps) {
   return (
-    <ul className="list-disc pl-5 mb-3 space-y-1.5 marker:text-muted-foreground/60 motion-safe:animate-fade-in">
+    <ul className="list-disc pl-5 mb-3 space-y-1.5 marker:text-subtle-foreground motion-safe:animate-fade-in">
       {children}
     </ul>
   )
@@ -52,7 +52,7 @@ function CinematicMarkdownList({ children }: MarkdownChildrenProps) {
 
 function CinematicMarkdownOrderedList({ children }: MarkdownChildrenProps) {
   return (
-    <ol className="list-decimal pl-5 mb-3 space-y-1.5 marker:text-muted-foreground/60 motion-safe:animate-fade-in">
+    <ol className="list-decimal pl-5 mb-3 space-y-1.5 marker:text-subtle-foreground motion-safe:animate-fade-in">
       {children}
     </ol>
   )
@@ -340,7 +340,7 @@ export function CinematicTypewriter({
             animate={{ opacity: 1, y: '0em', filter: 'blur(0px)' }}
             exit={{ opacity: 0, y: '-0.2em', filter: 'blur(4px)' }}
             transition={tokenRevealTransition}
-            className="inline whitespace-pre-wrap align-baseline text-foreground/90 motion-safe:animate-fade-in"
+            className="inline whitespace-pre-wrap align-baseline text-foreground motion-safe:animate-fade-in"
           >
             {pendingToken}
           </motion.span>

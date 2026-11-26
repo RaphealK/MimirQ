@@ -182,7 +182,7 @@ describe("navbar source", () => {
     expect(src).toContain("readClientStorage");
   });
 
-  it("uses the monochrome foreground/surface/raised ladder without an accent hue", () => {
+  it("uses the graphite surface ladder with a signal-blue active rail", () => {
     const navbarSrc = fs.readFileSync(
       path.resolve(__dirname, "navbar.tsx"),
       "utf8",
@@ -202,6 +202,7 @@ describe("navbar source", () => {
     expect(navbarSrc).toContain("bg-raised");
     expect(navbarSrc).toContain("bg-surface");
     expect(navbarSrc).toContain("text-subtle-foreground");
-    expect(navbarSrc).toContain("before:bg-foreground");
+    expect(navbarSrc).toContain("bg-selected");
+    expect(navbarSrc).toContain("before:bg-primary");
   });
 });

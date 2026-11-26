@@ -156,7 +156,7 @@ export function AblationGridPanel({
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
             用 JSON 定义参数数组，前端按组合顺序创建 regression runs；默认上限 {MAX_GRID_COMBINATIONS} 个，避免跑爆配额。
           </p>
-          <p className="mt-1 text-[11px] leading-5 text-muted-foreground/70">
+          <p className="mt-1 text-[11px] leading-5 text-subtle-foreground">
             支持字段：{GRID_PARAM_KEYS.join(' / ')}
           </p>
         </div>

@@ -59,7 +59,7 @@ const METRIC_VALUE_TONE_CLASSES = {
   blue: 'text-info',
   green: 'text-success',
   indigo: 'text-info',
-  slate: 'text-foreground/80',
+  slate: 'text-muted-foreground',
 } as const
 const USAGE_TABLE_HEAD_CLASS = 'border-b border-border/60 bg-info/[0.035]'
 const USAGE_TABLE_HEADER_CLASS =
@@ -192,7 +192,7 @@ function OverviewStat({
     blue: 'border-info/25 bg-info/[0.09] text-info',
     green: 'border-success/18 bg-success/[0.08] text-success',
     red: 'border-destructive/18 bg-destructive/[0.08] text-destructive',
-    slate: 'border-border/65 bg-background/62 text-foreground/80',
+    slate: 'border-border/65 bg-background/62 text-muted-foreground',
     info: 'border-border/65 bg-background/62 text-info',
   }[tone]
   return (
@@ -224,7 +224,7 @@ function OverviewMeta({
       <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
         {label}
       </span>
-      <span className="truncate text-[12px] font-medium text-foreground/80">
+      <span className="truncate text-[12px] font-medium text-muted-foreground">
         {value}
       </span>
     </div>
@@ -248,7 +248,7 @@ function UsageDatasetCell({
   return (
     <div className="min-w-0">
       <div className="flex min-w-0 items-center gap-2">
-        <p className="min-w-0 max-w-[260px] truncate text-[13px] font-semibold text-foreground/88 transition-colors group-hover:text-info">
+        <p className="min-w-0 max-w-[260px] truncate text-[13px] font-semibold text-foreground transition-colors group-hover:text-info">
           {displayName}
         </p>
         <span
@@ -264,7 +264,7 @@ function UsageDatasetCell({
           {statusLabel}
         </span>
       </div>
-      <p className="mt-1 font-mono text-[10px] uppercase text-muted-foreground/60">
+      <p className="mt-1 font-mono text-[10px] uppercase text-subtle-foreground">
         {datasetId ? shortId(datasetId) : 'NO DATASET ID'}
       </p>
     </div>
@@ -283,7 +283,7 @@ function UsageEmptyTableRow({
   return (
     <tr>
       <td colSpan={colSpan} className="h-40 px-5 text-center">
-        <p className="text-[12px] font-medium text-foreground/75">{title}</p>
+        <p className="text-[12px] font-medium text-muted-foreground">{title}</p>
         <p className="mt-1 text-[10px] text-muted-foreground">{detail}</p>
       </td>
     </tr>

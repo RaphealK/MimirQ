@@ -278,7 +278,7 @@ function ChunkPreviewEmptyCanvas() {
               <div className="grid flex-1 gap-4 xl:grid-cols-[0.9fr_1.1fr] xl:items-stretch">
                 <div className="relative xl:border-r xl:border-foreground/10 xl:pr-4">
                   <div className="mb-4 flex items-center justify-between">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                       Source
                     </span>
                     <span className="text-[10px] font-medium text-info">
@@ -316,7 +316,7 @@ function ChunkPreviewEmptyCanvas() {
                               <span className="h-1.5 w-8 rounded-full bg-muted-foreground/12" />
                             </div>
                           </div>
-                          <span className="text-[10px] font-medium tabular-nums text-muted-foreground/80">
+                          <span className="text-[10px] font-medium tabular-nums text-muted-foreground">
                             0{index + 1}
                           </span>
                         </div>
@@ -328,18 +328,18 @@ function ChunkPreviewEmptyCanvas() {
 
               <div className="grid gap-4 border-t border-foreground/10 pt-3 sm:grid-cols-2">
                 <div className="px-1">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
+                  <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     {t('emptyState.visual.metrics.chunks')}
                   </div>
                   <div className="mt-1 flex items-end gap-2">
                     <span className="text-xl font-semibold text-foreground">12</span>
-                    <span className="pb-1 text-[10px] text-muted-foreground/80">
+                    <span className="pb-1 text-[10px] text-muted-foreground">
                       preview
                     </span>
                   </div>
                 </div>
                 <div className="border-l border-foreground/10 pl-4">
-                  <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">
+                  <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     {t('emptyState.visual.metrics.coverage')}
                   </div>
                   <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted">

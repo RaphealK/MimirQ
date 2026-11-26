@@ -213,7 +213,7 @@ export function IngestionDetailDialog({
                   <span className="font-mono">{documentId || '-'}</span>
                   {doc ? (
                     <>
-                      <span className="text-muted-foreground/40">·</span>
+                      <span className="text-subtle-foreground">·</span>
                       <span>{formatDate(doc.updated_at)}</span>
                     </>
                   ) : null}

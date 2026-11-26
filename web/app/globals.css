@@ -1,282 +1,6 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
-/* ------------------------------------------------------------------
-   Monochrome theme slots.
-
-   The product palette is black/white/grey. Every historical Tailwind
-   palette utility (blue-500, sky-200, emerald-300, …) is remapped onto
-   this single grey ramp at theme level, so those classes can never leak
-   a chromatic value into the compiled CSS. Status hues live separately
-   in the semantic tokens below and are only used for status meaning.
-   ------------------------------------------------------------------ */
-@theme {
-  /* red -> monochrome */
-  --color-red-50: hsl(var(--mono-50));
-  --color-red-100: hsl(var(--mono-100));
-  --color-red-200: hsl(var(--mono-200));
-  --color-red-300: hsl(var(--mono-300));
-  --color-red-400: hsl(var(--mono-400));
-  --color-red-500: hsl(var(--mono-500));
-  --color-red-600: hsl(var(--mono-600));
-  --color-red-700: hsl(var(--mono-700));
-  --color-red-800: hsl(var(--mono-800));
-  --color-red-900: hsl(var(--mono-900));
-  --color-red-950: hsl(var(--mono-950));
-  /* orange -> monochrome */
-  --color-orange-50: hsl(var(--mono-50));
-  --color-orange-100: hsl(var(--mono-100));
-  --color-orange-200: hsl(var(--mono-200));
-  --color-orange-300: hsl(var(--mono-300));
-  --color-orange-400: hsl(var(--mono-400));
-  --color-orange-500: hsl(var(--mono-500));
-  --color-orange-600: hsl(var(--mono-600));
-  --color-orange-700: hsl(var(--mono-700));
-  --color-orange-800: hsl(var(--mono-800));
-  --color-orange-900: hsl(var(--mono-900));
-  --color-orange-950: hsl(var(--mono-950));
-  /* amber -> monochrome */
-  --color-amber-50: hsl(var(--mono-50));
-  --color-amber-100: hsl(var(--mono-100));
-  --color-amber-200: hsl(var(--mono-200));
-  --color-amber-300: hsl(var(--mono-300));
-  --color-amber-400: hsl(var(--mono-400));
-  --color-amber-500: hsl(var(--mono-500));
-  --color-amber-600: hsl(var(--mono-600));
-  --color-amber-700: hsl(var(--mono-700));
-  --color-amber-800: hsl(var(--mono-800));
-  --color-amber-900: hsl(var(--mono-900));
-  --color-amber-950: hsl(var(--mono-950));
-  /* yellow -> monochrome */
-  --color-yellow-50: hsl(var(--mono-50));
-  --color-yellow-100: hsl(var(--mono-100));
-  --color-yellow-200: hsl(var(--mono-200));
-  --color-yellow-300: hsl(var(--mono-300));
-  --color-yellow-400: hsl(var(--mono-400));
-  --color-yellow-500: hsl(var(--mono-500));
-  --color-yellow-600: hsl(var(--mono-600));
-  --color-yellow-700: hsl(var(--mono-700));
-  --color-yellow-800: hsl(var(--mono-800));
-  --color-yellow-900: hsl(var(--mono-900));
-  --color-yellow-950: hsl(var(--mono-950));
-  /* lime -> monochrome */
-  --color-lime-50: hsl(var(--mono-50));
-  --color-lime-100: hsl(var(--mono-100));
-  --color-lime-200: hsl(var(--mono-200));
-  --color-lime-300: hsl(var(--mono-300));
-  --color-lime-400: hsl(var(--mono-400));
-  --color-lime-500: hsl(var(--mono-500));
-  --color-lime-600: hsl(var(--mono-600));
-  --color-lime-700: hsl(var(--mono-700));
-  --color-lime-800: hsl(var(--mono-800));
-  --color-lime-900: hsl(var(--mono-900));
-  --color-lime-950: hsl(var(--mono-950));
-  /* green -> monochrome */
-  --color-green-50: hsl(var(--mono-50));
-  --color-green-100: hsl(var(--mono-100));
-  --color-green-200: hsl(var(--mono-200));
-  --color-green-300: hsl(var(--mono-300));
-  --color-green-400: hsl(var(--mono-400));
-  --color-green-500: hsl(var(--mono-500));
-  --color-green-600: hsl(var(--mono-600));
-  --color-green-700: hsl(var(--mono-700));
-  --color-green-800: hsl(var(--mono-800));
-  --color-green-900: hsl(var(--mono-900));
-  --color-green-950: hsl(var(--mono-950));
-  /* emerald -> monochrome */
-  --color-emerald-50: hsl(var(--mono-50));
-  --color-emerald-100: hsl(var(--mono-100));
-  --color-emerald-200: hsl(var(--mono-200));
-  --color-emerald-300: hsl(var(--mono-300));
-  --color-emerald-400: hsl(var(--mono-400));
-  --color-emerald-500: hsl(var(--mono-500));
-  --color-emerald-600: hsl(var(--mono-600));
-  --color-emerald-700: hsl(var(--mono-700));
-  --color-emerald-800: hsl(var(--mono-800));
-  --color-emerald-900: hsl(var(--mono-900));
-  --color-emerald-950: hsl(var(--mono-950));
-  /* teal -> monochrome */
-  --color-teal-50: hsl(var(--mono-50));
-  --color-teal-100: hsl(var(--mono-100));
-  --color-teal-200: hsl(var(--mono-200));
-  --color-teal-300: hsl(var(--mono-300));
-  --color-teal-400: hsl(var(--mono-400));
-  --color-teal-500: hsl(var(--mono-500));
-  --color-teal-600: hsl(var(--mono-600));
-  --color-teal-700: hsl(var(--mono-700));
-  --color-teal-800: hsl(var(--mono-800));
-  --color-teal-900: hsl(var(--mono-900));
-  --color-teal-950: hsl(var(--mono-950));
-  /* cyan -> monochrome */
-  --color-cyan-50: hsl(var(--mono-50));
-  --color-cyan-100: hsl(var(--mono-100));
-  --color-cyan-200: hsl(var(--mono-200));
-  --color-cyan-300: hsl(var(--mono-300));
-  --color-cyan-400: hsl(var(--mono-400));
-  --color-cyan-500: hsl(var(--mono-500));
-  --color-cyan-600: hsl(var(--mono-600));
-  --color-cyan-700: hsl(var(--mono-700));
-  --color-cyan-800: hsl(var(--mono-800));
-  --color-cyan-900: hsl(var(--mono-900));
-  --color-cyan-950: hsl(var(--mono-950));
-  /* sky -> monochrome */
-  --color-sky-50: hsl(var(--mono-50));
-  --color-sky-100: hsl(var(--mono-100));
-  --color-sky-200: hsl(var(--mono-200));
-  --color-sky-300: hsl(var(--mono-300));
-  --color-sky-400: hsl(var(--mono-400));
-  --color-sky-500: hsl(var(--mono-500));
-  --color-sky-600: hsl(var(--mono-600));
-  --color-sky-700: hsl(var(--mono-700));
-  --color-sky-800: hsl(var(--mono-800));
-  --color-sky-900: hsl(var(--mono-900));
-  --color-sky-950: hsl(var(--mono-950));
-  /* blue -> monochrome */
-  --color-blue-50: hsl(var(--mono-50));
-  --color-blue-100: hsl(var(--mono-100));
-  --color-blue-200: hsl(var(--mono-200));
-  --color-blue-300: hsl(var(--mono-300));
-  --color-blue-400: hsl(var(--mono-400));
-  --color-blue-500: hsl(var(--mono-500));
-  --color-blue-600: hsl(var(--mono-600));
-  --color-blue-700: hsl(var(--mono-700));
-  --color-blue-800: hsl(var(--mono-800));
-  --color-blue-900: hsl(var(--mono-900));
-  --color-blue-950: hsl(var(--mono-950));
-  /* indigo -> monochrome */
-  --color-indigo-50: hsl(var(--mono-50));
-  --color-indigo-100: hsl(var(--mono-100));
-  --color-indigo-200: hsl(var(--mono-200));
-  --color-indigo-300: hsl(var(--mono-300));
-  --color-indigo-400: hsl(var(--mono-400));
-  --color-indigo-500: hsl(var(--mono-500));
-  --color-indigo-600: hsl(var(--mono-600));
-  --color-indigo-700: hsl(var(--mono-700));
-  --color-indigo-800: hsl(var(--mono-800));
-  --color-indigo-900: hsl(var(--mono-900));
-  --color-indigo-950: hsl(var(--mono-950));
-  /* violet -> monochrome */
-  --color-violet-50: hsl(var(--mono-50));
-  --color-violet-100: hsl(var(--mono-100));
-  --color-violet-200: hsl(var(--mono-200));
-  --color-violet-300: hsl(var(--mono-300));
-  --color-violet-400: hsl(var(--mono-400));
-  --color-violet-500: hsl(var(--mono-500));
-  --color-violet-600: hsl(var(--mono-600));
-  --color-violet-700: hsl(var(--mono-700));
-  --color-violet-800: hsl(var(--mono-800));
-  --color-violet-900: hsl(var(--mono-900));
-  --color-violet-950: hsl(var(--mono-950));
-  /* purple -> monochrome */
-  --color-purple-50: hsl(var(--mono-50));
-  --color-purple-100: hsl(var(--mono-100));
-  --color-purple-200: hsl(var(--mono-200));
-  --color-purple-300: hsl(var(--mono-300));
-  --color-purple-400: hsl(var(--mono-400));
-  --color-purple-500: hsl(var(--mono-500));
-  --color-purple-600: hsl(var(--mono-600));
-  --color-purple-700: hsl(var(--mono-700));
-  --color-purple-800: hsl(var(--mono-800));
-  --color-purple-900: hsl(var(--mono-900));
-  --color-purple-950: hsl(var(--mono-950));
-  /* fuchsia -> monochrome */
-  --color-fuchsia-50: hsl(var(--mono-50));
-  --color-fuchsia-100: hsl(var(--mono-100));
-  --color-fuchsia-200: hsl(var(--mono-200));
-  --color-fuchsia-300: hsl(var(--mono-300));
-  --color-fuchsia-400: hsl(var(--mono-400));
-  --color-fuchsia-500: hsl(var(--mono-500));
-  --color-fuchsia-600: hsl(var(--mono-600));
-  --color-fuchsia-700: hsl(var(--mono-700));
-  --color-fuchsia-800: hsl(var(--mono-800));
-  --color-fuchsia-900: hsl(var(--mono-900));
-  --color-fuchsia-950: hsl(var(--mono-950));
-  /* pink -> monochrome */
-  --color-pink-50: hsl(var(--mono-50));
-  --color-pink-100: hsl(var(--mono-100));
-  --color-pink-200: hsl(var(--mono-200));
-  --color-pink-300: hsl(var(--mono-300));
-  --color-pink-400: hsl(var(--mono-400));
-  --color-pink-500: hsl(var(--mono-500));
-  --color-pink-600: hsl(var(--mono-600));
-  --color-pink-700: hsl(var(--mono-700));
-  --color-pink-800: hsl(var(--mono-800));
-  --color-pink-900: hsl(var(--mono-900));
-  --color-pink-950: hsl(var(--mono-950));
-  /* rose -> monochrome */
-  --color-rose-50: hsl(var(--mono-50));
-  --color-rose-100: hsl(var(--mono-100));
-  --color-rose-200: hsl(var(--mono-200));
-  --color-rose-300: hsl(var(--mono-300));
-  --color-rose-400: hsl(var(--mono-400));
-  --color-rose-500: hsl(var(--mono-500));
-  --color-rose-600: hsl(var(--mono-600));
-  --color-rose-700: hsl(var(--mono-700));
-  --color-rose-800: hsl(var(--mono-800));
-  --color-rose-900: hsl(var(--mono-900));
-  --color-rose-950: hsl(var(--mono-950));
-  /* Neutral tints are also pinned to the same ramp. */
-  --color-neutral-50: hsl(var(--mono-50));
-  --color-neutral-100: hsl(var(--mono-100));
-  --color-neutral-200: hsl(var(--mono-200));
-  --color-neutral-300: hsl(var(--mono-300));
-  --color-neutral-400: hsl(var(--mono-400));
-  --color-neutral-500: hsl(var(--mono-500));
-  --color-neutral-600: hsl(var(--mono-600));
-  --color-neutral-700: hsl(var(--mono-700));
-  --color-neutral-800: hsl(var(--mono-800));
-  --color-neutral-900: hsl(var(--mono-900));
-  --color-neutral-950: hsl(var(--mono-950));
-  /* slate -> monochrome */
-  --color-slate-50: hsl(var(--mono-50));
-  --color-slate-100: hsl(var(--mono-100));
-  --color-slate-200: hsl(var(--mono-200));
-  --color-slate-300: hsl(var(--mono-300));
-  --color-slate-400: hsl(var(--mono-400));
-  --color-slate-500: hsl(var(--mono-500));
-  --color-slate-600: hsl(var(--mono-600));
-  --color-slate-700: hsl(var(--mono-700));
-  --color-slate-800: hsl(var(--mono-800));
-  --color-slate-900: hsl(var(--mono-900));
-  --color-slate-950: hsl(var(--mono-950));
-  /* gray -> monochrome */
-  --color-gray-50: hsl(var(--mono-50));
-  --color-gray-100: hsl(var(--mono-100));
-  --color-gray-200: hsl(var(--mono-200));
-  --color-gray-300: hsl(var(--mono-300));
-  --color-gray-400: hsl(var(--mono-400));
-  --color-gray-500: hsl(var(--mono-500));
-  --color-gray-600: hsl(var(--mono-600));
-  --color-gray-700: hsl(var(--mono-700));
-  --color-gray-800: hsl(var(--mono-800));
-  --color-gray-900: hsl(var(--mono-900));
-  --color-gray-950: hsl(var(--mono-950));
-  /* zinc -> monochrome */
-  --color-zinc-50: hsl(var(--mono-50));
-  --color-zinc-100: hsl(var(--mono-100));
-  --color-zinc-200: hsl(var(--mono-200));
-  --color-zinc-300: hsl(var(--mono-300));
-  --color-zinc-400: hsl(var(--mono-400));
-  --color-zinc-500: hsl(var(--mono-500));
-  --color-zinc-600: hsl(var(--mono-600));
-  --color-zinc-700: hsl(var(--mono-700));
-  --color-zinc-800: hsl(var(--mono-800));
-  --color-zinc-900: hsl(var(--mono-900));
-  --color-zinc-950: hsl(var(--mono-950));
-  /* stone -> monochrome */
-  --color-stone-50: hsl(var(--mono-50));
-  --color-stone-100: hsl(var(--mono-100));
-  --color-stone-200: hsl(var(--mono-200));
-  --color-stone-300: hsl(var(--mono-300));
-  --color-stone-400: hsl(var(--mono-400));
-  --color-stone-500: hsl(var(--mono-500));
-  --color-stone-600: hsl(var(--mono-600));
-  --color-stone-700: hsl(var(--mono-700));
-  --color-stone-800: hsl(var(--mono-800));
-  --color-stone-900: hsl(var(--mono-900));
-  --color-stone-950: hsl(var(--mono-950));
-}
-
 @layer base {
   :root {
     /* Typography: Latin first, then a Chinese stack with explicit weights. */
@@ -287,75 +11,76 @@
     --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --font-code: "Fira Code Variable", "Fira Code", var(--font-mono);
 
-    /* Grey ramp shared by the Tailwind palette remap. */
-    --mono-50: 220 20% 98.5%;
-    --mono-100: 220 16% 96%;
-    --mono-200: 220 12% 90%;
-    --mono-300: 220 10% 82%;
-    --mono-400: 220 8% 66%;
-    --mono-500: 220 8% 54%;
-    --mono-600: 220 8% 44%;
-    --mono-700: 220 9% 32%;
-    --mono-800: 220 10% 24%;
-    --mono-900: 220 11% 17%;
-    --mono-950: 220 13% 10%;
-
     /* Page rhythm: 4px base, 24px gutter, 1440px content cap. */
     --space-page-x: 24px;
     --space-section-y: 32px;
     --space-group: 16px;
     --space-element: 8px;
 
-    /* Light theme — the switchable alternative. */
-    --background: 0 0% 100%;
-    --surface: 220 20% 98.5%;
+    /* Light theme — Graphite surfaces with Signal Blue as the action colour. */
+    --background: 220 18% 95.5%;
+    --surface: 0 0% 100%;
     --raised: 0 0% 100%;
-    --border: 220 15% 89%;
-    --border-strong: 220 13% 78%;
-    --foreground: 222 24% 11%;
-    --muted-foreground: 220 9% 40%;
-    --subtle-foreground: 220 8% 48%;
+    --sunken: 220 15% 92.5%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 32% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 32% 11%;
+    --border: 220 14% 84%;
+    --border-strong: 220 12% 68%;
+    --foreground: 222 32% 11%;
+    --muted-foreground: 220 12% 34%;
+    --subtle-foreground: 220 10% 44%;
 
-    /* Primary is the foreground-inverse pair, never an accent hue. */
-    --primary: 222 24% 11%;
+    --primary: 221 84% 45%; /* Signal Blue */
     --primary-foreground: 0 0% 100%;
-    --primary-pressed: 222 24% 5%;
+    --primary-hover: 221 84% 40%;
+    --primary-pressed: 221 84% 38%;
+    /* Signal Blue ramp — keeps bg-primary-100 … text-primary-600 valid utilities. */
+    --primary-50: 221 90% 97%;
+    --primary-100: 221 88% 93%;
+    --primary-200: 221 86% 86%;
+    --primary-300: 221 85% 75%;
+    --primary-400: 221 84% 60%;
+    --primary-500: 221 84% 45%;
+    --primary-600: 221 84% 38%;
+    --primary-700: 222 80% 31%;
+    --primary-800: 222 76% 24%;
+    --primary-900: 222 70% 18%;
+    --ink: 222 24% 11%; /* Neutral emphasis (near-black button), decoupled from primary */
+    --ink-foreground: 0 0% 100%;
 
-    /* The only permitted hues: state semantics. */
-    --success: 152 58% 32%;
+    --accent: 262 68% 50%; /* Violet: second semantics */
+    --accent-foreground: 0 0% 100%;
+    --accent-soft: 262 70% 96%;
+    --selected: 221 88% 95.5%; /* Current item background (blue tint) */
+
+    --success: 158 78% 26%;
     --success-foreground: 0 0% 100%;
-    --warning: 32 95% 44%;
-    --warning-foreground: 222 24% 11%;
-    --danger: 0 68% 45%;
+    --warning: 32 92% 44%;
+    --warning-foreground: 30 60% 12%;
+    --danger: 0 72% 44%;
     --danger-foreground: 0 0% 100%;
-    --destructive: 0 68% 45%;
+    --destructive: 0 72% 44%;
     --destructive-foreground: 0 0% 100%;
-    /* Informational tone is deliberately neutral. */
-    --info: 222 24% 11%;
+    --info: 221 84% 45%;
     --info-foreground: 0 0% 100%;
 
-    /* The contrast gate reads literals, so checked pairs stay explicit. */
-    --card: 220 20% 98.5%;
-    --card-foreground: 222 24% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 24% 11%;
-    --secondary: var(--surface);
-    --secondary-foreground: var(--foreground);
-    --muted: var(--raised);
-    --accent: var(--raised);
-    --accent-foreground: var(--foreground);
-    --selected: var(--raised);
-    --ring: var(--foreground);
-    --focus: var(--foreground);
-    --ink: var(--primary);
-    --ink-foreground: var(--primary-foreground);
-    --line: var(--border);
-    --input: var(--border);
-    --control: var(--border-strong);
+    --ring: 221 84% 45%;
+    --focus: 221 84% 45%;
+    --line: 220 14% 84%;
+    --input: 220 14% 84%;
+    --control: 220 12% 68%;
+    --code-background: 220 15% 94%;
+    --sidebar-background: 220 17% 92.5%;
+    --sidebar-foreground: 222 32% 11%;
+    --sidebar-border: 220 14% 84%;
 
-    /* Legacy colour names keep resolving, but neutralise to monochrome.
-       They must never become status hues: use success/warning/danger
-       explicitly where a status meaning is intended. */
+    --secondary: 220 15% 92.5%;
+    --secondary-foreground: 222 32% 11%;
+    --muted: 220 15% 92.5%;
+
+    /* Legacy colour names keep resolving; second-semantic work uses accent. */
     --teal: var(--foreground);
     --teal-foreground: var(--background);
     --orange: var(--muted-foreground);
@@ -365,20 +90,14 @@
     --indigo: var(--foreground);
     --indigo-foreground: var(--background);
 
-    /* Charts use a grey ramp; colour is reserved for status semantics. */
-    --chart-1: 222 24% 11%;
-    --chart-2: 220 10% 26%;
-    --chart-3: 220 9% 38%;
-    --chart-4: 220 8% 50%;
-    --chart-5: 220 8% 62%;
-    --chart-6: 220 10% 72%;
-    --chart-7: 220 13% 82%;
-    --chart-8: 220 15% 90%;
-
-    --code-background: var(--raised);
-    --sidebar-background: 220 20% 98.5%;
-    --sidebar-foreground: 222 24% 11%;
-    --sidebar-border: var(--border);
+    --chart-1: 221 84% 42%;
+    --chart-2: 174 80% 26%;
+    --chart-3: 262 68% 52%;
+    --chart-4: 28 88% 42%;
+    --chart-5: 152 62% 30%;
+    --chart-6: 344 72% 46%;
+    --chart-7: 245 64% 56%;
+    --chart-8: 192 85% 30%;
 
     /* Geometry: controls 4px, panels 6px, tables 0. */
     --radius-control: 4px;
@@ -426,59 +145,76 @@
 
   /* Dark theme — the application default. */
   html.dark {
-    --background: 220 13% 6.5%;
-    --surface: 220 12% 9%;
-    --raised: 220 11% 12.5%;
-    --border: 220 10% 17%;
-    --border-strong: 220 9% 26%;
-    --foreground: 220 16% 96%;
-    --muted-foreground: 220 9% 64%;
-    --subtle-foreground: 220 8% 52%;
+    --background: 222 30% 7%;
+    --surface: 222 22% 12.5%;
+    --raised: 222 20% 16%;
+    --sunken: 222 30% 5%;
+    --card: 222 22% 12.5%;
+    --card-foreground: 220 24% 97%;
+    --popover: 222 20% 16%;
+    --popover-foreground: 220 24% 97%;
+    --border: 220 14% 23%;
+    --border-strong: 220 12% 36%;
+    --foreground: 220 24% 97%;
+    --muted-foreground: 220 14% 70%;
+    --subtle-foreground: 220 12% 58%;
 
-    --primary: 220 16% 96%;
-    --primary-foreground: 220 13% 7%;
-    --primary-pressed: 220 16% 86%;
+    --primary: 219 92% 64%;
+    --primary-foreground: 222 45% 9%;
+    --primary-hover: 219 92% 68%;
+    --primary-pressed: 219 92% 56%;
+    /* Signal Blue ramp (dark): 50 is the darkest plane, 900 the lightest text tone. */
+    --primary-50: 221 40% 13%;
+    --primary-100: 221 42% 18%;
+    --primary-200: 221 45% 24%;
+    --primary-300: 221 55% 32%;
+    --primary-400: 219 80% 48%;
+    --primary-500: 219 92% 64%;
+    --primary-600: 219 90% 72%;
+    --primary-700: 219 88% 80%;
+    --primary-800: 219 86% 88%;
+    --primary-900: 219 84% 94%;
+    --ink: 220 16% 96%;
+    --ink-foreground: 222 30% 7%;
 
-    --success: 152 58% 38%;
-    --success-foreground: 220 13% 7%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 220 13% 7%;
-    --danger: 0 72% 51%;
-    --danger-foreground: 0 0% 100%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-    --info: 220 16% 96%;
-    --info-foreground: 220 13% 6.5%;
+    --accent: 262 85% 72%;
+    --accent-foreground: 262 60% 10%;
+    --accent-soft: 262 50% 19%;
+    --selected: 219 60% 19%;
 
-    --card: 220 12% 9%;
-    --card-foreground: 220 16% 96%;
-    --popover: 220 11% 12.5%;
-    --popover-foreground: 220 16% 96%;
-    --secondary: var(--surface);
-    --secondary-foreground: var(--foreground);
-    --muted: var(--raised);
-    --accent: var(--raised);
-    --accent-foreground: var(--foreground);
-    --selected: var(--raised);
-    --ring: var(--foreground);
-    --focus: var(--foreground);
-    --ink: var(--primary);
-    --ink-foreground: var(--primary-foreground);
-    --line: var(--border);
-    --input: var(--border);
-    --control: var(--border-strong);
-    --sidebar-background: 220 12% 9%;
-    --sidebar-foreground: 220 16% 96%;
-    --sidebar-border: var(--border);
+    --success: 158 68% 46%;
+    --success-foreground: 222 45% 9%;
+    --warning: 38 95% 58%;
+    --warning-foreground: 222 45% 9%;
+    --danger: 0 80% 62%;
+    --danger-foreground: 222 45% 9%;
+    --destructive: 0 80% 62%;
+    --destructive-foreground: 222 45% 9%;
+    --info: 219 92% 64%;
+    --info-foreground: 222 45% 9%;
 
-    --chart-1: 220 8% 92%;
-    --chart-2: 220 8% 80%;
-    --chart-3: 220 7% 68%;
-    --chart-4: 220 7% 58%;
-    --chart-5: 220 7% 48%;
-    --chart-6: 220 8% 38%;
-    --chart-7: 220 9% 30%;
-    --chart-8: 220 10% 22%;
+    --ring: 219 92% 64%;
+    --focus: 219 92% 64%;
+    --line: 220 14% 23%;
+    --input: 220 14% 23%;
+    --control: 220 12% 36%;
+    --code-background: 222 30% 9%;
+    --sidebar-background: 222 28% 3%;
+    --sidebar-foreground: 220 24% 97%;
+    --sidebar-border: 220 14% 23%;
+
+    --secondary: 222 20% 16%;
+    --secondary-foreground: 220 24% 97%;
+    --muted: 222 20% 16%;
+
+    --chart-1: 215 92% 66%;
+    --chart-2: 172 62% 52%;
+    --chart-3: 262 78% 72%;
+    --chart-4: 38 92% 62%;
+    --chart-5: 152 55% 55%;
+    --chart-6: 345 82% 68%;
+    --chart-7: 245 78% 76%;
+    --chart-8: 190 82% 56%;
 
     --shadow-subtle: 0 1px 2px rgb(0 0 0 / 0.24);
     --shadow-soft: 0 2px 8px rgb(0 0 0 / 0.32);
@@ -502,8 +238,9 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-foreground/15 selection:text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    @apply bg-background text-foreground selection:bg-primary/20 selection:text-foreground;
+    /* No *-font-smoothing here: macOS/Windows use their native (subpixel) rendering. */
+    font-feature-settings: "rlig" 1, "calt" 1;
     font-synthesis-weight: none;
     line-height: 1.55;
     background-image: none;
@@ -651,7 +388,7 @@
     bottom: -1px;
     left: 8px;
     height: 2px;
-    background-color: hsl(var(--foreground));
+    background-color: hsl(var(--primary));
   }
 
   /* ------------------------------------------------------------------
@@ -782,16 +519,16 @@
   }
 
   .data-table tbody tr:focus-visible {
-    outline: 2px solid hsl(var(--foreground));
+    outline: 2px solid hsl(var(--ring));
     outline-offset: -2px;
   }
 
   .data-table tbody tr[data-selected="true"] td {
-    background-color: hsl(var(--raised));
+    background-color: hsl(var(--selected));
   }
 
   .data-table tbody tr[data-selected="true"] td:first-child {
-    box-shadow: inset 2px 0 0 hsl(var(--foreground));
+    box-shadow: inset 2px 0 0 hsl(var(--primary));
   }
 
   .data-table .data-table__name {
@@ -867,9 +604,9 @@
   }
 
   .step-flow__preset[data-active="true"] .step-flow__preset-dot {
-    border-color: hsl(var(--foreground));
+    border-color: hsl(var(--primary));
     box-shadow: inset 0 0 0 3px hsl(var(--surface));
-    background-color: hsl(var(--foreground));
+    background-color: hsl(var(--primary));
   }
 
   .step-flow__track {
@@ -898,8 +635,8 @@
   }
 
   .step-flow__step[data-active="true"] .step-flow__dot {
-    background-color: hsl(var(--foreground));
-    box-shadow: 0 0 0 3px hsl(var(--foreground) / 0.14);
+    background-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.18);
   }
 
   .step-flow__label, .step-flow__state { display: block; }

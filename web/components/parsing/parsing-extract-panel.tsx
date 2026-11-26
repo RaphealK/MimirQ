@@ -249,7 +249,7 @@ export function ParsingExtractPanel({
  <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
  结构化抽取
  </div>
- <div className="mt-1 text-[12px] leading-5 text-muted-foreground/80">
+ <div className="mt-1 text-[12px] leading-5 text-muted-foreground">
  基于当前解析结果快速抽取字段，并返回页码与 bbox 证据。
  </div>
  </div>
@@ -257,7 +257,7 @@ export function ParsingExtractPanel({
  <button
  type="button"
  onClick={() => setIsCollapsed((current) => !current)}
- className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground transition-colors duration-150 hover:text-foreground/80"
+ className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-3 py-2 text-xs text-muted-foreground transition-colors duration-150 hover:text-muted-foreground"
  >
  {isCollapsed ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronUp className="h-3.5 w-3.5" />}
  {isCollapsed ? '展开' : '收起'}
@@ -268,7 +268,7 @@ export function ParsingExtractPanel({
  onClick={() => setMode('schema')}
  className={cn(
  'rounded-md px-3 py-1.5 text-xs transition-colors duration-150',
- mode === 'schema' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground/80'
+ mode === 'schema' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-muted-foreground'
  )}
  >
  Schema
@@ -278,7 +278,7 @@ export function ParsingExtractPanel({
  onClick={() => setMode('prompt')}
  className={cn(
  'rounded-md px-3 py-1.5 text-xs transition-colors duration-150',
- mode === 'prompt' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground/80'
+ mode === 'prompt' ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-muted-foreground'
  )}
  >
  Prompt
@@ -364,7 +364,7 @@ export function ParsingExtractPanel({
  ) : null}
 
  <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
- <div className="text-[11px] text-muted-foreground/80">
+ <div className="text-[11px] text-muted-foreground">
  {documentId ? `doc: ${documentId}` : '当前文件尚未持久化，无法抽取'}
  </div>
  <Button
@@ -415,7 +415,7 @@ export function ParsingExtractPanel({
  {evidence.element_id ? <span>{evidence.element_id}</span> : null}
  </div>
  {evidence.bbox ? (
- <div className="mt-0.5 font-mono text-[11px] text-muted-foreground/85">
+ <div className="mt-0.5 font-mono text-[11px] text-muted-foreground">
  bbox {formatBbox(evidence.bbox)}
  </div>
  ) : null}
@@ -427,7 +427,7 @@ export function ParsingExtractPanel({
  ))}
  </div>
  ) : (
- <div className="mt-3 text-sm text-muted-foreground/80">运行抽取后，这里会显示 value、confidence 和 evidence。</div>
+ <div className="mt-3 text-sm text-muted-foreground">运行抽取后，这里会显示 value、confidence 和 evidence。</div>
  )}
  </div>
  </div>

@@ -132,7 +132,7 @@ export function EmptyState({
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeDasharray="6 6"
-                className="text-foreground/70"
+                className="text-muted-foreground"
               />
               <path
                 d="M20 172 C92 166 130 158 188 142 C246 126 302 120 354 112 C412 102 456 92 512 84 C562 77 592 70 620 66"

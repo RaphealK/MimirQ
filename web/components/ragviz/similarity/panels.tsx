@@ -134,7 +134,7 @@ function SimilarityHeatmapPanel({
               {displayLabels.xLabels.length} 项 × {displayLabels.yLabels.length} 项
             </div>
           </div>
-          <div className="rounded-full border border-border/34 bg-background/44 px-2.5 py-1 text-[11px] font-medium text-muted-foreground/70">
+          <div className="rounded-full border border-border/34 bg-background/44 px-2.5 py-1 text-[11px] font-medium text-subtle-foreground">
             点击单元格查看右侧统计
           </div>
         </div>

@@ -141,7 +141,7 @@ function SearchResultsSkeleton() {
 function GraphPreviewSkeleton() {
   return (
     <div className="flex h-full min-h-[520px] items-center justify-center p-6">
-      <div className="w-full max-w-3xl rounded-2xl border border-border/70 bg-card/90 p-6 shadow-soft backdrop-blur-sm">
+      <div className="w-full max-w-3xl rounded-2xl border border-border/70 bg-card p-6 shadow-soft">
         <PageLoading
           className="min-h-0 flex-none justify-start"
           message="正在构建图谱预览..."
@@ -1034,7 +1034,7 @@ export default function DatasetKGWorkbenchPage() {
                   </div>
                 )}
                 {graphLoading ? (
-                  <div className="absolute inset-0 z-10 bg-background/80 backdrop-blur-sm">
+                  <div className="absolute inset-0 z-10 bg-background/80">
                     <GraphPreviewSkeleton />
                   </div>
                 ) : null}

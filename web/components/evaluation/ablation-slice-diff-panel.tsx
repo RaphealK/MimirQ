@@ -97,7 +97,7 @@ export function AblationSliceDiffPanel({
                           return (
                             <div key={metric} className="rounded-lg bg-muted/50 px-2 py-1">
                               <div className="truncate">{metric}</div>
-                              <div className={cn('font-mono', metricValue === null ? 'text-muted-foreground/70' : metricValue >= 0 ? 'text-success' : 'text-destructive')}>
+                              <div className={cn('font-mono', metricValue === null ? 'text-subtle-foreground' : metricValue >= 0 ? 'text-success' : 'text-destructive')}>
                                 {formatDelta(metricValue)}
                               </div>
                             </div>

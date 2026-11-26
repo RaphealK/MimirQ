@@ -19,7 +19,7 @@ export function ModelProviderCard({ provider, onConfigure }: Readonly<ModelProvi
     <button
       type="button"
       className={cn(
-        'group relative flex h-full w-full flex-col rounded-lg border border-info/15 bg-info/[0.025] p-3.5 text-left text-[12px] leading-4 text-foreground/78 shadow-none transition-colors duration-150 hover:bg-info/[0.055] motion-reduce:transition-none focus-ring',
+        'group relative flex h-full w-full flex-col rounded-lg border border-info/15 bg-info/[0.025] p-3.5 text-left text-[12px] leading-4 text-muted-foreground shadow-none transition-colors duration-150 hover:bg-info/[0.055] motion-reduce:transition-none focus-ring',
         provider.isConfigured
           ? 'border-info/30 ring-1 ring-info/10 hover:border-info/40'
           : 'hover:border-info/25'
@@ -66,7 +66,7 @@ export function ModelProviderCard({ provider, onConfigure }: Readonly<ModelProvi
         {provider.models.slice(0, 3).map((model) => (
           <span
             key={model.id}
-            className="inline-flex items-center rounded-md border border-info/15 bg-info/[0.035] px-1.5 py-0.5 text-[11px] font-medium leading-4 text-foreground/78"
+            className="inline-flex items-center rounded-md border border-info/15 bg-info/[0.035] px-1.5 py-0.5 text-[11px] font-medium leading-4 text-muted-foreground"
           >
             {model.displayName}
           </span>
@@ -91,7 +91,7 @@ export function ModelProviderCard({ provider, onConfigure }: Readonly<ModelProvi
         </span>
 
         {/* 仅在 Hover 时显示的箭头或图标 */}
-        <ChevronRight className="size-3.5 -translate-x-1 text-muted-foreground/60 opacity-0 transition-all duration-150 motion-reduce:transition-none group-hover:translate-x-0 group-hover:opacity-100" />
+        <ChevronRight className="size-3.5 -translate-x-1 text-subtle-foreground opacity-0 transition-all duration-150 motion-reduce:transition-none group-hover:translate-x-0 group-hover:opacity-100" />
       </div>
     </button>
   )

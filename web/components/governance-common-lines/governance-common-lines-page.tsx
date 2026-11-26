@@ -642,7 +642,7 @@ export function GovernanceCommonLinesPage() {
             variant="outline"
             size="icon"
             className={cn(
-              'absolute top-5 z-10 hidden size-8 rounded-full border-border/70 bg-card/95 text-muted-foreground shadow-soft backdrop-blur hover:bg-background hover:text-foreground xl:inline-flex',
+              'absolute top-5 z-10 hidden size-8 rounded-full border-border/70 bg-card text-muted-foreground shadow-soft hover:bg-background hover:text-foreground xl:inline-flex',
               controlsCollapsed ? 'right-[-26px]' : 'right-[-18px]'
             )}
             aria-label={controlsCollapsed ? '展开参数栏' : '收起参数栏'}
@@ -677,7 +677,7 @@ export function GovernanceCommonLinesPage() {
                       <h2 className="text-[16px] font-semibold tracking-[-0.01em] text-foreground">
                         识别范围
                       </h2>
-                      <p className="mt-2 text-[13px] leading-6 text-muted-foreground/90">
+                      <p className="mt-2 text-[13px] leading-6 text-muted-foreground">
                         优先扫描治理前原始解析结果中的重复行,适合发现页眉、页脚、导航和免责声明。
                       </p>
                     </div>
@@ -687,14 +687,14 @@ export function GovernanceCommonLinesPage() {
 
               <section className="border-b border-border/55">
                 <div className="flex items-center gap-2 px-5 py-4">
-                  <Database className="size-5 text-muted-foreground/80" />
+                  <Database className="size-5 text-muted-foreground" />
                   <h2 className="text-[16px] font-semibold tracking-[-0.01em] text-foreground">
                     目标
                   </h2>
                 </div>
                 <div className="space-y-4 px-5 pb-5">
                   <div className="min-w-0 space-y-2">
-                    <Label className="text-[12px] font-semibold text-foreground/85">
+                    <Label className="text-[12px] font-semibold text-foreground">
                       数据集
                     </Label>
                     <Select
@@ -718,16 +718,16 @@ export function GovernanceCommonLinesPage() {
                         )}
                       </SelectContent>
                     </Select>
-                    <p className="text-[11px] leading-5 text-muted-foreground/72">
+                    <p className="text-[11px] leading-5 text-subtle-foreground">
                       依赖入库时开启{' '}
-                      <span className="rounded bg-muted/60 px-1 py-0.5 font-mono text-[10.5px] text-foreground/85">
+                      <span className="rounded bg-muted/60 px-1 py-0.5 font-mono text-[10.5px] text-foreground">
                         persist_parsed_content
                       </span>
                     </p>
                   </div>
 
                   <div className="min-w-0 space-y-2">
-                    <Label className="text-[12px] font-semibold text-foreground/85">
+                    <Label className="text-[12px] font-semibold text-foreground">
                       写入目标治理配置
                     </Label>
                     <Select
@@ -754,9 +754,9 @@ export function GovernanceCommonLinesPage() {
                         )}
                       </SelectContent>
                     </Select>
-                    <p className="text-[11px] leading-5 text-muted-foreground/72">
+                    <p className="text-[11px] leading-5 text-subtle-foreground">
                       写入后可在{' '}
-                      <span className="rounded bg-muted/60 px-1 py-0.5 font-mono text-[10.5px] text-foreground/85">
+                      <span className="rounded bg-muted/60 px-1 py-0.5 font-mono text-[10.5px] text-foreground">
                         /data-governance/profiles
                       </span>{' '}
                       编辑
@@ -769,10 +769,10 @@ export function GovernanceCommonLinesPage() {
                         <Upload className="size-4" />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="text-[12px] font-semibold text-foreground/85">
+                        <div className="text-[12px] font-semibold text-foreground">
                           导入处理脚本
                         </div>
-                        <p className="mt-1 text-[11px] leading-5 text-muted-foreground/75">
+                        <p className="mt-1 text-[11px] leading-5 text-muted-foreground">
                           只导入 JS/TS、Python、Rust
                           脚本草案到当前治理配置，用于处理解析后或治理后的文本；不上传文档，也不会自动执行。
                         </p>
@@ -821,14 +821,14 @@ export function GovernanceCommonLinesPage() {
 
               <section>
                 <div className="flex items-center gap-2 px-5 py-4">
-                  <Sliders className="size-5 text-muted-foreground/80" />
+                  <Sliders className="size-5 text-muted-foreground" />
                   <h2 className="text-[16px] font-semibold tracking-[-0.01em] text-foreground">
                     参数
                   </h2>
                 </div>
                 <div className="grid grid-cols-2 gap-3 px-5 pb-4">
                   <div className="min-w-0 space-y-1.5">
-                    <Label className="text-[11px] font-medium text-foreground/85">
+                    <Label className="text-[11px] font-medium text-foreground">
                       扫描文档数
                     </Label>
                     <Input
@@ -842,7 +842,7 @@ export function GovernanceCommonLinesPage() {
                   </div>
 
                   <div className="min-w-0 space-y-1.5">
-                    <Label className="text-[11px] font-medium text-foreground/85">
+                    <Label className="text-[11px] font-medium text-foreground">
                       最少命中文档
                     </Label>
                     <Input
@@ -854,7 +854,7 @@ export function GovernanceCommonLinesPage() {
                   </div>
 
                   <div className="min-w-0 space-y-1.5">
-                    <Label className="text-[11px] font-medium text-foreground/85">
+                    <Label className="text-[11px] font-medium text-foreground">
                       最小命中比例
                     </Label>
                     <Input
@@ -867,7 +867,7 @@ export function GovernanceCommonLinesPage() {
                   </div>
 
                   <div className="min-w-0 space-y-1.5">
-                    <Label className="text-[11px] font-medium text-foreground/85">
+                    <Label className="text-[11px] font-medium text-foreground">
                       最大行长度
                     </Label>
                     <Input
@@ -881,7 +881,7 @@ export function GovernanceCommonLinesPage() {
                   </div>
 
                   <div className="col-span-2 min-w-0 space-y-1.5">
-                    <Label className="text-[11px] font-medium text-foreground/85">
+                    <Label className="text-[11px] font-medium text-foreground">
                       最多候选数
                     </Label>
                     <Input
@@ -895,7 +895,7 @@ export function GovernanceCommonLinesPage() {
                   </div>
                 </div>
 
-                <label className="flex cursor-pointer items-start gap-3 border-t border-border/50 bg-muted/[0.14] px-5 py-3 text-[12px] leading-5 text-foreground/85 transition-colors hover:bg-muted/[0.22]">
+                <label className="flex cursor-pointer items-start gap-3 border-t border-border/50 bg-muted/[0.14] px-5 py-3 text-[12px] leading-5 text-foreground transition-colors hover:bg-muted/[0.22]">
                   <Checkbox
                     checked={useOriginal}
                     onCheckedChange={(v) => setUseOriginal(Boolean(v))}
@@ -975,7 +975,7 @@ export function GovernanceCommonLinesPage() {
             {resp && candidates.length ? (
               <div className="overflow-x-auto">
                 <div className="min-w-[720px]">
-                  <div className="grid grid-cols-[44px_minmax(0,1fr)_110px_110px] items-center gap-3 border-b border-border/60 bg-muted/[0.18] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/85">
+                  <div className="grid grid-cols-[44px_minmax(0,1fr)_110px_110px] items-center gap-3 border-b border-border/60 bg-muted/[0.18] px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                     <div></div>
                     <div>重复行预览</div>
                     <div className="text-right">命中文档</div>
@@ -1019,20 +1019,20 @@ export function GovernanceCommonLinesPage() {
                                 'line-clamp-2 break-words text-[13px] leading-[1.45rem] transition-colors',
                                 checked
                                   ? 'text-foreground'
-                                  : 'text-foreground/90 group-hover:text-foreground'
+                                  : 'text-foreground group-hover:text-foreground'
                               )}
                               title={c.sample || c.signature}
                             >
                               {c.sample || c.signature}
                             </div>
                             <div
-                              className="mt-1 truncate font-mono text-[11px] text-muted-foreground/65"
+                              className="mt-1 truncate font-mono text-[11px] text-subtle-foreground"
                               title={c.signature}
                             >
                               {c.signature}
                             </div>
                           </div>
-                          <div className="pt-0.5 text-right font-mono text-[12px] tabular-nums text-foreground/85">
+                          <div className="pt-0.5 text-right font-mono text-[12px] tabular-nums text-foreground">
                             {c.docs}
                           </div>
                           <div
@@ -1060,7 +1060,7 @@ export function GovernanceCommonLinesPage() {
                     <Search className="relative size-10" />
                     <span
                       aria-hidden
-                      className="absolute -left-4 top-12 text-[28px] font-medium text-muted-foreground/25"
+                      className="absolute -left-4 top-12 text-[28px] font-medium text-subtle-foreground"
                     >
                       +
                     </span>

@@ -296,7 +296,7 @@ export function PdfPreview() {
           type="button"
           variant="outline"
           size="sm"
-          className="h-8 rounded-full bg-background/70 px-3 backdrop-blur"
+          className="h-8 rounded-full bg-background px-3"
           onClick={() => setShowAllBoxes((prev) => !prev)}
         >
           {showAllBoxes

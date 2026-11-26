@@ -50,15 +50,15 @@ export function SnapshotStudioToolbar({
   isRunning: boolean
 }>) {
   const selectClassName =
-    'h-8 rounded-full border border-border/40 bg-background/58 px-2.5 text-[11.5px] font-medium text-foreground/82 shadow-none outline-none transition-colors hover:border-primary/24 hover:bg-background/76 focus:ring-2 focus:ring-primary/12'
+    'h-8 rounded-full border border-border/40 bg-background/58 px-2.5 text-[11.5px] font-medium text-foreground shadow-none outline-none transition-colors hover:border-primary/24 hover:bg-background/76 focus:ring-2 focus:ring-primary/12'
 
   return (
-    <div className="shrink-0 border-b border-border/44 bg-background/82 px-4 py-2.5 backdrop-blur">
+    <div className="shrink-0 border-b border-border/44 bg-background px-4 py-2.5">
       <div className="flex min-w-0 items-center justify-between gap-3">
         <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto no-scrollbar">
           <div className="relative w-[156px] shrink-0 xl:w-[176px] 2xl:w-[196px]">
             <Search
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/70"
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-subtle-foreground"
               aria-hidden="true"
             />
             <Input

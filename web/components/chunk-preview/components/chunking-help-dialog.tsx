@@ -52,10 +52,10 @@ export function ChunkingHelpDialog({
               </div>
               <div className="mt-3 grid gap-2 text-[13px] text-muted-foreground">
                 <div>
-                  <span className="font-mono text-foreground/90">chunk_size</span>：{t("help.parameters.chunkSize")}
+                  <span className="font-mono text-foreground">chunk_size</span>：{t("help.parameters.chunkSize")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">chunk_overlap</span>：{t("help.parameters.chunkOverlap")}
+                  <span className="font-mono text-foreground">chunk_overlap</span>：{t("help.parameters.chunkOverlap")}
                 </div>
                 <div>{t("help.parameters.tip")}</div>
               </div>
@@ -68,22 +68,22 @@ export function ChunkingHelpDialog({
               </div>
               <div className="mt-3 grid gap-2 text-[13px] text-muted-foreground">
                 <div>
-                  <span className="font-mono text-foreground/90">auto / langchain_recursive</span>：{t("help.strategies.auto")}
+                  <span className="font-mono text-foreground">auto / langchain_recursive</span>：{t("help.strategies.auto")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">qa_pairs / qa_markdown</span>：{t("help.strategies.qa")}
+                  <span className="font-mono text-foreground">qa_pairs / qa_markdown</span>：{t("help.strategies.qa")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">laws_structured</span>：{t("help.strategies.laws")}
+                  <span className="font-mono text-foreground">laws_structured</span>：{t("help.strategies.laws")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">smart_code / diff_patch</span>：{t("help.strategies.code")}
+                  <span className="font-mono text-foreground">smart_code / diff_patch</span>：{t("help.strategies.code")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">separator</span>：{t("help.strategies.separator")}
+                  <span className="font-mono text-foreground">separator</span>：{t("help.strategies.separator")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">langchain_token</span>：{t("help.strategies.token")}
+                  <span className="font-mono text-foreground">langchain_token</span>：{t("help.strategies.token")}
                 </div>
               </div>
 
@@ -116,22 +116,22 @@ export function ChunkingHelpDialog({
               </div>
               <div className="mt-3 grid gap-2 text-[13px] text-muted-foreground">
                 <div>
-                  <span className="font-mono text-foreground/90">Ctrl/Cmd + Enter</span>：{t("help.shortcuts.forceRegenerate")}
+                  <span className="font-mono text-foreground">Ctrl/Cmd + Enter</span>：{t("help.shortcuts.forceRegenerate")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">Ctrl/Cmd + S</span>：{t("help.shortcuts.confirmIngest")}
+                  <span className="font-mono text-foreground">Ctrl/Cmd + S</span>：{t("help.shortcuts.confirmIngest")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">↑/↓ 或 J/K</span>：{t("help.shortcuts.navigateList")}
+                  <span className="font-mono text-foreground">↑/↓ 或 J/K</span>：{t("help.shortcuts.navigateList")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">/</span>：{t("help.shortcuts.focusSearch")}
+                  <span className="font-mono text-foreground">/</span>：{t("help.shortcuts.focusSearch")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">Esc</span>：{t("help.shortcuts.clearLock")}
+                  <span className="font-mono text-foreground">Esc</span>：{t("help.shortcuts.clearLock")}
                 </div>
                 <div>
-                  <span className="font-mono text-foreground/90">G / Shift+G（或 Home/End）</span>：{t("help.shortcuts.jumpEdges")}
+                  <span className="font-mono text-foreground">G / Shift+G（或 Home/End）</span>：{t("help.shortcuts.jumpEdges")}
                 </div>
               </div>
             </section>

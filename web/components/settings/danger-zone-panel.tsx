@@ -73,7 +73,7 @@ export function DangerZonePanel({
                 {badge}
               </span>
             </div>
-            <p className={cn('text-muted-foreground/90', compact ? 'mt-0.5 text-[10px] leading-3.5' : 'mt-0.5 text-[11px] leading-4')}>
+            <p className={cn('text-muted-foreground', compact ? 'mt-0.5 text-[10px] leading-3.5' : 'mt-0.5 text-[11px] leading-4')}>
               {impact}
             </p>
           </div>

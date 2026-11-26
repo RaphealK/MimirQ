@@ -413,7 +413,7 @@ export function DataAnnotator({ content, annotations = [], onAnnotate, onDocumen
                 <span
                   key={`${tag.type}-${tag.value}`}
                   title={`${tag.source} · ${(tag.confidence * 100).toFixed(0)}%`}
-                  className="inline-flex max-w-full items-center gap-1 rounded-full border border-primary/15 bg-background/80 px-2 py-1 text-xs text-foreground/80"
+                  className="inline-flex max-w-full items-center gap-1 rounded-full border border-primary/15 bg-background/80 px-2 py-1 text-xs text-muted-foreground"
                 >
                   <span className="text-muted-foreground">{tag.label || tag.type}</span>
                   <span className="truncate font-medium">{tag.value}</span>
@@ -455,7 +455,7 @@ export function DataAnnotator({ content, annotations = [], onAnnotate, onDocumen
                   <div
                     className={cn(
                       'text-sm font-medium',
-                      isSelected ? getToneStyles(type.tone).text : 'text-foreground/80'
+                      isSelected ? getToneStyles(type.tone).text : 'text-muted-foreground'
                     )}
                   >
                     {type.label}
@@ -487,7 +487,7 @@ export function DataAnnotator({ content, annotations = [], onAnnotate, onDocumen
             <span className="text-sm font-medium text-primary">{t('selection.title')}</span>
           </div>
           <div className="mb-3 rounded border border-primary/20 bg-card p-2">
-            <div className="line-clamp-2 text-sm text-foreground/80">{selection.text}</div>
+            <div className="line-clamp-2 text-sm text-muted-foreground">{selection.text}</div>
           </div>
           <div className="flex items-center gap-2">
             <Button onClick={handleAddAnnotation} size="sm" className="flex-1 gap-1.5">
@@ -532,7 +532,7 @@ export function DataAnnotator({ content, annotations = [], onAnnotate, onDocumen
               >
                 <div className="flex items-center gap-2">
                   <Icon className={cn('size-4', getToneStyles(type.tone).icon)} />
-                  <span className="text-sm font-medium text-foreground/80">{type.label}</span>
+                  <span className="text-sm font-medium text-muted-foreground">{type.label}</span>
                   <span
                     className={cn(
                       'rounded-full border px-1.5 py-0.5 text-xs',
@@ -560,7 +560,7 @@ export function DataAnnotator({ content, annotations = [], onAnnotate, onDocumen
                         <div className="text-xs text-muted-foreground">
                           {t('annotation.position', { start: anno.start, end: anno.end })}
                         </div>
-                        <div className="truncate text-sm text-foreground/80">{anno.text}</div>
+                        <div className="truncate text-sm text-muted-foreground">{anno.text}</div>
                       </div>
                       <Button
                         onClick={() => handleDeleteAnnotation(anno.id)}

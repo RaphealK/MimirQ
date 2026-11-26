@@ -72,7 +72,7 @@ export function LtrModelRegistrySection({
             <XCircle className="h-3.5 w-3.5" />
             <div>
               <AlertTitle className="text-xs">LTR 注册表加载失败</AlertTitle>
-              <AlertDescription className="text-[11px] leading-4 text-foreground/80">{ltrError}</AlertDescription>
+              <AlertDescription className="text-[11px] leading-4 text-muted-foreground">{ltrError}</AlertDescription>
             </div>
           </Alert>
         ) : null}
@@ -89,7 +89,7 @@ export function LtrModelRegistrySection({
             )}
             <div>
               <AlertTitle className="text-xs">{ltrMessage.type === 'success' ? '操作成功' : '操作失败'}</AlertTitle>
-              <AlertDescription className="text-[11px] leading-4 text-foreground/80">{ltrMessage.text}</AlertDescription>
+              <AlertDescription className="text-[11px] leading-4 text-muted-foreground">{ltrMessage.text}</AlertDescription>
             </div>
           </Alert>
         ) : null}
@@ -111,7 +111,7 @@ export function LtrModelRegistrySection({
 
           <div className="space-y-3">
             <div className="space-y-1.5">
-              <div className="text-[11px] font-semibold text-foreground/80">模型文件</div>
+              <div className="text-[11px] font-semibold text-muted-foreground">模型文件</div>
               <label className="flex h-8 cursor-pointer items-center justify-center rounded-lg border border-info/15 bg-info/[0.025] px-3 text-[11px] font-semibold text-muted-foreground transition-colors hover:border-info/25 hover:bg-info/[0.07] hover:text-info">
                 选择模型 JSON
                 <Input
@@ -124,7 +124,7 @@ export function LtrModelRegistrySection({
               </label>
             </div>
             <div className="space-y-1.5">
-              <div className="text-[11px] font-semibold text-foreground/80">清单文件</div>
+              <div className="text-[11px] font-semibold text-muted-foreground">清单文件</div>
               <label className="flex h-8 cursor-pointer items-center justify-center rounded-lg border border-info/15 bg-info/[0.025] px-3 text-[11px] font-semibold text-muted-foreground transition-colors hover:border-info/25 hover:bg-info/[0.07] hover:text-info">
                 选择清单 JSON
                 <Input

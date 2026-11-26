@@ -148,7 +148,7 @@ export function GraphPageHeader({
       <>
         <div className="hidden shrink-0 items-center gap-2 2xl:flex">
           <div className="flex items-center gap-2 rounded-full border border-info/15 bg-background/76 px-2.5 py-1.5 shadow-none">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-foreground/88">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
               <LinkIcon className={cn('h-3.5 w-3.5', includeEntityLinks ? 'text-info' : 'text-muted-foreground')} />
               <span>实体</span>
             </div>
@@ -160,7 +160,7 @@ export function GraphPageHeader({
             />
           </div>
           <div className="flex items-center gap-2 rounded-full border border-info/15 bg-background/76 px-2.5 py-1.5 shadow-none">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-foreground/88">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-foreground">
               <Network className={cn('h-3.5 w-3.5', includeRelationLinks ? 'text-info' : 'text-muted-foreground')} />
               <span>关系</span>
             </div>
@@ -259,7 +259,7 @@ export function GraphPageHeader({
             <Button
               variant="outline"
               size="sm"
-              className="size-9 shrink-0 gap-2 border-info/15 bg-background/78 px-0 text-foreground/88 shadow-none hover:bg-info/[0.06] hover:text-info active:bg-info/[0.08] sm:h-9 sm:w-auto sm:px-3"
+              className="size-9 shrink-0 gap-2 border-info/15 bg-background/78 px-0 text-foreground shadow-none hover:bg-info/[0.06] hover:text-info active:bg-info/[0.08] sm:h-9 sm:w-auto sm:px-3"
             >
               <MoreHorizontal className="h-4 w-4" />
               <span className="hidden sm:inline">图谱工具</span>

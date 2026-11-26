@@ -118,7 +118,7 @@ export function SnapshotNodeDetailsRail({
         ) : (
           <div className="flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-card/60 px-4 text-center">
             <Network
-              className="h-8 w-8 text-muted-foreground/50"
+              className="h-8 w-8 text-subtle-foreground"
               aria-hidden="true"
             />
             <div className="mt-3 text-[13px] font-semibold text-foreground">

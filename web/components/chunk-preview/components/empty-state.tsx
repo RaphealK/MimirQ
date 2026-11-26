@@ -79,7 +79,7 @@ export function EmptyState() {
             </div>
 
             <div className="text-center space-y-1.5">
-              <h3 className="text-base font-semibold text-foreground/90">
+              <h3 className="text-base font-semibold text-foreground">
                 {isDragging ? t('emptyState.draggingTitle') : t('emptyState.idleTitle')}
               </h3>
               <p className="text-xs text-muted-foreground">{t('emptyState.uploadHint')}</p>

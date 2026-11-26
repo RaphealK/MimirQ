@@ -245,7 +245,7 @@ export function IndustryRulesSection() {
             {previewResult ? (
               <div className="rounded-lg border border-info/20 bg-info/[0.035] p-2.5">
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-foreground/78">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground">
                     <CheckCircle2 className={cn('h-3.5 w-3.5', previewResult.changed ? 'text-success' : 'text-muted-foreground')} />
                     {previewResult.changed ? '已命中行业术语' : '未产生改写'}
                   </div>
@@ -255,7 +255,7 @@ export function IndustryRulesSection() {
                 </div>
                 <div className="grid gap-2 text-[11px] md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:items-center">
                   <PreviewText label="原问题" value={previewResult.original_query} />
-                  <ArrowRight className="hidden h-4 w-4 text-muted-foreground/45 md:block" />
+                  <ArrowRight className="hidden h-4 w-4 text-subtle-foreground md:block" />
                   <PreviewText label="检索表达" value={previewResult.expanded_query} accent={previewResult.changed} />
                 </div>
               </div>
@@ -371,7 +371,7 @@ function PreviewText({
   return (
     <div className={cn('rounded-md border px-2 py-1.5', accent ? 'border-info/20 bg-info/[0.07]' : 'border-info/15 bg-info/[0.025]')}>
       <div className="mb-0.5 text-[10px] font-semibold text-muted-foreground">{label}</div>
-      <div className="break-words text-[11px] leading-4 text-foreground/82">{value}</div>
+      <div className="break-words text-[11px] leading-4 text-foreground">{value}</div>
     </div>
   )
 }

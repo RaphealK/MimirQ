@@ -420,7 +420,7 @@ export default function AuthPage() {
                         遇到问题？{" "}
                         <a
                             href={contactAdminHref}
-                            className="focus-ring rounded-sm font-medium text-foreground/80 underline underline-offset-4 transition-colors hover:text-foreground"
+                            className="focus-ring rounded-sm font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
                         >
                             联系管理员
                         </a>

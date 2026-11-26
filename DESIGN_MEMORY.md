@@ -9,12 +9,13 @@ MimirQ 为需要核对文档、配置和证据的人员提供操作界面。标�
 - 间距以 4 px 为基数。桌面控件通常高 32 px，移动端可触达区域至少 44 × 44 px。常规表头 36 px、记录行 40 px。
 - 字号/行高为 28/36、22/28、18/24、16/26、14/22、13/20、12/18、11/16。分别用于展示标题、页标题、小标题、长文、对话、工作台正文、辅助说明和元数据。等宽字用于可复制的标识、代码和需要纵向比较的数值。
 
-## 黑白主题与交互
+## Graphite 主题与交互
 
-- 新会话默认深色，用户选定浅色或跟随系统后沿用该偏好。正文与辅助文字、背景与分隔面分别使用 `foreground`、`muted-foreground`、`background`、`surface`。浮层和选中行使用 `raised`。
-- 当前导航项用 2 px 前景色竖线、图标和选中底共同标示。链接使用前景色，悬停加下划线。键盘焦点使用 2 px 前景色轮廓并外移 2 px。
-- 彩色只表达成功、警告、危险三种状态，均附可读文字。图表用灰阶、线型、点型和标签区分类别。原文、附件图片和引用证据按原内容显示。
-- 按钮与输入控件圆角 4 px，面板和浮层 6 px，表格 0。主按钮使用前景反色。次按钮透明底与细边框，轻按钮悬停填 `raised`。按下变化仅涉及背景，颜色过渡 120 ms。载入中保持动作位置和宽度。
+- 新会话默认深色，用户选定浅色或跟随系统后沿用该偏好。表面分四层：`background`（画布）→ `surface`（面板/卡片）→ `raised`（浮层）→ `sunken`（输入框、表头、代码块）。层与层之间必须保持可辨的明度差；浅色下 `surface/background ≥ 1.10`、`border/surface ≥ 1.40`、`border-strong/surface ≥ 2.00`，深色同理。正文 `foreground`、辅助 `muted-foreground`、更弱的说明 `subtle-foreground`。
+- 主操作按钮、当前导航项、焦点环、选中行、可点数字使用 Signal Blue（`primary` / `selected`）。第二语义（AI、向量、检索、分类标签、布尔类型标记）使用 Violet（`accent` / `accent-soft`），不再使用 `text-accent` 指向前景色的旧写法。
+- 成功、警告、危险使用真实状态色 `success` / `warning` / `danger`，必须同时有文字说明，不得只靠颜色。图表使用 `chart-1`…`chart-8` 的真实色相，同一图表内不得只用灰阶区分系列。原文、附件图片和引用证据按原内容显示。
+- 文本对比度下限：`foreground/background ≥ 7.0`、`muted-foreground/background ≥ 6.0`、`subtle-foreground/background ≥ 4.5`、主按钮与状态色相对各自 foreground `≥ 4.5`、每个图表色相对背景 `≥ 3.0`。禁止用 `text-*-foreground/NN` 的低透明度写法削弱正文和说明文字；需要更弱的层级时改用实心 `subtle-foreground`。
+- 按钮与输入控件圆角 4 px，面板和浮层 6 px，表格 0。主按钮使用 `primary`，中性强调按钮使用 `ink`。次按钮透明底与细边框，轻按钮悬停填 `raised`。按下变化仅涉及背景，颜色过渡 120 ms。载入中保持动作位置和宽度。
 - 桌面与平板的侧栏偏好分别保存在 `mimirq_navbar_sidebar` 和 `mimirq_navbar_sidebar:tablet`。首次 ≥1024 px 展开，768–1023 px 显示图标栏，<768 px 使用可按 Esc 关闭的抽屉。收展只过渡宽度和透明度，耗时 180 ms。
 
 ## 数据与动作

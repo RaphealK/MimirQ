@@ -339,7 +339,7 @@ export function RetrievePreviewPanel({
         {compact ? (
           <div className="flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/68">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.24em] text-subtle-foreground">
                 Retrieval Workbench
               </div>
               <div className="mt-1 text-[15px] font-semibold tracking-[-0.03em] text-foreground">
@@ -363,7 +363,7 @@ export function RetrievePreviewPanel({
             <div className="mt-2.5 text-[24px] font-semibold tracking-[-0.045em] text-foreground">
               语义检索测试
             </div>
-            <p className="mt-1.5 max-w-2xl text-[12px] leading-5 text-muted-foreground/74">
+            <p className="mt-1.5 max-w-2xl text-[12px] leading-5 text-subtle-foreground">
               输入复杂问题或长 Prompt，验证 RAG 的召回质量和测试指标。
             </p>
           </div>
@@ -371,7 +371,7 @@ export function RetrievePreviewPanel({
 
         <div className={cn('rounded-lg border', RETRIEVAL_CONTROL_SURFACE_CLASS)}>
           <div className="flex gap-3 px-4 pt-4">
-            <Search className="mt-1 size-[18px] shrink-0 text-muted-foreground/42" />
+            <Search className="mt-1 size-[18px] shrink-0 text-subtle-foreground" />
             <textarea
               ref={searchInputRef}
               value={searchQuery}
@@ -384,14 +384,14 @@ export function RetrievePreviewPanel({
               }}
               placeholder="例如：请按第十二条说明例外条件，并指出适用范围与例外条款"
               className={cn(
-                'w-full resize-none border-0 bg-transparent p-0 text-[13px] leading-6 text-foreground outline-none placeholder:text-muted-foreground/35',
+                'w-full resize-none border-0 bg-transparent p-0 text-[13px] leading-6 text-foreground outline-none placeholder:text-subtle-foreground',
                 compact ? 'min-h-[56px]' : 'min-h-[72px]'
               )}
             />
           </div>
 
           <div className="mt-2 flex flex-col gap-2.5 border-t border-foreground/10 px-4 py-3 lg:flex-row lg:items-center lg:justify-between dark:border-foreground/10">
-            <div className="flex flex-wrap items-center gap-3 text-[12px] text-muted-foreground/72">
+            <div className="flex flex-wrap items-center gap-3 text-[12px] text-subtle-foreground">
               <span className="inline-flex h-8 items-center rounded-md border border-foreground/10 bg-background/70 px-3 dark:border-foreground/10 dark:bg-background/70">
                 <Database className="mr-2 size-3.5 text-primary" />
                 {selectedDatasetId ||
@@ -439,8 +439,8 @@ export function RetrievePreviewPanel({
                   }}
                   className="flex w-full items-center justify-between rounded-lg border border-foreground/10 bg-background/70 px-3 py-2.5 text-left transition-colors hover:border-foreground/15 hover:bg-muted/20 dark:border-foreground/10 dark:bg-background/70"
                 >
-                  <span className="pr-4 text-[12px] leading-5 text-foreground/86">{question}</span>
-                  <ChevronRight className="size-3.5 shrink-0 text-muted-foreground/55" />
+                  <span className="pr-4 text-[12px] leading-5 text-foreground">{question}</span>
+                  <ChevronRight className="size-3.5 shrink-0 text-subtle-foreground" />
                 </button>
               ))}
             </div>
@@ -455,7 +455,7 @@ export function RetrievePreviewPanel({
             </div>
             <div className="mt-3.5 space-y-3.5">
               <div className="space-y-2">
-                <div className="text-[12px] text-muted-foreground/74">Top K（返回结果数）</div>
+                <div className="text-[12px] text-subtle-foreground">Top K（返回结果数）</div>
                 <Select value={topK} onValueChange={setTopK}>
                   <SelectTrigger className="h-9 rounded-lg border-foreground/10 bg-background/70 text-[12px] font-medium dark:border-foreground/10 dark:bg-background/70">
                     <SelectValue />
@@ -471,7 +471,7 @@ export function RetrievePreviewPanel({
 
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="text-[12px] text-muted-foreground/74">相似度阈值</div>
+                  <div className="text-[12px] text-subtle-foreground">相似度阈值</div>
                   <div className="rounded-md border border-foreground/10 bg-background/70 px-2 py-1 font-mono text-[12px] text-foreground dark:border-foreground/10 dark:bg-background/70">
                     {scoreThreshold.toFixed(2)}
                   </div>
@@ -513,7 +513,7 @@ export function RetrievePreviewPanel({
                     className="space-y-3 rounded-lg border border-foreground/10 bg-background/70 p-3 dark:border-foreground/10 dark:bg-background/70"
                   >
                     <div className="space-y-1.5">
-                      <div className="text-[11px] text-muted-foreground/70">检索模式</div>
+                      <div className="text-[11px] text-subtle-foreground">检索模式</div>
                       <Select value={retrievalMode} onValueChange={setRetrievalMode}>
                         <SelectTrigger className="h-8 rounded-md border-foreground/10 bg-background/70 text-[12px] font-medium dark:border-foreground/10 dark:bg-background/70">
                           <SelectValue />
@@ -527,7 +527,7 @@ export function RetrievePreviewPanel({
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[11px] text-muted-foreground/70">
+                      <div className="flex items-center justify-between text-[11px] text-subtle-foreground">
                         <span>向量权重 Alpha</span>
                         <span className="font-mono text-foreground">{alpha.toFixed(2)}</span>
                       </div>
@@ -550,7 +550,7 @@ export function RetrievePreviewPanel({
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="space-y-1.5">
-                        <div className="text-[11px] text-muted-foreground/70">上下文预算</div>
+                        <div className="text-[11px] text-subtle-foreground">上下文预算</div>
                         <Select value={maxTokens} onValueChange={setMaxTokens}>
                           <SelectTrigger className="h-8 rounded-md border-foreground/10 bg-background/70 text-[12px] font-medium dark:border-foreground/10 dark:bg-background/70">
                             <SelectValue />
@@ -588,7 +588,7 @@ export function RetrievePreviewPanel({
               <div className="text-[15px] font-semibold tracking-[-0.03em] text-foreground">最近检索</div>
               <button
                 type="button"
-                className="text-[12px] text-muted-foreground/66 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35"
+                className="text-[12px] text-subtle-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35"
                 onClick={handleClearRecentQueries}
                 disabled={recentQueries.length === 0}
               >
@@ -607,14 +607,14 @@ export function RetrievePreviewPanel({
                   className="flex w-full items-start justify-between gap-4 text-left"
                 >
                   <div className="min-w-0">
-                    <div className="line-clamp-2 text-[12px] leading-5 text-foreground/88">{item.query}</div>
-                    <div className="mt-1 text-[11px] text-muted-foreground/62">{item.timestampLabel}</div>
+                    <div className="line-clamp-2 text-[12px] leading-5 text-foreground">{item.query}</div>
+                    <div className="mt-1 text-[11px] text-subtle-foreground">{item.timestampLabel}</div>
                   </div>
-                  <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-muted-foreground/45" />
+                  <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-subtle-foreground" />
                 </button>
               ))}
               {visibleRecentQueries.length === 0 ? (
-                <div className="rounded-lg border border-dashed border-foreground/10 bg-background/70 px-3 py-3 text-[12px] text-muted-foreground/70 dark:border-foreground/10 dark:bg-background/70">
+                <div className="rounded-lg border border-dashed border-foreground/10 bg-background/70 px-3 py-3 text-[12px] text-subtle-foreground dark:border-foreground/10 dark:bg-background/70">
                   暂无检索历史
                 </div>
               ) : null}
@@ -654,12 +654,12 @@ export function RetrievePreviewPanel({
                         }}
                         className="flex w-full items-center justify-between gap-3 rounded-md border border-foreground/10 bg-background/70 px-3 py-2 text-left transition-colors hover:border-foreground/15 hover:bg-muted/20 dark:border-foreground/10 dark:bg-background/70"
                       >
-                        <span className="line-clamp-1 text-[12px] text-foreground/86">{item.query}</span>
-                        <span className="shrink-0 text-[10px] text-muted-foreground/60">{item.timestampLabel}</span>
+                        <span className="line-clamp-1 text-[12px] text-foreground">{item.query}</span>
+                        <span className="shrink-0 text-[10px] text-subtle-foreground">{item.timestampLabel}</span>
                       </button>
                     ))
                   ) : (
-                    <div className="rounded-md border border-dashed border-foreground/10 px-3 py-2 text-[12px] text-muted-foreground/70">
+                    <div className="rounded-md border border-dashed border-foreground/10 px-3 py-2 text-[12px] text-subtle-foreground">
                       暂无检索历史
                     </div>
                   )}
@@ -676,7 +676,7 @@ export function RetrievePreviewPanel({
     <Panel padding="none" className={cn('rounded-xl border', RETRIEVAL_PANEL_SURFACE_CLASS)}>
       <div className="p-6">
         <div className="text-[20px] font-semibold tracking-[-0.03em] text-foreground">Top-K 排序为空</div>
-        <div className="mt-3 text-[14px] leading-6 text-muted-foreground/76">
+        <div className="mt-3 text-[14px] leading-6 text-muted-foreground">
           当前检索词为 <span className="font-medium text-foreground">{searchQueryForRetrieval || searchQuery.trim()}</span>，没有返回可用候选。
         </div>
 
@@ -691,7 +691,7 @@ export function RetrievePreviewPanel({
                   handleApplySuggestedQuery(label)
                   searchInputRef.current?.focus()
                 }}
-                className="rounded-full border border-foreground/10 bg-background/70 px-3 py-1.5 text-[12px] text-foreground/80 transition-colors hover:border-foreground/15 hover:bg-muted/20 dark:border-foreground/10 dark:bg-background/70"
+                className="rounded-full border border-foreground/10 bg-background/70 px-3 py-1.5 text-[12px] text-muted-foreground transition-colors hover:border-foreground/15 hover:bg-muted/20 dark:border-foreground/10 dark:bg-background/70"
               >
                 {label}
               </button>
@@ -705,7 +705,7 @@ export function RetrievePreviewPanel({
             {noResultDiagnosticTips.map((item) => (
               <div key={item.title} className="rounded-lg border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
                 <div className="text-[13px] font-medium text-foreground">{item.title}</div>
-                <div className="mt-2 text-[12px] leading-5 text-muted-foreground/72">{item.description}</div>
+                <div className="mt-2 text-[12px] leading-5 text-subtle-foreground">{item.description}</div>
               </div>
             ))}
           </div>
@@ -751,7 +751,7 @@ export function RetrievePreviewPanel({
             {imageUrl ? (
               <AuthImage src={imageUrl} alt="命中图像缩略图" className="h-44 w-full object-cover" />
             ) : (
-              <div className="flex h-44 items-center justify-center text-[13px] text-muted-foreground/62">
+              <div className="flex h-44 items-center justify-center text-[13px] text-subtle-foreground">
                 图像命中（无可用缩略图）
               </div>
             )}
@@ -759,31 +759,31 @@ export function RetrievePreviewPanel({
         ) : null}
 
         <div className="rounded-xl border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
-          <div className="text-[12px] leading-6 text-foreground/86">{previewChunkContent(hit.chunk_content)}</div>
+          <div className="text-[12px] leading-6 text-foreground">{previewChunkContent(hit.chunk_content)}</div>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-lg border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
-            <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/62">Chunk ID</div>
-            <div className="mt-2 break-all font-mono text-[12px] text-foreground/84">{chunkId || '—'}</div>
+            <div className="text-[11px] uppercase tracking-[0.18em] text-subtle-foreground">Chunk ID</div>
+            <div className="mt-2 break-all font-mono text-[12px] text-foreground">{chunkId || '—'}</div>
           </div>
           <div className="rounded-lg border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
-            <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/62">Clause</div>
-            <div className="mt-2 text-[12px] text-foreground/84">{clause || '—'}</div>
+            <div className="text-[11px] uppercase tracking-[0.18em] text-subtle-foreground">Clause</div>
+            <div className="mt-2 text-[12px] text-foreground">{clause || '—'}</div>
           </div>
         </div>
 
         <div className="rounded-lg border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
-          <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/62">Path</div>
-          <div className="mt-2 break-all text-[12px] text-foreground/84">{pathStr || '—'}</div>
+          <div className="text-[11px] uppercase tracking-[0.18em] text-subtle-foreground">Path</div>
+          <div className="mt-2 break-all text-[12px] text-foreground">{pathStr || '—'}</div>
         </div>
 
         {terms.length ? (
           <div className="rounded-lg border border-foreground/10 bg-background/70 px-4 py-4 dark:border-foreground/10 dark:bg-background/70">
-            <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/62">Matched Terms</div>
+            <div className="text-[11px] uppercase tracking-[0.18em] text-subtle-foreground">Matched Terms</div>
             <div className="mt-3 flex flex-wrap gap-2">
               {terms.map((term) => (
-                <span key={term} className="rounded-full border border-foreground/10 bg-background/70 px-2.5 py-1 text-[11px] text-foreground/82 dark:border-foreground/10 dark:bg-background/70">
+                <span key={term} className="rounded-full border border-foreground/10 bg-background/70 px-2.5 py-1 text-[11px] text-foreground dark:border-foreground/10 dark:bg-background/70">
                   {term}
                 </span>
               ))}
@@ -835,12 +835,12 @@ export function RetrievePreviewPanel({
             <div className="border-b border-foreground/15 px-5 py-4 dark:border-foreground/15">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground/62">检索结果</div>
+                  <div className="text-[11px] uppercase tracking-[0.22em] text-subtle-foreground">检索结果</div>
                   <div className="mt-1 text-[16px] font-semibold text-foreground">
                     共返回 {resultStats.total} 条候选
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2 text-[12px] text-muted-foreground/72">
+                <div className="flex flex-wrap gap-2 text-[12px] text-subtle-foreground">
                   <span className="rounded-full border border-foreground/10 bg-background/70 px-3 py-1 dark:border-foreground/10 dark:bg-background/70">Family {resultStats.familyHits}</span>
                   <span className="rounded-full border border-foreground/10 bg-background/70 px-3 py-1 dark:border-foreground/10 dark:bg-background/70">Hierarchy {resultStats.hierarchyHits}</span>
                 </div>
@@ -902,10 +902,10 @@ export function RetrievePreviewPanel({
                             </span>
                           ) : null}
                         </div>
-                        <div className="mt-2 line-clamp-2 text-[13px] leading-6 text-muted-foreground/76">
+                        <div className="mt-2 line-clamp-2 text-[13px] leading-6 text-muted-foreground">
                           {previewChunkContent(hit.chunk_content, 220)}
                         </div>
-                        <div className="mt-3 flex flex-wrap items-center gap-3 text-[12px] text-muted-foreground/64">
+                        <div className="mt-3 flex flex-wrap items-center gap-3 text-[12px] text-subtle-foreground">
                           <span className="font-mono">{chunkId || '—'}</span>
                           <span>{clause || '—'}</span>
                           <span className="truncate">{pathStr || '—'}</span>
@@ -914,7 +914,7 @@ export function RetrievePreviewPanel({
                         {expandedHit && terms.length ? (
                           <div className="mt-3 flex flex-wrap gap-2">
                             {terms.map((term) => (
-                               <span key={term} className="rounded-full border border-foreground/10 bg-background/70 px-2.5 py-1 text-[11px] text-foreground/82 dark:border-foreground/10 dark:bg-background/70">
+                               <span key={term} className="rounded-full border border-foreground/10 bg-background/70 px-2.5 py-1 text-[11px] text-foreground dark:border-foreground/10 dark:bg-background/70">
                                 {term}
                               </span>
                             ))}
@@ -935,7 +935,7 @@ export function RetrievePreviewPanel({
                       </IconButton>
                       <button
                         type="button"
-                        className="text-[12px] text-muted-foreground/62"
+                        className="text-[12px] text-subtle-foreground"
                         onClick={() => {
                           setExpanded((prev) => ({ ...prev, [key]: !prev[key] }))
                         }}
@@ -951,7 +951,7 @@ export function RetrievePreviewPanel({
 
           <div className={cn('min-h-0 rounded-xl border', RETRIEVAL_PANEL_SURFACE_CLASS)}>
             <div className="border-b border-foreground/15 px-5 py-4 dark:border-foreground/15">
-              <div className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground/62">命中细节</div>
+              <div className="text-[11px] uppercase tracking-[0.22em] text-subtle-foreground">命中细节</div>
               <div className="mt-1 text-[16px] font-semibold text-foreground">Active Hit</div>
             </div>
             <div className="p-5">

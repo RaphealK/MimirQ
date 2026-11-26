@@ -190,7 +190,7 @@ export function ParsingLibraryBrowser({
  <div
  className={cn(
  'truncate pr-4 text-[13px] font-medium',
- activeFolderId === folder.id ? 'text-foreground dark:text-foreground' : 'text-foreground/80 dark:text-muted-foreground'
+ activeFolderId === folder.id ? 'text-foreground dark:text-foreground' : 'text-muted-foreground dark:text-muted-foreground'
  )}
  >
  {folder.name}

@@ -1956,7 +1956,7 @@ export function RagTracePanel({ conversationId, className }: Readonly<RagTracePa
                                 <div className="text-xs text-muted-foreground break-words">
                                   {formatDiffValue(it.b)}
                                   {it.delta != null && Number.isFinite(Number(it.delta)) ? (
-                                    <span className="ml-2 font-mono text-[11px] text-foreground/80">Δ {String(it.delta)}</span>
+                                    <span className="ml-2 font-mono text-[11px] text-muted-foreground">Δ {String(it.delta)}</span>
                                   ) : null}
                                 </div>
                               </div>
@@ -2041,7 +2041,7 @@ export function RagTracePanel({ conversationId, className }: Readonly<RagTracePa
                               {t("panel.evidencePreview.document")} {shortHash(documentId, { head: 10, tail: 6 }) || '—'}
                               {chunkId ? ` · ${t("panel.evidencePreview.chunk")} ${shortHash(chunkId, { head: 10, tail: 6 })}` : ''}
                             </div>
-                            <div className="mt-2 rounded-lg bg-muted/35 px-2 py-1.5 text-xs leading-5 text-foreground/85">
+                            <div className="mt-2 rounded-lg bg-muted/35 px-2 py-1.5 text-xs leading-5 text-foreground">
                               <span className="font-semibold">{t("panel.evidencePreview.takeaway")}：</span>
                               {interpretation.reason}
                             </div>
@@ -2477,7 +2477,7 @@ export function RagTracePanel({ conversationId, className }: Readonly<RagTracePa
                             </div>
                             <div className="shrink-0 text-xs font-medium text-muted-foreground">
                               {box.candidates == null ? '—' : safeDisplayString(box.candidates, '—')}
-                              {summary ? <span className="ml-2 text-[11px] text-foreground/70">hits {summary.matchCount}</span> : null}
+                              {summary ? <span className="ml-2 text-[11px] text-muted-foreground">hits {summary.matchCount}</span> : null}
                             </div>
                           </Panel>
                         )

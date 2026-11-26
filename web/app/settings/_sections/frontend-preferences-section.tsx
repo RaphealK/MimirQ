@@ -27,7 +27,7 @@ export function FrontendPreferencesSection({
       >
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <div className="space-y-2">
-            <div className="flex items-center gap-1.5 text-[12px] font-medium text-foreground/78">
+            <div className="flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground">
               <span>解析方式</span>
               <span className="group/frontend-local-help relative inline-flex">
                 <button
@@ -49,7 +49,7 @@ export function FrontendPreferencesSection({
             />
           </div>
           <div className="space-y-2">
-            <div className="text-[12px] font-medium text-foreground/78">
+            <div className="text-[12px] font-medium text-muted-foreground">
               切块策略
             </div>
             <ChunkStrategyDropdown
@@ -61,7 +61,7 @@ export function FrontendPreferencesSection({
         </div>
 
         <details className="group rounded-[14px] border border-border/60 bg-muted/24">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-3 py-2 text-[12px] font-medium text-foreground/78 transition-colors hover:bg-muted/35">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-3 py-2 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-muted/35">
             <span>入库管线高级配置</span>
             <ChevronDown className="size-4 text-muted-foreground transition-transform group-open:rotate-180" />
           </summary>

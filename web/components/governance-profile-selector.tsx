@@ -139,12 +139,12 @@ export function GovernanceProfileSelector({ className, compact, onApplyPatch }: 
   }, [selectedRef, selectedSummary])
 
   const triggerCls = compact
-    ? 'h-8 rounded-[0.9rem] border-border/45 bg-card/74 text-[11px] font-medium text-foreground/80 shadow-none'
-    : 'h-9 rounded-[0.95rem] border-border/45 bg-card/78 text-sm font-medium text-foreground/80 shadow-none'
+    ? 'h-8 rounded-[0.9rem] border-border/45 bg-card/74 text-[11px] font-medium text-muted-foreground shadow-none'
+    : 'h-9 rounded-[0.95rem] border-border/45 bg-card/78 text-sm font-medium text-muted-foreground shadow-none'
   const primaryActionClass =
     'h-7 gap-1.5 rounded-full border-primary/24 bg-primary/[0.09] px-2.5 text-[11px] font-semibold text-primary shadow-none hover:border-primary/34 hover:bg-primary/[0.16] hover:text-primary'
   const secondaryActionClass =
-    'h-7 gap-1.5 rounded-full border-border/38 bg-background/36 px-2.5 text-[11px] font-medium text-muted-foreground/78 shadow-none hover:border-border/50 hover:bg-background/58 hover:text-foreground'
+    'h-7 gap-1.5 rounded-full border-border/38 bg-background/36 px-2.5 text-[11px] font-medium text-muted-foreground shadow-none hover:border-border/50 hover:bg-background/58 hover:text-foreground'
   const actionRailClass =
     'flex flex-wrap items-center justify-end gap-1 rounded-[0.95rem] border border-border/28 bg-muted/[0.10] px-1.5 py-1'
 
@@ -186,13 +186,13 @@ export function GovernanceProfileSelector({ className, compact, onApplyPatch }: 
       </div>
 
       {selectedSummary?.description && (
-        <div className={cn('text-muted-foreground/80', compact ? 'text-[10.5px]' : 'text-xs')}>
+        <div className={cn('text-muted-foreground', compact ? 'text-[10.5px]' : 'text-xs')}>
           {selectedSummary.description}
         </div>
       )}
 
       {inheritanceText ? (
-        <div className={cn('text-muted-foreground/75', compact ? 'text-[10.5px]' : 'text-xs')}>
+        <div className={cn('text-muted-foreground', compact ? 'text-[10.5px]' : 'text-xs')}>
           继承链：{inheritanceText}
         </div>
       ) : null}

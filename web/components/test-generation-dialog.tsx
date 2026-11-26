@@ -338,7 +338,7 @@ export function TestGenerationDialog({
                   {/* 知识库选择 */}
                   {datasets.length > 0 && (
                     <div>
-                      <div className="block text-sm font-medium text-foreground/80 mb-2">
+                      <div className="block text-sm font-medium text-muted-foreground mb-2">
                         选择知识库（可选）
                       </div>
                       <select
@@ -358,7 +358,7 @@ export function TestGenerationDialog({
 
                   {/* 文档列表 */}
                   <div>
-                    <div className="block text-sm font-medium text-foreground/80 mb-2">
+                    <div className="block text-sm font-medium text-muted-foreground mb-2">
                       选择文档
                     </div>
                     <div className="border border-border/60 rounded-lg max-h-64 overflow-y-auto overscroll-contain no-scrollbar">
@@ -394,7 +394,7 @@ export function TestGenerationDialog({
               {/* 对话选择 */}
               {sourceType === 'conversations' && (
                 <div>
-                  <div className="block text-sm font-medium text-foreground/80 mb-2">
+                  <div className="block text-sm font-medium text-muted-foreground mb-2">
                     选择对话
                   </div>
                   <div className="border border-border/60 rounded-lg max-h-64 overflow-y-auto overscroll-contain no-scrollbar">
@@ -435,7 +435,7 @@ export function TestGenerationDialog({
             <div className="space-y-6">
               {/* 生成数量 */}
               <div>
-                <label className="block text-sm font-medium text-foreground/80 mb-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
                   生成数量: {numQuestions}
                 </label>
                 <input
@@ -455,7 +455,7 @@ export function TestGenerationDialog({
               {/* 问题类型（仅文档） */}
               {sourceType === 'documents' && (
                 <div>
-                  <div className="block text-sm font-medium text-foreground/80 mb-2">
+                  <div className="block text-sm font-medium text-muted-foreground mb-2">
                     问题类型
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -487,7 +487,7 @@ export function TestGenerationDialog({
               {/* 质量阈值（仅对话） */}
               {sourceType === 'conversations' && (
                 <div>
-                  <label className="block text-sm font-medium text-foreground/80 mb-2">
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">
                     质量阈值: {qualityThreshold.toFixed(1)}
                   </label>
                   <input
@@ -509,7 +509,7 @@ export function TestGenerationDialog({
               {/* 自动保存 */}
               <div className="flex items-center justify-between p-4 rounded-lg bg-muted/40">
                 <div>
-                  <div className="text-sm font-medium text-foreground/80">
+                  <div className="text-sm font-medium text-muted-foreground">
                     自动保存为测试用例
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">

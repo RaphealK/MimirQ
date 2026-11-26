@@ -593,7 +593,7 @@ export function QuerysetHealthTab({
                         {metric.label}
                       </span>
                       <span className="flex items-center gap-2">
-                        <span className="font-mono tabular-nums text-foreground/90">
+                        <span className="font-mono tabular-nums text-foreground">
                           {formatSignedDelta(value, metric.kind)}
                         </span>
                         <span

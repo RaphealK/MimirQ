@@ -272,7 +272,7 @@ export function DataClassifier({
                 <div className={cn('flex h-8 w-8 items-center justify-center rounded-lg', tone.iconWrap)}>
                   <Icon className={cn('size-4', tone.icon)} />
                 </div>
-                <span className={cn('text-sm font-medium', isSelected ? tone.text : 'text-foreground/80')}>
+                <span className={cn('text-sm font-medium', isSelected ? tone.text : 'text-muted-foreground')}>
                   {category.label}
                 </span>
                 {isSelected && <Check className={cn('ml-auto size-4', tone.icon)} />}
@@ -382,7 +382,7 @@ export function DataClassifier({
             <Check className="size-4 text-success" />
             <span className="text-sm font-medium text-foreground">{t('summary.title')}</span>
           </div>
-          <div className="space-y-1 text-sm text-foreground/80">
+          <div className="space-y-1 text-sm text-muted-foreground">
             {selectedCategory && (
               <div className="flex items-center gap-2">
                 <span className="text-muted-foreground">{t('summary.category')}</span>

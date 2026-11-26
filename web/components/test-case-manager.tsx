@@ -208,7 +208,7 @@ function TestCaseRow({
             </div>
           ) : null}
 
-          <div className="flex items-center gap-3 text-[11px] text-muted-foreground/80">
+          <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {new Date(caseItem.created_at).toLocaleDateString()}
@@ -1269,13 +1269,13 @@ export function TestCaseManager({
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0 truncate">
                   dataset_id:{' '}
-                  <span className="font-mono text-foreground/80">
+                  <span className="font-mono text-muted-foreground">
                     {evidenceDatasetId || '-'}
                   </span>
                 </div>
                 <div className="text-[11px]">
                   citations:{' '}
-                  <span className="font-mono text-foreground/80">
+                  <span className="font-mono text-muted-foreground">
                     {evidenceCitations.length}
                   </span>
                 </div>
@@ -1283,7 +1283,7 @@ export function TestCaseManager({
               {evidencePack?.exported_at && (
                 <div className="mt-2 text-[11px]">
                   exported_at:{' '}
-                  <span className="font-mono text-foreground/80">
+                  <span className="font-mono text-muted-foreground">
                     {String(evidencePack.exported_at)}
                   </span>
                 </div>

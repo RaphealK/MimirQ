@@ -363,9 +363,9 @@ export function OriginalPreview() {
   }, [activeChunkIndex, previewMode])
 
   const originalHeaderMetaChipClass =
-    'inline-flex h-5 min-w-0 items-center gap-1 rounded-full border border-border/45 bg-background/68 px-1.5 text-[10px] font-medium leading-none text-muted-foreground/80'
+    'inline-flex h-5 min-w-0 items-center gap-1 rounded-full border border-border/45 bg-background/68 px-1.5 text-[10px] font-medium leading-none text-muted-foreground'
   const originalHeaderModeButtonClass =
-    'h-6 rounded-full px-2 text-[10.5px] font-medium shadow-none hover:bg-primary/8 hover:text-foreground/85'
+    'h-6 rounded-full px-2 text-[10.5px] font-medium shadow-none hover:bg-primary/8 hover:text-foreground'
 
   return (
     <div className="flex-1 flex flex-col min-w-0 border-b lg:border-b-0 lg:border-r border-border/60 bg-card">
@@ -430,7 +430,7 @@ export function OriginalPreview() {
                 )
               })() : null}
               {previewMode === 'pdf' ? (
-                <span className="hidden text-[10.5px] font-normal text-muted-foreground/70 xl:inline">
+                <span className="hidden text-[10.5px] font-normal text-subtle-foreground xl:inline">
                   {t('originalPreview.hints.pdfMode')}
                 </span>
               ) : null}

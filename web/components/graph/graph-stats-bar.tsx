@@ -19,7 +19,7 @@ export function GraphStatsBar({ nodeCount, linkCount, entityTypeCount }: GraphSt
   if (nodeCount === 0 && linkCount === 0) return null
 
   return (
-    <div className="flex items-center gap-3 bg-card/84 backdrop-blur-sm rounded-full px-4 py-1.5 border border-border/50 shadow-sm">
+    <div className="flex items-center gap-3 bg-card rounded-full px-4 py-1.5 border border-border/50 shadow-sm">
       {items.map(({ icon: Icon, label, value }) => (
         <div key={label} className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
           <Icon className="w-3 h-3 opacity-60" />

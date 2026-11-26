@@ -593,7 +593,7 @@ export default function ObservabilityPage() {
                                 <div className="font-mono text-muted-foreground truncate" title={it.query_hash}>
                                   {shortHash(it.query_hash, { head: 10, tail: 6 })}
                                 </div>
-                                <div className="mt-0.5 text-[11px] text-muted-foreground/80 tabular-nums">
+                                <div className="mt-0.5 text-[11px] text-muted-foreground tabular-nums">
                                   max {it.max_elapsed_sec != null && Number.isFinite(Number(it.max_elapsed_sec)) ? `${Number(it.max_elapsed_sec).toFixed(3)}s` : '—'}
                                 </div>
                               </div>

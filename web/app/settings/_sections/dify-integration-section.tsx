@@ -207,7 +207,7 @@ export function DifyIntegrationSection({
                 <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-info">
                   Retrieval Endpoint
                 </div>
-                <div className="mt-1 truncate font-mono text-[12px] text-foreground/85">
+                <div className="mt-1 truncate font-mono text-[12px] text-foreground">
                   {endpointUrl || endpointPath}
                 </div>
               </div>
@@ -282,7 +282,7 @@ export function DifyIntegrationSection({
                     'flex items-center gap-2 rounded-[12px] border px-3 py-2 text-left transition-colors',
                     checked
                       ? 'border-info/30 bg-info/10 text-info'
-                      : 'border-info/15 bg-info/[0.025] text-foreground/78 hover:border-info/25 hover:bg-info/[0.055]'
+                      : 'border-info/15 bg-info/[0.025] text-muted-foreground hover:border-info/25 hover:bg-info/[0.055]'
                   )}
                 >
                   <span

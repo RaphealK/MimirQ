@@ -13,10 +13,10 @@ export const STATUS_LABELS: Record<string, string> = {
 }
 
 export const TYPO_EYEBROW =
-  'text-[0.68rem] font-medium uppercase tracking-[0.24em] text-muted-foreground/64'
+  'text-[0.68rem] font-medium uppercase tracking-[0.24em] text-subtle-foreground'
 export const TYPO_SECTION_TITLE =
-  'text-[0.98rem] font-medium tracking-[-0.015em] leading-[1.2] text-foreground/90'
+  'text-[0.98rem] font-medium tracking-[-0.015em] leading-[1.2] text-foreground'
 export const TYPO_ITEM_TITLE =
-  'text-[0.88rem] font-medium tracking-[-0.005em] leading-[1.3] text-foreground/92'
+  'text-[0.88rem] font-medium tracking-[-0.005em] leading-[1.3] text-foreground'
 export const TYPO_META =
-  'font-code tabular-nums text-[0.7rem] font-normal tracking-[0.01em] text-muted-foreground/62'
+  'font-code tabular-nums text-[0.7rem] font-normal tracking-[0.01em] text-subtle-foreground'

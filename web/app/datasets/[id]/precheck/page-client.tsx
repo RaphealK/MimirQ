@@ -705,7 +705,7 @@ export default function DatasetPrecheckPage() {
   const precheckHeroCard = 'precheckHeroCard relative overflow-hidden border-b border-border/60 bg-transparent px-1 py-2 shadow-none dark:border-border/70'
   const precheckToolbarGroupClass = 'inline-flex flex-wrap items-center gap-1 rounded-lg border border-border/60 bg-card p-1 shadow-none dark:border-border/70 dark:bg-card'
   const precheckToolbarButtonClass = 'h-8 gap-1.5 rounded-xl px-2.5 text-[12px] font-medium text-muted-foreground shadow-none hover:bg-card/95 hover:text-foreground hover:shadow-sm dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
-  const precheckToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground/85 shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
+  const precheckToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
   const precheckToolbarPrimaryButtonClass = 'h-8 min-w-[96px] gap-1.5 rounded-md border border-primary/20 bg-primary px-3 text-[12px] font-semibold text-primary-foreground shadow-none hover:bg-primary/90 dark:border-primary/30 [&_svg]:size-3.5'
   const precheckPanelClass = 'h-full overflow-hidden border border-border/60 bg-card p-0 shadow-none dark:border-border/70 dark:bg-card'
   const runRootPath =
@@ -762,22 +762,22 @@ export default function DatasetPrecheckPage() {
                   </div>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] leading-none text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
-                      <Database className="size-3.5 text-muted-foreground/80" />
+                      <Database className="size-3.5 text-muted-foreground" />
                       <span>数据源</span>
                       <span className="font-mono font-semibold text-foreground">LOCAL_SCAN_ENABLED</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Heart className="size-3.5 text-muted-foreground/80" />
+                      <Heart className="size-3.5 text-muted-foreground" />
                       <span>模式</span>
                       <span className="font-semibold text-foreground">仅生成质量画像</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Cloud className="size-3.5 text-muted-foreground/80" />
+                      <Cloud className="size-3.5 text-muted-foreground" />
                       <span>范围</span>
                       <span className="font-semibold text-foreground">伪根目录 / {runRootPath.replace(/^\/+/, '') || 'uploads'}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock3 className="size-3.5 text-muted-foreground/80" />
+                      <Clock3 className="size-3.5 text-muted-foreground" />
                       <span>最近更新</span>
                       <span className="font-mono font-semibold text-foreground">{formatPrecheckTimestamp(runUpdatedAt)}</span>
                     </span>
@@ -942,7 +942,7 @@ export default function DatasetPrecheckPage() {
                         ))}
                       </SelectContent>
                     </Select>
-                    <div className="text-[11px] leading-none text-muted-foreground/65">复用以往配置快速启动</div>
+                    <div className="text-[11px] leading-none text-subtle-foreground">复用以往配置快速启动</div>
                   </div>
 
                   <div className="space-y-1">
@@ -953,7 +953,7 @@ export default function DatasetPrecheckPage() {
                       onChange={(e) => setScanConfig((prev) => ({ ...prev, root_path: e.target.value }))}
                       className="h-9 rounded-xl bg-card/78 font-mono text-[13px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] dark:bg-background/60"
                     />
-                    <div className="flex items-center gap-2 text-[11px] leading-none text-muted-foreground/65">
+                    <div className="flex items-center gap-2 text-[11px] leading-none text-subtle-foreground">
                       <span>当前路径：</span>
                       <span className="font-mono font-semibold text-primary">{runRootPath}</span>
                       <Folder className="size-3 text-primary" />
@@ -976,7 +976,7 @@ export default function DatasetPrecheckPage() {
                       }}
                       className="h-9 rounded-xl bg-card/78 font-mono text-[13px] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] dark:bg-background/60"
                     />
-                    <div className="text-[11px] leading-none text-muted-foreground/65">留空或 0 表示不限制</div>
+                    <div className="text-[11px] leading-none text-subtle-foreground">留空或 0 表示不限制</div>
                   </div>
                 </div>
 
@@ -1060,31 +1060,31 @@ export default function DatasetPrecheckPage() {
 
                 <div className="grid overflow-hidden rounded-lg border border-border/50 bg-card shadow-none sm:grid-cols-4 dark:bg-card">
                   <div className="flex min-h-14 gap-2 border-b border-border/50 p-2.5 sm:border-b-0 sm:border-r">
-                    <Archive className="mt-0.5 size-3.5 text-muted-foreground/70" />
+                    <Archive className="mt-0.5 size-3.5 text-subtle-foreground" />
                     <div className="min-w-0">
-                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">预估样本量</div>
-                      <div className="mt-1 font-mono text-xs text-foreground/80">{scanConfig.sample_size || '--'}</div>
+                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">预估样本量</div>
+                      <div className="mt-1 font-mono text-xs text-muted-foreground">{scanConfig.sample_size || '--'}</div>
                     </div>
                   </div>
                   <div className="flex min-h-14 gap-2 border-b border-border/50 p-2.5 sm:border-b-0 sm:border-r">
-                    <FileSearch className="mt-0.5 size-3.5 text-muted-foreground/70" />
+                    <FileSearch className="mt-0.5 size-3.5 text-subtle-foreground" />
                     <div className="min-w-0">
-                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">扫描范围</div>
-                      <div className="mt-1 truncate font-mono text-xs text-foreground/80">根目录 / {runRootPath.replace(/^\/+/, '') || 'uploads'}</div>
+                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">扫描范围</div>
+                      <div className="mt-1 truncate font-mono text-xs text-muted-foreground">根目录 / {runRootPath.replace(/^\/+/, '') || 'uploads'}</div>
                     </div>
                   </div>
                   <div className="flex min-h-14 gap-2 border-b border-border/50 p-2.5 sm:border-b-0 sm:border-r">
-                    <FileText className="mt-0.5 size-3.5 text-muted-foreground/70" />
+                    <FileText className="mt-0.5 size-3.5 text-subtle-foreground" />
                     <div className="min-w-0">
-                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">支持格式</div>
-                      <div className="mt-1 text-xs text-foreground/80">PDF / DOCX / TXT / MD / 图片 等</div>
+                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">支持格式</div>
+                      <div className="mt-1 text-xs text-muted-foreground">PDF / DOCX / TXT / MD / 图片 等</div>
                     </div>
                   </div>
                   <div className="flex min-h-14 gap-2 p-2.5">
-                    <Settings2 className="mt-0.5 size-3.5 text-muted-foreground/70" />
+                    <Settings2 className="mt-0.5 size-3.5 text-subtle-foreground" />
                     <div className="min-w-0">
-                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">输出类型</div>
-                      <div className="mt-1 text-xs text-foreground/80">质量画像报告（不入库）</div>
+                      <div className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">输出类型</div>
+                      <div className="mt-1 text-xs text-muted-foreground">质量画像报告（不入库）</div>
                     </div>
                   </div>
                 </div>
@@ -1097,7 +1097,7 @@ export default function DatasetPrecheckPage() {
             >
               <div className="flex items-center justify-between border-b border-border/50 px-4 py-3.5">
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/85">RUN STATE</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground">RUN STATE</div>
                 </div>
                 <button
                   type="button"
@@ -1128,7 +1128,7 @@ export default function DatasetPrecheckPage() {
                             {runStatusLabel}
                           </div>
                         </div>
-                        <div className="mt-1.5 text-[11px] leading-4 text-muted-foreground/65">
+                        <div className="mt-1.5 text-[11px] leading-4 text-subtle-foreground">
                           填写可访问的 root_path 后启动，扫描进度、样本和画像会在这里实时刷新。
                         </div>
                       </div>
@@ -1137,15 +1137,15 @@ export default function DatasetPrecheckPage() {
                     <div className="mt-4 grid grid-cols-3 gap-2 text-[12px]">
                       <div className="rounded-lg border border-border/45 bg-card px-2.5 py-2 shadow-none dark:bg-card">
                         <div className="text-[11px] text-muted-foreground">当前批次</div>
-                        <div className="mt-1 font-mono text-foreground/80">{runBatchLabel}</div>
+                        <div className="mt-1 font-mono text-muted-foreground">{runBatchLabel}</div>
                       </div>
                       <div className="rounded-lg border border-border/45 bg-card px-2.5 py-2 shadow-none dark:bg-card">
                         <div className="text-[11px] text-muted-foreground">预计产物</div>
-                        <div className="mt-1 text-foreground/80">质量画像</div>
+                        <div className="mt-1 text-muted-foreground">质量画像</div>
                       </div>
                       <div className="rounded-lg border border-border/45 bg-card px-2.5 py-2 shadow-none dark:bg-card">
                         <div className="text-[11px] text-muted-foreground">不执行</div>
-                        <div className="mt-1 text-foreground/80">入库 / 切片 / KG</div>
+                        <div className="mt-1 text-muted-foreground">入库 / 切片 / KG</div>
                       </div>
                     </div>
 
@@ -1184,7 +1184,7 @@ export default function DatasetPrecheckPage() {
                       <ListChecks className="size-3.5" />
                       批次
                     </div>
-                    <div className="font-mono text-xs text-foreground/80">{runBatchLabel}</div>
+                    <div className="font-mono text-xs text-muted-foreground">{runBatchLabel}</div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground">
                       自动命名
                       <Switch checked={false} disabled />
@@ -1196,26 +1196,26 @@ export default function DatasetPrecheckPage() {
                       <Timer className="size-3.5 text-muted-foreground" />
                       <div>
                         <div className="text-[11px] text-muted-foreground">预计耗时</div>
-                        <div className="font-mono text-xs text-foreground/80">--</div>
+                        <div className="font-mono text-xs text-muted-foreground">--</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 border-l border-border/60 pl-4">
                       <History className="size-3.5 text-muted-foreground" />
                       <div>
                         <div className="text-[11px] text-muted-foreground">上次运行</div>
-                        <div className="font-mono text-xs text-foreground/80">{selectedRun?.finished_at ? formatPrecheckTimestamp(selectedRun.finished_at) : '--'}</div>
+                        <div className="font-mono text-xs text-muted-foreground">{selectedRun?.finished_at ? formatPrecheckTimestamp(selectedRun.finished_at) : '--'}</div>
                       </div>
                     </div>
                   </div>
 
                   <div className="border-b border-border/60 py-3.5">
-                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">输出内容</div>
-                    <div className="mt-1 text-[11px] leading-4 text-foreground/60">格式分布、长度分布、扫描件占比、PII/Secrets 命中、代表样本、近重复候选等画像指标。</div>
+                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">输出内容</div>
+                    <div className="mt-1 text-[11px] leading-4 text-subtle-foreground">格式分布、长度分布、扫描件占比、PII/Secrets 命中、代表样本、近重复候选等画像指标。</div>
                   </div>
 
                   <div className="py-3.5">
-                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground/80">结果条目</div>
-                    <div className="mt-1 font-mono text-xs text-foreground/70">{hasRunOutput ? `${runTotalFiles} files` : '--'}</div>
+                    <div className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">结果条目</div>
+                    <div className="mt-1 font-mono text-xs text-muted-foreground">{hasRunOutput ? `${runTotalFiles} files` : '--'}</div>
                   </div>
 
                   {selectedRun?.error_message ? (
@@ -1230,20 +1230,20 @@ export default function DatasetPrecheckPage() {
 
           <Panel data-precheck-bottom-strip="true" className="overflow-hidden border border-border/50 bg-card p-0 shadow-none dark:border-border/60 dark:bg-card">
             <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 px-4 py-2.5 text-[11px] leading-none text-muted-foreground">
-              <span className="inline-flex items-center gap-2 text-foreground/75">
+              <span className="inline-flex items-center gap-2 text-muted-foreground">
                 <Clock3 className="size-3 text-primary" />
                 <span>等待第一次扫描</span>
                 <span className="font-mono text-[10px] text-muted-foreground">runs: {runs.length}</span>
               </span>
               <span className="h-3.5 w-px bg-border/70" />
               <span>
-                下一步：<span className="text-foreground/75">填写 root_path 后启动</span>
+                下一步：<span className="text-muted-foreground">填写 root_path 后启动</span>
               </span>
               <span>
-                会生成：<span className="text-foreground/75">格式 / PDF / PII / 样本</span>
+                会生成：<span className="text-muted-foreground">格式 / PDF / PII / 样本</span>
               </span>
               <span>
-                不会执行：<span className="text-foreground/75">文档入库 / 切片 / 索引 / KG</span>
+                不会执行：<span className="text-muted-foreground">文档入库 / 切片 / 索引 / KG</span>
               </span>
             </div>
           </Panel>
@@ -1253,7 +1253,7 @@ export default function DatasetPrecheckPage() {
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
                 <div className="font-semibold">对比扫描结果（Diff）</div>
-                <div className="mt-1 text-[11px] leading-4 text-muted-foreground/65">用于复盘治理成效：格式分布、问题清单、扫描件占比等的变化</div>
+                <div className="mt-1 text-[11px] leading-4 text-subtle-foreground">用于复盘治理成效：格式分布、问题清单、扫描件占比等的变化</div>
               </div>
               <div className="flex items-center gap-2">
                 <Select value={diffBaseRunId} onValueChange={(v) => setDiffBaseRunId(v)}>
@@ -1340,7 +1340,7 @@ export default function DatasetPrecheckPage() {
                 </div>
               </div>
             ) : (
-              <div className="mt-4 text-[11px] text-muted-foreground/65">未计算</div>
+              <div className="mt-4 text-[11px] text-subtle-foreground">未计算</div>
             )}
           </Panel>
 
@@ -1502,7 +1502,7 @@ export default function DatasetPrecheckPage() {
                     </BarChart>
                   </SafeResponsiveChart>
               ) : (
-                <div className="h-[280px] flex items-center justify-center text-[11px] text-muted-foreground/60">暂无数据</div>
+                <div className="h-[280px] flex items-center justify-center text-[11px] text-subtle-foreground">暂无数据</div>
               )}
             </Panel>
 
@@ -1521,7 +1521,7 @@ export default function DatasetPrecheckPage() {
                     </BarChart>
                   </SafeResponsiveChart>
               ) : (
-                <div className="h-[280px] flex items-center justify-center text-[11px] text-muted-foreground/60">暂无数据</div>
+                <div className="h-[280px] flex items-center justify-center text-[11px] text-subtle-foreground">暂无数据</div>
               )}
             </Panel>
           </div>
@@ -1530,7 +1530,7 @@ export default function DatasetPrecheckPage() {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="font-semibold">代表性样本（抽样）</div>
-                <div className="mt-1 text-[11px] leading-4 text-muted-foreground/65">用于售前/交付对齐范围：分层代表性 + 问题分桶样本（不会做删留决策）</div>
+                <div className="mt-1 text-[11px] leading-4 text-subtle-foreground">用于售前/交付对齐范围：分层代表性 + 问题分桶样本（不会做删留决策）</div>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -1611,7 +1611,7 @@ export default function DatasetPrecheckPage() {
                 </div>
               </div>
             ) : (
-              <div className="mt-4 text-[11px] text-muted-foreground/65">未加载</div>
+              <div className="mt-4 text-[11px] text-subtle-foreground">未加载</div>
             )}
           </Panel>
 
@@ -1619,7 +1619,7 @@ export default function DatasetPrecheckPage() {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="font-semibold">近重复候选（版本冲突）</div>
-                <div className="mt-1 text-[11px] leading-4 text-muted-foreground/65">基于抽样文本 SimHash；只输出待确认列表（不做删留决策）</div>
+                <div className="mt-1 text-[11px] leading-4 text-subtle-foreground">基于抽样文本 SimHash；只输出待确认列表（不做删留决策）</div>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -1652,18 +1652,18 @@ export default function DatasetPrecheckPage() {
             </div>
 
             {nearDupRes ? (
-              <div className="mt-4 text-[11px] text-muted-foreground/65">
+              <div className="mt-4 text-[11px] text-subtle-foreground">
                 clusters={nearDupRes.clusters_returned} · pairs={nearDupRes.pairs_returned} · threshold={nearDupRes.threshold}
               </div>
             ) : (
-              <div className="mt-4 text-[11px] text-muted-foreground/65">未加载（需要在扫描时开启“近重复”）</div>
+              <div className="mt-4 text-[11px] text-subtle-foreground">未加载（需要在扫描时开启“近重复”）</div>
             )}
           </Panel>
 
           <Panel className="p-5">
             <div className="flex items-center justify-between gap-4 mb-4">
               <div className="font-semibold">问题清单（可操作）</div>
-              <div className="text-[11px] text-muted-foreground/65">点击卡片查看文件列表（分页）</div>
+              <div className="text-[11px] text-subtle-foreground">点击卡片查看文件列表（分页）</div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -1863,14 +1863,14 @@ export default function DatasetPrecheckPage() {
           <DialogContent className="max-w-3xl border-border bg-background/95 p-4 shadow-strong sm:rounded-2xl">
             <DialogHeader className="space-y-1.5">
               <DialogTitle className="text-[15px] font-semibold text-foreground">预检扫描 · 高级配置</DialogTitle>
-              <DialogDescription className="rounded-lg border border-info/20 bg-info/5 px-2.5 py-1.5 text-[11px] leading-4 text-muted-foreground/70">
+              <DialogDescription className="rounded-lg border border-info/20 bg-info/5 px-2.5 py-1.5 text-[11px] leading-4 text-subtle-foreground">
                 提示：<span className="font-mono">redact_paths</span> 会禁用 PII/Secrets 上下文样本；<span className="font-mono">reuse_unchanged_files</span> 仅在非脱敏且 root_path 相同时生效。
               </DialogDescription>
             </DialogHeader>
 
             <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
               <div className="space-y-1.5">
-                <Label className="text-[11px] font-medium text-foreground/75">PDF 抽样页数 <span className="font-mono text-muted-foreground/55">pdf_sample_pages</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">PDF 抽样页数 <span className="font-mono text-subtle-foreground">pdf_sample_pages</span></Label>
                 <Input
                   placeholder="默认 3"
                   value={scanConfig.pdf_sample_pages ?? ''}
@@ -1882,7 +1882,7 @@ export default function DatasetPrecheckPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[11px] font-medium text-foreground/75">文本抽样最大字节 <span className="font-mono text-muted-foreground/55">text_extract_max_bytes</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">文本抽样最大字节 <span className="font-mono text-subtle-foreground">text_extract_max_bytes</span></Label>
                 <Input
                   placeholder="默认 2000000"
                   value={scanConfig.text_extract_max_bytes ?? ''}
@@ -1897,18 +1897,18 @@ export default function DatasetPrecheckPage() {
 
             <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/45 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-[11px] font-medium text-foreground/75">近重复候选 <span className="font-mono text-muted-foreground/55">enable_near_dup</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">近重复候选 <span className="font-mono text-subtle-foreground">enable_near_dup</span></Label>
                 <Switch checked={!!scanConfig.enable_near_dup} onCheckedChange={(v) => setScanConfig((p) => ({ ...p, enable_near_dup: !!v }))} />
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/45 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-[11px] font-medium text-foreground/75">抽样清单 <span className="font-mono text-muted-foreground/55">enable_sampling</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">抽样清单 <span className="font-mono text-subtle-foreground">enable_sampling</span></Label>
                 <Switch checked={!!scanConfig.enable_sampling} onCheckedChange={(v) => setScanConfig((p) => ({ ...p, enable_sampling: !!v }))} />
               </div>
             </div>
 
             <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-2">
               <div className="space-y-1.5">
-                <Label className="text-[11px] font-medium text-foreground/75">抽样数量 <span className="font-mono text-muted-foreground/55">sample_size</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">抽样数量 <span className="font-mono text-subtle-foreground">sample_size</span></Label>
                 <Input
                   placeholder="默认 60"
                   value={scanConfig.sample_size ?? ''}
@@ -1920,7 +1920,7 @@ export default function DatasetPrecheckPage() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[11px] font-medium text-foreground/75">近重复阈值 <span className="font-mono text-muted-foreground/55">near_dup_hamming_threshold</span></Label>
+                <Label className="text-[11px] font-medium text-muted-foreground">近重复阈值 <span className="font-mono text-subtle-foreground">near_dup_hamming_threshold</span></Label>
                 <Input
                   placeholder="默认 5"
                   value={scanConfig.near_dup_hamming_threshold ?? ''}

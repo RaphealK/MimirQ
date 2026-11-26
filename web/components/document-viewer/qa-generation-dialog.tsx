@@ -52,11 +52,11 @@ export function QAGenerationDialog({
         <div className="space-y-4">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <div className="space-y-2">
-              <div className="text-compact font-medium text-foreground/80">Num pairs</div>
+              <div className="text-compact font-medium text-muted-foreground">Num pairs</div>
               <Input value={String(qaNumPairs)} onChange={(event) => onNumPairsChange(Number(event.target.value || 0))} inputMode="numeric" />
             </div>
             <div className="space-y-2">
-              <div className="text-compact font-medium text-foreground/80">Max source chars</div>
+              <div className="text-compact font-medium text-muted-foreground">Max source chars</div>
               <Input
                 value={String(qaMaxSourceChars)}
                 onChange={(event) => onMaxSourceCharsChange(Number(event.target.value || 0))}

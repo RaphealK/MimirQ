@@ -73,11 +73,11 @@ export function QuarantineReviewDrawer({
                 </div>
                 {selected ? (
                   <div className="mt-1 flex items-center gap-2">
-                    <span className="font-mono text-[10px] font-medium uppercase text-muted-foreground/45">
+                    <span className="font-mono text-[10px] font-medium uppercase text-subtle-foreground">
                       {selected.id}
                     </span>
                     <div className="h-1 w-1 rounded-full bg-border" />
-                    <span className="font-mono text-[10px] font-medium text-muted-foreground/50">
+                    <span className="font-mono text-[10px] font-medium text-subtle-foreground">
                       {formatDate(selected.updated_at)}
                     </span>
                   </div>

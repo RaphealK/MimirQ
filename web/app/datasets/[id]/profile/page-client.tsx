@@ -74,12 +74,12 @@ const PROFILE_BUCKET_PREVIEW_MAX_CHARS = 360
 const profileHeroCard = 'relative overflow-hidden border-b border-border/60 bg-transparent px-1 py-2 shadow-none dark:border-border/70'
 const profilePanelClass = 'overflow-hidden border border-border/60 bg-card p-3 shadow-none dark:border-border/70 dark:bg-card'
 const profileChartProps = { className: 'h-[176px]', minHeight: 176 } as const
-const profileEmptyChartClass = 'h-[176px] flex items-center justify-center text-[11px] text-muted-foreground/60'
-const profileSectionTitleClass = 'text-[13px] font-semibold leading-none text-foreground/85'
-const profileSectionCaptionClass = 'mt-1 text-[11px] leading-4 text-muted-foreground/62'
+const profileEmptyChartClass = 'h-[176px] flex items-center justify-center text-[11px] text-subtle-foreground'
+const profileSectionTitleClass = 'text-[13px] font-semibold leading-none text-foreground'
+const profileSectionCaptionClass = 'mt-1 text-[11px] leading-4 text-subtle-foreground'
 const profileToolbarGroupClass = 'inline-flex flex-wrap items-center gap-1 rounded-lg border border-border/60 bg-card p-1 shadow-none dark:border-border/70 dark:bg-card'
 const profileToolbarButtonClass = 'h-8 gap-1.5 rounded-xl px-2.5 text-[12px] font-medium text-muted-foreground shadow-none hover:bg-card/95 hover:text-foreground hover:shadow-sm dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
-const profileToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground/85 shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
+const profileToolbarExportButtonClass = 'h-8 gap-1.5 rounded-md border border-border/60 bg-card px-2.5 text-[12px] font-medium text-foreground shadow-none hover:bg-muted/40 hover:text-foreground dark:border-border/70 dark:bg-card dark:text-muted-foreground dark:hover:bg-muted/60 dark:hover:text-foreground [&_svg]:size-3.5'
 const profileToolbarPrimaryButtonClass = 'h-8 gap-1.5 rounded-md border border-primary/20 bg-primary px-3 text-[12px] font-semibold text-primary-foreground shadow-none hover:bg-primary/90 dark:border-primary/30 [&_svg]:size-3.5'
 
 function ProfileCardHeader({
@@ -101,7 +101,7 @@ function ProfileCardHeader({
       </div>
       {action || meta ? (
         <div className="shrink-0">
-          {action || <div className="font-mono text-[10px] leading-none text-muted-foreground/55">{meta}</div>}
+          {action || <div className="font-mono text-[10px] leading-none text-subtle-foreground">{meta}</div>}
         </div>
       ) : null}
     </div>
@@ -833,7 +833,7 @@ export default function DatasetProfilePage() {
                   </div>
                   <p className="max-w-4xl text-[12px] leading-5 text-muted-foreground">
                     数据集：<span className="font-semibold text-foreground dark:text-foreground">{dataset?.name || datasetId || '未选择'}</span>
-                    <span className="mx-2 text-muted-foreground/60">·</span>
+                    <span className="mx-2 text-subtle-foreground">·</span>
                     格式、长度、扫描件、PII、重复与切片指标的质量画像
                   </p>
                   <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] leading-none text-muted-foreground">
@@ -1130,23 +1130,23 @@ export default function DatasetProfilePage() {
                       />
                       <div className="min-w-0">
                         <div className="flex min-w-0 items-center gap-1.5 pl-2">
-                          <div className="truncate text-[12px] font-semibold text-foreground/85">{formatChunkTargetLabel(t.label || t.key)}</div>
+                          <div className="truncate text-[12px] font-semibold text-foreground">{formatChunkTargetLabel(t.label || t.key)}</div>
                           <Badge variant={targetBadgeVariant(String(t.status || ''))} className="h-5 shrink-0 px-1.5 text-[10px] font-mono uppercase">
                             {String(t.status || '')}
                           </Badge>
                         </div>
                         {t.message ? (
-                          <div className="mt-1 line-clamp-2 pl-2 text-[11px] leading-4 text-muted-foreground/65 text-pretty">
+                          <div className="mt-1 line-clamp-2 pl-2 text-[11px] leading-4 text-subtle-foreground text-pretty">
                             {String(t.message)}
                           </div>
                         ) : null}
                       </div>
 
                       {t.suggestions.length ? (
-                        <div className="mt-2 rounded-lg bg-muted/40 px-2.5 py-1.5 text-[11px] leading-4 text-muted-foreground/70 dark:bg-muted/30">
+                        <div className="mt-2 rounded-lg bg-muted/40 px-2.5 py-1.5 text-[11px] leading-4 text-subtle-foreground dark:bg-muted/30">
                           {String(t.suggestions[0])}
                           {t.suggestions.length > 1 ? (
-                            <span className="ml-1 text-muted-foreground/45">+{t.suggestions.length - 1}</span>
+                            <span className="ml-1 text-subtle-foreground">+{t.suggestions.length - 1}</span>
                           ) : null}
                         </div>
                       ) : null}
@@ -1154,7 +1154,7 @@ export default function DatasetProfilePage() {
                   ))}
                 </div>
               ) : (
-                <div className="py-8 text-center text-[11px] text-muted-foreground/60">
+                <div className="py-8 text-center text-[11px] text-subtle-foreground">
                   暂无数据（可运行深度扫描补齐 chunk token/coverage 等指标）
                 </div>
               )}
@@ -1400,13 +1400,13 @@ export default function DatasetProfilePage() {
                     />
                     <div className="min-w-0">
                       <div className="flex min-w-0 items-center gap-1.5 pl-2">
-                        <div className="truncate text-[12px] font-semibold text-foreground/85">{f.label}</div>
+                        <div className="truncate text-[12px] font-semibold text-foreground">{f.label}</div>
                         <Badge variant={findingBadgeVariant(f.severity)} className="h-5 shrink-0 px-1.5 text-[10px] font-mono">
                           ×{f.count}
                         </Badge>
                       </div>
                       {f.description ? (
-                        <div className="mt-1 line-clamp-2 pl-2 text-[11px] leading-4 text-muted-foreground/65">{f.description}</div>
+                        <div className="mt-1 line-clamp-2 pl-2 text-[11px] leading-4 text-subtle-foreground">{f.description}</div>
                       ) : null}
                     </div>
                     <div className="mt-2 pl-2 text-[11px] font-medium text-info">查看文件</div>
@@ -1421,20 +1421,20 @@ export default function DatasetProfilePage() {
 
             {clearFindings.length ? (
               <div className="mt-3 rounded-xl border border-border/40 bg-muted/40 px-2 py-1.5 dark:bg-muted/20">
-                <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/55">
+                <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-subtle-foreground">
                   已检查未命中
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {clearFindings.slice(0, 10).map((f) => (
                     <span
                       key={f.key}
-                      className="rounded-full border border-border/45 bg-card/60 px-2 py-0.5 text-[10px] leading-4 text-muted-foreground/65 dark:bg-card/50"
+                      className="rounded-full border border-border/45 bg-card/60 px-2 py-0.5 text-[10px] leading-4 text-subtle-foreground dark:bg-card/50"
                     >
                       {f.label}
                     </span>
                   ))}
                   {clearFindings.length > 10 ? (
-                    <span className="rounded-full px-2 py-0.5 text-[10px] leading-4 text-muted-foreground/45">
+                    <span className="rounded-full px-2 py-0.5 text-[10px] leading-4 text-subtle-foreground">
                       +{clearFindings.length - 10}
                     </span>
                   ) : null}
@@ -1448,7 +1448,7 @@ export default function DatasetProfilePage() {
           <Panel className={cn(profilePanelClass, 'p-3')}>
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="flex items-center gap-2 text-[13px] font-semibold text-foreground/85">
+                <div className="flex items-center gap-2 text-[13px] font-semibold text-foreground">
                   深度扫描
                   {latestRunStatus ? (
                     <Badge variant="outline" className="h-5 px-1.5 text-[10px] font-mono">
@@ -1469,35 +1469,35 @@ export default function DatasetProfilePage() {
 
             <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-5">
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/55 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-xs text-foreground/80">PDF 指标</Label>
+                <Label className="text-xs text-muted-foreground">PDF 指标</Label>
                 <Switch
                   checked={!!scanConfig.backfill_pdf_quality}
                   onCheckedChange={(v) => setScanConfig((prev) => ({ ...prev, backfill_pdf_quality: !!v }))}
                 />
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/55 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-xs text-foreground/80">文本质量</Label>
+                <Label className="text-xs text-muted-foreground">文本质量</Label>
                 <Switch
                   checked={!!scanConfig.backfill_text_quality}
                   onCheckedChange={(v) => setScanConfig((prev) => ({ ...prev, backfill_text_quality: !!v }))}
                 />
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/55 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-xs text-foreground/80">切片分布</Label>
+                <Label className="text-xs text-muted-foreground">切片分布</Label>
                 <Switch
                   checked={!!scanConfig.backfill_chunk_stats}
                   onCheckedChange={(v) => setScanConfig((prev) => ({ ...prev, backfill_chunk_stats: !!v }))}
                 />
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/55 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-xs text-foreground/80">文件哈希</Label>
+                <Label className="text-xs text-muted-foreground">文件哈希</Label>
                 <Switch
                   checked={!!scanConfig.compute_file_hash}
                   onCheckedChange={(v) => setScanConfig((prev) => ({ ...prev, compute_file_hash: !!v }))}
                 />
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border/50 bg-card/55 px-2.5 py-2 dark:bg-card/40">
-                <Label className="text-xs text-foreground/80">最大文档数</Label>
+                <Label className="text-xs text-muted-foreground">最大文档数</Label>
                 <Input
                   value={scanConfig.max_documents ?? ''}
                   placeholder="不限"
@@ -1516,7 +1516,7 @@ export default function DatasetProfilePage() {
             </div>
 
             <div className="mt-2 flex items-center justify-between gap-4 rounded-lg bg-muted/40 px-2.5 py-1.5 dark:bg-muted/20">
-              <div className="text-[11px] text-muted-foreground/65">
+              <div className="text-[11px] text-subtle-foreground">
                 进度：{(() => {
     if (scanRunning) {
         return `${latestRunProgress || 0}%`;
@@ -1577,7 +1577,7 @@ export default function DatasetProfilePage() {
                 </table>
               </div>
             ) : (
-              <div className="rounded-xl border border-border/45 bg-muted/40 px-2 py-1.5 text-[11px] text-muted-foreground/60 dark:bg-muted/20">
+              <div className="rounded-xl border border-border/45 bg-muted/40 px-2 py-1.5 text-[11px] text-subtle-foreground dark:bg-muted/20">
                 暂无扫描记录。启动一次深度扫描后，这里会显示快照和可对比版本。
               </div>
             )}
@@ -1585,7 +1585,7 @@ export default function DatasetProfilePage() {
             <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_280px]">
               <div className="rounded-xl border border-border/50 bg-card/45 p-3 dark:bg-card/40">
                 <div className="mb-2 flex items-center justify-between gap-2">
-                  <div className="text-[13px] font-semibold text-foreground/85">快照对比</div>
+                  <div className="text-[13px] font-semibold text-foreground">快照对比</div>
                   <Badge variant="outline" className="h-5 px-1.5 text-[10px] font-mono text-muted-foreground">
                     已完成 {completedRuns.length}
                   </Badge>
@@ -1657,14 +1657,14 @@ export default function DatasetProfilePage() {
                         </div>
                       </div>
                     ) : (
-                    <div className="mt-3 rounded-lg bg-muted/40 px-2.5 py-1.5 text-[11px] text-muted-foreground/60 dark:bg-muted/20">
+                    <div className="mt-3 rounded-lg bg-muted/40 px-2.5 py-1.5 text-[11px] text-subtle-foreground dark:bg-muted/20">
                         请选择两个已完成扫描记录。
                       </div>
                     )}
                   </>
                 ) : (
-                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-3 py-2 text-[11px] leading-4 text-muted-foreground/65 dark:bg-muted/20">
-                    <div className="font-medium text-foreground/75">暂无可对比快照</div>
+                  <div className="rounded-lg border border-dashed border-border/55 bg-muted/40 px-3 py-2 text-[11px] leading-4 text-subtle-foreground dark:bg-muted/20">
+                    <div className="font-medium text-muted-foreground">暂无可对比快照</div>
                     <div className="mt-0.5">
                       至少需要 2 次已完成深度扫描；当前 {completedRuns.length} 次。完成后这里会出现基准/对比快照下拉。
                     </div>
@@ -1673,8 +1673,8 @@ export default function DatasetProfilePage() {
               </div>
 
               <div className="rounded-xl border border-border/50 bg-card/45 p-3 dark:bg-card/40">
-                <div className="text-[13px] font-semibold text-foreground/85">离线报告</div>
-                <div className="text-[11px] leading-4 text-muted-foreground/65">
+                <div className="text-[13px] font-semibold text-foreground">离线报告</div>
+                <div className="text-[11px] leading-4 text-subtle-foreground">
                   导出单文件 HTML，默认脱敏，适合离线分享。
                 </div>
                 <div className="mt-3 flex items-center gap-2">
@@ -1828,7 +1828,7 @@ export default function DatasetProfilePage() {
                 </div>);
         }
         else {
-            return (<div className="py-10 text-center text-[11px] text-muted-foreground/60">
+            return (<div className="py-10 text-center text-[11px] text-subtle-foreground">
                   暂无数据
                 </div>);
         }
@@ -1956,7 +1956,7 @@ export default function DatasetProfilePage() {
                 </div>);
         }
         else {
-            return (<div className="py-10 text-center text-[11px] text-muted-foreground/60">
+            return (<div className="py-10 text-center text-[11px] text-subtle-foreground">
                   暂无数据
                 </div>);
         }

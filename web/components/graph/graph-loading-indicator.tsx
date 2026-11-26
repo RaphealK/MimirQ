@@ -59,7 +59,7 @@ export function GraphLoadingIndicator({
       </div>
 
       <div className="space-y-1">
-        <p className="text-sm font-medium tracking-[0.01em] text-foreground/88">{message}</p>
+        <p className="text-sm font-medium tracking-[0.01em] text-foreground">{message}</p>
         {hint ? (
           <p className="text-[11px] leading-5 text-muted-foreground">{hint}</p>
         ) : null}

@@ -163,7 +163,7 @@ export function EvidenceSuiteWorkbenchShell({
               <div className="text-xs text-muted-foreground text-pretty">
                 当前链接携带了一个待处理的 <span className="font-mono">feedback_id</span>。确认目标 suite 后，可直接导入为 draft EvidenceItem。
               </div>
-              <div className="text-[11px] font-mono text-foreground/80">feedback_id={pendingFeedbackId}</div>
+              <div className="text-[11px] font-mono text-muted-foreground">feedback_id={pendingFeedbackId}</div>
             </div>
             <div className="flex flex-wrap items-center gap-2">
               <Button

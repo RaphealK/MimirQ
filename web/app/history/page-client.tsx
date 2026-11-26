@@ -561,7 +561,7 @@ function HistoryPageContent({
                 </div>
                 
                 <div className="relative group">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground/50 group-focus-within:text-primary transition-colors" />
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-subtle-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     maxLength={500}
                     value={searchQuery}
@@ -656,7 +656,7 @@ function HistoryPageContent({
                     )}
                   </Button>
                 ) : (
-                  <span className="text-[11px] text-muted-foreground/45">已显示全部历史</span>
+                  <span className="text-[11px] text-subtle-foreground">已显示全部历史</span>
                 )}
               </div>
             </>);
@@ -723,14 +723,14 @@ function HistoryPageContent({
                             "min-w-0 flex flex-col justify-center transition-all duration-500",
                             isSidebarCollapsed ? "ml-12" : "ml-0"
                           )}>
-                            <h2 className="truncate text-base font-medium text-foreground/92  leading-tight md:text-lg">
+                            <h2 className="truncate text-base font-medium text-foreground  leading-tight md:text-lg">
                               {displayConversation.title || t("untitledConversation")}
                             </h2>
                             <div className="flex items-center gap-1 mt-0.5 tabular-nums">
                               <span className="inline-flex items-center rounded-md border border-foreground/10 bg-background/70 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                                 {t("messageCount", { count: displayConversation.message_count })}
                               </span>
-                              <span className="text-muted-foreground/20 text-[11px] leading-none px-0.5">•</span>
+                              <span className="text-subtle-foreground text-[11px] leading-none px-0.5">•</span>
                               <span suppressHydrationWarning className="inline-flex items-center gap-1 rounded-md border border-foreground/10 bg-background/70 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">
                                 {formatDate(displayConversation.created_at, locale)}
                               </span>
@@ -816,14 +816,14 @@ function HistoryPageContent({
                         >
                           <ConversationOpsPanel conversationId={displayConversation.id} />
                           {hasMoreMessages ? (<div className="flex justify-center mb-4">
-                              <Button variant="ghost" size="sm" onClick={loadOlderMessages} disabled={isLoadingOlder} className="rounded-md text-[11px] font-bold uppercase text-muted-foreground/60 hover:bg-muted/40 hover:text-foreground">
+                              <Button variant="ghost" size="sm" onClick={loadOlderMessages} disabled={isLoadingOlder} className="rounded-md text-[11px] font-bold uppercase text-subtle-foreground hover:bg-muted/40 hover:text-foreground">
                                 {isLoadingOlder ? t('loading') : t('loadOlderMessages')}
                               </Button>
                             </div>) : null}
                           {groupedMessages.map((group) => (<div key={group.key} className="space-y-6">
                               <div className="flex items-center gap-6 py-1">
                                 <div className="h-px flex-1 bg-foreground/10" />
-                                <div suppressHydrationWarning className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground/60">
+                                <div suppressHydrationWarning className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.18em] text-subtle-foreground">
                                   {group.label}
                                 </div>
                                 <div className="h-px flex-1 bg-foreground/10" />
@@ -881,7 +881,7 @@ function HistoryMainEmptyState({
           <h2 className="mt-2.5 text-lg font-semibold tracking-[-0.035em] text-foreground">
             {title}
           </h2>
-          <p className="mt-2 max-w-sm text-[13px] leading-6 text-muted-foreground/75">
+          <p className="mt-2 max-w-sm text-[13px] leading-6 text-muted-foreground">
             {description}
           </p>
 
@@ -909,8 +909,8 @@ function HistorySidebarEmptyState({
   if (isSearching) {
     return (
       <div className="mx-2 mt-3 rounded-lg border border-dashed border-foreground/10 bg-background px-5 py-8 text-center text-sm text-muted-foreground">
-        <Search className="mx-auto mb-3 size-7 text-muted-foreground/35" />
-        <p className="font-medium text-foreground/70">{t('noMatchedConversation')}</p>
+        <Search className="mx-auto mb-3 size-7 text-subtle-foreground" />
+        <p className="font-medium text-muted-foreground">{t('noMatchedConversation')}</p>
       </div>
     )
   }
@@ -926,7 +926,7 @@ function HistorySidebarEmptyState({
       <h3 className="text-sm font-semibold tracking-[-0.025em] text-foreground">
         {t('noConversationRecords')}
       </h3>
-      <p className="mx-auto mt-1.5 max-w-[13rem] text-[11px] leading-[1.125rem] text-muted-foreground/70">
+      <p className="mx-auto mt-1.5 max-w-[13rem] text-[11px] leading-[1.125rem] text-subtle-foreground">
         {t('historyEmptyDescription')}
       </p>
     </div>
@@ -965,7 +965,7 @@ export function ConversationItem({
           'relative flex w-full flex-col gap-0.5 overflow-hidden rounded-md border border-transparent px-3 py-1.5 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
           isSelected 
             ? 'border-primary/20 bg-primary/[0.08] text-foreground'
-            : 'bg-transparent text-foreground/80 hover:bg-muted/40 hover:text-foreground'
+            : 'bg-transparent text-muted-foreground hover:bg-muted/40 hover:text-foreground'
         )}
       >
         {/* 选中时的左侧指示条 */}
@@ -979,22 +979,22 @@ export function ConversationItem({
         <div className="flex items-start justify-between gap-3">
           <span className={cn(
             'flex-1 truncate text-[13.5px] font-normal leading-snug ',
-            isSelected ? 'text-primary' : 'text-foreground/88'
+            isSelected ? 'text-primary' : 'text-foreground'
           )}>
             {conversation.title || t('untitledConversation')}
           </span>
           <time
             suppressHydrationWarning
             dateTime={conversation.last_message_at || conversation.updated_at || conversation.created_at}
-            className="text-[9px] font-medium uppercase  text-muted-foreground/30 pt-1.5 tabular-nums group-hover:text-muted-foreground/50 transition-colors shrink-0"
+            className="text-[9px] font-medium uppercase  text-subtle-foreground pt-1.5 tabular-nums group-hover:text-subtle-foreground transition-colors shrink-0"
           >
             {formatRelativeTime(conversation.last_message_at || conversation.updated_at, locale, t('justNow'))}
           </time>
         </div>
-        <div className="flex items-center gap-2 text-[11px] font-normal text-muted-foreground/40 tabular-nums">
+        <div className="flex items-center gap-2 text-[11px] font-normal text-subtle-foreground tabular-nums">
           <span className="shrink-0">{t('messageCount', { count: conversation.message_count })}</span>
-          <span className="text-muted-foreground/20">/</span>
-          <p className="truncate flex-1 font-normal  text-muted-foreground/50 lowercase">
+          <span className="text-subtle-foreground">/</span>
+          <p className="truncate flex-1 font-normal  text-subtle-foreground lowercase">
             {conversation.last_message || t('noMessage')}
           </p>
         </div>
@@ -1017,7 +1017,7 @@ export function ConversationItem({
             <IconButton
               label={t('cancelDelete')}
               variant="ghost"
-              className="size-8 rounded-md text-muted-foreground/40 transition-all hover:bg-muted hover:text-foreground active:bg-muted"
+              className="size-8 rounded-md text-subtle-foreground transition-all hover:bg-muted hover:text-foreground active:bg-muted"
               onClick={(e) => { e.stopPropagation(); onCancelDelete() }}
             >
               <X className="size-4" />
@@ -1028,7 +1028,7 @@ export function ConversationItem({
             <IconButton
               label={t('deleteConversation')}
               variant="ghost"
-              className="size-8 rounded-md text-muted-foreground/30 transition-all hover:bg-destructive/10 hover:text-destructive active:bg-destructive/20"
+              className="size-8 rounded-md text-subtle-foreground transition-all hover:bg-destructive/10 hover:text-destructive active:bg-destructive/20"
               onClick={(e) => { e.stopPropagation(); onDelete() }}
             >
               <Trash2 className="size-4" />
@@ -1131,7 +1131,7 @@ function HistoryMessageRoleBadge({
         'inline-flex items-center gap-2 rounded-md border px-2.5 py-1 text-[11px] font-semibold',
         isUser
           ? 'border-primary/15 bg-primary/10 text-primary'
-          : 'border-foreground/10 bg-background text-foreground/80'
+          : 'border-foreground/10 bg-background text-muted-foreground'
       )}
     >
       <span className={cn('h-1.5 w-1.5 rounded-sm', isUser ? 'bg-primary' : 'bg-info')} />
@@ -1152,7 +1152,7 @@ function getConversationGroupTone(
 ) {
   if (group === labels.today) {
     return {
-      chipClass: 'border-foreground/10 bg-background text-foreground/80',
+      chipClass: 'border-foreground/10 bg-background text-muted-foreground',
       countClass: 'border border-foreground/10 bg-background text-muted-foreground',
       lineClass: 'bg-foreground/10',
     }
@@ -1160,7 +1160,7 @@ function getConversationGroupTone(
 
   if (group === labels.yesterday) {
     return {
-      chipClass: 'border-foreground/10 bg-background text-foreground/80',
+      chipClass: 'border-foreground/10 bg-background text-muted-foreground',
       countClass: 'border border-foreground/10 bg-background text-muted-foreground',
       lineClass: 'bg-foreground/10',
     }
@@ -1168,7 +1168,7 @@ function getConversationGroupTone(
 
   if (group === labels.last7Days) {
     return {
-      chipClass: 'border-foreground/10 bg-background text-foreground/80',
+      chipClass: 'border-foreground/10 bg-background text-muted-foreground',
       countClass: 'border border-foreground/10 bg-background text-muted-foreground',
       lineClass: 'bg-foreground/10',
     }
@@ -1176,7 +1176,7 @@ function getConversationGroupTone(
 
   if (group === labels.last30Days) {
     return {
-      chipClass: 'border-foreground/10 bg-background text-foreground/80',
+      chipClass: 'border-foreground/10 bg-background text-muted-foreground',
       countClass: 'border border-foreground/10 bg-background text-muted-foreground',
       lineClass: 'bg-foreground/10',
     }

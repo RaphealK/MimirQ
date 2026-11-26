@@ -242,7 +242,7 @@ function EmptyStructurePreview({
             >
               {node.value}
             </span>
-            <span className="min-w-0 text-xs font-medium text-foreground/86">
+            <span className="min-w-0 text-xs font-medium text-foreground">
               {node.label}
             </span>
             <span
@@ -1508,7 +1508,7 @@ export function DataGovernancePanel() {
                           ? t('emptyUpload.uploadingDescription')
                           : t('emptyUpload.idleDescription')}
                       </p>
-                      <p className="mx-auto mt-2 max-w-xl text-xs leading-5 text-muted-foreground/78">
+                      <p className="mx-auto mt-2 max-w-xl text-xs leading-5 text-muted-foreground">
                         {t('emptyUpload.dropCta')}
                       </p>
                     </button>
@@ -1517,7 +1517,7 @@ export function DataGovernancePanel() {
                       {EMPTY_UPLOAD_FORMATS.map((format) => (
                         <span
                           key={format}
-                          className="rounded-full border border-border/55 bg-card/78 px-3 py-1 text-[11px] font-semibold text-foreground/80 shadow-sm"
+                          className="rounded-full border border-border/55 bg-card/78 px-3 py-1 text-[11px] font-semibold text-muted-foreground shadow-sm"
                         >
                           {format}
                         </span>
@@ -1603,7 +1603,7 @@ export function DataGovernancePanel() {
                         ].map((item) => (
                           <div
                             key={item}
-                            className="flex items-center gap-2 py-2.5 text-xs text-foreground/82"
+                            className="flex items-center gap-2 py-2.5 text-xs text-foreground"
                           >
                             <Check className="size-3.5 text-success" />
                             <span>{item}</span>
@@ -1677,7 +1677,7 @@ export function DataGovernancePanel() {
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
-              className="gap-2 bg-card hover:bg-muted text-foreground/80 border-border"
+              className="gap-2 bg-card hover:bg-muted text-muted-foreground border-border"
               onClick={() => {
                 if (selectedFile?.filename) {
                   navigator.clipboard.writeText(selectedFile.filename)
@@ -1705,7 +1705,7 @@ export function DataGovernancePanel() {
             >
               <Button
                 variant="outline"
-                className="gap-2 bg-card hover:bg-destructive/10 dark:bg-destructive/20 text-foreground/80 hover:text-destructive dark:text-destructive/85 border-border hover:border-destructive/30"
+                className="gap-2 bg-card hover:bg-destructive/10 dark:bg-destructive/20 text-muted-foreground hover:text-destructive dark:text-destructive/85 border-border hover:border-destructive/30"
                 disabled={!selectedFileId}
               >
                 <Trash2 className="w-4 h-4" />
@@ -1886,13 +1886,13 @@ export function DataGovernancePanel() {
                     value={activeFolderId || ROOT_FOLDER_ID}
                     onValueChange={setActiveFolderId}
                   >
-                    <SelectTrigger className="h-9 text-xs bg-muted border-border text-foreground/80 focus:bg-card focus-ring transition-colors duration-200 motion-reduce:transition-none">
+                    <SelectTrigger className="h-9 text-xs bg-muted border-border text-muted-foreground focus:bg-card focus-ring transition-colors duration-200 motion-reduce:transition-none">
                       <div className="flex items-center gap-2 truncate">
                         <FolderTree className="w-3.5 h-3.5 text-primary" />
                         <span className="truncate">{activeFolderLabel}</span>
                       </div>
                     </SelectTrigger>
-                    <SelectContent className="bg-card border-border text-foreground/80">
+                    <SelectContent className="bg-card border-border text-muted-foreground">
                       <SelectItem value={ROOT_FOLDER_ID}>
                         {t('sidebar.allFolders')}
                       </SelectItem>
@@ -1909,7 +1909,7 @@ export function DataGovernancePanel() {
                     <input
                       type="text"
                       placeholder={t('sidebar.searchPlaceholder')}
-                      className="w-full rounded-lg border border-border bg-muted py-1.5 pl-9 pr-3 text-xs text-foreground/80 placeholder:text-muted-foreground focus:bg-card focus:outline-none focus:border-primary/30 focus-ring transition-colors duration-200 motion-reduce:transition-none"
+                      className="w-full rounded-lg border border-border bg-muted py-1.5 pl-9 pr-3 text-xs text-muted-foreground placeholder:text-muted-foreground focus:bg-card focus:outline-none focus:border-primary/30 focus-ring transition-colors duration-200 motion-reduce:transition-none"
                     />
                   </div>
                 </div>
@@ -1979,7 +1979,7 @@ export function DataGovernancePanel() {
                                 className="size-1.5 rounded-full bg-info/70"
                               />
                               <span className="truncate">{dataset.name}</span>
-                              <span className="ml-auto pl-2 text-[10px] tabular-nums text-muted-foreground/70">
+                              <span className="ml-auto pl-2 text-[10px] tabular-nums text-subtle-foreground">
                                 {datasetDocumentCounts.get(dataset.id) || 0}
                               </span>
                             </span>
@@ -1994,11 +1994,11 @@ export function DataGovernancePanel() {
                 {/* Folder tree section */}
                 <div className="space-y-1.5 border-b border-border/40 px-3 py-2">
                   <div className="flex items-center gap-1.5 px-1">
-                    <FolderTree className="size-3 text-muted-foreground/65" />
-                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/75">
+                    <FolderTree className="size-3 text-subtle-foreground" />
+                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                       {t('sidebar.foldersHeader')}
                     </span>
-                    <span className="ml-auto text-[10px] tabular-nums text-muted-foreground/60">
+                    <span className="ml-auto text-[10px] tabular-nums text-subtle-foreground">
                       {libraryFolders.length}
                     </span>
                   </div>
@@ -2008,7 +2008,7 @@ export function DataGovernancePanel() {
                 </div>
 
                 <div className="flex items-center justify-between px-4 pt-3 pb-1.5">
-                  <h3 className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/75">
+                  <h3 className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                     {t('sidebar.filesTitle', { count: visibleFiles.length })}
                   </h3>
                 </div>
@@ -2072,7 +2072,7 @@ export function DataGovernancePanel() {
                                       'text-sm font-medium truncate transition-colors',
                                       selectedFileId === file.id
                                         ? 'text-foreground'
-                                        : 'text-foreground/85 group-hover:text-foreground'
+                                        : 'text-foreground group-hover:text-foreground'
                                     )}
                                   >
                                     {file.filename}
@@ -2094,9 +2094,9 @@ export function DataGovernancePanel() {
                                 </div>
 
                                 {/* Row 2: Metadata (Size & Date) */}
-                                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/80 mb-1.5 tabular-nums">
+                                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-1.5 tabular-nums">
                                   <span>{formatFileSize(file.fileSize)}</span>
-                                  <span className="text-muted-foreground/40">
+                                  <span className="text-subtle-foreground">
                                     ·
                                   </span>
                                   <span>
@@ -2112,7 +2112,7 @@ export function DataGovernancePanel() {
                                   </span>
                                   {file.datasetName ? (
                                     <>
-                                      <span className="text-muted-foreground/40">
+                                      <span className="text-subtle-foreground">
                                         ·
                                       </span>
                                       <span className="truncate">
@@ -2204,12 +2204,12 @@ export function DataGovernancePanel() {
 
                 {/* 底部统计栏 */}
                 {/* Footer KPI bar */}
-                <div className="mt-auto border-t border-border/60 from-muted/30 to-muted/55 backdrop-blur-sm px-3 py-2.5 space-y-1.5">
+                <div className="mt-auto border-t border-border/60 from-muted/30 to-muted/55 px-3 py-2.5 space-y-1.5">
                   <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground/75">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
                       {t('stats.storage')}
                     </span>
-                    <span className="text-[10px] tabular-nums text-muted-foreground/80">
+                    <span className="text-[10px] tabular-nums text-muted-foreground">
                       {t('stats.processedRatio', {
                         done: stats.completedFiles,
                         total: stats.totalFiles,
@@ -2230,7 +2230,7 @@ export function DataGovernancePanel() {
                       }}
                     />
                   </div>
-                  <div className="flex items-center justify-between text-[10px] text-muted-foreground/70 tabular-nums">
+                  <div className="flex items-center justify-between text-[10px] text-subtle-foreground tabular-nums">
                     <span>
                       {stats.totalFiles > 0
                         ? `${Math.round((stats.completedFiles / stats.totalFiles) * 100)}%`
@@ -2294,7 +2294,7 @@ export function DataGovernancePanel() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7 rounded-full text-muted-foreground hover:text-foreground/80 hover:bg-muted"
+                        className="h-7 w-7 rounded-full text-muted-foreground hover:text-muted-foreground hover:bg-muted"
                         onClick={() =>
                           setPreviewFormat((prev) =>
                             prev === 'rendered' ? 'markdown' : 'rendered'
@@ -2407,7 +2407,7 @@ export function DataGovernancePanel() {
                               ].dot
                             )}
                           />
-                          <h2 className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground/85 truncate">
+                          <h2 className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground truncate">
                             {t('panel.title')}
                           </h2>
                         </div>
@@ -2463,8 +2463,8 @@ export function DataGovernancePanel() {
                           })}
                         </div>
                         {/* Active tool subhead — replaces the old info banner */}
-                        <p className="mt-2 px-1 text-[11px] leading-snug text-muted-foreground/80 flex items-start gap-1.5">
-                          <Info className="w-3 h-3 mt-0.5 flex-shrink-0 text-muted-foreground/50" />
+                        <p className="mt-2 px-1 text-[11px] leading-snug text-muted-foreground flex items-start gap-1.5">
+                          <Info className="w-3 h-3 mt-0.5 flex-shrink-0 text-subtle-foreground" />
                           <span>
                             {
                               governanceTabs.find((tab) => tab.id === activeTab)

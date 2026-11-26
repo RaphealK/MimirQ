@@ -400,7 +400,7 @@ export function DocumentDetailActivityPanel({
                       </div>
                     </div>
                   ) : (
-                    <div className="mt-2 whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-foreground/90">
+                    <div className="mt-2 whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-foreground">
                       {highlightText(chunk.content || '', chunkQuery)}
                     </div>
                   )}
@@ -504,7 +504,7 @@ export function DocumentDetailActivityPanel({
                         <span className="rounded-full border border-border/60 bg-muted px-2 py-0.5 font-mono text-xs text-muted-foreground">
                           {formatDate(ev.created_at)}
                         </span>
-                        <span className="truncate font-mono text-xs text-foreground/90">{ev.action}</span>
+                        <span className="truncate font-mono text-xs text-foreground">{ev.action}</span>
                         {ev.source === 'synthetic' ? (
                           <span className="rounded-full border border-border/60 bg-muted/60 px-2 py-0.5 text-xs text-muted-foreground">
                             {t('timeline.synthetic')}

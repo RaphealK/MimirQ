@@ -191,7 +191,7 @@ export function FeatureFlagsSection({
                     <h3
                       className={cn(
                         'text-[12px] font-semibold leading-[15px] transition-colors',
-                        isEnabled ? 'text-foreground' : 'text-foreground/78'
+                        isEnabled ? 'text-foreground' : 'text-muted-foreground'
                       )}
                     >
                       {feature.name}

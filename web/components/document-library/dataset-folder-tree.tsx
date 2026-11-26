@@ -100,7 +100,7 @@ export function DatasetFolderTreeView({
             toggle(node.path)
           }}
         >
-          <Chevron className="h-3.5 w-3.5 text-muted-foreground/50 group-hover/node:text-primary transition-colors" />
+          <Chevron className="h-3.5 w-3.5 text-subtle-foreground group-hover/node:text-primary transition-colors" />
         </button>
       )
     }
@@ -124,14 +124,14 @@ export function DatasetFolderTreeView({
             className="min-w-0 flex-1 flex items-center justify-between gap-2 text-left focus-ring rounded-md py-0.5 pointer-coarse:min-h-11"
           >
             <span className="min-w-0 flex items-center gap-2">
-              <Icon className={cn("h-4 w-4 transition-colors", isSelected ? "text-primary" : "text-muted-foreground/60")} />
+              <Icon className={cn("h-4 w-4 transition-colors", isSelected ? "text-primary" : "text-subtle-foreground")} />
               <span className={cn("truncate transition-colors", isSelected ? "font-bold" : "font-medium")} title={node.name || node.path || labels.unnamed}>
                 {node.name || node.path || labels.unnamed}
               </span>
             </span>
             <span className={cn(
               "font-mono text-[11px] transition-all tabular-nums",
-              isSelected ? "font-semibold" : "text-muted-foreground/30 font-bold"
+              isSelected ? "font-semibold" : "text-subtle-foreground font-bold"
             )}>
               {node.documents}
             </span>

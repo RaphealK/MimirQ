@@ -381,7 +381,7 @@ export function GraphNodeDetailPanel({
     : []
 
   const quickActionBaseClass =
-    'h-8 w-full rounded-lg px-2 text-[11px] text-foreground/85 shadow-none hover:text-foreground'
+    'h-8 w-full rounded-lg px-2 text-[11px] text-foreground shadow-none hover:text-foreground'
   const panelRef = useRef<HTMLDivElement>(null)
   const dragStateRef = useRef<{
     pointerId: number
@@ -676,7 +676,7 @@ export function GraphNodeDetailPanel({
             variant="outline"
             onClick={onExpandNode}
             disabled={isLoading}
-            className="h-8 w-full justify-start rounded-lg border-info/30 bg-info/10 px-3 text-[11px] text-foreground/85 shadow-none hover:bg-info/15 hover:text-foreground"
+            className="h-8 w-full justify-start rounded-lg border-info/30 bg-info/10 px-3 text-[11px] text-foreground shadow-none hover:bg-info/15 hover:text-foreground"
           >
             <Network className="w-3 h-3 mr-1.5" />
             {isLoading ? '展开中...' : '展开邻居节点'}
@@ -687,7 +687,7 @@ export function GraphNodeDetailPanel({
               <Button
                 variant="outline"
                 onClick={onOpenMerge}
-                className="h-7.5 w-full justify-start rounded-lg border-warning/30 bg-warning/10 px-2.5 text-[11px] text-foreground/85 shadow-none hover:bg-warning/15 hover:text-foreground"
+                className="h-7.5 w-full justify-start rounded-lg border-warning/30 bg-warning/10 px-2.5 text-[11px] text-foreground shadow-none hover:bg-warning/15 hover:text-foreground"
               >
                 <BoxSelect className="w-3 h-3 mr-1.5" />
                 合并
@@ -695,7 +695,7 @@ export function GraphNodeDetailPanel({
               <Button
                 variant="outline"
                 onClick={onOpenSplit}
-                className="h-7.5 w-full justify-start rounded-lg border-primary/30 bg-primary/15 px-2.5 text-[11px] text-foreground/85 shadow-none hover:bg-primary/15 hover:text-foreground"
+                className="h-7.5 w-full justify-start rounded-lg border-primary/30 bg-primary/15 px-2.5 text-[11px] text-foreground shadow-none hover:bg-primary/15 hover:text-foreground"
               >
                 <Box className="w-3 h-3 mr-1.5" />
                 拆分
@@ -729,10 +729,10 @@ export function GraphNodeDetailPanel({
                     DETAIL_TONE_CLASSES[index % DETAIL_TONE_CLASSES.length]
                   )}
                 >
-                  <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.06em] text-foreground/85 capitalize">
+                  <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.06em] text-foreground capitalize">
                     {key}
                   </div>
-                  <div className="min-w-0 break-words text-[11px] leading-4.5 text-foreground/88">
+                  <div className="min-w-0 break-words text-[11px] leading-4.5 text-foreground">
                     {typeof value === 'object' ? coerceTrimmedString(JSON.stringify(value)) || String(value) : String(value)}
                   </div>
                 </div>

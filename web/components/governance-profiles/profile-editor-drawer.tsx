@@ -575,7 +575,7 @@ export function ProfileEditorDrawer({
           'grid grid-rows-[auto,1fr] gap-0 p-0'
         )}
       >
-        <div className="border-b border-border bg-popover/80 backdrop-blur-md p-5">
+        <div className="border-b border-border bg-popover p-5">
           <DialogHeader className="space-y-2">
             <DialogTitle className="flex items-center gap-2">
               <Braces className="size-5 text-primary" />
@@ -806,7 +806,7 @@ export function ProfileEditorDrawer({
                               <span className="mt-2 block rounded-xl border border-border/35 bg-background/55 px-2 py-1 text-[11px] leading-4 text-muted-foreground">
                                 效果：{item.effect}
                               </span>
-                              <code className="mt-1.5 block truncate text-[10px] text-muted-foreground/55">
+                              <code className="mt-1.5 block truncate text-[10px] text-subtle-foreground">
                                 写入字段：{String(item.key)}
                               </code>
                             </span>
@@ -835,7 +835,7 @@ export function ProfileEditorDrawer({
                             <SelectItem value="all">移除全部图片标记</SelectItem>
                           </SelectContent>
                         </Select>
-                        <div className="mt-2 text-[10.5px] text-muted-foreground/70">
+                        <div className="mt-2 text-[10.5px] text-subtle-foreground">
                           当前写入：governance_remove_images = {imageRemovalMode}
                         </div>
                       </div>
@@ -852,7 +852,7 @@ export function ProfileEditorDrawer({
                           onChange={(e) => updatePatchValue('governance_max_blank_lines', Number(e.target.value || 1))}
                           disabled={isReadOnly}
                         />
-                        <div className="mt-2 text-[10.5px] text-muted-foreground/70">
+                        <div className="mt-2 text-[10.5px] text-subtle-foreground">
                           当前写入：governance_max_blank_lines
                         </div>
                       </div>
@@ -907,7 +907,7 @@ export function ProfileEditorDrawer({
                               <span className="min-w-0">
                                 <span className="block text-[12.5px] font-semibold text-foreground">{copy.label}</span>
                                 <span className="mt-0.5 block text-[11px] leading-4 text-muted-foreground">{copy.description}</span>
-                                <code className="mt-1 block truncate text-[10px] text-muted-foreground/55">{pack}</code>
+                                <code className="mt-1 block truncate text-[10px] text-subtle-foreground">{pack}</code>
                               </span>
                             </label>
                           )

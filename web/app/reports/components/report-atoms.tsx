@@ -153,7 +153,7 @@ export function ReportSignalRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between gap-2">
           <div
-            className="truncate text-[0.75rem] font-medium text-foreground/85"
+            className="truncate text-[0.75rem] font-medium text-foreground"
             title={label}
           >
             {label}
@@ -181,7 +181,7 @@ export function ReportInlineEmpty({
 }: Readonly<{ title: string; description: string }>) {
   return (
     <div className="rounded-xl border border-dashed border-info/20 bg-info/[0.025] px-3 py-2">
-      <div className="text-[0.8125rem] font-semibold tracking-[-0.01em] text-foreground/85">
+      <div className="text-[0.8125rem] font-semibold tracking-[-0.01em] text-foreground">
         {title}
       </div>
       <div className={cn('mt-1 max-w-[32rem]', REPORT_SUBTEXT_CLASS)}>
@@ -298,7 +298,7 @@ export function AuditMetricPlaceholder({
   return (
     <div className="rounded-lg border border-dashed border-info/15 bg-info/[0.025] px-2.5 py-1.5">
       <div className="flex items-center justify-between gap-2">
-        <span className="truncate text-[0.75rem] font-semibold tracking-[-0.01em] text-foreground/85">
+        <span className="truncate text-[0.75rem] font-semibold tracking-[-0.01em] text-foreground">
           {label}
         </span>
         <span className="rounded-full bg-muted px-2 py-0.5 text-[0.6875rem] font-medium text-muted-foreground">
