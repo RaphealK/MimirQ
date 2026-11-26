@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   description: "可观察、可替换、可回归的企业 RAG 基础设施",
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: { url: MIMIRQ_MARK_PATH, sizes: 'any', type: 'image/svg+xml' },
+    icon: { url: MIMIRQ_MARK_PATH, sizes: '512x512', type: 'image/png' },
     apple: { url: '/brand/mimirq-mark.png', sizes: '512x512', type: 'image/png' },
   },
 };
